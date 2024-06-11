@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="/WEB-INF/spring/appServlet/oracleDB.properties" />
+		<property name="fileEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> <property 
+		name="url" value="${jdbc.url}" /> <property name="username" value="${jdbc.username}" 
+		/> <property name="password" value="${jdbc.password}" /> </bean> -->
+
+	<context:component-scan
+		base-package="com.shinhan.travelTogether" />
+
+	<!-- <jee:jndi-lookup id="dataSource3" jndi-name="jdbc/myoracle" resource-ref="true" 
+		/> -->
+
+
+	<bean id="dataSourceOriginal"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="dataSource"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceOriginal" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"></property>
+				<property name="sqlPrefix" value="[ SQL문장 ] "></property>
+			</bean>
+		</property>
+	</bean>
+
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:mybatis/SqlMapConfig.xml" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/*Mapper.xml" />
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<!-- Transaction 설정 (servlet-context.xml) -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- @Transactional -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+
+
+</beans>
