@@ -18,12 +18,29 @@ public class FundingDAO {
 	
 	Logger logger = LoggerFactory.getLogger(FundingDAO.class);
 	
-	public List<FundingDTO> selectAll() {
+	public List<FundingDTO> selectAll(String selectOption) {
 		System.out.println("========");
-		
-		return sqlSession.selectList(namespace + "selectAll");
+		switch(selectOption) {
+		case "selectAllByViews":  {
+			System.out.println("v");
+			return sqlSession.selectList(namespace + "selectAllByViews");
+		}
+		case "selectAllByPriceDesc":  {
+			System.out.println("pd");
+
+			return sqlSession.selectList(namespace + "selectAllByPriceDesc");
+		}
+		case "selectAllByPriceAsc":  {
+			System.out.println("pa");
+
+			return sqlSession.selectList(namespace + "selectAllByPriceAsc");
+		}
+		default: {
+			return sqlSession.selectList(namespace + "selectAllByDate");
+		}}
 	}
-	
+
+
 	public int insertFunding(FundingDTO fund) {
 		int result = sqlSession.insert(namespace + "insertFunding", fund);
 		return result;

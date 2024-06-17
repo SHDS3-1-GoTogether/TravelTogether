@@ -21,15 +21,21 @@ public class FundingController {
 	
 	@GetMapping("/fundingList.do") 
 	public void selectAll(Model model, HttpServletRequest request) {
-		model.addAttribute("fundlist", fService.selectAll());
+
+	}
+
+	@GetMapping("/fundingListItem.do") 
+	public void selectItem(Model model, HttpServletRequest request, String selectOption) {
+		System.out.println(selectOption);
+		model.addAttribute("fundlist", fService.selectAll(selectOption));
 		String result = "";
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		if(flashMap != null) {
 			result = (String)flashMap.get("fundResult");
-			
 		}
 		model.addAttribute("fundResult", result);
 	}
+
 
 	@GetMapping("/fundingInput.do")
 	public void inputPage(){

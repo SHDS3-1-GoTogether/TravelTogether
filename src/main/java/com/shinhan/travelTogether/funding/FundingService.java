@@ -13,8 +13,8 @@ public class FundingService {
 	@Qualifier("fundingDAO")
 	FundingDAO fundingDAO;
 	
-	public List<FundingDTO> selectAll() {
-		return fundingDAO.selectAll();
+	public List<FundingDTO> selectAll(String selectOption) {
+		return fundingDAO.selectAll(selectOption);
 	}
 	
 	public int insertFunding(FundingDTO fund) {
