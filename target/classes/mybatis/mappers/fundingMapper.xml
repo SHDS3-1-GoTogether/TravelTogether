@@ -6,4 +6,24 @@
 	<select id="selectAll" resultType="fundvo">
 		select * from tt_funding
 	</select>
+	<insert id="insertFunding" parameterType="fundvo">
+		insert into tt_funding(funding_id, title, funding_content, create_date, area, start_date, end_date, deadline, price, departure, traffic, accommodation, people_num, funding_state, confirm_option, views, member_id)
+		values(funding_seq.nextval, 
+				#{title}, 
+				#{funding_content}, 
+				sysdate, 
+				#{area}, 
+				#{start_date},
+				#{end_date}, 
+				#{deadline},				
+				#{price}, 
+				#{departure}, 
+				#{traffic}, 
+				#{accommodation}, 
+				#{people_num}, 
+				#{funding_state},
+				#{confirm_option}, 
+				#{views}, 
+				#{member_id})
+	</insert>
 </mapper>

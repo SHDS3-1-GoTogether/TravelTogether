@@ -13,15 +13,21 @@ public class FundingDAO {
 
 	@Autowired
 	SqlSession sqlSession;
+	String namespace = "com.shinhan.travelTogether.funding.";
+
 	
 	Logger logger = LoggerFactory.getLogger(FundingDAO.class);
 	
 	public List<FundingDTO> selectAll() {
 		System.out.println("========");
 		
-		return sqlSession.selectList("com.shinhan.travelTogether.funding.selectAll");
+		return sqlSession.selectList(namespace + "selectAll");
 	}
 	
+	public int insertFunding(FundingDTO fund) {
+		int result = sqlSession.insert(namespace + "insertFunding", fund);
+		return result;
+	}
 
 
 }

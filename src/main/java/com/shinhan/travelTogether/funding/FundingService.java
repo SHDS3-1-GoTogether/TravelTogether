@@ -16,5 +16,9 @@ public class FundingService {
 	public List<FundingDTO> selectAll() {
 		return fundingDAO.selectAll();
 	}
+	
+	public int insertFunding(FundingDTO fund) {
+		return fundingDAO.insertFunding(fund);
+	}
 
 }

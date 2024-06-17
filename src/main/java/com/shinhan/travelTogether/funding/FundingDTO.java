@@ -31,5 +31,5 @@ public class FundingDTO {
 	int confirm_option;
 	int views;
 	int member_id;
-
+	
 }
