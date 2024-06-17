@@ -1,0 +1,138 @@
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 40px 80px;
+}
+
+.content h2 {
+	width: 75%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+}
+
+.option {
+	width: 75%;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	padding: 10px 40px 10px 40px;
+}
+
+.select-option {
+	width: 50%;
+	padding: 10px 20px;
+}
+
+.select-option:first-child {
+	display: flex;
+	gap: 10px;
+	align-items: flex-end;
+}
+
+.select-option:last-child {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+
+.select-label {
+	margin: 0;
+	display: flex;
+	align-items: flex-end;
+}
+
+.option select {
+	width: 30%;
+	height: 25px;
+	padding-left: 10px;
+	font-size: 1em;
+}
+
+.add-button {
+	padding: 10px;
+	background-color: #F1F1F4;
+	font-weight: bold;
+	border-radius: 10px;
+	border: 0;
+	cursor: pointer;
+}
+
+.list-table {
+	width: 75%;
+	margin: 0 auto;
+	border: 1px solid #C9C9C9;
+	border-radius: 8px;
+	padding: 10px 0;
+}
+
+.header {
+	width: 90%;
+	margin: 0 auto;
+	border-bottom: 1px dashed #DBDFE9;
+}
+
+.list-table .header p {
+	display: inline-block;
+	color: #99A1B7;
+	font-size: 0.9em;
+	padding: 0 5px;
+	text-align: center;
+	width: 8%;
+}
+
+.data {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.data:not(.data:last-child) {
+	border-bottom: 1px dashed #DBDFE9;
+}
+
+.list-table .data p {
+	display: inline-block;
+	font-size: 0.9em;
+	padding: 0 5px;
+	text-align: center;
+	width: 8%;
+}
+
+.coupon-title {
+	width: 25% !important;
+}
+
+.coupon-price {
+	width: 12% !important;
+}
+
+.coupon-target {
+	width: 10% !important;
+}
+
+.coupon-button {
+	width: 5% !important;
+}
+
+.data .coupon-title {
+	text-align: left;
+}
+
+.button {
+	padding: 10px 15px;
+	border-radius: 10px;
+	background-color: #F9F9F9;
+	color: #99A1B7;
+	border: 0;
+	cursor: pointer;
+}
