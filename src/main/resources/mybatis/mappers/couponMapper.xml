@@ -11,9 +11,9 @@
 			and to_char(due_date, 'yyyy-mm-dd') >= to_char(sysdate, 'yyyy-mm-dd')
   	</select>
   	<select id="selectAllAdminCoupon" resultType="admincouponvo">
-  		select * from tt_coupon
+  		select * from tt_coupon order by coupon_option, coupon_id desc
   	</select>
   	<select id="selectAdminCouponByOption" resultType="admincouponvo">
-  		select * from tt_coupon where coupon_option = #{option}
+  		select * from tt_coupon where coupon_option = #{option} order by coupon_id desc
   	</select>
 </mapper>
