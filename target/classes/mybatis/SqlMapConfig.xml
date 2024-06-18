@@ -3,11 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-<settings>
-  <setting name="logImpl" value="LOG4J"/>
-  <setting name="jdbcTypeForNull" value="NULL"/> 
-</settings>
-   <typeAliases>
-   
-   </typeAliases>
+	<settings>
+		<setting name="logImpl" value="LOG4J" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias
+			type="com.shinhan.travelTogether.member.MemberDTO" alias="membervo" />
+
+	</typeAliases>
 </configuration>
