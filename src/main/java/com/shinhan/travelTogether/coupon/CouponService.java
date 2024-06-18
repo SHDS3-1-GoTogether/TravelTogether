@@ -21,5 +21,13 @@ public class CouponService {
 	
 	public List<AdminCouponDTO> selectAdminCouponByOption(int option) {
 		return couponDao.selectAdminCouponByOption(option);
+	} 
+	
+	public int insertAdminCoupon(AdminCouponDTO adminCouponDto) {
+		return couponDao.insertAdminCoupon(adminCouponDto);
+	}
+	
+	public int deleteAdminCoupon(int coupon_id) {
+		return couponDao.deleteAdminCoupon(coupon_id);
 	}
 }

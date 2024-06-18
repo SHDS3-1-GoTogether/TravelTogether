@@ -34,4 +34,16 @@ public class CouponDAO {
 		logger.info("<selectAdminCouponByOption> "+couponlist.size()+"건 쿠폰 조회");
 		return couponlist;
 	}
+	
+	public int insertAdminCoupon(AdminCouponDTO adminCouponDto) {
+		int result = sqlSession.insert(namespace+"insertAdminCoupon", adminCouponDto);
+		logger.info(result==1 ? "** 쿠폰등록 성공 **" : "** 쿠폰등록 실패 **");
+		return result;
+	}
+	
+	public int deleteAdminCoupon(int coupon_id) {
+		int result = sqlSession.delete(namespace+"deleteAdminCoupon", coupon_id);
+		logger.info(result==1 ? "** 쿠폰삭제 성공 **" : "** 쿠폰삭제 실패 **");
+		return result;
+	}
 }

@@ -16,4 +16,11 @@
   	<select id="selectAdminCouponByOption" resultType="admincouponvo">
   		select * from tt_coupon where coupon_option = #{option} order by coupon_id desc
   	</select>
+  	<insert id="insertAdminCoupon" parameterType="admincouponvo">
+  		insert into tt_coupon(coupon_id, title, coupon_option, discount_rate, max_discount, membership_id) values(coupon_seq.nextval, #{title}, #{coupon_option}, #{discount_rate}, #{max_discount}, #{membership_id})
+  	</insert>
+  	
+  	<delete id="deleteAdminCoupon" parameterType="int">
+  		delete from tt_coupon where coupon_id=#{coupon_id}
+  	</delete>
 </mapper>
