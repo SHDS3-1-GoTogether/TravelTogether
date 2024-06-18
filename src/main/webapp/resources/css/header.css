@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+
+#tt_header {
+	font-size: 20px;
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: bold;
+	font-style: normal;
+	display: flex;
+	align-items: center;
+	width: 70vw;
+	margin: 0 auto;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+}
+.navbar-menu {
+	display: inline-block;
+	float: left;
+	width: 50%;
+	padding-left: 15px;
+}
+
+.navbar-menu > li {
+	width:25%;
+	text-align: center;
+	transform: translate(40px, 30px);
+}
+
+.navbar-menu2{
+	width: 30%;
+	display: flex;
+	font-size: 15px;
+	float: right;
+	justify-content: flex-end;
+	transform: translate(0px, 30px);
+}
+
+.navbar-menu, .navbar-menu2 {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+.navbar-menu li, .navbar-menu2 li {
+	margin-right: 20px;
+}
+
+.navbar-menu li a, .navbar-menu2 li a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.navbar-brand{
+	width:20%;
+}
+
+.navbar-brand img {
+	height: 150px;
+	width: 180px;
+}
+
+.profile_img {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+}
