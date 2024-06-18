@@ -29,11 +29,6 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	
 	<!-- 모든 페이지가 이 필터를 들러야 함, 한글 encoding 지정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -49,4 +44,10 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
 </web-app>

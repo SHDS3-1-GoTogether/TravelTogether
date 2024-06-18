@@ -16,5 +16,6 @@
 			alias="admincouponvo" />
 		<typeAlias
 			type="com.shinhan.travelTogether.member.MemberDTO" alias="membervo" />
+    <typeAlias type="com.shinhan.travelTogether.funding.FundingDTO" alias="fundvo"/>
 	</typeAliases>
 </configuration>
