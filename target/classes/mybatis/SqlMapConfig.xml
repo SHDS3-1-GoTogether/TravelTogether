@@ -9,7 +9,12 @@
 	</settings>
 	<typeAliases>
 		<typeAlias
+			type="com.shinhan.travelTogether.coupon.UserCouponDTO"
+			alias="usercouponvo" />
+		<typeAlias
+			type="com.shinhan.travelTogether.coupon.AdminCouponDTO"
+			alias="admincouponvo" />
+		<typeAlias
 			type="com.shinhan.travelTogether.member.MemberDTO" alias="membervo" />
-
 	</typeAliases>
 </configuration>
