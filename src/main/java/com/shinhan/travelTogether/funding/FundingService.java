@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.funding;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class FundingService {
 	
 	public List<FundingDTO> selectAll(String selectOption) {
 		return fundingDAO.selectAll(selectOption);
+	}
+	
+	public List<HashMap<Integer, String>> selectFudingTheme() {
+		return fundingDAO.selectFudingTheme();
 	}
 	
 	public int insertFunding(FundingDTO fund) {

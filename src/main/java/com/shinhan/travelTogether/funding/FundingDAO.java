@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.funding;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,22 +23,21 @@ public class FundingDAO {
 		System.out.println("========");
 		switch(selectOption) {
 		case "selectAllByViews":  {
-			System.out.println("v");
 			return sqlSession.selectList(namespace + "selectAllByViews");
 		}
 		case "selectAllByPriceDesc":  {
-			System.out.println("pd");
-
 			return sqlSession.selectList(namespace + "selectAllByPriceDesc");
 		}
 		case "selectAllByPriceAsc":  {
-			System.out.println("pa");
-
 			return sqlSession.selectList(namespace + "selectAllByPriceAsc");
 		}
 		default: {
 			return sqlSession.selectList(namespace + "selectAllByDate");
 		}}
+	}
+	
+	public List<HashMap<Integer, String>> selectFudingTheme() {
+		return sqlSession.selectList(namespace + "selectFudingTheme");
 	}
 
 

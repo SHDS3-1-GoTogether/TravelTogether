@@ -15,6 +15,14 @@
 	<select id="selectAllByDate" resultType="fundvo">
 		select * from tt_funding order by create_date desc
 	</select>
+	
+	<select id="selectFudingTheme" resultType="map">
+		select funding_id as "funding_id" , title as "title"
+		from tt_funding_theme 
+		left outer join tt_theme
+		    on tt_funding_theme.theme_id = tt_theme.theme_id
+	</select>
+	
 	<insert id="insertFunding" parameterType="fundvo">
 		insert into tt_funding(funding_id, title, funding_content, create_date, area, start_date, end_date, deadline, price, departure, traffic, accommodation, people_num, funding_state, confirm_option, views, member_id)
 		values(funding_seq.nextval, 

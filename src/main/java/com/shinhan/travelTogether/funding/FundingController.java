@@ -27,13 +27,10 @@ public class FundingController {
 	@GetMapping("/fundingListItem.do") 
 	public void selectItem(Model model, HttpServletRequest request, String selectOption) {
 		System.out.println(selectOption);
+		
+		
 		model.addAttribute("fundlist", fService.selectAll(selectOption));
-		String result = "";
-		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
-		if(flashMap != null) {
-			result = (String)flashMap.get("fundResult");
-		}
-		model.addAttribute("fundResult", result);
+		model.addAttribute("tlist", fService.selectFudingTheme());
 	}
 
 
