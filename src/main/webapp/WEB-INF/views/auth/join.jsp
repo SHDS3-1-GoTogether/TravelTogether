@@ -82,7 +82,7 @@
 </head>
 <body>
 	<div class="mt-5 centered-container">
-		<form action="${path }/auth/join.do" method="post">
+		<form action="${path}/auth/join.do" method="post">
 			<table class="table table-bordered " style="text-align: center;">
 				<thead>
 					<tr>
@@ -155,7 +155,7 @@
 		</form>
 	</div>
 	<div class="centered-container">
-		<img src="/travel/resources/images/sh_character_02.png" alt="신한캐릭터2">
+		<img src="${path}/resources/images/sh_character_02.png" alt="신한캐릭터2">
 	</div>
 	<%@ include file="../common/footer.jsp"%>
 </body>
