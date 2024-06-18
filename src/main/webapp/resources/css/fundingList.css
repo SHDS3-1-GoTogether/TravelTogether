@@ -1,46 +1,132 @@
 @charset "UTF-8";
 
 body {
-	width: 100%;
+	width: 99%;
 	height: 100%;
 }
 
+/* Funding List 제목  */
 .pageTitle {
 	float: left;
+	width:30vw;
+	margin-bottom: 0;
+	margin-left: 3%;
+	text-align: left;
 }
 
+/* 펀딩 만들기 버튼  */
+.goBtn {
+	display: inline-block;
+	position: relative;
+	background: rgba(231, 229, 249, 1);
+	border : 1px solid rgba(0, 0, 0, 0.19);
+	width: 100px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 150px;
+	float: right;
+	margin-top: 55px;
+}
+
+/* Funding List 밑 Wrapper  */
 .content_wrapper {
 	position: relative;
 	margin: 0 auto;
-	width: 80%;
+	width: 60vw;
 	text-align: center;
+}
+
+/* 검색란  */
+
+.search_submit{
+	display: inline-block;
+	position: relative;
+	background: rgba(231, 229, 249, 1);
+	border : 1px solid rgba(0, 0, 0, 0.19);
+	width: 50px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 150px;
 }
 
 .search_wrapper {
 	position: relative;
 	display: inline-block;
-	margin: 2rem auto;
-	width: 80%;
+	margin: 3% auto;
+	width: 90%;
 	height: 120px;
 	margin-top: 30px;
 	border: 1px solid rgba(0, 0, 0, 0.19);
 	border-radius: 10px;
-	text-align: left;
 	padding-left: 20px;
+	padding-top: 10px;
 }
 
-.search_wrapper>input {
-	margin-right: 30px;
+.search_left {
+	width: 40%;
+	height: 80%;
+	margin: 0 auto;
+	text-align: left;
+	float: left;
+	padding-left: 5%;
 }
-
-.filter {
+.search_left > span{
 	position: relative;
-	width: 83px;
-	height: 32px;
-	bolder: 1px solid rgba(0, 0, 0, 0.19);
-	float: right;
-	top: 160px;
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+
 }
+.input-wrapper {
+	width: 60%;
+	display: inline-block;
+	position: relative;
+}
+
+
+.input-wrapper > input {
+	width: 100%;
+}
+.search_right {
+	position: relative;
+	display: inline-block;
+	width: 40%;
+	height: 80%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 31px;
+	transform: translate(-30px, 0);
+	
+}
+.search_right > span{
+	position: relative;
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+}
+
+.search_right span:last-child{
+	display: inline-block;
+	position: relative;
+	margint-right: 50px;
+}
+
+.search_wrapper > input {
+	margin: 10px 2px 10px 2px;
+}
+
+
+
+/* 구분선  */
+
+.top_hr{
+	position: relative;
+	width: 100%;
+}
+
+/* 펀딩 글 목록  */
 
 .item {
 	width: 98%;
@@ -52,13 +138,13 @@ body {
 	overflow: hidden;
 	text-decoration: none;
 	border-radius: 15px;	
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	float: left;
 }
 
 .item_img_div {
 	box-sizing: border-box;
-	width: 35%;
+	width: 32%;
 	height: 100%;
 	border-radius: 15px;
 	display: flex;
@@ -72,54 +158,147 @@ body {
 	
 }
 
+/* 펀딩 글 디테일 */
 .item_content {
 	position: relative;
-	display: flex;
+	display: inline-block;
 	marginL 0 auto;
 	float: left;
+	width: 68%;
+	height: 95%;
+	margin-top: 2%;
 }
 
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+.fund_title{
+	display: inline-block;
+	position: relative;
+	font-size: 24px;
+	width: 22vw;
+	text-overflow: ellipsis;
+   	overflow: hidden;
+   	white-space: nowrap;
+   	text-align: left;
+   	font-weight: bold;
+   	color: rgba(62, 60, 63, 1);
+	transform: translate(-25px, 0);
 
-.dropdown-label{
-  font-size : 12px;
-  margin : 10px;
-  font-weight : bold;
-  color : rgb(50, 50, 50);
 }
+
+
+
+.fund_price {
+	display: inline-block;
+	position: relative;
+	font-size: 20px;
+	width: 10vw;
+	color: rgba(0, 0, 0, 1);
+   	font-weight: bold;
+   	margint-bottom: 10px;
+   	text-align: right;
+   	transform: translate(0, -10px);
+   	
+}
+
+.item_detail_wrapper{
+	display:inline-block;
+	position: relative;
+	margin-top: 2%;
+	margin-right: 6%;
+	width: 95%;
+	color: rgba(0, 0, 0, 1);
+}
+
+.item_detail_title{
+	display:inline-block;
+	position: relative;
+	width: 8vw;
+	height: 60%;
+	left: 0;
+}
+.item_detail_title > span {
+	display: inline-block;
+	margin-top: 7px;
+}
+
+.item_detail_content{
+	display:block;
+	position: relative;
+	width: 15vw;
+	height: 60%;
+	text-align: left;
+	float: right;
+	margin-right: 0;
+	
+}
+.item_detail_content > span {
+	display: inline-block;
+	margin-top: 7px;
+}
+
+.v-line{
+	display:inline-block;
+	position: relative;
+ 	border-left: 2px solid rgba(0, 0, 0, 0.19);
+ 	height:100%;
+ 	left: 45%;
+ 	position: absolute;
+ 	margin-right: 5%;
+ 
+}
+
+
+
+
+/* 펀딩 리스트 필터  */
 
 .dropdown{
-  position : relative;
-  display : inline-block;
+	width: 90px;
+	height: 30px;
+  	position : relative;
+  	display : inline-block;
+  	float: right;
+  	right: 5%;
+  	bottom: 10px;
 }
 
 .dropbtn_icon{
   font-family : 'Material Icons';
 }
+.dropbtn_click {
+	text-align: center;
+	transform: translate(0, 2px);
+	
+}
+
+
 .dropbtn{
   display : block;
-  border : 2px solid rgb(94, 94, 94);
+  border : 1px solid rgb(94, 94, 94);
   border-radius : 4px;
   background-color: #fcfcfc;
   font-weight: 400;
   color : rgb(124, 124, 124);
-  padding : 12px;
-  width :240px;
-  text-align: left;
-  cursor : pointer;
-  font-size : 12px;
+  padding : 5px;
+  width: 90px;
+  height: 30px;
+  text-align: left  cursor : pointer;
+  font-size : 10px;
   z-index :1;
   position : relative;
+  margin: 0 auto;
+
 }
 .dropdown-content{
+  position: relative;
   display : none;
   font-weight: 400;
   background-color: #fcfcfc;
-  min-width : 240px;
-  border-radius: 8px;
+  width : 90spx;
+  border-radius: 5px;
   height : 160px;
   overflow : scroll;
   box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
+  margin-left: 8px;
 }
 .dropdown-content::-webkit-scrollbar{
   width : 5px;
@@ -135,7 +314,9 @@ body {
   text-decoration : none;
   color : rgb(37, 37, 37);
   font-size: 12px;
-  padding : 12px 20px;
+  padding-top: 15px;
+  width: 90px;
+  height: 40px;
 }
 .dropdown-content div:hover{
   background-color: rgb(226, 226, 226);
@@ -143,4 +324,64 @@ body {
 
 .dropdown-content.show{
   display : block;
+  position: absolute;
+  z-index: 1;
 }
+
+/* 조회수&테마 */
+.item_bottom {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	height: 40px;
+	bottom: 0;
+	left: 0;	
+}
+.views {
+	float: left;
+	margin-left: 2px;
+	color: rgba(196, 196, 196, 1);
+	font-size: 12px;
+	transform: translate(0, 2px);
+	
+}
+
+.theme {
+	float: right;
+	margin-right: 25px;
+	color: rgba(108, 108, 108, 1);
+	font-weight: 700;
+}
+
+
+/* 아이콘 이미지  */
+.item_icon {
+	width: 15px;
+	height: 15px;
+	margin-right: 10px;
+	display: inline-block;
+	position: relative;
+	transform: translate(0, 2px);
+}
+
+.icon_view{
+	display: inline-block;
+	position: relative;
+	width: 15px;
+	height: 12px;
+	float: left;
+	margin-left: 5px;
+	transform: translate(0, 5px);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
