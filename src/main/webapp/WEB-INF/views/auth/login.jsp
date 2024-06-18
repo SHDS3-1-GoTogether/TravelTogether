@@ -42,7 +42,7 @@
 <body>
 	<div class="container mt-5 half-width centered-container2">
 		<h2>${loginResult }</h2>
-		<form action="${path }/auth/login.do" method="post">
+		<form action="${path}/auth/login.do" method="post">
 			<div class="mb-3 mt-3">
 				<label for="login_id">LOGIN_ID:</label> <input type="text"
 					class="form-control " id="login_id" name="login_id">
@@ -61,7 +61,7 @@
 		</form>
 	</div>
 	<div class="centered-container">
-		<img src="/travel/resources/images/sh_character_01.png" alt="신한캐릭터1">
+		<img src="${path}/resources/images/sh_character_01.png" alt="신한캐릭터1">
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

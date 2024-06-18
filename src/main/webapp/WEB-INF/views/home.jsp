@@ -14,16 +14,17 @@
 <style>
 .container2 {
 	height: 100vh;
-	width: 100vw;
+	width: 75vw;
 	font-family: "Do Hyeon", sans-serif;
 	font-weight: 400;
 	font-style: normal;
 	font-size: 40px;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	position: relative;
 	text-align: center;
+	margin: 0 auto;
+	margin-top: 5px;
 }
 
 .main_img {
@@ -52,7 +53,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -200%);
 }
 </style>
 
@@ -60,18 +61,18 @@
 
 <body>
 	<div class="container2">
-		<img src="/travel/resources/images/main.jpg" alt="메인이미지"
+		<img src="${path}/resources/images/main.jpg" alt="메인이미지"
 			class="main_img">
 		<div class="my_div">여행가고 싶은데 혼자 가기는 싫을 때.. 같이 갈래?</div>
 	</div>
 
 
 
-	<img src="/travel/resources/images/fire.png" alt="불">
+	<img src="${path}/resources/images/fire.png" alt="불">
 	<h1>마감 임박! 인기있는 여행 펀딩</h1>
-	<img src="/travel/resources/images/random.png" alt="랜덤">
+	<img src="${path}/resources/images/random.png" alt="랜덤">
 	<h1>랜덤펀딩</h1>
-	<img src="/travel/resources/images/star.png" alt="별">
+	<img src="${path}/resources/images/star.png" alt="별">
 	<h1>이번달 Best 후기</h1>
 
 	<%@ include file="common/footer.jsp"%>

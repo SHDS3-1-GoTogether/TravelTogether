@@ -81,8 +81,9 @@ $(function(){
 </script>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<div class="content_wrapper">
-		<h1 class="pageTitle">Funding List</h1>
+<h1 class="pageTitle">Funding List</h1>
 		<button class="goBtn" onclick="location.href='fundingInput.do'">펀딩 만들기</button>
 		<form class="search_wrapper">
 			<span class="search_left">
