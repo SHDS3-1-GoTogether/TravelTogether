@@ -39,6 +39,17 @@
 						<span id="fund_date">${fund.start_date}- ${fund.end_date}</span><br>
 					</span>
 				</div>
+				<span class="traffic-wrapper">
+					<img alt="출발옵션" src="${path}/resources/images/traffic_op.png">
+					<c:choose>
+						<c:when test="${fund.confirm_option <= 1}">
+							<span class="traffic-contentPink">따로출발</span>
+						</c:when>
+						<c:when test="${fund.confirm_option > 1}">
+							<span class="traffic-contentBlue">같이출발</span>
+						</c:when>
+					</c:choose>
+				</span>
 				<div class="item_bottom">
 					<img class="icon_view" alt="눈" src="${path}/resources/images/view.png"><span class="views">${fund.views}</span> 
 					<span class="theme">
