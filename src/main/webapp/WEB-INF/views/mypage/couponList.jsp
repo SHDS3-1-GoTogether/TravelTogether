@@ -32,6 +32,7 @@
 </head>
 <body>
 <div class="container">
+	<%@ include file="../common/header.jsp" %>
 	<%@ include file="./mypageMenu.jsp" %>
 	<div class="mypage-coupon-content">
 		<h2><i class="fas fa-tags"></i> 보유쿠폰</h2>
@@ -65,6 +66,7 @@
 			</c:forEach>
 		</div>
 	</div>
+	<%@ include file="../common/footer.jsp" %>
 </div>
 </body>
 </html>
