@@ -19,13 +19,15 @@
 	function removeImg(id) {
 		$(id).parent().remove();
 	}
+	
 </script>
 </head>
 <body>
+	<%@ include file="../common/header.jsp" %>
 	<div class="content_wrapper">
 		<h1 class="pageTitle">Funding Making</h1>
 		<div class="form-wrapper">
-			<form action="fundingInput.do" method="post">
+			<form action="fundingInput.do" method="post" enctype="multipart/form-data" >
 				<div class="form-top-wrapper">
 				<span class="form-left-wrapper">
 					<span>제목 : <input type="text" name="title" ></span> <br>
