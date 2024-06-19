@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse
 
 ### Eclipse ###
+
 .metadata
 bin/
 tmp/
@@ -100,5 +101,8 @@ oracleDB.properties
 pom.xml
 
 .classpath
+
+*.MF
+*.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse

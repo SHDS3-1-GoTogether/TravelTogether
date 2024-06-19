@@ -6,7 +6,7 @@
         	<p><i class="fas fa-home"></i></p>
         	<p>대시보드</p>
         </li>
-        <li class="active">
+        <li>
         	<p><i class="fas fa-id-badge"></i></p>
         	<p>회원관리</p>
         </li>
@@ -22,7 +22,7 @@
         	<p><i class="fas fa-bell"></i></p>
         	<p>알림</p>
         </li>
-        <li>
+        <li class="active">
         	<p><i class="fas fa-tags"></i></p>
         	<p>쿠폰</p>
         </li>
