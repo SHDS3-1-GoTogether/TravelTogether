@@ -65,6 +65,9 @@ public class AdminCouponController {
 		if(session.getAttribute("deleteResult") == null) {
 			session.setAttribute("deleteResult", -1);
 		}
+		if(session.getAttribute("updateResult") == null) {
+			session.setAttribute("updateResult", -1);
+		}
 		
 		session.setAttribute("option", option);
 		model.addAttribute("couponlist", couponlist);
@@ -72,27 +75,7 @@ public class AdminCouponController {
 	
 	@PostMapping("/couponInsert.do")
 	public String couponInsert(Model model, HttpServletRequest request, RedirectAttributes attr) {
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		int option = Integer.parseInt(request.getParameter("option"));
-		String type = request.getParameter("type");
-		String membership_id = option == 0 ? request.getParameter("membership_id") : null;
-		String coupon_name = request.getParameter("coupon_name");
-		int discount_rate = Integer.parseInt(request.getParameter("discount_rate"));
-		int max_discount = Integer.parseInt(request.getParameter("max_discount"));
-		int discount_price = Integer.parseInt(request.getParameter("discount_price"));
-		System.out.println(type);
-		AdminCouponDTO coupon = null;
-		if(type.equals("rate")) {
-			coupon = new AdminCouponDTO(0, coupon_name, option, discount_rate, max_discount, membership_id);
-		} else if(type.equals("amount")) {
-			coupon = new AdminCouponDTO(0, coupon_name, option, 0, discount_price, membership_id);
-		} else {
-				// 잘못된 type 선택
-		}
+		AdminCouponDTO coupon = couponDtoSetting(request);
 		
 		int result = couponService.insertAdminCoupon(coupon);	// 0이면 등록실패
 		attr.addFlashAttribute("insertResult", result);
@@ -108,5 +91,43 @@ public class AdminCouponController {
 		Integer result = couponService.deleteAdminCoupon(coupon_id);
 		
 		return result.toString();
+	}
+	
+	@PostMapping("/couponUpdate.do")
+	public String couponUpdate(HttpServletRequest request, RedirectAttributes attr) {
+		AdminCouponDTO coupon = couponDtoSetting(request);
+		
+		int result = couponService.updateAdminCoupon(coupon);	// 0이면 등록실패
+		attr.addFlashAttribute("updateResult", result);
+		
+		return "redirect:couponList.do";
+	}
+	
+	// request parameter 데이터로 AdminCouponDTO 세팅
+	private AdminCouponDTO couponDtoSetting(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		int coupon_id = Integer.parseInt(request.getParameter("coupon_id"));
+		int option = Integer.parseInt(request.getParameter("option"));
+		String type = request.getParameter("type");
+		String membership_id = option == 0 ? request.getParameter("membership_id") : null;
+		String coupon_name = request.getParameter("coupon_name");
+		int discount_rate = Integer.parseInt(request.getParameter("discount_rate"));
+		int max_discount = Integer.parseInt(request.getParameter("max_discount"));
+		int discount_price = Integer.parseInt(request.getParameter("discount_price"));
+		System.out.println(type);
+		AdminCouponDTO coupon = null;
+		if(type.equals("rate")) {
+			coupon = new AdminCouponDTO(coupon_id, coupon_name, option, discount_rate, max_discount, membership_id);
+		} else if(type.equals("amount")) {
+			coupon = new AdminCouponDTO(coupon_id, coupon_name, option, 0, discount_price, membership_id);
+		} else {
+				// 잘못된 type 선택
+		}
+		
+		return coupon;
 	}
 }

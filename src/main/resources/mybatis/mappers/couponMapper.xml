@@ -23,4 +23,14 @@
   	<delete id="deleteAdminCoupon" parameterType="int">
   		delete from tt_coupon where coupon_id=#{coupon_id}
   	</delete>
+  	
+  	<update id="updateAdminCoupon" parameterType="admincouponvo">
+  		update tt_coupon
+  		set title=#{title},
+  			coupon_option=#{coupon_option},
+  			discount_rate=#{discount_rate},
+  			max_discount=#{max_discount},
+  			membership_id=#{membership_id}
+  		where coupon_id=#{coupon_id}
+  	</update>
 </mapper>
