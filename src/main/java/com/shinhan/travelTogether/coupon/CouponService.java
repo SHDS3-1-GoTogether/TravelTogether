@@ -30,4 +30,8 @@ public class CouponService {
 	public int deleteAdminCoupon(int coupon_id) {
 		return couponDao.deleteAdminCoupon(coupon_id);
 	}
+	
+	public int updateAdminCoupon(AdminCouponDTO adminCouponDto) {
+		return couponDao.updateAdminCoupon(adminCouponDto);
+	}
 }

@@ -13,8 +13,8 @@
 } */
 
 .side-menubar {
-    width: 200px;
-    height: 100%;
+    width: 150px;
+    height: content-fit;
     margin: 0;
     border-right: 1px solid #9D9D9D;
     /* box-shadow: 2px 0 5px rgba(0,0,0,0.1); */
