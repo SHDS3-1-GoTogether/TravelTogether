@@ -10,10 +10,16 @@ import org.springframework.stereotype.Repository;
 public class PaymentDAO {
 	
 	@Autowired
+	SqlSession sqlSession;
+	
+	@Autowired
 	SqlSession sqlsession;
 
 	Logger logger = LoggerFactory.getLogger(PaymentDAO.class);
 	String namespace = "com.shinhan.travelTogether.payment.";
 	
-	
+	public int insertPaymentInfo(PaymentDTO payment) {
+		
+		return sqlSession.insert(namespace + "insertPaymentInfo", payment);
+	}
 }

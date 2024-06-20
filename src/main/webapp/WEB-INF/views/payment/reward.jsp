@@ -12,11 +12,11 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #f5f5f5;
+	/* background-color: #f5f5f5; */
 }
 
 .container {
-	width: 40%;
+	width: 50%;
 	margin: 0 auto;
 	background-color: #fff;
 	padding: 20px;
@@ -339,6 +339,7 @@ footer {
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 	<div class="container">
 		<header>
 			<div class="logo">
@@ -372,7 +373,7 @@ footer {
 						<input type="checkbox" id="rewardSelect" name="rewardSelect">
 						<label for="rewardSelect">₩160,000</label>
 					</div>
-					<img src="resources/images/jeju.jpg" alt="제주도 여행" class="reward-image">
+					<img src="${path}/resources/images/jeju.jpg" alt="제주도 여행" class="reward-image">
 					<div class="reward-details">
 						<p>#제주도 #여행 #인생샷 #휴식 #힐링</p>
 						<h2>제주도 여행갈 사람 모여라!!</h2>
@@ -395,18 +396,11 @@ footer {
 			</div>
 
 
-			<a href="payment.do" class="btn-submit" id="paymentButton">다음으로</a>
+			<a href="pay.do" class="btn-submit" id="paymentButton">다음으로</a>
 		</main>
 
-		<footer>
-			<div class="footer-info">
-				<span>회사명(주) 가가가</span> <span>주소: 서울특별시 서초구 서초대로 320, 20층
-					(BNK디지털타워)</span> <span>대표: 홍길동</span> <span>사업자등록번호: 012-12-12345</span>
-				<span>통신판매업 신고번호: 서울서초-01234</span> <span>대표번호: 02-3456-7890</span>
-				<span>이메일: support_funding@backpack.kr</span> <span>© 2024
-					Backpack Inc.</span>
-			</div>
-		</footer>
+		
 	</div>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>
