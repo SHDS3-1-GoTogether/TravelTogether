@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.shinhan.travelTogether.coupon.UserCouponDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.shinhan.travelTogether.coupon.CouponService"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	session="false"%>
@@ -6,298 +10,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/resources/css/payment.css" />
 <title>결제 예약</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f5f5f5;
-}
-
-.container {
-	width: 60%;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-header, footer {
-	margin-left: -20px; /* 좌측 패딩 상쇄 */
-	margin-right: -20px; /* 우측 패딩 상쇄 */
-	margin-top: -20px; /* 상단 패딩 상쇄 */
-	margin-bottom: -20px; /* 하단 패딩 상쇄 */
-	padding-left: 20px; /* 내부 패딩 추가 */
-	padding-right: 20px; /* 내부 패딩 추가 */
-	padding-top: 20px; /* 내부 패딩 추가 */
-	padding-bottom: 20px; /* 내부 패딩 추가 */
-}
-
-.logo img {
-	width: 100px;
-}
-
-nav a {
-	margin-right: 20px;
-	text-decoration: none;
-	color: #333;
-}
-
-h1 {
-	text-align: left;
-	margin-bottom: 20px;
-	margin-left: 10px;
-	text-decoration: underline; /* 텍스트에 밑줄을 추가합니다 */
-	text-decoration-thickness: 1px; /* 밑줄의 두께를 설정합니다 */
-	text-underline-offset: 10px; /* 밑줄과 텍스트 사이의 거리를 설정합니다 */
-}
-
-.travel-info {
-	border: 1px solid #e0e0e0;
-	border-radius: 20px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 30px;
-	height: 60px;
-	font-size: 18px;
-	padding-left: 20px;
-	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), /* 내부 그림자 */
-                0 2px 4px rgba(0, 0, 0, 0.1); /* 외부 그림자 */
-}
-
-.progress {
-	display: flex;
-	justify-content: left;
-	align-items: center;
-	margin-bottom: 20px;
-}
-
-.progress-step {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 10px;
-	border: 2px dashed #000; /* 점선 테두리 추가 */
-}
-
-.progress-step.active {
-	background-color: #007bff;
-	color: #fff;
-	border: 2px solid #000; /* 점선 테두리 추가 */
-}
-
-.arrow {
-	font-size: 3em;
-	margin: 0 30px;
-}
-
-.payment-info {
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.payment-info .detail {
-	border-bottom: 1px solid #ccc; /* 밝은 회색의 1픽셀 밑줄 추가 */
-	padding-bottom: 10px; /* 밑줄과 텍스트 사이에 간격을 추가 */
-	margin-bottom: 20px; /* 다음 요소와의 간격을 추가 */
-}
-
-.payment-details .detail {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	margin: 20px 0;
-}
-
-.total-amount {
-	display: flex;
-	justify-content: space-between;
-	font-size: 25px;
-	font-weight: bold;
-	margin-top: 20px;
-}
-
-.payment-method {
-	padding: 20px;
-	margin-bottom: 20px;
-	font-weight: bold;
-	font-size: 20px;
-}
-
-.payment-method img {
-	width: 70px; /* 예시로 너비를 100픽셀로 설정 */
-	height: auto; /* 높이를 자동으로 조절하여 비율 유지 */
-}
-
-.payment-method span {
-	display: block;
-	margin-bottom: 10px;
-	font-weight: bold;
-}
-
-.payment-method label {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-	padding-bottom: 10px; /* 밑줄과 요소 사이의 간격을 주기 위해 패딩 추가 */
-	border-bottom: 1px solid #ccc; /* 밑줄 추가 */
-}
-
-.new {
-	background: red;
-	color: white;
-	padding: 2px 6px;
-	font-size: 12px;
-	margin-left: 10px;
-}
-
-.payment-method input {
-	margin-right: 10px;
-}
-
-.payment-warning, .agreement {
-	border: 1px solid #e0e0e0;
-	border-radius: 20px;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-.payment-warning img {
-	width: 25px;
-	height: auto;
-	margin-right: 10px;
-}
-
-.payment-warning label, .agreement label {
-	display: flex;
-	align-items: center;
-	margin-bottom: 5px;
-}
-
-.payment-warning input[type="checkbox"], .agreement input[type="checkbox"]
-	{
-	margin-right: 10px;
-}
-
-.agreement label {
-	display: flex; /* Flexbox 사용 */
-	align-items: bottom; /* 요소들을 수직 중심으로 맞춤 */
-	margin-bottom: 10px; /* 다른 요소와의 간격 */
-}
-
-.agreement input[type="checkbox"] {
-	margin-right: 10px; /* 체크박스와 텍스트 사이의 간격 */
-}
-
-.payment-warning span, .agreement span {
-	display: block;
-	margin-bottom: 10px;
-	font-weight: bold;
-}
-
-.payment-warning ul, .agreement ul {
-	padding-left: 20px;
-}
-
-footer {
-	text-align: center;
-	font-size: 0.9em;
-	color: #747579;
-	background-color: #68A6F3;
-}
-
-.footer-info span {
-	display: block;
-	margin-bottom: 5px;
-	width: 100%;
-}
-
-.btn-submit {
-	display: block;
-	width: 80%;
-	padding: 15px;
-	background-color: #007bff;
-	color: #fff;
-	text-align: center;
-	text-decoration: none;
-	border-radius: 5px;
-	font-size: 1.2em;
-	font-weight: bold;
-	margin: 20px auto 50px; /* 상단 마진 20px, 좌우 자동, 하단 0 */
-}
-</style>
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	$(document).ready(
-			function() {
-				$("#paymentButton").click(
-						function() {
-							// 약관동의 확인
-							var isAgreementChecked = $(
-									'input[name="payagreement"]')
-									.is(':checked');
-							// 결제 수단 선택
-							var selectedPayment = $(
-									'input[name="payment"]:checked').val();
-							//var testMoney = $("#testMoney").val();
-
-							//test
-							alert(selectedPayment);
-
-							if (!isAgreementChecked) {
-								alert("약관에 동의해야 합니다.");
-								return;
-							}
-
-							$.ajax({
-								url : '/travel/process' + selectedPayment
-										+ '.do', // 서버에서 처리할 URL
-								dataType : 'json',
-
-								/* type: 'POST', */
-								/*
-								data: {
-								    testMoney: testMoney
-								}, */
-								success : function(response) {
-									var box = response.next_redirect_pc_url;
-									//alert('서버 응답: ' + JSON.stringify(response, null, 2));
-									// 결제 팝업창 생성(새로운 브라우저에 생성)
-									window.open(box);
-									// 현재 창에서 URL로 이동(현재 브라우저에 생성)
-									//window.location.href = box;
-								},
-								error : function(xhr, status, error) {
-									alert('에러 발생: ' + error);
-								}
-							});
-						});
-			});
-</script>
-
 </head>
 <body>
+	<%@ include file="../common/header.jsp"%>
 	<div class="container">
-		<header>
-			<div class="logo">
-				<img src="logo.png" alt="로고">
-			</div>
-			<nav>
-				<a href="#">일반팬딩</a> <a href="#">팬딩단팅</a> <a href="#">후기</a>
-			</nav>
-		</header>
 		<main>
 			<h1>결제 예약</h1>
 			<div class="travel-info">
 				<span>제주도 여행 가고싶당 [신청자 : 김주현]</span> `
 			</div>
 
-			<div class="progress">
+			<div class="progress progress-container">
 				<div class="progress-step">리워드 선택</div>
 				<div class="arrow">→</div>
 				<div class="progress-step active">결제 예약</div>
@@ -311,57 +39,242 @@ footer {
 					<div class="detail">
 						<span>추가 후원금:</span> <span>0원</span>
 					</div>
+
+					<!-- 쿠폰 콤보박스 -->
 					<div class="detail">
-						<span>쿠폰사용:</span> <span>현재 사용 가능한 쿠폰이 없습니다.</span>
+						<span>쿠폰 선택:</span> <select id="coupon-box" class="coupon-box">
+							<option value="0" disabled selected>쿠폰을 선택하세요</option>
+							<option value="0">사용안함</option>
+							<c:forEach var="coupon" items="${couponlist }">
+								<option
+									value="${coupon.discount_rate},${coupon.max_discount},${coupon.coupon_record_id}">${coupon.title}</option>
+							</c:forEach>
+						</select>
 					</div>
 				</div>
 				<br> <br>
-				<div class="total-amount detail">
-					<span>총 결제 금액:</span> <span>320,000원</span>
+				<div class="total-amount">
+					<span>총 결제 금액:</span> <span id="changeAmount"></span>
+				</div>
+				<hr>
+			</div>
+
+			<!-- 주문서 영역 -->
+			<div class="wrapper">
+				<div class="box_section"
+					style="padding: 10px 30px 50px 30px; margin-top: 30px; margin-bottom: 20px">
+					<!-- 결제 UI -->
+					<div id="payment-method"></div>
+					<!-- 이용약관 UI -->
+					<div id="agreement"></div>
+
+					<div class="notice">
+						<label> <img
+							src="${path}/resources/images/payment_warning.png"><span>결제
+								유의사항</span>
+						</label>
+						<ul>
+							<li>어쩌고 저쩌고</li>
+							<li>저쩌고 어쩌고</li>
+						</ul>
+					</div>
+
+					<div class="notice">
+						<label> <img
+							src="${path}/resources/images/payment_warning.png"><span>펀딩참여
+								유의사항</span>
+						</label>
+						<ul>
+							<li>어쩌고 저쩌고</li>
+							<li>저쩌고 어쩌고</li>
+						</ul>
+					</div>
+
+					<!-- 결제하기 버튼 -->
+					<button class="button" id="payment-button" name="payment-button"
+						style="margin-top: 30px" disabled="disabled">결제하기</button>
 				</div>
 			</div>
-
-			<div class="payment-method">
-				<span>결제 선택</span> <label> <input type="radio" id="Kakaopay"
-					value="Kakaopay" name="payment" checked> <img
-					src="resources/img/kakaopay.png" alt="Kakao Pay"><span
-					class="new">NEW</span>
-				</label> <label> <input type="radio" id="Npay" value="Npay"
-					name="payment"> <img src="resources/img/naverpay.png"
-					alt="N Pay"><span class="new">NEW</span>
-				</label>
-			</div>
-
-			<div class="payment-warning">
-				<label> <img src="resources/img/payment_warning.png"><span>결제
-						유의사항</span>
-				</label>
-				<ul>
-					<li>어쩌고 저쩌고</li>
-					<li>저쩌고 어쩌고</li>
-				</ul>
-			</div>
-
-			<div class="agreement">
-				<label> <input type="checkbox" name="payagreement"><span>약관동의</span>
-				</label>
-				<ul>
-					<li>어쩌고 저쩌고</li>
-					<li>저쩌고 어쩌고</li>
-				</ul>
-			</div>
-			<a href="#" class="btn-submit" id="paymentButton">결제하기</a>
 		</main>
-
-		<footer>
-			<div class="footer-info">
-				<span>회사명(주) 가가가</span> <span>주소: 서울특별시 서초구 서초대로 320, 20층
-					(BNK디지털타워)</span> <span>대표: 홍길동</span> <span>사업자등록번호: 012-12-12345</span>
-				<span>통신판매업 신고번호: 서울서초-01234</span> <span>대표번호: 02-3456-7890</span>
-				<span>이메일: support_funding@backpack.kr</span> <span>© 2024
-					Backpack Inc.</span>
-			</div>
-		</footer>
 	</div>
+	<%-- <%@ include file="../common/footer.jsp"%> --%>
 </body>
+
+<script>
+	//페이지가 브라우저 캐시에서 로드될 때 새로고침(일단보류)
+	window.onpageshow = function(event) {
+	    if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	        location.reload();
+	    }
+	};
+    const button = document.getElementById("payment-button");
+    const coupon = document.getElementById("coupon-box");
+    /* couponBox.addEventListener("change", function() {
+        var coupon = couponBox.value;
+        console.log(coupon); // 선택된 옵션의 value 출력
+    }); */
+    const currentURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split("/")[1];
+    //console.log(currentURL);
+    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
+    
+    // testMoney
+    var amount = 320000;
+  	//window.onload = updateAmount;
+  	// 페이지 로드 됐을 때 html부분도 새로고침하게 되는 법 ########
+  	// 현재 페이지 이동 후에 뒤로가기 버튼을 누르면 쿠폰 선택했던 부분은 그대로 남아있는데 가격 부분은 새로 고침이 되어 있는 상태임 이부분 확인해보고 병합 ㄱㄱ
+    document.getElementById("changeAmount").innerText = amount+"원";
+    // ------  결제위젯 초기화 ------
+    // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
+    // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
+    
+    // API 개별 연동 client Key 
+    //const clientKey = "test_ck_ex6BJGQOVDk0KzEMB1z53W4w2zNb";
+    // sample
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const customerKey = generateRandomString();
+    const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
+    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS); // 비회원 결제
+
+    // ------  결제 UI 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+    paymentMethodWidget = paymentWidget.renderPaymentMethods(
+      "#payment-method",
+      { value: amount },
+      // 렌더링하고 싶은 결제 UI의 variantKey
+      // 결제 수단 및 스타일이 다른 멀티 UI를 직접 만들고 싶다면 계약이 필요해요.
+      // @docs https://docs.tosspayments.com/guides/payment-widget/admin#멀티-결제-ui
+      { variantKey: "DEFAULT" }
+    );
+    // ------  이용약관 UI 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
+    paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
+
+    //  ------  결제 UI 렌더링 완료 이벤트 ------
+    paymentMethodWidget.on("ready", function () {
+      button.disabled = false;
+      coupon.disabled = false;
+    });
+
+    // ------  결제 금액 업데이트 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
+    /*coupon.addEventListener("change", function () {
+    	const selectedValue = this.value;
+    	console.log(selectedValue);
+    	const discount = parseInt(selectedValue, 10) || 0;
+      if (coupon.checked) {
+        paymentMethodWidget.updateAmount(amount - discount);
+      } else {
+        paymentMethodWidget.updateAmount(amount);
+      }
+    });*/
+    coupon.addEventListener("change", function() {
+        var selectedValue = this.value;
+        
+     	// 쿠폰을 여러 차례 선택한 뒤 결제를 진행하지 않을 경우 발생하는 에러(총 결제 금액이 변동됨)를 방지하기 위해 임시변수 사용
+     	var applicableAmount = amount;
+        var discountAmount = 0;
+     	//  할인율, 최대 할인 가능 금액, 쿠폰 기록 아이디
+        var [discountRate=0, maxDiscount=0, coupon_record_id=0] = selectedValue.split(',').map(Number);
+     	
+     	// test
+        console.log(discountRate);
+        console.log(maxDiscount);
+		console.log(coupon_record_id);
+		
+       /*  if(selectedValue == 0){
+        	paymentMethodWidget.updateAmount(applicableAmount);
+        	updateAmount(applicableAmount);
+        	sendCouponId(0);
+        	return;
+        } */
+        
+        // 쿠폰 미선택시
+        if(discountRate == 0 && maxDiscount == 0 && coupon_record_id == 0){
+        	paymentMethodWidget.updateAmount(applicableAmount);
+        	updateAmount(applicableAmount);
+        	sendCouponId(coupon_record_id);
+        	return;
+        }
+        
+        if(discountRate == 0 && maxDiscount > 0){
+        	discountAmount = maxDiscount;
+        	// 결제 금액 - 금액 할인권
+        	paymentMethodWidget.updateAmount(applicableAmount-discountAmount);
+        }else{
+        	discountAmount = discountRate;
+        	// 결제 금액 - 퍼센트 할인권
+        	paymentMethodWidget.updateAmount(applicableAmount = (amount * (discountAmount * 0.01)) > maxDiscount ? amount-maxDiscount : amount-(amount * (discountAmount * 0.01)));
+        }
+     	// 쿠폰id 세션저장
+        sendCouponId(coupon_record_id);
+        // 총 결제 금액 변경
+        updateAmount(applicableAmount);
+    });
+
+    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+    button.addEventListener("click", function () {
+      paymentWidget.requestPayment({
+        orderId: generateRandomString(),
+        orderName: "홍박사의 스프링 강의",
+        successUrl: currentURL + "/payment/success.do",
+        failUrl: currentURL + "/payment/failure.do",
+        customerEmail: "customer123@gmail.com",
+        customerName: "김토스",
+        customerMobilePhone: "01012341234",
+      }).catch(function(error){
+    	  // 결제 취소 시 처리
+    	  if(error.code === 'USER_CANCEL'){
+    		  handlePaymentCancel();
+    	  }else if(error.code == 'NEED_AGREEMENT_WITH_REQUIRED_TERMS'){
+    		  handledonotAgreeTerms();
+    	  }
+    	  else{
+    		  console.error("Payment error : ", error);
+    	  }
+      });
+    });
+    // 결제 취소시
+    function handlePaymentCancel() {
+        console.log("Payment was cancelled. Amount remains unchanged.");
+        alert("결제가 취소되었습니다.");
+    }
+    function handledonotAgreeTerms() {
+        console.log("User didn't agree Terms");
+        alert("필수 약관에 동의해주세요.");
+    }
+    // 총 결제 금액 갱신
+    function updateAmount(price){
+    	document.getElementById("changeAmount").innerText = price+"원";
+    }
+    
+ 	// coupon_record_id 세션에 저장(결제정보 저장을 위해)
+ 	// 자바스크립트에서 세션 사용 불가(클라이언트 측에서는 세션 접근이 안됨)
+ 	// 서버에 쿠폰 ID를 전송하는 AJAX 요청
+    function sendCouponId(coupon_record_id) {
+        $.ajax({
+            url: '${path}/payment/save-coupon-id',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ couponId: coupon_record_id }),
+            success: function(response) {
+                var data = JSON.parse(response);
+                if (data.status === 'success') {
+                    // 성공 메시지를 표시하거나 UI를 업데이트
+                    console.log('쿠폰이 성공적으로 저장되었습니다.');
+                    $('#couponStatus').text('쿠폰이 성공적으로 적용되었습니다.');
+                } else {
+                    // 오류 처리
+                    $('#couponStatus').text('쿠폰 적용에 실패하였습니다.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                $('#couponStatus').text('서버 오류가 발생하였습니다.');
+            }
+        });
+    }
+
+  </script>
 </html>
