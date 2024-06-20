@@ -5,13 +5,13 @@ body {
 		Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 	margin: 0;
 	padding: 0;
-	background-color: #f5f5f5;
+	background-color: #fff;
+	/* background-color: #f5f5f5;*/
 }
 
-body {
+/* body {
 	background-color: #e8f3ff;
-}
-
+} */
 html {
 	font-family: Arial, sans-serif, Toss Product Sans, -apple-system,
 		BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI,
@@ -25,25 +25,16 @@ html {
 
 .container {
 	width: 45%;
-	margin: 0 auto;
+	margin: 20px auto; /* 상단 간격을 주기 위해 margin-top을 20px로 설정 */
 	background-color: #fff;
 	padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px; /* 모서리를 둥글게 */
+	transition: box-shadow 0.3s ease; /* 박스 그림자에 대한 전환 효과 */
 }
 
-header, footer {
-	margin-left: -20px; /* 좌측 패딩 상쇄 */
-	margin-right: -20px; /* 우측 패딩 상쇄 */
-	margin-top: -20px; /* 상단 패딩 상쇄 */
-	margin-bottom: -20px; /* 하단 패딩 상쇄 */
-	padding-left: 20px; /* 내부 패딩 추가 */
-	padding-right: 20px; /* 내부 패딩 추가 */
-	padding-top: 20px; /* 내부 패딩 추가 */
-	padding-bottom: 20px; /* 내부 패딩 추가 */
-}
-
-.logo img {
-	width: 100px;
+.container:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 마우스를 올렸을 때 그림자 강화 */
 }
 
 nav a {
@@ -62,20 +53,21 @@ h1 {
 	text-underline-offset: 10px; /* 밑줄과 텍스트 사이의 거리를 설정합니다 */
 }
 
-.coupon-box:focus {
-	border-color: #007bff;
-	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-	outline: none;
+.coupon-box {
+    border: 1px solid #d1d6db;
+    padding: 10px 12px; /* 패딩을 더해서 좀 더 편안한 느낌 */
+    border-radius: 6px; /* 모서리를 조금 더 둥글게 */
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s; /* 전환 시간을 늘려 부드럽게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 기본 상태에서도 약간의 그림자 추가 */
 }
 
-.coupon-box {
-	border: 1px solid #d1d6db;
-	padding: 8px;
-	border-radius: 4px;
-	background-color: #fff;
-	font-size: 16px;
-	color: #333;
-	transition: border-color 0.2s, box-shadow 0.2s;
+.coupon-box:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* 더 부드럽고 넓은 그림자 */
+    outline: none;
 }
 
 .travel-info {
@@ -99,6 +91,13 @@ h1 {
 	margin-bottom: 20px;
 }
 
+.progress-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
 .progress-step {
 	width: 110px;
 	height: 110px;
@@ -107,13 +106,18 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	margin: 0 10px;
-	border: 2px dashed #000; /* 점선 테두리 추가 */
+	border: 2px dashed #000;
+	transition: all 0.3s ease;
+	background-color: #f0f0f0;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .progress-step.active {
 	background-color: #007bff;
 	color: #fff;
-	border: 2px solid #000; /* 점선 테두리 추가 */
+	border: 2px solid #007bff;
+	box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+	transform: scale(1.1);
 }
 
 .arrow {
@@ -154,11 +158,6 @@ h1 {
 	font-size: 20px;
 }
 
-.payment-method img {
-	width: 70px; /* 예시로 너비를 70픽셀로 설정 */
-	height: auto; /* 높이를 자동으로 조절하여 비율 유지 */
-}
-
 .payment-method span {
 	display: block;
 	margin-bottom: 10px;
@@ -190,7 +189,7 @@ h1 {
 	border-radius: 20px;
 	padding: 5px;
 	margin-bottom: 10px;
-	margin-top: 20px;
+	margin-top: 1px;
 	text-align: left;
 }
 
@@ -255,21 +254,21 @@ footer {
 }
 
 .box_section {
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 10px 20px rgb(0 0 0/ 1%), 0 6px 6px rgb(0 0 0/ 6%);
-	margin-top: 10px;
-	margin-right: auto;
-	margin-left: auto;
-	color: #333d4b;
-	align-items: center;
-	text-align: center;
-	overflow-x: auto; /* Add this property for horizontal scrolling */
-	white-space: nowrap; /* Prevent text wrapping */
-	padding: 30px; /* 내부 여백 추가 */
-	max-width: 90%; /* 최대 너비 조정 */
-	width: 100%; /* 너비 100% */
-	box-sizing: border-box; /* 패딩 포함하여 박스 크기 계산 */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #333d4b;
+    align-items: center;
+    text-align: center;
+    overflow-x: auto; /* Add this property for horizontal scrolling */
+    white-space: nowrap; /* Prevent text wrapping */
+    padding: 30px; /* 내부 여백 추가 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
+    width: calc(100% - 20px); /* 너비를 화면에서 20px 줄여 설정 (왼쪽, 오른쪽 각각 10px) */
+    box-sizing: border-box; /* 패딩 포함하여 박스 크기 계산 */
 }
 
 :root { -

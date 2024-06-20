@@ -16,7 +16,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/payment.css" />
-    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+    <!-- <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" /> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>결제 실패</title>

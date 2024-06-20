@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.payment">
+	
+	<insert id="insertPaymentInfo" parameterType="paymentvo">
+	insert into tt_payment(payment_id, payment_date, price, refund,
+	 payment_method, classification, member_id, funding_id, coupon_record_id) values(#{payment_id},
+	 TO_TIMESTAMP_TZ(#{payment_date}, 'YYYY-MM-DD"T"HH24:MI:SS TZH:TZM'),#{price},#{refund},#{payment_method},#{classification},
+	 #{member_id},#{funding_id},#{coupon_record_id})
+	</insert>
+</mapper>

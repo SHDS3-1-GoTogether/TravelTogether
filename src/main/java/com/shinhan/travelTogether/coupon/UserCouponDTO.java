@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter@Setter@ToString
 public class UserCouponDTO {
-	private int copun_record_id;
+	private int coupon_record_id;
 	private int available;
 	private Date due_date;
 	private int member_id;
