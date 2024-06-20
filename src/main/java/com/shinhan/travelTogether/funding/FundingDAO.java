@@ -45,6 +45,13 @@ public class FundingDAO {
 		int result = sqlSession.insert(namespace + "insertFunding", fund);
 		return result;
 	}
+	
+	public int getFundingId() {
+		int result = sqlSession.selectOne(namespace + "getFundingId");
+		return result;
+	}
 
-
+	public FundingDTO selectFundingById(int funding_id) {
+		return sqlSession.selectOne(namespace + "selectFundingById", funding_id);
+	}
 }

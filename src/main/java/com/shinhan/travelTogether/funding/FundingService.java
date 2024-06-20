@@ -25,5 +25,13 @@ public class FundingService {
 	public int insertFunding(FundingDTO fund) {
 		return fundingDAO.insertFunding(fund);
 	}
+	
+	public int getFundingId() {
+		return fundingDAO.getFundingId();
+	}
+	
+	public FundingDTO selectFundingById(int funding_id) {
+		return fundingDAO.selectFundingById(funding_id);
+	}
 
 }
