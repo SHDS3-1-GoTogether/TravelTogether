@@ -12,10 +12,12 @@
 <link rel="stylesheet" href="${path}/resources/css/fundingList.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+</script>
 </head>
 <body>
 	<c:forEach var="fund" items="${fundlist}">
-		<div class="item">
+		<div class="item" onclick="location.href='fundingDetail.do?funding_id=${fund.funding_id}'">
 			<div class="item_img_div">
 				<img class="item_img" alt="잘못된 경로"
 					src="${path}/resources/images/exImg.png" />

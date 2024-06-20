@@ -15,7 +15,19 @@
 			type="com.shinhan.travelTogether.coupon.AdminCouponDTO"
 			alias="admincouponvo" />
 		<typeAlias
-			type="com.shinhan.travelTogether.member.MemberDTO" alias="membervo" />
-    <typeAlias type="com.shinhan.travelTogether.funding.FundingDTO" alias="fundvo"/>
+			type="com.shinhan.travelTogether.member.MemberDTO" 
+			alias="membervo" />
+    	<typeAlias 
+    		type="com.shinhan.travelTogether.funding.FundingDTO" 
+    		alias="fundvo"/>
+    	<typeAlias 
+    		type="com.shinhan.travelTogether.photo.PhotoDTO" 
+    		alias="photovo"/>
+    	<typeAlias 
+    		type="com.shinhan.travelTogether.theme.ThemeDTO" 
+    		alias="themevo"/>
+    	<typeAlias 
+    		type="com.shinhan.travelTogether.theme.FundingThemeDTO" 
+    		alias="fundingthemevo"/>
 	</typeAliases>
 </configuration>

@@ -23,6 +23,18 @@
 		    on tt_funding_theme.theme_id = tt_theme.theme_id
 	</select>
 	
+	<select id="selectFundingById" resultType="fundvo" parameterType="int">
+		select *
+		from tt_funding
+		where funding_id=#{funding_id}
+	</select>
+	
+	<select id="getFundingId" resultType="int">
+		select funding_id
+		from (select * from tt_funding order by rownum desc)
+		where rownum=1
+	</select>
+	
 	<insert id="insertFunding" parameterType="fundvo">
 		insert into tt_funding(funding_id, title, funding_content, create_date, area, start_date, end_date, deadline, price, departure, traffic, accommodation, people_num, funding_state, confirm_option, views, member_id)
 		values(funding_seq.nextval, 
