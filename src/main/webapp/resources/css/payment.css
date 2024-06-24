@@ -1,0 +1,650 @@
+body {
+	font-family: Arial, sans-serif, Toss Product Sans, -apple-system,
+		BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI,
+		Apple SD Gothic Neo, Roboto, Helvetica Neue, Apple Color Emoji,
+		Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	/* background-color: #f5f5f5;*/
+}
+
+/* body {
+	background-color: #e8f3ff;
+} */
+html {
+	font-family: Arial, sans-serif, Toss Product Sans, -apple-system,
+		BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI,
+		Apple SD Gothic Neo, Roboto, Helvetica Neue, Apple Color Emoji,
+		Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	word-break: keep-all;
+	word-wrap: break-word;
+}
+
+.container {
+	width: 45%;
+	margin: 20px auto; /* 상단 간격을 주기 위해 margin-top을 20px로 설정 */
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px; /* 모서리를 둥글게 */
+	transition: box-shadow 0.3s ease; /* 박스 그림자에 대한 전환 효과 */
+}
+
+.container:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 마우스를 올렸을 때 그림자 강화 */
+}
+
+nav a {
+	margin-right: 20px;
+	text-decoration: none;
+	color: #333;
+}
+
+h1 {
+	text-align: left;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 10px;
+	text-decoration: underline; /* 텍스트에 밑줄을 추가합니다 */
+	text-decoration-thickness: 1px; /* 밑줄의 두께를 설정합니다 */
+	text-underline-offset: 10px; /* 밑줄과 텍스트 사이의 거리를 설정합니다 */
+}
+
+.coupon-box {
+    border: 1px solid #d1d6db;
+    padding: 10px 12px; /* 패딩을 더해서 좀 더 편안한 느낌 */
+    border-radius: 6px; /* 모서리를 조금 더 둥글게 */
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s; /* 전환 시간을 늘려 부드럽게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 기본 상태에서도 약간의 그림자 추가 */
+}
+
+.coupon-box:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* 더 부드럽고 넓은 그림자 */
+    outline: none;
+}
+
+.travel-info {
+	border: 1px solid #e0e0e0;
+	border-radius: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+	height: 60px;
+	font-size: 18px;
+	padding-left: 20px;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), /* 내부 그림자 */
+                0 2px 4px rgba(0, 0, 0, 0.1); /* 외부 그림자 */
+}
+
+.progress {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.progress-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+.progress-step {
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 10px;
+	border: 2px dashed #000;
+	transition: all 0.3s ease;
+	background-color: #f0f0f0;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.progress-step.active {
+	background-color: #007bff;
+	color: #fff;
+	border: 2px solid #007bff;
+	box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+	transform: scale(1.1);
+}
+
+.arrow {
+	font-size: 3em;
+	margin: 0 30px;
+}
+
+.payment-info {
+	padding: 10px;
+	padding-bottom: 0;
+}
+
+.payment-info .detail {
+	border-bottom: 1px solid #ccc; /* 밝은 회색의 1픽셀 밑줄 추가 */
+	padding-bottom: 10px; /* 밑줄과 텍스트 사이에 간격을 추가 */
+	margin-bottom: 15px; /* 다음 요소와의 간격을 추가 */
+}
+
+.payment-details .detail {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+	margin: 20px 0;
+}
+
+.total-amount {
+	display: flex;
+	justify-content: space-between;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.payment-method {
+	padding: 0px;
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.payment-method span {
+	display: block;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.payment-method label {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	padding-bottom: 10px; /* 밑줄과 요소 사이의 간격을 주기 위해 패딩 추가 */
+	border-bottom: 1px solid #ccc; /* 밑줄 추가 */
+}
+
+.new {
+	background: red;
+	color: white;
+	padding: 2px 6px;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.payment-method input {
+	margin-right: 10px;
+}
+
+.notice {
+	border: 1px solid #e0e0e0;
+	border-radius: 20px;
+	padding: 5px;
+	margin-bottom: 10px;
+	margin-top: 1px;
+	text-align: left;
+}
+
+.notice img {
+	width: 25px;
+	height: auto;
+	margin-right: 10px;
+}
+
+.notice label {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.notice span {
+	display: block;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.notice ul {
+	padding-left: 20px;
+}
+
+footer {
+	text-align: center;
+	font-size: 0.9em;
+	color: #747579;
+	background-color: #68A6F3;
+}
+
+.footer-info span {
+	display: block;
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+.btn-submit {
+	display: block;
+	width: 80%;
+	padding: 15px;
+	background-color: #007bff;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 20px auto 50px; /* 상단 마진 20px, 좌우 자동, 하단 50px */
+}
+
+.wrapper {
+	max-width: 1200px;
+}
+
+.title {
+	margin: 0 0 4px;
+	font-size: 24px;
+	font-weight: 600;
+	color: #4e5968;
+}
+
+.box_section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #333d4b;
+    align-items: center;
+    text-align: center;
+    overflow-x: auto; /* Add this property for horizontal scrolling */
+    white-space: nowrap; /* Prevent text wrapping */
+    padding: 30px; /* 내부 여백 추가 */
+    max-width: 100%; /* 최대 너비를 100%로 설정 */
+    width: calc(100% - 20px); /* 너비를 화면에서 20px 줄여 설정 (왼쪽, 오른쪽 각각 10px) */
+    box-sizing: border-box; /* 패딩 포함하여 박스 크기 계산 */
+}
+
+:root { -
+	-inverseGrey50: #202027; -
+	-inverseGrey100: #2c2c35; -
+	-inverseGrey200: #3c3c47; -
+	-inverseGrey300: #4d4d59; -
+	-inverseGrey400: #62626d; -
+	-inverseGrey500: #7e7e87; -
+	-inverseGrey600: #9e9ea4; -
+	-inverseGrey700: #c3c3c6; -
+	-inverseGrey800: #e4e4e5; -
+	-inverseGrey900: #fff; -
+	-background: #fff; -
+	-darkBackground: #17171c; -
+	-greyBackground: #f2f4f6; -
+	-darkGreyBackground: #101013; -
+	-layeredBackground: #fff; -
+	-darkLayeredBackground: #202027; -
+	-floatBackground: #fff; -
+	-darkFloatBackground: #2c2c35; -
+	-black: #000; -
+	-grey50: #f9fafb; -
+	-grey100: #f2f4f6; -
+	-grey200: #e5e8eb; -
+	-grey300: #d1d6db; -
+	-grey400: #b0b8c1; -
+	-grey500: #8b95a1; -
+	-grey600: #6b7684; -
+	-grey700: #4e5968; -
+	-grey800: #333d4b; -
+	-grey900: #191f28; -
+	-greyOpacity50: rgba(0, 23, 51, 0.02); -
+	-greyOpacity100: rgba(2, 32, 71, 0.05); -
+	-greyOpacity200: rgba(0, 27, 55, 0.1); -
+	-greyOpacity300: rgba(0, 29, 58, 0.18); -
+	-greyOpacity400: rgba(0, 25, 54, 0.31); -
+	-greyOpacity500: rgba(3, 24, 50, 0.46); -
+	-greyOpacity600: rgba(0, 19, 43, 0.58); -
+	-greyOpacity700: rgba(3, 18, 40, 0.7); -
+	-greyOpacity800: rgba(0, 12, 30, 0.8); -
+	-greyOpacity900: rgba(2, 9, 19, 0.91); -
+	-white: #fff; -
+	-blue50: #e8f3ff; -
+	-blue100: #c9e2ff; -
+	-blue200: #90c2ff; -
+	-blue300: #64a8ff; -
+	-blue400: #4593fc; -
+	-blue500: #3182f6; -
+	-blue600: #2272eb; -
+	-blue700: #1b64da; -
+	-blue800: #1957c2; -
+	-blue900: #194aa6;
+}
+
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+.button {
+	color: #f9fafb;
+	background-color: #3182f6;
+	margin: 30px 15px 0px 15px;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 18px;
+	white-space: nowrap;
+	text-align: center;
+	cursor: pointer;
+	border: 0 solid transparent;
+	user-select: none;
+	transition: background 0.2s ease, color 0.1s ease;
+	text-decoration: none;
+	border-radius: 7px;
+	padding: 11px 16px;
+	width: 40%;
+}
+
+.button:hover {
+	color: #fff;
+	background-color: #1b64da;
+}
+
+button:disabled, input:disabled {
+	opacity: 80%;
+	cursor: not-allowed;
+}
+
+button, input, textarea {
+	font-family: Arial, sans-serif, Toss Product Sans, -apple-system,
+		BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI,
+		Apple SD Gothic Neo, Roboto, Helvetica Neue, Apple Color Emoji,
+		Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+.color--grey800 {
+	color: #333d4b;
+}
+
+.color--grey700 {
+	color: #4e5968;
+}
+
+.color--grey600 {
+	color: #6b7684;
+}
+
+.color--grey500 {
+	color: #8b95a1;
+}
+
+.color--blue500 {
+	color: #3182f6;
+}
+
+.color--blue700 {
+	color: #1b64da;
+}
+
+.bg--white {
+	background-color: #fff;
+}
+
+.bg--grey100 {
+	background-color: #f2f4f6;
+}
+
+.bg--greyOpacity100 {
+	background-color: rgba(2, 32, 71, 0.05);
+}
+
+.bg--greyOpacity200 {
+	background-color: rgba(0, 27, 55, 0.1);
+}
+
+.bg--blue50 {
+	background-color: #e8f3ff;
+}
+
+.padding--base {
+	padding: 11px 16px;
+}
+
+.padding--t {
+	padding: 4px 8px;
+}
+
+.padding--s {
+	padding: 7px 12px;
+}
+
+.padding--l {
+	padding: 11px 22px;
+}
+
+.padding--xl {
+	padding: 18px 24px;
+}
+
+.text--left {
+	text-align: left;
+}
+
+.text--right {
+	text-align: right;
+}
+
+.text--center {
+	text-align: center;
+}
+
+.text--justify {
+	text-align: justify;
+}
+
+.typography {
+	margin: 0;
+	padding: 0;
+}
+
+.typography--h1, .typography--h2, .typography--h3, .typography--h4 {
+	line-height: 1.3;
+}
+
+.typography--h1 {
+	font-size: 56px;
+}
+
+.typography--h2 {
+	font-size: 48px;
+}
+
+.typography--h3 {
+	font-size: 36px;
+}
+
+.typography--h4 {
+	font-size: 32px;
+}
+
+.typography--p {
+	line-height: 1.6;
+	font-size: 15px;
+}
+
+.checkable {
+	position: relative;
+	display: flex;
+}
+
+.checkable+.checkable {
+	margin-top: 12px;
+}
+
+.checkable--inline {
+	display: inline-block;
+}
+
+.checkable--inline+.checkable--inline {
+	margin-top: 0;
+	margin-left: 18px;
+}
+
+.checkable__label {
+	display: inline-block;
+	max-width: 100%;
+	min-height: 24px;
+	line-height: 1.6;
+	padding-left: 24px;
+	color: #4e5968;
+	cursor: pointer;
+}
+
+.checkable__input {
+	position: absolute;
+	margin: 0 0 0 -20px;
+	top: 4px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px;
+	cursor: pointer;
+}
+
+.checkable__input:after, .checkable__input:before {
+	content: "";
+	position: absolute;
+}
+
+.checkable__input:before {
+	top: -4px;
+	left: 0;
+	width: 24px;
+	height: 24px;
+	border: 2px solid #d1d6db;
+	background-color: #fff;
+	transition: border-color 0.1s ease, background-color 0.1s ease;
+}
+
+.checkable__input:after {
+	opacity: 0;
+	transition: opacity 0.1s ease;
+	top: 3px;
+	left: 5px;
+	width: 14px;
+	height: 10px;
+	background-image:
+		url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.343 4.574l4.243 4.243 7.07-7.071' fill='transparent' stroke-width='2' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+}
+
+.checkable__input[type="checkbox"]:indeterminate:after {
+	top: 7px;
+	left: 5px;
+	width: 14px;
+	height: 0;
+	border: 1px solid #fff;
+	border-radius: 1px;
+	transform: rotate(0);
+}
+
+.checkable__input:focus {
+	outline: 0;
+}
+
+.checkable__input:focus:before, .checkable__input:hover:before {
+	background-color: #e8f3ff;
+	border-color: #3182f6;
+}
+
+.checkable__input:checked:before, .checkable__input[type="checkbox"]:indeterminate:before
+	{
+	border-color: #3182f6;
+	background-color: #3182f6;
+}
+
+.checkable__input:checked:after, .checkable__input[type="checkbox"]:indeterminate:after
+	{
+	opacity: 1;
+}
+
+.checkable__input:disabled:before {
+	background-color: #f2f4f6;
+	border-color: rgba(0, 23, 51, 0.02);
+}
+
+.checkable__input:disabled:checked:before, .checkable__input:disabled[type="checkbox"]:indeterminate:before
+	{
+	background-color: #e5e8eb;
+	border-color: #e5e8eb;
+}
+
+.checkable__input[type="checkbox"]:before {
+	border-radius: 6px;
+}
+
+.checkable__input[type="radio"]:before {
+	border-radius: 12px;
+}
+
+.checkable__label-text {
+	display: inline-block;
+	padding-left: 8px;
+}
+
+.checkable--disabled>.checkable__input {
+	cursor: not-allowed;
+}
+
+.checkable--disabled>.checkable__label {
+	color: #b0b8c1;
+	cursor: not-allowed;
+}
+
+.checkable--read-only {
+	pointer-events: none;
+}
+
+.p-flex {
+	display: flex;
+}
+
+.p-grid {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin-right: -24px;
+	justify-content: center;
+}
+
+.p-grid-col {
+	flex-grow: 1;
+	padding-right: 24px;
+}
+
+.p-grid-col1 {
+	flex: 0 0 8.33333%;
+	max-width: 8.33333%;
+}
+
+.p-grid-col2 {
+	flex: 0 0 16.66667%;
+	max-width: 16.66667%;
+}
+
+.p-grid-col3 {
+	flex: 0 0 25%;
+	max-width: 25%;
+}
+
+.p-grid-col4 {
+	flex: 0 0 33.33333%;
+	max-width: 33.33333%;
+}
+
+.p-grid-col5 {
+	flex: 0 0 41.66667%;
+	max-width: 41.66667%;
+}
