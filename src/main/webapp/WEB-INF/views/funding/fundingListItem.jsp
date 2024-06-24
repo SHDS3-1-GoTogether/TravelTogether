@@ -16,6 +16,7 @@
 </script>
 </head>
 <body>
+${result}
 	<c:forEach var="fund" items="${fundlist}">
 		<div class="item" onclick="location.href='fundingDetail.do?funding_id=${fund.funding_id}'">
 			<div class="item_img_div">

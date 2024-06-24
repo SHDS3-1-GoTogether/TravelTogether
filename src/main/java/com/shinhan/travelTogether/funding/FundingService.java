@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.funding;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class FundingService {
 	
 	public List<HashMap<Integer, String>> selectFudingTheme() {
 		return fundingDAO.selectFudingTheme();
+	}
+	
+	public List<FundingDTO> selectByCondition(String search_title, String search_area, int theme, Date search_start, Date search_end){
+		return fundingDAO.selectByCondition(search_title, search_area, theme, search_start, search_end);
 	}
 	
 	public int insertFunding(FundingDTO fund) {

@@ -1,10 +1,8 @@
 package com.shinhan.travelTogether.funding;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -45,8 +43,8 @@ public class FundingController {
 	private String bucket;
 	
 	@GetMapping("/fundingList.do") 
-	public void selectAll() {
-		System.out.println(this.bucket);
+	public void selectAll(Model model) {
+		model.addAttribute("theme", tService.selectTheme());
 	}
 	
 	//ÆÝµù ¸ñ·Ï
@@ -55,6 +53,24 @@ public class FundingController {
 		
 		model.addAttribute("fundlist", fService.selectAll(selectOption));
 		model.addAttribute("tlist", fService.selectFudingTheme());
+	}
+	
+	//ÆÝµù °Ë»ö
+	@GetMapping("/searchFunding.do")
+	public String selectByCondition(Model model,
+			String search_title,
+			String search_area,
+			@RequestParam(value="search_start", required=false, defaultValue="2023-01-01") Date search_start,
+			int theme,
+			@RequestParam(value="search_end", required=false, defaultValue="2050-01-01") Date search_end ) {
+	
+		/*
+		 * Date start = Date.valueOf(search_start); Date end = Date.valueOf(search_end);
+		 */
+		model.addAttribute("fundlist", fService.selectByCondition(search_title, search_area, theme, search_start, search_end));
+		model.addAttribute("tlist", fService.selectFudingTheme());
+		return "funding/fundingListItem";
+		
 	}
 
 

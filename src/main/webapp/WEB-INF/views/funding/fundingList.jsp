@@ -54,7 +54,7 @@ $(function(){
     		url:"fundingListItem.do",
     		type:"get",
     		data: "selectOption="+selectOption,
-    	  success:function(responseData) {
+    	  	success:function(responseData) {
     		  $(".items").html(responseData); 
     	  }
       })
@@ -78,6 +78,18 @@ $(function(){
       }
     }
   }
+	function do_search() {
+		var param = $("#searchCondition").serialize();
+		$.ajax({
+			url:"searchFunding.do",
+			type:"get",
+			data:param,
+			success:function(responseData) {
+	    		$(".items").html(responseData); 
+			}
+		})
+
+	}
 </script>
 </head>
 <body>
@@ -85,18 +97,26 @@ $(function(){
 	<div class="content_wrapper">
 	<h1 class="pageTitle">Funding List</h1>
 		<button class="goBtn" onclick="location.href='fundingInput.do'">펀딩 만들기</button>
-		<form class="search_wrapper">
+		<form id="searchCondition" class="search_wrapper">
 			<span class="search_left">
-				<span>제&nbsp&nbsp목 : <span class="input-wrapper"><input type="text" name="serarch_title"></span></span><br>
-				<span>지&nbsp&nbsp역 : <span class="input-wrapper"><input type="text" name="serarch_area"></span> </span><br>
-				<span>출발일 : <span class="input-wrapper"><input type="date" name="search_start"></span> </span><br>
+				<span>제&nbsp&nbsp목 : <span class="input-wrapper"><input type="text" name="search_title"></span></span><br>
+				<span>지&nbsp&nbsp역 : <span class="input-wrapper"><input type="text" name="search_area"></span> </span><br>
+				<span>출발일 : <span class="input-wrapper"><input type="date" name="search_start" value="2024-01-01"></span> </span><br>
 			</span>
 			<span class="search_right">
-				<span>카테고리 : <span class="input-wrapper"><input type="text" name="serarch_category"></span></span><br>
-				<span>&nbsp도착일 &nbsp&nbsp: <span class="input-wrapper"><input type="date" name="search_end"> </span></span>
+				<span> 
+				테마 : 
+				<select name="theme">
+						<option value="0">테마 없음</option>
+						<c:forEach items="${theme}" var="theme">
+							<option value="${theme.theme_id}">${theme.title}</option>
+						</c:forEach>
+				</select> 
+				</span>
+				<span>&nbsp도착일 &nbsp&nbsp: <span class="input-wrapper"><input type="date" name="search_end" value="2030-01-01"> </span></span>
 			</span>
-			<input class="search_submit" type="submit" value="검색">
-		</form> <br>
+		</form> 
+		<button class="search_submit" onclick="do_search()">검색</button>
 	
 		 <div class="dropdown">
 		    <button class="dropbtn">

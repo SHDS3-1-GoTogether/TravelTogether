@@ -1,7 +1,9 @@
 package com.shinhan.travelTogether.funding;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -38,6 +40,19 @@ public class FundingDAO {
 	
 	public List<HashMap<Integer, String>> selectFudingTheme() {
 		return sqlSession.selectList(namespace + "selectFudingTheme");
+	}
+	
+	public List<FundingDTO> selectByCondition(String search_title, String search_area, int theme, Date search_start, Date search_end) {
+		Map<String, Object> option = new HashMap<>();
+		option.put("search_title", search_title);
+		option.put("search_area", search_area);
+		option.put("theme", theme);
+		option.put("search_start", search_start);
+		option.put("search_end", search_end);
+		
+		List<FundingDTO> fund = sqlSession.selectList(namespace + "selectbyCondition", option);
+		
+		return fund;
 	}
 
 

@@ -45,11 +45,6 @@
 					<span>총 예산 : <input type="number" name="price"></span><br>
 					<span>
 						테마 :
-<%-- 						<select name="theme">
-							<c:forEach items="${theme}" var="theme">
-								<option value="${theme.theme_id}">${theme.title}</option>
-							</c:forEach>
-						</select>  --%>
 						<c:forEach items="${theme}" var="theme">
 							<input type="checkbox" name="theme" value="${theme.theme_id}">${theme.title}
 						</c:forEach>
