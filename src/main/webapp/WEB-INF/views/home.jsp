@@ -1,14 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
 	rel="stylesheet">
-<html>
-<head>
-<%@ include file="common/header.jsp"%>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
 
 <title>트래블 투게더</title>
 <style>
@@ -60,6 +63,7 @@
 </head>
 
 <body>
+	<%@ include file="common/header.jsp"%>
 	<div class="container2">
 		<img src="${path}/resources/images/main.jpg" alt="메인이미지"
 			class="main_img">

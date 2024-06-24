@@ -2,14 +2,6 @@ html {
 	height: 100%;
 }
 
-.container {
-	width: 60%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-}
-
 body {
 	margin: 0;
 	padding: 0;
@@ -17,12 +9,12 @@ body {
 	display: flex;
 }
 
-.content {
+.mypage-qna-content {
 	flex-grow: 1;
 	padding: 40px 80px;
 }
 
-.content h2 {
+.mypage-qna-content h2 {
 	width: 75%;
 	margin: 0 auto; margin-top : 20px;
 	margin-bottom: 20px;
@@ -117,23 +109,23 @@ body {
 	width: 8%;
 }
 
-.coupon-title {
+.qna-title {
 	width: 25% !important;
 }
 
-.coupon-price {
+.qna-price {
 	width: 12% !important;
 }
 
-.coupon-target {
+.qna-target {
 	width: 10% !important;
 }
 
-.coupon-button {
+.qna-button {
 	width: 5% !important;
 }
 
-.data .coupon-title {
+.data .qna-title {
 	text-align: left !important;
 }
 
@@ -146,7 +138,7 @@ body {
 	cursor: pointer;
 }
 
-.add-coupon-modal-box, .edit-coupon-modal-box {
+.add-qna-modal-box, .edit-qna-modal-box {
 	display: none;
 	width: 40%;
 	height: fit-content;
