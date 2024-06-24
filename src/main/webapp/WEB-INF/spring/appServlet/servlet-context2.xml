@@ -11,8 +11,13 @@
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location"
-			value="/WEB-INF/spring/appServlet/oracleDB.properties" />
+		<property name="locations">
+		<list>
+			<value>/WEB-INF/spring/appServlet/oracleDB.properties</value>
+			<value>/WEB-INF/spring/appServlet/application.properties</value>
+		</list>
+
+		</property>
 		<property name="fileEncoding" value="UTF-8" />
 	</bean>
 

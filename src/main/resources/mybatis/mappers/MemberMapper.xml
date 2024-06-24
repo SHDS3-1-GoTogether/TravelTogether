@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shinhan.member">
+
+	<select id="loginChk"
+		resultType="membervo"
+		parameterType="string">
+		select *
+		from tt_member
+		where login_id = #{login_id}
+	</select>
+
+	<insert id="memberInsert" parameterType="membervo">
+		insert into tt_member(member_id, login_id, login_pwd, username, nickname,
+		phone, email, gender, birth, is_manager, token, acc_amount, membership_id)
+		values(MEMBER_SEQ.nextval,#{login_id},#{login_pwd},#{username},#{nickname},#{phone},#{email},
+		#{gender},#{birth},0,null,0,'뚜벅이')
+	</insert>
+	
+</mapper>
