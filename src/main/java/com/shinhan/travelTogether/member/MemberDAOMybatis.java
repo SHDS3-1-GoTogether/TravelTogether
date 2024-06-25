@@ -49,5 +49,10 @@ public class MemberDAOMybatis {
 		return member;
 	}
 	
+	public int updateMember(MemberDTO member) {
+		logger.info("DeptDAOMybatis....memberUpdate()");
+		return sqlSession.insert(namespace + "memberUpdate", member);
+	}
+	
 	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 메일 서버 관련 정보 설정 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<!-- google SMTP 메일 서버 포트 -->
+		<property name="port" value="587" />
+
+		<!-- 자신의 메일, 비밀번호 설정 -->
+		<property name="username" value="testd6145@gmail.com" />
+		<!-- 2단계 인증 16자리 비밀번호 -->
+		<property name="password" value="비밀입니다" />
+
+		<!-- 메일 전달 프로토콜 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

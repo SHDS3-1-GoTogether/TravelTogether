@@ -7,7 +7,11 @@
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
+		<!-- 
+		spring 폴더 내 모든 설정 파일을 읽어 오도록 수정
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		 -->
+		<param-value>/WEB-INF/spring/*.xml</param-value>
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->

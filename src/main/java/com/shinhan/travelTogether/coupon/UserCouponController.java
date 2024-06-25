@@ -27,11 +27,11 @@ public class UserCouponController {
 	@GetMapping("/couponList.do")
 	public void userCouponList(Model model, HttpSession session){
 		
-		// ·Î±×ÀÎ ±â´É ±¸Çö½Ã ¼öÁ¤
+		// ë¡œê·¸ì¸ ê¸°ëŠ¥ êµ¬í˜„ì‹œ ìˆ˜ì •
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
 		System.out.println(couponlist.toString());
-		logger.info(couponlist.size()+"°Ç Á¶È¸µÊ");
+		logger.info(couponlist.size()+"ê±´ ì¡°íšŒë¨");
 		model.addAttribute("couponlist", couponlist);
 	}
 }
