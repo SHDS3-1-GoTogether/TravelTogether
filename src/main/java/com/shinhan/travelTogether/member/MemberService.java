@@ -20,4 +20,9 @@ public class MemberService {
 	public MemberDTO idDupChk(String login_id) {
 		return memberDAO.idDupChk(login_id);
 	}
+	
+	public int updateMember(MemberDTO member) {
+		return memberDAO.updateMember(member);
+	}
+
 }

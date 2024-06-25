@@ -20,7 +20,7 @@
 
 .list-group {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-around;
 	padding-inline-start: 0;
 }

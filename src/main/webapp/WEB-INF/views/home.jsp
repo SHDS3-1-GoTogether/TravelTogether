@@ -9,63 +9,22 @@
 <html>
 <head>
 <%@ include file="common/header.jsp"%>
-
+<link rel="stylesheet" href="${path}/resources/css/home.css">
 <title>트래블 투게더</title>
-<style>
-.container2 {
-	height: 100vh;
-	width: 75vw;
-	font-family: "Do Hyeon", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	font-size: 40px;
-	display: flex;
-	justify-content: center;
-	position: relative;
-	text-align: center;
-	margin: 0 auto;
-	margin-top: 5px;
-}
-
-.main_img {
-	opacity: 0.5;
-	width: 93%;
-	height: 57%;
-}
-
-.my_div {
-	width: 50%;
-	height: auto;
-	padding: 20px;
-	border: 3px solid #5242F2;
-	border-radius: 100px;
-	color: #5242F2;
-	background-color: rgba(255, 255, 255, 0.8);
-	/* optional: to make text more readable */
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: "Do Hyeon", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	font-size: 40px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -200%);
-}
-</style>
-
 </head>
 
 <body>
 	<div class="container2">
 		<img src="${path}/resources/images/main.jpg" alt="메인이미지"
 			class="main_img">
-		<div class="my_div">여행가고 싶은데 혼자 가기는 싫을 때.. 같이 갈래?</div>
+		<div class="my_div">&nbsp;&nbsp;여행가고 싶은데 혼자 가기는 싫을 때.. 같이
+			갈래?&nbsp;&nbsp;</div>
+		<a href="#">
+			<div class="my_div2">
+				<p>Click!</p>
+			</div>
+		</a>
 	</div>
-
 
 
 	<img src="${path}/resources/images/fire.png" alt="불">
