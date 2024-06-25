@@ -21,7 +21,7 @@
 			</c:if> 
 			<c:if test="${member!=null }">
 				<img src="${path}/resources/images/profile.png" alt="프로필이미지" class="profile_img">
-   				<span>${member.nickname }님</span>
+   				<span>${member.nickname}님</span>
    				<a href="${path}/auth/logout.do">로그아웃</a>
 			</c:if>
 		</li>
