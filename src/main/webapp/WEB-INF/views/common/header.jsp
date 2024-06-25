@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css">
-
 <nav class="navbar" id="tt_header">
 	<a class="navbar-brand" href="${path }"> <img
 		src="${path}/resources/images/logo.gif" alt="트투">

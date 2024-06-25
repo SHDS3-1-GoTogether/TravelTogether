@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,30 +34,24 @@
 </script>
 </head>
 <body>
-	<div class="container">
-		<%@ include file="../common/header.jsp"%>
-		<%@ include file="./mypageMenu.jsp"%>
-		<div class="mypage-coupon-content">
-			<h2>
-				<i class="fas fa-tags"></i> 보유쿠폰
-			</h2>
-			<div class="coupon-content-wrap">
-				<c:forEach items="${couponlist}" var="coupon">
-					<div class="coupon-item-wrap">
-						<c:if test="${coupon.discount_rate > 0}">
-							<div class="coupon-title">${coupon.title}</div>
-							<div class="coupon-info1">
-								<div class="coupon-info-max-discount">
-									<p>최대할인금액</p>
-									<p>
-										<fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>
-										원
-									</p>
-								</div>
-								<div class="coupon-info-due-date">
-									<p>만료일</p>
-									<p>${coupon.due_date}</p>
-								</div>
+
+<div class="container">
+	<%@ include file="../common/header.jsp" %>
+	<%@ include file="./mypageMenu.jsp" %>
+	<div class="mypage-coupon-content">
+		<h2><i class="fas fa-tags"></i> 보유쿠폰</h2>
+		<div class="coupon-content-wrap">
+			<c:if test="${fn:length(couponlist) <= 0}">
+				<div class="no-coupon-content">사용가능한 쿠폰이 없습니다.</div>
+			</c:if>
+			<c:forEach items="${couponlist}" var="coupon">
+				<div class="coupon-item-wrap">
+					<c:if test="${coupon.discount_rate > 0}">
+						<div class="coupon-title">${coupon.title}</div>
+						<div class="coupon-info1">
+							<div class="coupon-info-max-discount">
+								<p>최대할인금액</p>
+								<p><fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>원</p>
 							</div>
 						</c:if>
 						<c:if test="${coupon.discount_rate == 0}">
@@ -72,6 +69,7 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="../common/footer.jsp"%>
+	<%@ include file="../common/footer.jsp" %>
+</div>
 </body>
 </html>

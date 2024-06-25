@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.qna">
+	<select id="selectAllUserQnA" parameterType="int" resultType="userqnavo">
+    	select qna_category, title, create_date, answer_date
+		from tt_qna
+		where member_id = #{member_id}
+  	</select>
+  	
+</mapper>

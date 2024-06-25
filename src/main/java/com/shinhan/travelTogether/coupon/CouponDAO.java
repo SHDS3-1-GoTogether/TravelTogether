@@ -46,4 +46,10 @@ public class CouponDAO {
 		logger.info(result==1 ? "** 쿠폰삭제 성공 **" : "** 쿠폰삭제 실패 **");
 		return result;
 	}
+	
+	public int updateAdminCoupon(AdminCouponDTO adminCouponDto) {
+		int result = sqlSession.update(namespace+"updateAdminCoupon", adminCouponDto);
+		logger.info(result==1 ? "** 쿠폰수정 성공 **" : "** 쿠폰수정 실패 **");
+		return result;
+	}
 }
