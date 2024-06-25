@@ -1,6 +1,7 @@
 package com.shinhan.travelTogether.photo;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -60,7 +61,7 @@ public class PhotoService {
 		
         s3Client.putObject(new PutObjectRequest(detailBucket, saveFileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return s3Client.getUrl(bucket, saveFileName).toString();
+        return s3Client.getUrl(detailBucket, saveFileName).toString();
     }
 	
 	
@@ -72,6 +73,10 @@ public class PhotoService {
 	
 	public List<String> selectUserPhoto(int funding_id) {
 		return photoDAO.selectUserPhoto(funding_id);
+	}
+	
+	public List<HashMap<Integer, String>> selectMainPhoto() {
+		return photoDAO.selectMainPhoto();
 	}
 	
 	

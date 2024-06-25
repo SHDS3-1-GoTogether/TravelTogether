@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.photo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,6 +21,10 @@ public class PhotoDAO {
 	
 	public List<String> selectUserPhoto(int funding_id) {
 		return sqlSession.selectList(namespace + "selectUserPhoto", funding_id);
+	}
+	
+	public List<HashMap<Integer, String>> selectMainPhoto() {
+		return sqlSession.selectList(namespace + "selectMainPhoto");
 	}
 	
 }

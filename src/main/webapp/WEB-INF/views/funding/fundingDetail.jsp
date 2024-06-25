@@ -12,8 +12,9 @@
 	<div>fund.title</div>
 	<c:forEach var="pic" items="${pic}">
 		<img alt="${pic}" 
-		src="${path}/resources/uploads/${pic}"
+		src="${pic}"
 		width="200" height="200">
-	</c:forEach>
+
+	</c:forEach>		
 </body>
 </html>

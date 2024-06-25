@@ -97,27 +97,28 @@ $(function(){
 	<div class="content_wrapper">
 	<h1 class="pageTitle">Funding List</h1>
 		<button class="goBtn" onclick="location.href='fundingInput.do'">펀딩 만들기</button>
-		<form id="searchCondition" class="search_wrapper">
+		<div class="search_wrapper">
+		<form id="searchCondition" >
 			<span class="search_left">
 				<span>제&nbsp&nbsp목 : <span class="input-wrapper"><input type="text" name="search_title"></span></span><br>
 				<span>지&nbsp&nbsp역 : <span class="input-wrapper"><input type="text" name="search_area"></span> </span><br>
 				<span>출발일 : <span class="input-wrapper"><input type="date" name="search_start" value="2024-01-01"></span> </span><br>
 			</span>
 			<span class="search_right">
-				<span> 
-				테마 : 
-				<select name="theme">
+				<span class="input-wrapper"> 
+				테&nbsp&nbsp마 : 
+				<select name="theme" class="select">
 						<option value="0">테마 없음</option>
 						<c:forEach items="${theme}" var="theme">
 							<option value="${theme.theme_id}">${theme.title}</option>
 						</c:forEach>
 				</select> 
 				</span>
-				<span>&nbsp도착일 &nbsp&nbsp: <span class="input-wrapper"><input type="date" name="search_end" value="2030-01-01"> </span></span>
+				<span>도착일 : <span class="input-wrapper"><input type="date" name="search_end" value="2030-01-01"> </span></span>
 			</span>
 		</form> 
 		<button class="search_submit" onclick="do_search()">검색</button>
-	
+		</div>
 		 <div class="dropdown">
 		    <button class="dropbtn">
 		      <span class="dropbtn_content">최신순</span>

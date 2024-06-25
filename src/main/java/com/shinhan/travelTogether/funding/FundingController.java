@@ -53,6 +53,7 @@ public class FundingController {
 		
 		model.addAttribute("fundlist", fService.selectAll(selectOption));
 		model.addAttribute("tlist", fService.selectFudingTheme());
+		model.addAttribute("plist", pService.selectMainPhoto());
 	}
 	
 	//ÆÝµù °Ë»ö
@@ -69,6 +70,8 @@ public class FundingController {
 		 */
 		model.addAttribute("fundlist", fService.selectByCondition(search_title, search_area, theme, search_start, search_end));
 		model.addAttribute("tlist", fService.selectFudingTheme());
+		model.addAttribute("plist", pService.selectMainPhoto());
+
 		return "funding/fundingListItem";
 		
 	}
