@@ -28,7 +28,7 @@
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
-		    	<a href="" class="menu-link">
+		    	<a href="${path}/mypage/qnaList.do" class="menu-link" id="qna-link">
 		    		<i class="fas fa-question-circle"></i> Q&amp;A
 		    	</a>
 		    </li>

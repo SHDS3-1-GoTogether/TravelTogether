@@ -3,17 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css">
-
 <%-- <link rel="icon" href="${path}/resources/images/logo.gif"> --%>
 <nav class="navbar" id="tt_header">
 	<a class="navbar-brand" href="${path }"> <img
 		src="${path}/resources/images/logo.gif" alt="트투" >
 	</a>
 	<ul class="navbar-menu" id="navbarMenu">
-		<li><a href="#">일반펀딩</a></li>
+		<li><a href="${path}/funding/fundingList.do">일반펀딩</a></li>
 		<li><a href="#">랜덤펀딩</a></li>
 		<li><a href="#">후기</a></li>
-		<li><a href="#">관리자</a></li>
+		<li><a href="${path}/admin/couponList.do">관리자</a></li>
 	</ul>
 	<ul class="navbar-menu2" id="navbarMenu2">
 		<li>
