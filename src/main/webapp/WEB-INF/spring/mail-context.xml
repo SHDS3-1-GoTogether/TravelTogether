@@ -11,9 +11,9 @@
 		<property name="port" value="587" />
 
 		<!-- 자신의 메일, 비밀번호 설정 -->
-		<property name="username" value="testd6145@gmail.com" />
+		<property name="username" value="${mail.username}" />
 		<!-- 2단계 인증 16자리 비밀번호 -->
-		<property name="password" value="비밀입니다" />
+		<property name="password" value="${mail.password}" />
 
 		<!-- 메일 전달 프로토콜 설정 -->
 		<property name="javaMailProperties">
