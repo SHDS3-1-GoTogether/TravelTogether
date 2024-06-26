@@ -1,7 +1,5 @@
 package com.shinhan.travelTogether.payment;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO {
-	private int payment_id;
-	private Date date;
+	private String payment_id;
+	private String payment_date;
 	private int price;
 	private int refund;
 	private String payment_method;
