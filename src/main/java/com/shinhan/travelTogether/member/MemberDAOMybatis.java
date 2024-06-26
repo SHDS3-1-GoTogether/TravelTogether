@@ -3,6 +3,7 @@ package com.shinhan.travelTogether.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -49,5 +50,9 @@ public class MemberDAOMybatis {
 		return member;
 	}
 	
-	
+	public List<MemberDTO> selectAllMember(){
+		List<MemberDTO> memberlist = sqlSession.selectList(namespace+"selectAllMember");
+		logger.info("<selectAllMember> "+memberlist.size()+"건 회원 조회 완료");
+		return memberlist;
+	}
 }

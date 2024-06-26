@@ -11,6 +11,10 @@
 		from tt_member
 		where login_id = #{login_id}
 	</select>
+	
+	<select id="selectAllMember" resultType="membervo">
+		select * from tt_member
+	</select>
 
 	<insert id="memberInsert" parameterType="membervo">
 		insert into tt_member(member_id, login_id, login_pwd, username, nickname,
