@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="mypage-menu-wrap">
-	<div class="user-info">
+<!-- 	<div class="user-info">
 		<p>트투러버 님</p>
 		<p><i class="fas fa-running"></i> 뚜벅이</p>
-	</div>
+	</div> -->
 	<div class="menu-list">
 		<ul class="list-group">			
 		    <li class="list-group-item">
-		    	<a href="" class="menu-link">
+		    	<a href="${path}/mypage/correction.do" class="menu-link">
 		    		<i class="fas fa-user"></i> 회원정보수정
 		    	</a>
 		    </li>
@@ -28,7 +28,7 @@
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
-		    	<a href="" class="menu-link">
+		    	<a href="${path}/mypage/qnaList.do" class="menu-link" id="qna-link">
 		    		<i class="fas fa-question-circle"></i> Q&amp;A
 		    	</a>
 		    </li>

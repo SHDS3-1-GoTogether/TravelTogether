@@ -26,4 +26,9 @@ public class MemberService {
 	public List<MemberDTO> selectAllMember(){
 		return memberDAO.selectAllMember();
 	}
+
+	public int updateMember(MemberDTO member) {
+		return memberDAO.updateMember(member);
+	}
+
 }
