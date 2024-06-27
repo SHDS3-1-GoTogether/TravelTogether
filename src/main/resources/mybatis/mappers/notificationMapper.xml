@@ -20,4 +20,10 @@
 		from tt_message
 		order by send_date desc
 	</select>
+	<select id="selectByMemberId" parameterType="Integer" resultType="notificationvo">
+		select *
+		from tt_message
+		where member_id = #{member_id}
+		order by send_date desc
+	</select>
 </mapper>

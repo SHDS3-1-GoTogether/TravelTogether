@@ -29,4 +29,16 @@ public class NotificationDAO {
 		logger.info("selectAllNotification> " + notificationlist.size()+"건 조회 완료");
 		return notificationlist;
 	}
+
+	public List<NotificationDTO> selectByMemberId(Integer member_id) {
+		List<NotificationDTO> notificationlist = sqlSession.selectList(namespace+"selectByMemberId", member_id);
+		logger.info("<selectByMemberId> "+notificationlist.size()+"건 알림 조회");
+		return notificationlist;
+	}
+
+	public NotificationDTO selectById(int notification_id) {
+		NotificationDTO notification = sqlSession.selectOne(namespace+"selectNotificationById", notification_id);
+		logger.info("<selectById> "+notification.toString() +" 조회 완료");
+		return notification;
+	}
 }
