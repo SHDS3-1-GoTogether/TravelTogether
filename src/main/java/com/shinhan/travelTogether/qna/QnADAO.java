@@ -24,4 +24,38 @@ public class QnADAO {
 		return qnalist;
 	}
 	
+	//사용자 QnA 등록
+	public int insertUserQnA(UserQnADTO userQnADto) {
+		int result = sqlSession.insert(namespace + "insertUserQnA", userQnADto);
+		logger.info(result==1? "** QnA등록 성공 **" : "** QnA등록 실패 **");
+		return result;
+	}
+	
+	//사용자 QnA 수정
+	public int updateUserQnA(UserQnADTO userQnADto) {
+		int result = sqlSession.update(namespace + "updateUserQnA", userQnADto);
+		logger.info(result==1? "** QnA수정 성공 **" : "** QnA수정 실패**");
+		return result;
+	}
+	
+	//사용자 QnA 삭제
+	public int deleteUserQnA(int qna_id) {
+		int result = sqlSession.delete(namespace + "deleteUserQnA", qna_id);
+		logger.info(result==1? " ** QnA삭제 성공 **" : "** QnA삭제 실패 **");
+		return result;
+	}
+	
+	//관리자 QnA 리스트 조회
+	public List<UserQnADTO> selectAllAdminQnA() {
+		List<UserQnADTO> qnalist = sqlSession.selectList(namespace + "selectAllAdminQnA");
+		logger.info("<selectAllAdminQnA> " + qnalist.size() + "건 QnA 조회");
+		return qnalist;
+	}
+	
+	//관리자 QnA 업데이트
+	public int updateAdminQnA(UserQnADTO userQnADto) {
+		int result = sqlSession.update(namespace + "updateAdminQnA", userQnADto);
+		logger.info(result==1? "** Admin QnA업데이트 성공 **" : "** Admin QnA업데이트 실패 **");
+		return result;
+	}
 }

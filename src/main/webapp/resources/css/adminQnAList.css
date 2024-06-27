@@ -2,14 +2,6 @@ html {
 	height: 100%;
 }
 
-/*.container {
-	width: 100%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-}*/
-
 /* body {
 	margin: 0;
 	padding: 0;
@@ -25,11 +17,12 @@ body {
 	/* padding: 20px; */
 }
 
-#tt_footer {
+/* #tt_footer {
 	position: relative;
 	bottom: 0;
 }
-
+ */
+ 
 .container {
 	width: 100%;
 	height: 100%;
@@ -38,7 +31,7 @@ body {
 	flex-direction: row;
 	/* padding: 20px; */
 }
-
+ 
 .content {
 	flex-grow: 1;
 	padding: 40px 80px;
@@ -52,7 +45,7 @@ body {
 	margin-top: 20px;
 }
 
-.option {
+.category {
 	width: 100%;
 	display: flex;
 	justify-content: space-between; margin : 0 auto;
@@ -60,18 +53,18 @@ body {
 	margin: 0 auto;
 }
 
-.select-option {
-	width: 50%;
+.select-category {
+	width: 100%;
 	padding: 10px 20px;
 }
 
-.select-option:first-child {
+.select-category:first-child {
 	display: flex;
 	gap: 10px;
 	align-items: flex-end;
 }
 
-.select-option:last-child {
+.select-category:last-child {
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
@@ -88,15 +81,6 @@ body {
 	height: 25px;
 	padding-left: 10px;
 	font-size: 1em;
-}
-
-.add-button {
-	padding: 10px;
-	background-color: #F1F1F4;
-	font-weight: bold;
-	border-radius: 10px;
-	border: 0;
-	cursor: pointer;
 }
 
 .list-table {
@@ -139,25 +123,29 @@ body {
 	width: 8%;
 }
 
-.coupon-title {
-	width: 25% !important;
+.qna-category {
+	width: 15% !important;
 }
 
-.coupon-price {
-	width: 12% !important;
+.qna-title {
+	width: 35% !important;
 }
 
-.coupon-target {
+.qna-create-date {
+	width: 15% !important;
+}
+
+.qna-answer-date {
+	width: 15% !important;
+}
+
+.qna-button {
 	width: 10% !important;
 }
 
-.coupon-button {
-	width: 5% !important;
-}
-
-.data .coupon-title {
+/* .data .qna-title {
 	text-align: left !important;
-}
+} */
 
 .button {
 	padding: 10px 15px;
@@ -168,7 +156,7 @@ body {
 	cursor: pointer;
 }
 
-.add-coupon-modal-box, .update-coupon-modal-box {
+.update-qna-modal-box {
 	display: none;
 	width: 40%;
 	height: fit-content;
@@ -202,7 +190,7 @@ form {
 	z-index: 99;
 }
 
-.add-coupon-modal-box .row, .update-coupon-modal-box .row {
+.update-qna-modal-box .row {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
@@ -242,23 +230,6 @@ form {
 	font-size: 1.1em;
 	line-height: 1.5;
 	padding: 10px;
-}
-
-.row span:first-of-type {
-	width: 5%;
-	align-self: center;
-	padding-left: 5px;
-	margin-bottom: 10px;
-	text-align: center;
-	color: #C4C4C4;
-	font-weight: bold;
-	font-size: 1em;
-}
-
-.row span:last-of-type {
-	width: 45%;
-	align-self: center;
-	text-align: right;
 }
 
 .row select {

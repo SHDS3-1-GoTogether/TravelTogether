@@ -1,47 +1,56 @@
-html {
-	height: 100%;
+body {
+	width: 100%;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
+.container {
+	width: 70vw;
+	margin: 0 auto;
 	display: flex;
+	flex-direction: column;
+	padding: 20px;
 }
 
 .mypage-qna-content {
-	flex-grow: 1;
-	padding: 40px 80px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
 }
 
-.mypage-qna-content h2 {
-	width: 75%;
-	margin: 0 auto; margin-top : 20px;
-	margin-bottom: 20px;
-	padding-left: 20px;
-	margin-top: 20px;
+.mypage-qna-content > h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-left: 20px;
 }
+
+/* .qna-content-wrap {
+	width: 100%;
+	border-radius: 8px;
+	padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+} */
 
 .option {
-	width: 75%;
+	width: 100%;
 	display: flex;
 	justify-content: space-between; margin : 0 auto;
-	padding: 10px 40px 10px 40px;
+	padding: 10px;
 	margin: 0 auto;
 }
 
-.select-option {
+.select-category {
 	width: 50%;
 	padding: 10px 20px;
 }
-
-.select-option:first-child {
+.select-category:first-child {
 	display: flex;
 	gap: 10px;
 	align-items: flex-end;
 }
 
-.select-option:last-child {
+.select-category:last-child {
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
@@ -69,8 +78,13 @@ body {
 	cursor: pointer;
 }
 
+/*  #tt_footer {
+	position: relative;
+	bottom: 0;
+} */
+
 .list-table {
-	width: 75%;
+	width: 100%;
 	margin: 0 auto;
 	border: 1px solid #C9C9C9;
 	border-radius: 8px;
@@ -109,27 +123,37 @@ body {
 	width: 8%;
 }
 
+.qna-category {
+	width: 15% !important;
+}
+
 .qna-title {
-	width: 25% !important;
+	width: 30% !important;
 }
 
-.qna-price {
-	width: 12% !important;
+.qna-create-date {
+	width: 10% !important;
 }
 
-.qna-target {
+.qna-answer-date {
 	width: 10% !important;
 }
 
 .qna-button {
+	width: 7% !important;
+}
+
+.qna-answer {
 	width: 5% !important;
 }
 
-.data .qna-title {
+/* .data .qna-title {
 	text-align: left !important;
-}
+} */
 
-.button {
+
+
+.button, .collapsible{
 	padding: 10px 15px;
 	border-radius: 10px;
 	background-color: #F9F9F9;
@@ -138,9 +162,35 @@ body {
 	cursor: pointer;
 }
 
-.add-qna-modal-box, .edit-qna-modal-box {
+.collapsible {
+  /*background-color: #777;
+  color: white;*/
+  cursor: pointer;
+  padding: 18px;
+  /*width: 100%;*/
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}
+.content {
+  padding: 20px 20px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  
+}
+
+
+.add-qna-modal-box, .update-qna-modal-box {
 	display: none;
-	width: 40%;
+	width: 50%;
 	height: fit-content;
 	border-radius: 20px;
 	padding: 20px 40px;
@@ -172,7 +222,7 @@ form {
 	z-index: 99;
 }
 
-.add-coupon-modal-box .row {
+.add-qna-modal-box .row, .update-qna-modal-box .row {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
@@ -194,14 +244,6 @@ form {
 	font-weight: bold;
 }
 
-.row input[type="number"] {
-	text-align: right;
-}
-
-.rate-fields input, .price-fields input {
-	width: 15% !important;
-}
-
 .row textarea {
 	resize: none;
 	width: 67%;
@@ -212,23 +254,6 @@ form {
 	font-size: 1.1em;
 	line-height: 1.5;
 	padding: 10px;
-}
-
-.row span:first-of-type {
-	width: 5%;
-	align-self: center;
-	padding-left: 5px;
-	margin-bottom: 10px;
-	text-align: center;
-	color: #C4C4C4;
-	font-weight: bold;
-	font-size: 1em;
-}
-
-.row span:last-of-type {
-	width: 45%;
-	align-self: center;
-	text-align: right;
 }
 
 .row select {
@@ -303,7 +328,7 @@ select option {
 	display: none;
 }
 
-.insert-result-modal-box, .delete-result-modal-box {
+.insert-result-modal-box, .delete-result-modal-box, .update-result-modal-box {
 	display: none;
 	width: 200px;
 	height: fit-content;
@@ -320,7 +345,7 @@ select option {
 	z-index: 99999;
 }
 
-.confirm-button, .delete-confirm-button {
+.confirm-button, .delete-confirm-button, .update-confirm-button {
 	width: 100%;
 	border: none;
 	border-radius: 10px;
