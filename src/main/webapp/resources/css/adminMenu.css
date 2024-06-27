@@ -28,13 +28,20 @@
 .side-menubar ul li {
     padding: 5px 20px;
     cursor: pointer;
+    color: black;
 }
 
-.side-menubar ul li p {
+.side-menubar ul li a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.side-menubar ul li a p {
 	display: inline-block;
+	color: inherit;
 }
 
-.side-menubar ul li p:first-child {
+.side-menubar ul li a p:first-child {
 	width: 23px;
 	text-align: center;
 	margin-right: 5px;

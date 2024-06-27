@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.photo">
+	<insert id="insertPhoto" parameterType="photovo">
+		insert into tt_photo(photo_id, purpose, photo_name, funding_id, review_id)
+		values(
+			photo_seq.nextval,
+			#{purpose},
+			#{photo_name},
+			#{funding_id},
+			#{review_id}
+		)
+	</insert>
+	
+	<select id="selectUserPhoto" parameterType="int" resultType="string">
+		select photo_name as "photo_name"
+		from (select * from tt_photo order by rownum) 
+		where funding_id=#{funding_id} and purpose=1
+	</select>
+	
+	<select id="selectMainPhoto" resultType="map">
+		select funding_id as "funding_id", photo_name as "photo_name"
+		from (
+		      select funding_id, photo_name, rank() over(partition by funding_id order by photo_id) as main
+		      from tt_photo
+		        )
+		    where main = 1
+	</select>
+</mapper>
