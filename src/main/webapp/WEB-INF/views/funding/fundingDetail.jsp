@@ -9,7 +9,11 @@
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
-	<div>fund.title</div>
+	<div>${fund.title}</div>
+	<div>${fund.funding_content}</div>
+	<div>${fund.start_date}</div>
+	<div>${fund.end_date}</div>
+	<div>${fund.price}</div>
 	<c:forEach var="pic" items="${pic}">
 		<img alt="${pic}" 
 		src="${pic}"

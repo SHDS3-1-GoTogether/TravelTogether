@@ -19,7 +19,7 @@ body {
 	font-weight: 700;
 	border-radius: 150px;
 	float: right;
-	margin-top: 55px;
+	margin-top: 20px;
 	right: 0px;
 }
 
@@ -131,7 +131,7 @@ body {
 .item {
 	width: 80%;
 	min-width: 700px;
-	height: 200px;
+	height: 250px;
 	position: relative;
 	display: block;
 	border: 1px solid rgba(0, 0, 0, 0.19);
