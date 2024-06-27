@@ -19,5 +19,8 @@
     	<typeAlias type="com.shinhan.travelTogether.photo.PhotoDTO" alias="photovo"/>
     	<typeAlias type="com.shinhan.travelTogether.theme.ThemeDTO" alias="themevo"/>
     	<typeAlias type="com.shinhan.travelTogether.theme.FundingThemeDTO" alias="fundingthemevo"/>
+    	<typeAlias type="com.shinhan.travelTogether.payment.PaymentFundingInfoDTO" alias="paymentFundingInfovo"/>
+    	<typeAlias type="com.shinhan.travelTogether.payment.RefundDTO" alias="refundvo"/>
+
 	</typeAliases>
 </configuration>

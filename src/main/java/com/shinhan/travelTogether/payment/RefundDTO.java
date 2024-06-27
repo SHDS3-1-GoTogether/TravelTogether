@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentDTO {
+public class RefundDTO {
 	private String payment_id;
 	private String payment_date;
 	private int price;
