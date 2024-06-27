@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.Base64"%>
@@ -55,6 +57,19 @@ Reader reader = new InputStreamReader(responseStream, "UTF-8");
 JSONParser parser = new JSONParser();
 JSONObject jsonObject = (JSONObject) parser.parse(reader);
 responseStream.close();
+
+//날짜 형식을 우리가 보는 형식으로 변환
+String approvedAt = (String) jsonObject.get("approvedAt");
+String formattedApprovedAt = approvedAt;
+
+try {
+SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+Date date = inputFormat.parse(approvedAt);
+formattedApprovedAt = outputFormat.format(date);
+} catch (Exception e) {
+e.printStackTrace();
+}
 %>
 
 <!DOCTYPE html>
@@ -86,13 +101,32 @@ responseStream.close();
 		<button class="button p-grid-col5" onclick="#" id="sendDataBtn">홈으로</button>
 	</div>
 	</div>
+	
+	
+	<div class="box_section" style="width: 600px; text-align: left">
+            <b>Response Data :</b>
+            <div id="response">
+              <pre>
+                <%
+                Set<String> keys = jsonObject.keySet();
+                for (String key : keys) {
+                %>
+                <%= key %>: <%= jsonObject.get(key) %>
+                <%
+                }
+                %>
+              </pre>
+            </div>
+          </div>
+	
 
 	<div class="box_section" style="width: 600px; text-align: left">
 		<b>Response Data :</b>
 		<div id="orderId"><%=jsonObject.get("orderId")%></div>
-		<div id="approvedAt"><%=jsonObject.get("approvedAt")%></div>
+		<div id="approvedAt"><%=formattedApprovedAt%></div>
 		<div id="totalAmount"><%=jsonObject.get("totalAmount")%></div>
 		<div id="provider"><%=jsonObject.get("easyPay")%></div>
+		<div id="paymentKey"><%=jsonObject.get("paymentKey") %></div>
 	</div>
 </body>
 <script>
@@ -101,21 +135,22 @@ document.getElementById('sendDataBtn').addEventListener('click', function() {
     var approvedAt = document.getElementById('approvedAt').innerText;
     var totalAmount = document.getElementById('totalAmount').innerText;
 	var providerJson = document.getElementById('provider').innerText;
-    
-	// 날짜만 파싱-----------------
-	//var approvedAtDate = approvedAt.split('T')[0];
+	var paymentKey = document.getElementById('paymentKey').innerText;
 	 
     // JSON 문자열 파싱-- 간편결제 결제 방법 파싱
     var providerObj = JSON.parse(providerJson);
     var provider = providerObj.provider;
     
     console.log(provider);
+    // paymentKey test
+    console.log("paymentKey : " + provider);
     
     var jsonData = {
     		orderId: orderId,
     		requestAt: approvedAt,
     		totalAmount: totalAmount,
     		provider: provider,
+    		paymentKey:paymentKey,
     };
 
     /* // Fetch API를 사용하여 데이터를 서버로 POST 방식으로 보냅니다.
@@ -146,7 +181,7 @@ document.getElementById('sendDataBtn').addEventListener('click', function() {
     })
     .then(response =>{
     	if(response.ok){
-    		window.location.href = '${path}/payment/pay.do'; // 성공 시 리디렉션
+    		window.location.href = '${path}/'; // 성공 시 리디렉션
     	}else{
     		window.location.href = '${path}/payment/fail.do'; // 실패 시 리디렉션
     	}

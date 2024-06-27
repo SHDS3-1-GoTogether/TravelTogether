@@ -1,8 +1,45 @@
 @charset "UTF-8";
 
+#logoutLink {
+    align-self: flex-end; /* 오른쪽 정렬 */
+    font-size: 12px; /* 크기 조정 */
+}
+
+#infoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 중앙 정렬 */
+    width: 100%; /* 필요에 따라 조정 */
+}
+
+#loginInfo{
+	 display: flex;
+    flex-direction: column;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 5px; /* 요소들 사이의 간격 */
+}
+
+#icons {
+    display: flex;
+    gap: 10px; /* 아이콘 간의 간격 조정 */
+    margin: 20px;
+}
+
+
+/* 전체 아이콘 크기 키우기 */
+.far {
+    font-size: 30px; /* 원하는 크기로 설정 */
+}
+
+#chat {
+	height: 30px;
+	width: 30px;
+}
 
 #tt_header {
-	font-size: 20px;
+	
+	font-size: 18px;
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: bold;
 	font-style: normal;
@@ -10,8 +47,14 @@
 	align-items: center;
 	width: 70vw;
 	margin: 0 auto;
+	min-width: 600px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.19);
 }
+.menuImage{
+	height: 30px;
+    width: 30px;
+}
+
 .navbar-menu {
 	display: inline-block;
 	float: left;
@@ -56,8 +99,8 @@
 }
 
 .navbar-brand img {
-	height: 150px;
-	width: 180px;
+    height: 150px;
+    width: 180px;
 }
 
 .profile_img {
@@ -65,3 +108,4 @@
 	width: 30px;
 	border-radius: 50%;
 }
+

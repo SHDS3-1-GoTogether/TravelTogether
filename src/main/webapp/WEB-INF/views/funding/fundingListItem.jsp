@@ -15,10 +15,14 @@
 </head>
 <body>
 	<c:forEach var="fund" items="${fundlist}">
-		<div class="item">
+		<div class="item" onclick="location.href='fundingDetail.do?funding_id=${fund.funding_id}'">
 			<div class="item_img_div">
-				<img class="item_img" alt="잘못된 경로"
-					src="${path}/resources/images/exImg.png" />
+				<c:forEach var="mainImg" items="${plist}">
+					<c:if test="${mainImg.funding_id==fund.funding_id}">
+						<img class="item_img" alt="${mainImg.photo_name}"
+					src="${mainImg.photo_name}" />
+					</c:if>
+				</c:forEach>
 			</div>
 			<div class="item_content">
 				<div>
