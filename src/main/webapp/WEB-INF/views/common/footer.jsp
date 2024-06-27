@@ -8,10 +8,7 @@
 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
 	rel="stylesheet">
 <style>
-body {
-    max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto; /* 가운데 정렬 */
-}
+
 #tt_footer {
     background-color: rgba(104, 166, 243, 0.7); /* 백그라운드 컬러에 투명도 설정 */
     text-align: center;
