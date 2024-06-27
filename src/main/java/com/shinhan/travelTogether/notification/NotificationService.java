@@ -15,12 +15,21 @@ public class NotificationService {
 	NotificationController notificationController;
 	
 	public int insertNotification(NotificationDTO notification) {
-		notificationController.sendNotification(notification.getMember_id(), notification.getMessage_content());
 		int notification_id = notificationDao.insertNotification(notification);
+		NotificationDTO new_notification = selectById(notification_id);
+		notificationController.sendNotification(new_notification);
 		return notification_id;
+	}
+
+	private NotificationDTO selectById(int notification_id) {
+		return notificationDao.selectById(notification_id);
 	}
 
 	public List<NotificationDTO> selectAll() {
 		return notificationDao.selectAll();
+	}
+
+	public List<NotificationDTO> selectByMemberId(Integer member_id) {
+		return notificationDao.selectByMemberId(member_id);
 	}
 }
