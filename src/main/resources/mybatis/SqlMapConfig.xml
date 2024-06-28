@@ -15,12 +15,12 @@
 		<typeAlias type="com.shinhan.travelTogether.member.MemberDTO" alias="membervo" />
   		<typeAlias type="com.shinhan.travelTogether.funding.FundingDTO" alias="fundvo"/>
   		<typeAlias type="com.shinhan.travelTogether.payment.PaymentDTO" alias="paymentvo"/>
+    	<typeAlias type="com.shinhan.travelTogether.qna.UserQnADTO" alias="qnavo"/>
     	<typeAlias type="com.shinhan.travelTogether.qna.UserQnADTO" alias="userqnavo"/>
     	<typeAlias type="com.shinhan.travelTogether.photo.PhotoDTO" alias="photovo"/>
     	<typeAlias type="com.shinhan.travelTogether.theme.ThemeDTO" alias="themevo"/>
     	<typeAlias type="com.shinhan.travelTogether.theme.FundingThemeDTO" alias="fundingthemevo"/>
     	<typeAlias type="com.shinhan.travelTogether.payment.PaymentFundingInfoDTO" alias="paymentFundingInfovo"/>
     	<typeAlias type="com.shinhan.travelTogether.payment.RefundDTO" alias="refundvo"/>
-
 	</typeAliases>
 </configuration>

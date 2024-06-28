@@ -264,7 +264,7 @@ form {
 
 .row select {
 	/*-o-appearance: none;
-	-webkit-appearance: none; /* ³×ÀÌÆ¼ºê ¿ÜÇü °¨Ãß±â
+	-webkit-appearance: none; /* ë„¤ì´í‹°ë¸Œ ì™¸í˜• ê°ì¶”ê¸°
 	-moz-appearance: none;
 	appearance: none;*/
 	width: 70%;
@@ -332,7 +332,7 @@ select option {
 	color: #fff;
 }
 
-/* Ã³À½¿¡´Â rate ÇÊµå¸¦ ¼û±è */
+/* ì²˜ìŒì—ëŠ” rate í•„ë“œë¥¼ ìˆ¨ê¹€ */
 .row .rate-fields, .row .price-fields {
 	display: none;
 }
