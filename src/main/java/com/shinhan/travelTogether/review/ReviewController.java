@@ -28,4 +28,5 @@ public class ReviewController {
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("fundinglist", fundinglist);
 	}
+	
 }

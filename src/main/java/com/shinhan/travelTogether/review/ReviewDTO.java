@@ -14,6 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ReviewDTO {
 	private int review_id;
+	private String review_content;
 	private Date create_date;
 	private int like_count;
 	private int views;
