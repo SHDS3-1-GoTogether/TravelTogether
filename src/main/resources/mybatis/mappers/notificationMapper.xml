@@ -26,4 +26,16 @@
 		where member_id = #{member_id}
 		order by send_date desc
 	</select>
+	<select id="selectFirstByMemberIdOrderBySendDateDesc"
+			parameterType="int"
+			resultType="notificationvo">
+		select *
+		from (
+		    select *
+		    from tt_message
+		    where member_id = #{member_id}
+		    order by send_date desc
+		)
+		where rownum = 1	
+	</select>
 </mapper>

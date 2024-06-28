@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+p {
+	margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
 #logoutLink {
 	align-self: flex-end; /* 오른쪽 정렬 */
 	font-size: 12px; /* 크기 조정 */
@@ -135,7 +144,6 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	width: 300px;
 	height: 500px;
-	z-index: 1000;
 }
 
 .notification-header {
@@ -151,7 +159,7 @@
 }
 
 .notification-plus {
-	width: 30%;
+	width: 50%;
 	display: inline-block;
 	font-size: 0.9em;
 	text-align: right;
