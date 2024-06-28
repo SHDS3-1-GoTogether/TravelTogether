@@ -19,6 +19,7 @@
 		src="${pic}"
 		width="200" height="200">
 
-	</c:forEach>		
+	</c:forEach>	
+	<button id="doPay" onclick="location.href=${path}/payment/pay.do?funding_id=${fund.funding_id}" >신청하기</button>	
 </body>
 </html>

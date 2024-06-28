@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -92,8 +93,9 @@ public class FundingController {
 		System.out.println(pService.selectUserPhoto(funding_id));
 	}
 	
+	@ResponseBody
 	@PostMapping("/fundingInput.do") 
-	public String inputFunding(HttpSession session, 
+	public int inputFunding (HttpSession session,
 								@RequestParam(value="accPicArr", required=false) MultipartFile accPicArr, 
 								@RequestParam(value="trafficPicArr", required=false) MultipartFile trafficPicArr,
 								@RequestParam(value="mainPicArr", required=false) MultipartFile mainPicArr,
@@ -126,7 +128,7 @@ public class FundingController {
 		}
 		
 		if(funding==null) {
-			return "redirect";
+			return 0;
 		}
 		if(funding.traffic==null && funding.accommodation == null)
 			funding.setConfirm_option(0);
@@ -166,17 +168,9 @@ public class FundingController {
 				insertPhotoList(extraPicArr, "/normal",  1);
 			}
 		 }
+		 
 
-		 
-		 
-		 
-		/*
-		 * System.out.println(result + "°Ç ÀÔ·Â");
-		 * 
-		 * setPhoto(multipart, request);
-		 */
-
-		return "redirect:fundingList.do";
+		return result;
 	}
 	
 

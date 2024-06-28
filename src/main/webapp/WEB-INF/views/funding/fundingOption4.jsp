@@ -7,8 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="text" id="title" name="title"><br>
-    <textarea id="content" name="content" cols="30" rows="5"></textarea><br>
+	<div id="title-wrapper" class="title-wrapper">
+		<input type="text" id="title" name="title" placeholder="제목을 입력해주세요"><br>
+	</div>
+	<div id="content-wrapper" class="content-wra[[er]]">
+    	<input type="text" id="content" name="content" placeholder="내용을 입력해주세요"><br>
+    </div>
     <button id="submit4" class="submit">NEXT</button>
     
 </body>

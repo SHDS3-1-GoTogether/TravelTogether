@@ -13,7 +13,7 @@
         <div class="header">
             <h5>여행 일정</h5>
         </div>
-        <div class=>
+        <div >
         	<div id="yearWrapper"></div>
 	        <div class="calendar-header">
 	        <img src="${path}/resources/images/vector-left.png" class="nav-button" id="prev-button">  	
@@ -29,14 +29,24 @@
 	                <div class="calendar" id="calendar2"></div>
 	            </div>
 	        </div>
-	        <div class="info-label">
-	        	<span>여행지</span>
-	            <span>인원</span>
-	        </div>
-	        <div class="info">
-	            <input type="text" id="area" placeholder="여행지를 입력해주세요.">
-	            <input type="number" id="people_num" placeholder="모집할 인원을 입력해주세요.">
-	        </div>
+	        <div class="inputBookWrapper2">
+		        <div class="info-wrapper">
+			        <div class="info-label">
+			        	<span>여행지</span>
+			        </div>
+			        <div class="info">
+			            <input type="text" id="area" placeholder="여행지를 입력해주세요.">
+			        </div>	        
+		        </div>
+				<div class="info-wrapper">
+			        <div class="info-label">
+			            <span>인원</span>
+			        </div>
+			        <div class="info">
+			            <input type="number" min="1" id="people_num" placeholder="모집할 인원을 입력해주세요.">
+			        </div>			
+				</div>
+			</div>
 	        <button id="submit1" class="submit">NEXT</button>
         </div>
     </div>

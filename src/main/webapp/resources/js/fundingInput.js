@@ -9,7 +9,7 @@ $(function() {
     	$("#" + inputArr[i]).hide();
     }
     //$("#input1").hide();
-    //$("#input5").show();
+ 	//$("#input4").show();
 
 	
 	function showInputOption(inputOption) {
@@ -20,7 +20,6 @@ $(function() {
 	    		$("#" + option).hide();
 	    });
 	}
-
 
 	    
 //DB에 넣을 data
@@ -45,6 +44,9 @@ $(function() {
 	    
 	    let themeSelection = [];
     	let themeTitle = [];
+    	
+    	
+
     
 //fundingOption 1 페이지 js 
 	    let currentMonth = new Date().getMonth();
@@ -72,7 +74,7 @@ $(function() {
         const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
         daysOfWeek.forEach(day => {
-            const $dayElement = $("<div>").addClass('day').text(day);
+            const $dayElement = $("<div>").addClass('daysOfWeek').text(day);
             $calendar.append($dayElement);
         });
 
@@ -195,6 +197,7 @@ $(function() {
 	 		var image = new Image();
 	 		var ImageTempUrl = window.URL.createObjectURL(accFile[0]);
 	 		image.src = ImageTempUrl;
+	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
 	 		$("#accImgArea").append(image);
 	 		accPicArr = document.getElementById('accommodation_pic').files[0];
 	 	}
@@ -208,7 +211,7 @@ $(function() {
 	 		var image = new Image();
 	 		var ImageTempUrl = window.URL.createObjectURL(accFile[0]);
 	 		image.src = ImageTempUrl;
-	 		console.log(ImageTempUrl)
+	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
 	 		$("#trafficImgArea").append(image);
 	 		trafficPicArr = document.getElementById('traffic_pic').files[0];
 	 	}
@@ -266,7 +269,7 @@ $(function() {
         const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
         weekDays.forEach(day => {
-            const $dayElement = $("<div>").addClass('grid-cell').text(day);
+            const $dayElement = $("<div>").addClass('grid-cell-week').text(day);
             $calendarContainer.append($dayElement);
         });
 
@@ -385,6 +388,7 @@ $(function() {
 		 	var image = new Image();
 		 	var ImageTempUrl = window.URL.createObjectURL(extraPic[0]);
 		 	image.src = ImageTempUrl;
+		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
 		 	$(this).after(image);
 		}
 	});
@@ -397,6 +401,7 @@ $(function() {
 		 	var image = new Image();
 		 	var ImageTempUrl = window.URL.createObjectURL(mainPic[0]);
 		 	image.src = ImageTempUrl;
+		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
 		 	$("#mainImgArea").append(image);
 		 	mainPicArr = $("input[name=main_pic]")[0].files[0];
 		 }
@@ -431,7 +436,21 @@ $(function() {
 			contentType: false,
 			processData:false,
 			success:function(data) {
-				console.log(data);
+				if(data=="1") {
+				swal(
+					'펀딩 성공',
+					'펀딩 제출에 성공했습니다. 관리자의 컨펌을 기다려주세요.',
+					'success'
+				).then(function() {
+					location.href="fundingList.do";
+				});
+				} else {
+				swal(
+					'펀딩 실패',
+					'펀딩 제출에 실패했습니다. 소중한 시간을 내어 다시 등록 부탁드립니다.',
+					'error'
+				)
+				}
 			}
 		});
 
