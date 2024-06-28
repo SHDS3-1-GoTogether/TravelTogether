@@ -20,7 +20,7 @@ import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/admin")
 public class AdminNotificationController {
 
 	@Autowired
@@ -29,45 +29,44 @@ public class AdminNotificationController {
 	@Autowired
 	MemberService memberService;
 	
-	@GetMapping("/admin/notificationList.do")
+	@GetMapping("/notificationList.do")
 	public void selectAllNotification(Model model) {
 		List<NotificationDTO> notificationlist = notificationService.selectAll();
 		model.addAttribute("notificationlist", notificationlist);
 	}
 	
-	@GetMapping("/admin/sendNotification.do")
-	public String sendNotificationView() {
-		
-		return "notification/sendNotification";
-	}
+	/*
+	 * @GetMapping("/sendNotification.do") public String sendNotificationView() {
+	 * 
+	 * return "notification/sendNotification"; }
+	 */
 	
-	@PostMapping("/admin/sendNotification.do")
-	public String sendNotification(NotificationDTO notification, RedirectAttributes attr) {
-		System.out.println("!!member_id = "+notification.getMember_id());
-		System.out.println(notification.getMessage_content());
-		
-		int notification_id = notificationService.insertNotification(notification);
-		if(notification_id > 0) { 
-			attr.addFlashAttribute("insertResult",1); // 알림 등록 성공 
-		} else { 
-			attr.addFlashAttribute("insertResult", 0); // 알림 등록실패 
-		}
-		
-		return "redirect:/admin/notificationList.do";
-	}
+	/*
+	 * @PostMapping("/sendNotification.do") public String
+	 * sendNotification(NotificationDTO notification, RedirectAttributes attr) {
+	 * System.out.println("!!member_id = "+notification.getMember_id());
+	 * System.out.println(notification.getMessage_content());
+	 * 
+	 * int notification_id = notificationService.insertNotification(notification);
+	 * if(notification_id > 0) { attr.addFlashAttribute("insertResult",1); // 알림 등록
+	 * 성공 } else { attr.addFlashAttribute("insertResult", 0); // 알림 등록실패 }
+	 * 
+	 * return "redirect:notificationList.do";
+	 
+	}*/
 	
-	@GetMapping("notificationTest")
-	public String notificationTest() {
-		return "/common/notification";
-	}
+	/*
+	 * @GetMapping("notificationTest") public String notificationTest() { return
+	 * "/common/notification"; }
+	 */
 	
-	@GetMapping("/admin/notificationInsert.do")
+	@GetMapping("/notificationInsert.do")
 	public void insertNotificationView(Model model) {
 		List<MemberDTO> memberlist = memberService.selectAllMember();
 		model.addAttribute("memberlist", memberlist);
 	}
 	
-	@PostMapping("/admin/notificationInsert.do")
+	@PostMapping("/notificationInsert.do")
 	public String insertNotification(@RequestParam("selectedMembers") String selectedMembers,
             						@RequestParam("message_content") String message_content) {
 		
@@ -77,10 +76,11 @@ public class AdminNotificationController {
 		for(String member_id : memberIdList) {
 			System.out.println("member_id = "+member_id);
 			int result = notificationService.insertNotification(new NotificationDTO(null, message_content, null, Integer.parseInt(member_id)));
+			notificationService.notifyMessage(Integer.parseInt(member_id));
 			resultlist.add(result);
 		}
 		System.out.println("알림 전송 결과 = "+resultlist.toString());
 		
-		return "redirect:/admin/notificationList.do";
+		return "redirect:notificationList.do";
 	}
 }

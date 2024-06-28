@@ -34,12 +34,14 @@
 </script>
 </head>
 <body>
-
+<%@ include file="../common/header.jsp" %>
+<div class="mypage-header">
+	<h2>마이페이지</h2>
+</div>
 <div class="container">
-	<%@ include file="../common/header.jsp" %>
 	<%@ include file="./mypageMenu.jsp" %>
 	<div class="mypage-coupon-content">
-		<h2><i class="fas fa-tags"></i> 보유쿠폰</h2>
+		<h3><i class="fas fa-tags"></i> 보유쿠폰</h3>
 		<div class="coupon-content-wrap">
 			<c:if test="${fn:length(couponlist) <= 0}">
 				<div class="no-coupon-content">사용가능한 쿠폰이 없습니다.</div>
@@ -53,23 +55,24 @@
 								<p>최대할인금액</p>
 								<p><fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>원</p>
 							</div>
-						</c:if>
-						<c:if test="${coupon.discount_rate == 0}">
-							<div class="coupon-title">${coupon.title}</div>
-							<%-- <div class="coupon-title"><fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>원 할인쿠폰</div> --%>
-							<div class="coupon-info2">
-								<div class="coupon-info-due-date">
-									<p>만료일</p>
-									<p>${coupon.due_date}</p>
-								</div>
+						</div>
+					</c:if>
+					<c:if test="${coupon.discount_rate == 0}">
+						<div class="coupon-title">${coupon.title}</div>
+						<%-- <div class="coupon-title"><fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>원 할인쿠폰</div> --%>
+						<div class="coupon-info2">
+							<div class="coupon-info-due-date">
+								<p>만료일</p>
+								<p>${coupon.due_date}</p>
 							</div>
-						</c:if>
-					</div>
-				</c:forEach>
-			</div>
+						</div>
+					</c:if>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
-	<%@ include file="../common/footer.jsp" %>
+	
 </div>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

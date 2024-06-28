@@ -27,6 +27,8 @@ import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
 import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
+import com.shinhan.travelTogether.notification.NotificationDTO;
+import com.shinhan.travelTogether.notification.NotificationService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -38,6 +40,9 @@ public class MypageController {
 	
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	NotificationService notificationService;
 
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -85,13 +90,22 @@ public class MypageController {
 	}
 
 	@GetMapping("/couponList.do")
-	public void userCouponList(Model model) {
+	public void userCouponList(Model model, HttpSession session) {
 
 		// 로그인 기능 구현시 수정
-		int userId = 1;
+		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
 		System.out.println(couponlist.toString());
-		logger.info(couponlist.size() + "건 조회됨");
+		logger.info(couponlist.size() + "건 쿠폰 조회됨");
 		model.addAttribute("couponlist", couponlist);
+	}
+	
+	@GetMapping("/notificationList.do")
+	public void notificationList(Model model, HttpSession session) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
+		System.out.println(notificationlist.get(0).getSend_date());
+		logger.info(notificationlist.size()+"건 알림 조회됨");
+		model.addAttribute("notificationlist", notificationlist);
 	}
 }

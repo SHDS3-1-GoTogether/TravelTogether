@@ -18,6 +18,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	$(function() {
+		// 현재 페이지의 URL 가져오기
+		var currentUrl = window.location.href;
+		$(".menu-link").removeClass("highlight");
+
+		// URL에 "correction"이 포함되어 있는지 확인
+		if (currentUrl.includes("correction")) {
+			// "회원정보 수정" 링크의 폰트 스타일 변경
+			$("#correction-link").addClass("highlight");
+		}
+		
 		$("#correction").on("click", f_correction);
 	});
 
@@ -60,13 +70,16 @@
 </style>
 </head>
 <body>
+	<%@ include file="../common/header.jsp"%>
+	<div class="mypage-header">
+		<h2>마이페이지</h2>
+	</div>
 	<div class="container">
-		<%@ include file="../common/header.jsp"%>
 		<%@ include file="./mypageMenu.jsp"%>
 		<div class="mypage-coupon-content">
-			<h2>
+			<h3>
 				<i class="fas fa-user"></i> 정보수정
-			</h2>
+			</h3>
 			<div class="coupon-content-wrap">
 			<div id="correctionForm">
 				<%@include file="correctionForm.jsp"%>

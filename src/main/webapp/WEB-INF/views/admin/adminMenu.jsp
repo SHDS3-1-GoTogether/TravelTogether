@@ -3,25 +3,25 @@
 <div class="side-menubar">
 	<ul class="side-menubar-list">
         <li id="dashboard">
-        	<a href="#">
+        	<a href="${path}/admin/dashboard.do">
 	        	<p><i class="fas fa-home"></i></p>
 	        	<p>대시보드</p>
         	</a>
         </li>
         <li id="memberMenu">
-        	<a href="#">
+        	<a href="${path}/admin/memberList.do">
 	        	<p><i class="fas fa-id-badge"></i></p>
 	        	<p>회원관리</p>
         	</a>
         </li>
         <li id="fundingMenu">
-        	<a href="#">
+        	<a href="${path}/admin/fundingList.do">
 	        	<p><i class="fas fa-suitcase-rolling"></i></p>
 	        	<p>펀딩관리</p>
         	</a>
         </li>
         <li id="qnaMenu">
-        	<a href="#">
+        	<a href="${path}/admin/qndList.do">
 	        	<p><i class="fas fa-question-circle"></i></p>
 	        	<p>Q&A관리</p>
         	</a>
