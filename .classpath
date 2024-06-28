@@ -41,7 +41,7 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/happy/eclipse-workspace/SH/lib/json-20230227.jar"/>
-	<classpathentry kind="lib" path="C:/Users/happy/eclipse-workspace/SH/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/shinhan3/eclipse-workspace/lib/json-20230227.jar"/>
+	<classpathentry kind="lib" path="C:/shinhan3/eclipse-workspace/lib/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
