@@ -2,6 +2,8 @@
 body {
 	width: 99%;
 	height: 100%;
+	position: relative;
+    z-index: 5;
 }
 
 html {
@@ -17,6 +19,7 @@ html {
 	min-width: 800px;
 	text-align: center;
 	margin-bottom: 200px;
+	z-index: -1;
 }
 
 /* 페이지 제목  */

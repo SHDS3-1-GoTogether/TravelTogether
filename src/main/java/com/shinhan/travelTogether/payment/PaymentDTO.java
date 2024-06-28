@@ -16,7 +16,7 @@ public class PaymentDTO {
 	private int price;
 	private int refund;
 	private String payment_method;
-	private int classification;
+	private String payment_key;
 	
 	private int member_id;
 	private int funding_id;

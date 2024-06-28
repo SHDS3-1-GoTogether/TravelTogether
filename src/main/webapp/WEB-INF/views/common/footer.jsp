@@ -8,13 +8,19 @@
 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
 	rel="stylesheet">
 <style>
+
 #tt_footer {
-	background-color: #68A6F3;
-	text-align: center;
-	color: #747579;
-	font-family: "Nanum Gothic", sans-serif;
-	font-weight: 400;
-	font-style: normal;
+    background-color: rgba(104, 166, 243, 0.7); /* 백그라운드 컬러에 투명도 설정 */
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 2;
+    
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 100px;
 }
 </style>
 <div id="tt_footer">

@@ -3,11 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.payment">
-	
+
 	<insert id="insertPaymentInfo" parameterType="paymentvo">
-	insert into tt_payment(payment_id, payment_date, price, refund,
-	 payment_method, classification, member_id, funding_id, coupon_record_id) values(#{payment_id},
-	 TO_TIMESTAMP_TZ(#{payment_date}, 'YYYY-MM-DD"T"HH24:MI:SS TZH:TZM'),#{price},#{refund},#{payment_method},#{classification},
-	 #{member_id},#{funding_id},#{coupon_record_id})
+		insert into
+		tt_payment(payment_id, payment_date, price, refund,
+		payment_method,
+		member_id, funding_id, payment_key, coupon_record_id)
+		values(#{payment_id},
+		TO_DATE(#{payment_date}, 'YYYY-MM-DD
+		HH24:MI:SS'),#{price},#{refund},#{payment_method},
+		#{member_id},#{funding_id},#{payment_key},#{coupon_record_id})
 	</insert>
+
+	<select id="getFundingInfo" parameterType="int"
+		resultType="paymentFundingInfovo">
+		SELECT f.title, f.price, m.nickname AS applicantNickname
+		FROM tt_funding f
+		JOIN tt_member m ON f.member_id = m.member_id
+		WHERE f.funding_id = #{fundingId}
+	</select>
+
 </mapper>
