@@ -50,6 +50,7 @@
 			</div>
 		</div>
 	</div>
+	<%@ include file="../common/footer.jsp"%>
 	<script>
 		$(function() {
 			$("#addBtn").on("click", f_addBtnClick);

@@ -40,6 +40,7 @@ body {
 }
 
 .content {
+	width: 70%;
 	flex-grow: 1;
 	padding: 40px 80px;
 }

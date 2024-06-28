@@ -35,7 +35,7 @@ public class MemberDAOMybatis {
 
 	public MemberDTO loginChk(String login_id, String login_pwd) {
 		MemberDTO member = sqlSession.selectOne("com.shinhan.member.loginChk", login_id);
-		logger.info(member == null ? "존재하지않는회원" : member.toString());
+		logger.info(member == null ? "議댁옱�븯吏��븡�뒗�쉶�썝" : member.toString());
 		return member;
 	}
 	
@@ -46,18 +46,22 @@ public class MemberDAOMybatis {
 	
 	public MemberDTO idDupChk(String login_id) {
 		MemberDTO member = sqlSession.selectOne("com.shinhan.member.loginChk", login_id);
-		logger.info(member == null ? "존재하지않는회원=사용가능" : member.toString());
+		logger.info(member == null ? "議댁옱�븯吏��븡�뒗�쉶�썝=�궗�슜媛��뒫" : member.toString());
 		return member;
 	}
 	
 	public List<MemberDTO> selectAllMember(){
 		List<MemberDTO> memberlist = sqlSession.selectList(namespace+"selectAllMember");
-		logger.info("<selectAllMember> "+memberlist.size()+"건 회원 조회 완료");
+		logger.info("<selectAllMember> "+memberlist.size()+"嫄� �쉶�썝 議고쉶 �셿猷�");
 		return memberlist;
 	}
 
 	public int updateMember(MemberDTO member) {
 		logger.info("DeptDAOMybatis....memberUpdate()");
 		return sqlSession.insert(namespace + "memberUpdate", member);
+	}
+	
+	public MemberDTO selectByMemberId(Integer member_id) {
+		return sqlSession.selectOne(namespace+"selectByMemberId", member_id);
 	}
 }

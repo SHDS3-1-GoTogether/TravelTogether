@@ -15,7 +15,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <nav class="navbar" id="tt_header">
-	<a class="navbar-brand" href="${path }"> <img
+	<a class="navbar-brand" href="${path}"> <img
 		src="${path}/resources/images/logo.gif" alt="트투">
 	</a>
 	<ul class="navbar-menu" id="navbarMenu">
@@ -29,7 +29,7 @@
 		<li><a href="#"><img class="menuImage"
 				src="${path}/resources/images/review.png" alt="후기">
 				<p>후기</p></a></li>
-		<li><a href="#"><img class="menuImage"
+		<li><a href="${path}/admin/dashboard.do"><img class="menuImage"
 				src="${path}/resources/images/manager.png" alt="관리자">
 				<p>관리자</p></a></li>
 		<li><a href="${path}/mypage/correction.do"><img
@@ -111,6 +111,8 @@
 			popupMenu.show();
 			$(this).attr("aria-expanded", "true");
 		}
+		console.log("!!!!!!!!!!!여기!!!!!!!!!!!!!!" + $(".content_wrapper").html())
+
 	}
 	
 	async function loadPreviousNotifications(member_id) {
@@ -179,20 +181,23 @@
         };--%>
         
         const eventSource = new EventSource("${path}/notifications/subscribe?member_id="+member_id);
-
+		console.log(eventSource);
         eventSource.addEventListener('notification', function(event) {
         	var data = event.data;
-            console.log('Received notification:', data.message_content);
-            <%--const notificationDiv = document.getElementById('notifications');
-            const newNotification = document.createElement('div');
-            newNotification.textContent = message;
-            notificationDiv.insertBefore(newNotification, notificationDiv.firstChild);
+        	const parsedData = JSON.parse(data);	
+       		console.log('Received notification:', parsedData);
+               <%--const notificationDiv = document.getElementById('notifications');
+               const newNotification = document.createElement('div');
+               newNotification.textContent = message;
+               notificationDiv.insertBefore(newNotification, notificationDiv.firstChild);
 
-            // 알림이 5개를 초과하면 마지막 알림을 제거
-            if (notificationDiv.children.length > 5) {
-                notificationDiv.removeChild(notificationDiv.lastChild);
-            }--%>
-            addNotification(data.message_content, 0, data.send_date);
+               // 알림이 5개를 초과하면 마지막 알림을 제거
+               if (notificationDiv.children.length > 5) {
+                   notificationDiv.removeChild(notificationDiv.lastChild);
+               }--%>
+               addNotification(parsedData.message_content, 0, parsedData.send_date);
+        	
+            
         });
 
         eventSource.onerror = function(event) {
@@ -212,7 +217,7 @@
         const notificationDiv = document.getElementById('notifications');
         const newNotification = document.createElement('div');
         const formatDate = formatTimestamp(send_date);
-        console.log(formatDate);
+        console.log(send_date);
         newNotification.className = 'notification';
         newNotification.innerHTML = `
             <div class="notification-content">

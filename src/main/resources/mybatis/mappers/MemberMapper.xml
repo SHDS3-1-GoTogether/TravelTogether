@@ -26,4 +26,8 @@
 	<update id="memberUpdate" parameterType="membervo">
         UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}
     </update>
+    
+    <select id="selectByMemberId" parameterType="int">
+    	select * from tt_member where member_id=#{member_id}
+    </select>
 </mapper>
