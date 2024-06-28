@@ -3,7 +3,9 @@ package com.shinhan.travelTogether.funding;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.photo.PhotoDTO;
 import com.shinhan.travelTogether.photo.PhotoService;
@@ -78,7 +82,7 @@ public class FundingController {
 
 
 	@GetMapping("/fundingInput.do")
-	public void inputPage(Model model){
+	public void inputPage(Model model, HttpSession session){
 		model.addAttribute("theme", tService.selectTheme());
 	}
 	
@@ -89,80 +93,114 @@ public class FundingController {
 		System.out.println(pService.selectUserPhoto(funding_id));
 	}
 	
-	
-	//펀딩 글 작성
+	@ResponseBody
 	@PostMapping("/fundingInput.do") 
-	public String inputFunding(HttpSession session, MultipartHttpServletRequest multipart ) throws IOException {
-		HttpServletRequest request = (HttpServletRequest) multipart;
+	public int inputFunding (HttpSession session,
+								@RequestParam(value="accPicArr", required=false) MultipartFile accPicArr, 
+								@RequestParam(value="trafficPicArr", required=false) MultipartFile trafficPicArr,
+								@RequestParam(value="mainPicArr", required=false) MultipartFile mainPicArr,
+								@RequestParam(value="extraPicArr", required=false) List<MultipartFile> extraPicArr,
+								@RequestParam("fund") String fundJson,
+								@RequestParam("theme") String[] themeList
+								) throws IOException {
+		
+		 
+		 System.out.println(accPicArr);
+		 if(trafficPicArr==null)
+			 System.out.println("null 이다 이놈아");
+		 System.out.println(mainPicArr);
+		 System.out.println(extraPicArr);
+		 System.out.println(themeList);
+		 ObjectMapper objectMapper = new ObjectMapper();
+		 Map<String, Object> fund = objectMapper.readValue(fundJson, Map.class);
+		
 
 		//세션이 없으면 로그인 페이지로
 		MemberDTO member = (MemberDTO)session.getAttribute("member");
-		if(member == null) {
-			return "redirect:../auth/login.do";
-		}
-		FundingDTO fund = null;
+
+		FundingDTO funding = null;
 		try {
-			fund = makeFundingDTO(request);
+			funding = makeFundingDTO(fund);
+			System.out.println(funding);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(fund==null) {
-			return "redirect";
+		
+		if(funding==null) {
+			return 0;
 		}
-		if(fund.traffic==null && fund.accommodation == null)
-			fund.setConfirm_option(0);
-		else if(fund.traffic != null && fund.accommodation != null) {
-			fund.setConfirm_option(3);
-		} else if(fund.accommodation !=null) {
-			fund.setConfirm_option(1);
+		if(funding.traffic==null && funding.accommodation == null)
+			funding.setConfirm_option(0);
+		else if(funding.traffic != null && funding.accommodation != null) {
+			funding.setConfirm_option(3);
+		} else if(funding.accommodation !=null) {
+			funding.setConfirm_option(1);
 		} else {
-			fund.setConfirm_option(2);
+			funding.setConfirm_option(2);
 		}
-		fund.setFunding_state(0);
-		fund.setViews(0);
-		fund.setMember_id(member.getMember_id());
+		funding.setFunding_state(0);
+		funding.setViews(0);
+		funding.setMember_id(member.getMember_id());
 		System.out.println("Funding Input 확인 2 : " + fund);
-		int result = fService.insertFunding(fund);
-		if(result==1) {
-			String[] themeList = request.getParameterValues("theme");
-			System.out.println(themeList);
-			for(String themeItem: themeList) {
-				FundingThemeDTO theme = new FundingThemeDTO();
-				theme.setFunding_id(fService.getFundingId());
-				theme.setTheme_id(Integer.parseInt(themeItem));
-				tService.insertFundingTheme(theme);
-			}
+		int result = fService.insertFunding(funding);
+		
+		 if(result==1) { 
+			 System.out.println(themeList); 
+			 for(String themeItem: themeList) {
+				 FundingThemeDTO theme = new FundingThemeDTO();
+				 theme.setFunding_id(fService.getFundingId());
+				 theme.setTheme_id(Integer.parseInt(themeItem));
+				 tService.insertFundingTheme(theme); 
+			 }
 			 
-		}
-		System.out.println(result + "건 입력");
-		
-		setPhoto(multipart, request);
+			if(mainPicArr != null) {
+				insertPhoto(mainPicArr, "/normal",  1);
+			}
+			if(accPicArr != null) {
+				insertPhoto(accPicArr, "/proof", 0);
+			}
+			if(trafficPicArr != null) {	
+				insertPhoto(trafficPicArr, "/proof", 0);
+			}
+			if(extraPicArr != null) {
+				System.out.println(extraPicArr);
+				insertPhotoList(extraPicArr, "/normal",  1);
+			}
+		 }
+		 
 
-		return "redirect:fundingList.do";
+		return result;
 	}
 	
-	//사진 넣기
-	public void setPhoto(MultipartHttpServletRequest multipart, HttpServletRequest request) throws IOException {
-		List<MultipartFile> provFileList = multipart.getFiles("prov_pics");
-		List<MultipartFile> extraFileList = multipart.getFiles("extra_pics");
-		List<MultipartFile> fileList = multipart.getFiles("main_pic");
 
+	public void insertPhoto(MultipartFile accPicArr, String detailPath, int option) throws IOException {
+
+			if(!accPicArr.isEmpty()) {
+					String imgPath = pService.upload(accPicArr, detailPath);
+				
+
+				PhotoDTO photo = new PhotoDTO();
+				photo.setFunding_id(fService.getFundingId());
+				photo.setPhoto_name(imgPath);
+				photo.setPurpose(option);
+				photo.setReview_id(null);
+				
+				String photoResult = pService.insertPhoto(photo) + "개 db등록";
+				System.out.println(photoResult);
+			}
 		
-		insertPhoto(fileList, "/normal",  1);
-		insertPhoto(provFileList, "/proof", 0);
-		insertPhoto(extraFileList, "/normal",  1);
-
 	}
-	
-
-	public void insertPhoto(List<MultipartFile> fileList, String detailPath, int option) throws IOException {
+	public void insertPhotoList(List<MultipartFile> fileList, String detailPath, int option) throws IOException {
 		if(!fileList.isEmpty()) {
 			for (MultipartFile mf : fileList) {
 				
+				if(mf.isEmpty())
+					continue;
+				
 				String imgPath = pService.upload(mf, detailPath);
 				
-
+				
 				PhotoDTO photo = new PhotoDTO();
 				photo.setFunding_id(fService.getFundingId());
 				photo.setPhoto_name(imgPath);
@@ -175,29 +213,34 @@ public class FundingController {
 		}
 	}
 
-	private FundingDTO makeFundingDTO(HttpServletRequest request) throws ParseException {
-		System.out.println(request.getParameter("title"));
-		String start_date = request.getParameter("start_date");
-		Date startDate = Date.valueOf(start_date);
+	private FundingDTO makeFundingDTO(Map<String, Object> fund2) throws ParseException {
+		System.out.println(fund2.get("title"));
+		System.out.println(fund2.get("start_date"));
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
-		String end_date = request.getParameter("end_date");
-		Date endDate = Date.valueOf(end_date);
 		
-		String deadline = request.getParameter("deadline");
-		Date deadlineDate = Date.valueOf(deadline);
+		java.util.Date startDate = dateFormat.parse((String) fund2.get("start_date"));
+		Date start_date = new Date(startDate.getTime());
+		
+		java.util.Date endDate = dateFormat.parse((String) fund2.get("end_date"));
+		Date end_date = new Date(endDate.getTime());
+		
+		java.util.Date deadlineDate = dateFormat.parse((String) fund2.get("deadline"));
+		Date deadline = new Date(deadlineDate.getTime());
 		
 		FundingDTO fund = new FundingDTO();
-		fund.setTitle(request.getParameter("title"));
-		fund.setArea(request.getParameter("area"));
-		fund.setStart_date((Date) startDate);
-		fund.setEnd_date((Date) endDate);
-		fund.setAccommodation(request.getParameter("accommodation"));
-		fund.setDeadline((Date) deadlineDate);
-		fund.setPeople_num(Integer.parseInt(request.getParameter("people_num")));
-		fund.setPrice(Integer.parseInt(request.getParameter("price")));
-		fund.setDeparture(request.getParameter("departure"));
-		fund.setTraffic(request.getParameter("traffic"));
-		fund.setFunding_content(request.getParameter("funding_content"));
+		fund.setTitle((String) fund2.get("title"));
+		fund.setArea((String) fund2.get("area"));
+		fund.setStart_date(start_date);
+		fund.setEnd_date(end_date);
+		fund.setAccommodation((String) fund2.get("accommodation"));
+		fund.setDeadline(deadline);
+		fund.setPeople_num(Integer.parseInt((String) fund2.get("people_num")));
+		fund.setPrice(Integer.parseInt((String) fund2.get("price")));
+		fund.setDeparture((String) fund2.get("departure"));
+		fund.setTraffic((String) fund2.get("traffic"));
+		fund.setFunding_content((String) fund2.get("funding_content"));
 		return fund;
 	}
 

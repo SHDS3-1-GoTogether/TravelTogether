@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.shinhan.travelTogether.member.MemberDAOMybatis;
-import com.shinhan.travelTogether.member.MemberDTO;
 
 @Service
 public class NotificationService {
@@ -26,6 +25,7 @@ public class NotificationService {
 	
 	public int insertNotification(NotificationDTO notification) {
 		int notification_id = notificationDao.insertNotification(notification);
+		System.out.println(notification_id);
 		//NotificationDTO new_notification = selectById(notification_id);
 		//notificationController.sendNotification(new_notification);
 		return notification_id;

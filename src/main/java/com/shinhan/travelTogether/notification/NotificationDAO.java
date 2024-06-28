@@ -44,7 +44,9 @@ public class NotificationDAO {
 	
 	public NotificationDTO selectFirstByMemberIdOrderBySendDateDesc(Integer member_id) {
 		NotificationDTO notification = sqlSession.selectOne(namespace+"selectFirstByMemberIdOrderBySendDateDesc", member_id);
-		logger.info("<selectFirstByMemberIdOrderBySendDateDesc> "+notification.toString()+" 조회 완료");
-		return notification;
+		/*
+		 * logger.info("<selectFirstByMemberIdOrderBySendDateDesc> "+notification.
+		 * toString()+" 조회 완료");
+		 */		return notification;
 	}
 }
