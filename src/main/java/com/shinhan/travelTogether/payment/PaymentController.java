@@ -51,16 +51,16 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/pay.do")
-	public String fundingApplyPayment(Integer fundingId,
+	public String fundingApplyPayment(Integer funding_id,
 									   RedirectAttributes redirectAttributes,
 									   HttpSession session) {
 		
 		//test
-		System.out.println(fundingId);
+		System.out.println(funding_id);
 		// userId부분에 맞게 받아오기
 		//Integer userId = (Integer) session.getAttribute("tt_id");
 		
-		PaymentFundingInfoDTO fundingInfo = pService.getFundingInfo(fundingId);
+		PaymentFundingInfoDTO fundingInfo = pService.getFundingInfo(funding_id);
 		
 		System.out.println(fundingInfo.getTitle());
 		System.out.println(fundingInfo.getPrice());
