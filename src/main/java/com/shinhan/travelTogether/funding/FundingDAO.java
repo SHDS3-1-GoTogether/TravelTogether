@@ -69,4 +69,8 @@ public class FundingDAO {
 	public FundingDTO selectFundingById(int funding_id) {
 		return sqlSession.selectOne(namespace + "selectFundingById", funding_id);
 	}
+	
+	public List<FundingAdminDTO> selectAllAdminFunding() {
+		return sqlSession.selectList(namespace+"selectAllAdminFunding");
+	}
 }

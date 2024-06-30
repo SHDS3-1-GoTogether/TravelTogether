@@ -39,4 +39,7 @@ public class FundingService {
 		return fundingDAO.selectFundingById(funding_id);
 	}
 
+	public List<FundingAdminDTO> selectAllAdminFunding() {
+		return fundingDAO.selectAllAdminFunding();
+	}
 }

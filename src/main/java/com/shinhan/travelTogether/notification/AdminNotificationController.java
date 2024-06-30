@@ -76,7 +76,7 @@ public class AdminNotificationController {
 		for(String member_id : memberIdList) {
 			System.out.println("member_id = "+member_id);
 			int result = notificationService.insertNotification(new NotificationDTO(null, message_content, null, Integer.parseInt(member_id)));
-			notificationService.notifyMessage(result);
+			notificationService.notifyMessage(Integer.parseInt(member_id));
 			resultlist.add(result);
 		}
 		System.out.println("알림 전송 결과 = "+resultlist.toString());
