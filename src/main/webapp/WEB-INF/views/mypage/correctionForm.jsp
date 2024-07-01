@@ -5,11 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	#member_id, #membership_id, #login_id, #username, #email, #gender, #birth{
-		background-color: #d3d3d3;
-	}
-</style>
+<link href="${path}/resources/css/correctionForm.css" rel="stylesheet">
 </head>
 <body>
 	<form action="${path}/mypage/correction.do" method="post" id="registrationForm">

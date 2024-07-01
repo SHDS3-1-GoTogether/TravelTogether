@@ -1,4 +1,4 @@
-package com.shinhan.travelTogether.review;
+package com.shinhan.travelTogether.funding;
 
 import java.sql.Date;
 
@@ -12,13 +12,13 @@ import lombok.ToString;
 @Getter@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewDTO {
-	private int review_id;
-	private String review_content;
-	private Date create_date;
-	private int like_count;
-	private int views;
+public class FundingAdminDTO {
 	private int funding_id;
 	private int member_id;
 	private String nickname;
+	private String title;
+	private String area;
+	private Date deadline;
+	private int people_num;
+	private int funding_state;
 }
