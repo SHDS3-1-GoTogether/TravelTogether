@@ -14,4 +14,6 @@ public class ReviewService {
 	public List<ReviewDTO> selectAllReview(){
 		return reviewDao.selectAllReview();
 	}
+	
+	
 }
