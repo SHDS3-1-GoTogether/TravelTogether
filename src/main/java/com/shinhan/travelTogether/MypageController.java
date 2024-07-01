@@ -104,7 +104,6 @@ public class MypageController {
 	public void notificationList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
-		System.out.println(notificationlist.get(0).getSend_date());
 		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
 	}

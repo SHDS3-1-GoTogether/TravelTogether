@@ -1,0 +1,112 @@
+* {
+	font-size: 14px;
+}
+body {
+	margin: 0;
+	padding: 60px 0;
+}
+.container {
+	width: 400px;
+	margin: 0 auto;
+}
+
+.table-bordered {
+	width: 400px;
+}
+
+.EnterOut_div{
+	display: flex;
+    margin-bottom: 15px;
+}
+
+.EnterOut_div input {
+	width: calc(100% - 89px);
+	height: 34px;
+	margin-right: 5px;
+	box-sizing: border-box;
+	padding: 0 10px;
+} 
+.EnterOut_div button {
+	width: 50px;
+	height: 34px;
+	box-sizing: border-box;
+}
+
+.enter_Btn:hover {
+	cursor: pointer;
+}
+
+.out_Btn {
+	cursor: pointer;
+}
+
+.message_container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	gap: 5px;
+	padding-bottom: 10px;
+}
+
+.message {
+	font-weight: 500;
+	font-size: 15px;
+	color: #F7F7F7;
+	padding: 15px 20px 15px 20px;
+	padding: 10px 15px;
+	background-color: #77B255;
+	border-radius: 12px 0px 12px 12px;
+	white-space: normal;
+}
+
+.yourChat_message {
+	padding-bottom: 5px;
+}
+
+.your_message_background {
+    display: flex;
+    gap: 5px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    align-items: flex-end;
+}
+.coming_user { 
+    padding: 6px 0;
+    color: #694600;
+    text-align: center;
+}
+.your_message {
+	font-size: 15px;
+	color: #2E2E2E;
+	font-weight: 500;
+	margin-left: 20px;
+	padding: 10px 15px;
+	border-radius: 0px 12px 12px 12px;
+	background-color: #F8F8F8;
+}
+
+#chat {
+    width: 100%;
+    height: 600px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.input_wrap  {
+	display: flex;
+}
+.input_wrap .form-control {
+	width: calc(100% - 75px);
+    height: 38px;
+	margin-right: 5px; 
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+.input_wrap .btn_send {
+    width: 70px;
+    height: 38px;
+}

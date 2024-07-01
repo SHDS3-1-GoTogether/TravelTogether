@@ -5,10 +5,6 @@
     margin-bottom: 1rem;
 }
 
-*, ::after, ::before {
-/*     box-sizing: border-box; */
-}
-
 #logoutLink {
 	align-self: flex-end; /* 오른쪽 정렬 */
 	font-size: 12px; /* 크기 조정 */
