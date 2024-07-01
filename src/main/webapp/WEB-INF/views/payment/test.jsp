@@ -10,7 +10,7 @@
     <h2>Funding ID Test Form</h2>
     <form action="${pageContext.request.contextPath}/payment/pay.do" method="post">
         <label for="fundingId">Funding ID:</label>
-        <input type="text" id="fundingId" name="fundingId" value="24">
+        <input type="text" id="fundingId" name="funding_id" value="24">
         <input type="submit" value="Submit">
     </form>
 </body>
