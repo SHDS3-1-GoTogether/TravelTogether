@@ -23,7 +23,7 @@
 				class="menuImage" src="${path}/resources/images/travel1.png"
 				alt="일반여행">
 				<p>일반펀딩</p></a></li>
-		<li><a href="#"><img class="menuImage"
+		<li><a href="${path}/randomFunding/schedule.do"><img class="menuImage"
 				src="${path}/resources/images/travel2.png" alt="랜덤여행">
 				<p>랜덤펀딩</p></a></li>
 		<li><a href="#"><img class="menuImage"

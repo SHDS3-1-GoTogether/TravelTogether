@@ -22,5 +22,6 @@
     	<typeAlias type="com.shinhan.travelTogether.theme.FundingThemeDTO" alias="fundingthemevo"/>
     	<typeAlias type="com.shinhan.travelTogether.payment.PaymentFundingInfoDTO" alias="paymentFundingInfovo"/>
     	<typeAlias type="com.shinhan.travelTogether.payment.RefundDTO" alias="refundvo"/>
+    	<typeAlias type="com.shinhan.travelTogether.randomFunding.RandomFundingDTO" alias="randomFundingvo"/>
 	</typeAliases>
 </configuration>

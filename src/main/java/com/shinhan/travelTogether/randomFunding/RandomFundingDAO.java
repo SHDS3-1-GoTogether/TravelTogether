@@ -1,6 +1,7 @@
 package com.shinhan.travelTogether.randomFunding;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,21 @@ public class RandomFundingDAO {
 	
 	private final String namespace = "com.shinhan.travelTogether.randomfunding.";
 	
-	public List<String> getAmountAll(int id) {
-		
-//		List<Integer> amounts = session.selectList(namespace+"selectAmountAll", id);
-//		if (amounts == null) {
-//            throw new NullPointerException("Result list is null");
-//        }
-//		//System.out.println(amounts);
+	public List<String> getAmountAll(RandomFundingDTO randomgfundingDTO) {
 
-        return session.selectList(namespace+"selectAmountAll", id);
+        return session.selectList(namespace+"selectAmountAll", randomgfundingDTO);
+	}
+	
+	public List<String> getThemeAll(Map<String, Object> map){
+		return session.selectList(namespace + "selectTheme", map);
+	}
+	
+	public Integer freeAmount(RandomFundingDTO randomFundingDTO) {
+		return session.selectOne(namespace+"freeAmount", randomFundingDTO);
+	}
+	
+	public Integer normalAmount(RandomFundingDTO randomFundingDTO) {
+		return session.selectOne(namespace+"normalAmount", randomFundingDTO);
 	}
 
 }

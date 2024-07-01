@@ -3,9 +3,103 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.randomfunding">
-	<select id="selectAmountAll" parameterType="int" resultType="String">
-		select price
-		from tt_funding f
-		where f.member_id =(select member_id from tt_member where is_manager = 1 and member_id = #{id})
+
+	<!-- 선택된 날짜정보로 추출 -->
+	<select id="selectAmountAll" resultType="String" parameterType="randomFundingvo">
+	SELECT amountRange FROM (
+	    SELECT DISTINCT
+	        CASE
+	            WHEN price BETWEEN 0 AND 299999 THEN '0~29만원'
+	            WHEN price BETWEEN 300000 AND 499999 THEN '30~49만원'
+	            WHEN price BETWEEN 500000 AND 799999 THEN '50~79만원'
+	            WHEN price BETWEEN 800000 AND 999999 THEN '80~99만원'
+	            WHEN price >= 1000000 THEN '100만원 이상'
+	        END AS amountRange,
+	        CASE
+	            WHEN price BETWEEN 0 AND 299999 THEN 1
+	            WHEN price BETWEEN 300000 AND 499999 THEN 2
+	            WHEN price BETWEEN 500000 AND 799999 THEN 3
+	            WHEN price BETWEEN 800000 AND 999999 THEN 4
+	            WHEN price >= 1000000 THEN 5
+	        END AS order_key
+	    FROM tt_funding f
+	    WHERE f.member_id = (SELECT member_id FROM tt_member WHERE is_manager = 1)
+	    AND <![CDATA[ f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
+        AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
+        ]]>
+	) subquery
+	ORDER BY subquery.order_key
 	</select>
+	
+	<!-- 선택된 날짜정보로 추출 -->
+	<select id = "selectTheme" resultType="String" parameterType="map">
+		SELECT DISTINCT t.title
+		FROM tt_theme t
+		JOIN tt_funding_theme ft ON t.theme_id = ft.theme_id
+		JOIN tt_funding f ON ft.funding_id = f.funding_id
+		JOIN tt_member m ON f.member_id = m.member_id
+		WHERE m.is_manager = 1
+		AND <![CDATA[ f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
+        AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
+        ]]>
+	</select>
+	
+	
+	<!-- @@@@@@@ 펀딩 랜덤 배정 @@@@@@@ -->
+	
+	<!-- 가격 100만원 이상 or 금액 무관 선택 시 랜던펀딩  -->
+	<select id="freeAmount" resultType="Integer" parameterType="randomFundingvo">
+    SELECT result.funding_id
+    FROM (
+        SELECT f.funding_id
+        FROM tt_funding f
+        JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
+        JOIN tt_theme t ON ft.theme_id = t.theme_id
+        JOIN tt_member m ON m.member_id = f.member_id
+        WHERE <![CDATA[
+        f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
+          AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
+          ]]>
+          <if test="priceLow != null and priceLow != ''">
+              AND f.price >= #{priceLow}
+          </if>
+          <if test="themes != null and themes.size() > 0">
+	          AND t.title IN
+	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">
+	              #{theme}
+	          </foreach>
+          </if>
+          AND m.is_manager = 1
+        ORDER BY DBMS_RANDOM.VALUE()
+    ) result
+    WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 가격 선택 후 랜덤 펀딩 -->
+	<select id="normalAmount" resultType="Integer" parameterType="randomFundingvo">
+    SELECT result.funding_id
+    FROM (
+        SELECT f.funding_id
+        FROM tt_funding f
+        JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
+        JOIN tt_theme t ON ft.theme_id = t.theme_id
+        JOIN tt_member m ON m.member_id = f.member_id
+        WHERE <![CDATA[
+        f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
+          AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
+          ]]>
+          AND f.price BETWEEN #{priceLow} AND #{priceHigh}
+          <if test="themes != null and themes.size() > 0">
+	          AND t.title IN
+	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">
+	              #{theme}
+	          </foreach>
+          </if>
+          AND m.is_manager = 1
+        ORDER BY DBMS_RANDOM.VALUE()
+    ) result
+    WHERE ROWNUM = 1
+    
+	</select>
+
 </mapper>

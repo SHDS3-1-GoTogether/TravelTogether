@@ -23,7 +23,16 @@
 	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), /* 내부 그림자 */
                 0 2px 4px rgba(0, 0, 0, 0.1); /* 외부 그림자 */
 }
-
+h1 {
+    text-align: left;
+    font-size: 2.5em; /* 글자 크기 조절 */
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: bold; /* 글자 두께 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
+    font-family: 'Arial', sans-serif; /* 글꼴 변경 */
+    padding-left: 20px; /* 왼쪽 여백 추가 */
+    border-left: 5px solid hsla(237, 74%, 33%, 0.61); /* 왼쪽 테두리 추가 */
+}
 .progress {
 	display: flex;
 	justify-content: left;
@@ -71,14 +80,6 @@
 	margin-bottom: 2%;
 }
 
-/* .container_date {
-	width: 400px;
-	margin: 50px auto;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	padding: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-} */
 .container_date {
 	width: 80%;
 	margin: 50px auto;
@@ -111,31 +112,13 @@
 }
 
 .container_img img {
-	width: 300px; 
+	width: 300px;
 	height: auto;
 	max-width: 80%;
-	padding:0;
+	padding: 0;
 	border-radius: 10px;
 }
 
-/* .input-group {
-	margin-bottom: 20px;
-} */
-
-/* .input-group label {
-	display: block;
-	font-size: 18px;
-	margin-bottom: 5px;
-}
-
-.input-group input {
-	width: calc(100% - 30px);
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	box-sizing: border-box;
-} */
 .input-group {
 	flex: 1;
 	display: flex;
@@ -168,12 +151,25 @@
 	text-align: center; /* 입력 필드를 가운데 정렬 */
 }
 
-.container_date button {
-	display: block;
-	margin-left: auto; /* 자동 여백을 추가하여 오른쪽 정렬 */
-	margin-right: 0; /* 오른쪽 여백을 제거 */
+.button-group-send {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 30px;
+	width: 100%;
 }
 
+.container_date button {
+	display: block;
+	margin-right: 0; /* 오른쪽 여백을 제거 */
+}
+.prev-button {
+	justify-self: flex-start;
+}
+
+.next-button {
+	justify-self: flex-end;
+}
 .button {
 	display: block;
 	width: 25%;
@@ -185,20 +181,52 @@
 	border-radius: 5px;
 	cursor: pointer;
 	text-align: center;
-	margin-left: auto; /* 자동 여백을 추가하여 오른쪽 정렬 */
-	margin-right: 0; /* 오른쪽 여백을 제거 */
 	font-weight: bold;
+	margin-top: 30px;
 }
 
 .button:hover {
 	background-color: #0056b3;
 }
+/* ----test----- */
+.button-group {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 가로로 3개의 열 */
+	grid-template-rows: repeat(2, 1fr); /* 세로로 3개의 행 */
+	gap: 40px; /* 그리드 사이의 간격 */
+	width: 100%; /* 전체 너비를 사용 */
+	max-width: 950px; /* 적절한 최대 너비 */
+	margin: 0 auto; /* 중앙 정렬 */
+}
+
+.price-button {
+	width: 100%; /* 버튼이 그리드 셀을 꽉 채우도록 설정 */
+	height: 100%; /* 높이를 셀의 높이로 설정 */
+	padding: 10px 40px; /* 적절한 패딩으로 조정 */
+	border: 2px solid #ccc;
+	background-color: #fff;
+	border-radius: 8px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
+	box-sizing: border-box; /* 패딩과 보더를 너비와 높이에 포함 */
+}
+
+.price-button.active, .price-button:hover {
+	background-color: #007bff;
+	color: #fff;
+	border-color: #0056b3;
+	transform: scale(1.1); /* 클릭 또는 호버 시 확대 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+}
 </style>
+
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
 	<div class="content_wrapper">
-		<h1>랜덤 펀딩 테스트 페이지</h1>
+		<h1>랜덤 펀딩</h1>
 		<div class="progress progress-container">
 			<div class="progress-step active">일정 선택</div>
 			<div class="arrow">→</div>
@@ -212,15 +240,20 @@
 		<div class="container_date">
 			<h3>원하시는 금액대를 선택해주세요.</h3>
 			<!-- 동적으로 선택가능한 태그 만들어 놓기 -->
-			<form action="${path}/randomFunding/amount.do" method="post">
-				<c:forEach var="priceRange" items="${amount}">
-					<div>
-                        <input type="checkbox" id="${priceRange}" name="priceRange" value="${priceRange}">
-                        <label for="${priceRange}">${priceRange}</label>
-                    </div>
-				</c:forEach>
+			<form action="${path}/randomFunding/amount.do" method="get">
+				<div class="button-group">
+					<c:forEach var="priceRange" items="${amount}">
+						<button type="button" class="price-button" id="${priceRange}"
+							onclick="selectPrice('${priceRange}')" name="priceRange"
+							value="${priceRange}">${priceRange}</button>
+					</c:forEach>
+				</div>
 			</form>
-			<button type="submit" class="button">다음으로</button>
+			<div class="button-group-send">
+				<button type="button" class="button prev-button"
+					onclick="history.back()">이전으로</button>
+				<button type="submit" class="button next-button" onclick="submitPrice()">다음으로</button>
+			</div>
 		</div>
 
 		<%-- <div class="container_img" style="background-color: #FBFADD;">
@@ -228,5 +261,26 @@
 		</div> --%>
 	</div>
 	<%@ include file="../common/footer.jsp"%>
+
+	<script>
+	var selectedPrice;
+
+		function selectPrice(price) {
+			selectedPrice = price;  // 사용자가 선택한 가격 저장
+	        // 모든 버튼의 active 클래스를 제거하고, 선택된 버튼만 active 클래스 추가
+	        document.querySelectorAll('.price-button').forEach(button => {
+	            button.classList.remove('active');
+	        });
+	        event.currentTarget.classList.add('active');
+	    }
+
+	    function submitPrice() {
+	        if (selectedPrice) {
+	            window.location.href = '${path}/randomFunding/themes.do?amount=' + encodeURIComponent(selectedPrice);
+	        } else {
+	            alert('가격을 선택해주세요.');
+	        }
+	    }
+	</script>
 </body>
 </html>

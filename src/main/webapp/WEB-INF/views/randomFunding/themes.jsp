@@ -33,6 +33,7 @@ h1 {
     padding-left: 20px; /* 왼쪽 여백 추가 */
     border-left: 5px solid hsla(237, 74%, 33%, 0.61); /* 왼쪽 테두리 추가 */
 }
+
 .progress {
 	display: flex;
 	justify-content: left;
@@ -117,8 +118,6 @@ h1 {
 	max-width: 80%;
 	padding: 0;
 	border-radius: 10px;
-	max-width: 80%;
-	padding: 0;
 }
 
 .input-group {
@@ -158,7 +157,7 @@ h1 {
 	margin-right: 0; /* 오른쪽 여백을 제거 */
 }
 
-.button-group {
+.button-group-send {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -173,7 +172,6 @@ h1 {
 .next-button {
 	justify-self: flex-end;
 }
-
 .button {
 	display: block;
 	width: 25%;
@@ -192,88 +190,119 @@ h1 {
 .button:hover {
 	background-color: #0056b3;
 }
+/* ----test----- */
+.button-group {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 가로로 3개의 열 */
+	grid-template-rows: repeat(2, 1fr); /* 세로로 3개의 행 */
+	gap: 40px; /* 그리드 사이의 간격 */
+	width: 100%; /* 전체 너비를 사용 */
+	max-width: 950px; /* 적절한 최대 너비 */
+	margin: 0 auto; /* 중앙 정렬 */
+}
+
+.theme-button {
+	width: 100%; /* 버튼이 그리드 셀을 꽉 채우도록 설정 */
+	height: 100%; /* 높이를 셀의 높이로 설정 */
+	padding: 10px 40px; /* 적절한 패딩으로 조정 */
+	border: 2px solid #ccc;
+	background-color: #fff;
+	border-radius: 8px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease; /* 부드러운 전환 효과 */
+	box-sizing: border-box; /* 패딩과 보더를 너비와 높이에 포함 */
+}
+
+.theme-button.active, .theme-button:hover {
+	background-color: #007bff;
+	color: #fff;
+	border-color: #0056b3;
+	transform: scale(1.1); /* 클릭 또는 호버 시 확대 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+}
 </style>
+
 </head>
 <body>
-	<%@ include file="../common/header.jsp"%>
-	<div class="content_wrapper">
-		<h1>랜덤 펀딩</h1>
-		<div class="progress progress-container">
-			<div class="progress-step active">일정 선택</div>
-			<div class="arrow">→</div>
-			<div class="progress-step">금액 선택</div>
-			<div class="arrow">→</div>
-			<div class="progress-step">테마 선택</div>
-		</div>
+    <%@ include file="../common/header.jsp"%>
+    <div class="content_wrapper">
+        <h1>랜덤 펀딩</h1>
+        <div class="progress progress-container">
+            <div class="progress-step active">일정 선택</div>
+            <div class="arrow">→</div>
+            <div class="progress-step active">금액 선택</div>
+            <div class="arrow">→</div>
+            <div class="progress-step active">테마 선택</div>
+        </div>
 
-		<hr class="top_hr">
+        <hr class="top_hr">
 
-		<form action="${path}/randomFunding/amount.do" method="get">
-			<div class="container_date">
-				<h3>여행 가능한 기간을 선택해주세요 (시작일, 마감일)</h3>
-				<div class="input-group">
-					<div class="input-group-inner">
-						<label for="departure">출발일</label> <input type="date"
-							id="departure" name="departure">
-					</div>
-				</div>
-				<div class="input-group">
-					<div class="input-group-inner">
-						<label for="arrival">도착일</label> <input type="date" id="arrival"
-							name="arrival">
-					</div>
-				</div>
-				<div class="button-group">
-					<button type="button" class="button prev-button" 
-						onclick="history.back()">이전으로</button>
-					<button type="submit" class="button next-button">다음으로</button>
-				</div>
+        <div class="container_date">
+            <h3>원하시는 여행테마를 선택해주세요.</h3>
+            <div class="button-group">
+                <c:forEach var="themeRange" items="${theme}">
+                    <button type="button" class="theme-button" id="${themeRange}"
+                        onclick="toggleTheme(this, '${themeRange}')" name="${themeRange}"
+                        value="${themeRange}">${themeRange}</button>
+                </c:forEach>
+            </div>
+            <div class="button-group-send">
+				<button type="button" class="button prev-button"
+					onclick="history.back()">이전으로</button>
+				<button type="submit" class="button next-button" onclick="submitTheme()">다음으로</button>
 			</div>
-		</form>
+        </div>
+    </div>
+    <%@ include file="../common/footer.jsp"%>
 
-		<%-- <div class="container_img" style="background-color: #FBFADD;">
-			<img src="${path }/resources/images/randomFunding.png" alt="랜덤박스 이미지"/>
-		</div> --%>
-	</div>
-	<%@ include file="../common/footer.jsp"%>
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const form = document.querySelector('form');
-			form.addEventListener('submit', function(event) {
-				
-				event.preventDefault(); // 폼 제출 막기@@@@@@
-				
-				const departure = document.getElementById('departure').value;
-				const arrival = document.getElementById('arrival').value;
-				
-				if (!departure || !arrival) {
-					event.preventDefault(); // 폼 제출 막기
-					alert('출발일과 도착일을 모두 선택해주세요.');
-					return;
-				}
-				
-				$.ajax({
-					url:`${path}/randomFunding/amount.do`,
-					type:'POST',
-					contentType:'application/json',
-					data: JSON.stringify({ departure: departure, arrival:arrival}),
-					success: function(response){
-						if(response.status == 'fail'){
-							alert(response.data);
-						}else{
-							window.location.href=`${path}/randomFunding/` + response.data +
-												`?departure=` + departure + `&arrival=` + arrival;
-						}
-					},
-					error: function(xhr, status, error){
-						console.error('Error:', error);
-		                console.log('서버 오류가 발생하였습니다.')
-					}
-				});
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let selectedThemes = [];
 
-				
-			});
-		});
-	</script>
+        window.toggleTheme = function (button, theme) {
+            const index = selectedThemes.indexOf(theme);
+            if (index > -1) {
+                selectedThemes.splice(index, 1); // 이미 있으면 제거
+            } else {
+                selectedThemes.push(theme); // 없으면 추가
+            }
+            updateButtons();
+        }
+
+        function updateButtons() {
+            document.querySelectorAll('.theme-button').forEach(button => {
+                if (selectedThemes.includes(button.value)) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        window.submitTheme = function () {
+            if (selectedThemes.length > 0) {
+                $.ajax({
+                    url: '${path}/randomFunding/assignment.do?themes=' + selectedThemes.map(encodeURIComponent).join(','),
+                    type: "GET",
+                    success: function (response) {
+                        alert(response.status);
+                        if (response.funding_id == null) {
+                        	window.location.href = '${path}/';
+                        } else {
+                        	 window.location.href = '${path}/payment/pay.do?funding_id=' + response.funding_id;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("에러 발생: " + error);
+                    }
+                });
+            } else {
+                alert('하나 이상의 테마를 선택해주세요.');
+            }
+        }
+    });
+    </script>
 </body>
 </html>
