@@ -196,8 +196,6 @@
                    notificationDiv.removeChild(notificationDiv.lastChild);
                }--%>
                addNotification(parsedData.message_content, 0, parsedData.send_date);
-        	
-            
         });
 
         eventSource.onerror = function(event) {
