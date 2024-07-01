@@ -37,6 +37,11 @@
 		    		<i class="fas fa-bell"></i> 알림
 		    	</a>
 		    </li>
+		    <li class="list-group-item">
+		    	<a href="${path}/mypage/chatroom.do" class="menu-link">
+		    		<i class="fas fa-comment-dots"></i> 채팅룸
+		    	</a>
+		    </li>
 		  </ul>
 	</div>
 </div>
