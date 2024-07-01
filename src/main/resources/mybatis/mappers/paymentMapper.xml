@@ -22,5 +22,4 @@
 		JOIN tt_member m ON f.member_id = m.member_id
 		WHERE f.funding_id = #{fundingId}
 	</select>
-
 </mapper>
