@@ -54,7 +54,7 @@
 	
 	<select id="getFundingId" resultType="int">
 		select funding_id
-		from (select * from tt_funding order by rownum desc)
+		from (select * from tt_funding order by funding_id desc)
 		where rownum=1
 	</select>
 	

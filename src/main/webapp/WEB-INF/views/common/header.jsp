@@ -90,7 +90,6 @@
 		
 		$("#plusBtn").on("click", f_plusBtnClick);
 		
-		loadPreviousNotifications(member_id);
         connect(member_id);
 	});
 	
@@ -107,6 +106,7 @@
 			popupMenu.hide();
 			$(this).attr("aria-expanded", "false");
 		} else {
+			$("#notifications").html("");
 			loadPreviousNotifications(${member.member_id});
 			popupMenu.show();
 			$(this).attr("aria-expanded", "true");

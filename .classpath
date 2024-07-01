@@ -40,7 +40,7 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/shinhan3/lib/json-20230227.jar"/>
-	<classpathentry kind="lib" path="C:/shinhan3/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Shinhan3_Home/lib/json-20230227.jar"/>
+	<classpathentry kind="lib" path="C:/Shinhan3_Home/sts-bundle/sts-3.9.18.RELEASE/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
