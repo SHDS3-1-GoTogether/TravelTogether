@@ -85,4 +85,10 @@
 				#{views}, 
 				#{member_id})
 	</insert>
+	
+	<update id="updateFundingState" parameterType="map">
+		update tt_funding
+		set funding_state = #{update_state}
+		where funding_id=#{funding_id}
+	</update>
 </mapper>

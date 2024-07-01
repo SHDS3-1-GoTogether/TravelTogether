@@ -54,7 +54,7 @@
 				</div>
 				<div class="select-option">
 					<button class="add-button" id="addBtn">
-						<i class="fas fa-plus"></i> 쿠폰등록
+						<i class="fas fa-plus"></i> 펀딩등록
 					</button>
 				</div>
 			</div>

@@ -73,4 +73,11 @@ public class FundingDAO {
 	public List<FundingAdminDTO> selectAllAdminFunding() {
 		return sqlSession.selectList(namespace+"selectAllAdminFunding");
 	}
+
+	public int updateFundingState(int funding_id, int update_state) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("funding_id", funding_id);
+		map.put("update_state", update_state);
+		return sqlSession.update(namespace+"updateFundingState", map);
+	}
 }

@@ -12,18 +12,22 @@
 		<p class="funding-people-num">${funding.people_num}</p>
 		<input type="hidden" value="${funding.funding_state}">
 		<p class="funding-process-state"></p>
-		<p class="funding-confirm-state"></p>
+		<p class="funding-confirm-state" onclick="f_confirmBtnClick(${funding.funding_id})"></p>
 	</div>
 </c:forEach>
 <script>
 	$(function(){
+		init();	
+	});
+	
+	function init(){
 		$(".data").each(function(index) {
 			var confirm_state = $(this).find(".funding-confirm-state");
 			var process_state = $(this).find(".funding-process-state");
 			var funding_state = $(this).find("input[type='hidden']").val();
 			
-			if(funding_state === 0) {	// 컨펌대기
-				confirm_state.html("<button>컨펌하기</button>");
+			if(funding_state == 0) {	// 컨펌대기
+				confirm_state.html("<button class='confirm-button'>컨펌하기</button>");
 			} else if(funding_state == 1) {	// 컨펌완료
 				confirm_state.text("컨펌완료");
 				confirm_state.addClass("confirm-complete");
@@ -44,5 +48,13 @@
 				process_state.addClass("funding-fail");
 			}
 		});
-	});
+	}
+	
+	function f_confirmBtnClick(funding_id){	// 컨펌하기 버튼 클릭시 호출
+		if(funding_id == null){
+			alert("잘못된 요청입니다.");
+		} else {
+			location.href="fundingConfirm.do?id="+funding_id;
+		}
+	}
 </script>
