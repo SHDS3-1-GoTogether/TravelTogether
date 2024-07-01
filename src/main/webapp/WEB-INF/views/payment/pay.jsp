@@ -22,7 +22,7 @@
 		<main>
 			<h1>결제 예약</h1>
 			<div class="travel-info">
-				<span>제주도 여행 가고싶당 [신청자 : 김주현]</span> `
+				<span>${title} [신청자 : ${applicantNick}]</span>
 			</div>
 
 			<div class="progress progress-container">
@@ -34,11 +34,11 @@
 			<div class="payment-info">
 				<div class="payment-details">
 					<div class="detail">
-						<span>리워드 금액:</span> <span>320,000원</span>
+						<span>리워드 금액:</span> <span>${price}원</span>
 					</div>
-					<div class="detail">
+					<!-- <div class="detail">
 						<span>추가 후원금:</span> <span>0원</span>
-					</div>
+					</div> -->
 
 					<!-- 쿠폰 콤보박스 -->
 					<div class="detail">
@@ -97,7 +97,6 @@
 			</div>
 		</main>
 	</div>
-	<%-- <%@ include file="../common/footer.jsp"%> --%>
 </body>
 
 <script>
@@ -107,6 +106,8 @@
 	        location.reload();
 	    }
 	};
+	
+	
     const button = document.getElementById("payment-button");
     const coupon = document.getElementById("coupon-box");
     /* couponBox.addEventListener("change", function() {
@@ -117,8 +118,11 @@
     //console.log(currentURL);
     const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
     
-    // testMoney
-    var amount = 320000;
+    // 상품금액 적용
+    var amount = "${price}";
+    // 상품명 적용
+    var title = "${title}";
+    
   	//window.onload = updateAmount;
   	// 페이지 로드 됐을 때 html부분도 새로고침하게 되는 법 ########
   	// 현재 페이지 이동 후에 뒤로가기 버튼을 누르면 쿠폰 선택했던 부분은 그대로 남아있는데 가격 부분은 새로 고침이 되어 있는 상태임 이부분 확인해보고 병합 ㄱㄱ
@@ -181,13 +185,6 @@
         console.log(discountRate);
         console.log(maxDiscount);
 		console.log(coupon_record_id);
-		
-       /*  if(selectedValue == 0){
-        	paymentMethodWidget.updateAmount(applicableAmount);
-        	updateAmount(applicableAmount);
-        	sendCouponId(0);
-        	return;
-        } */
         
         // 쿠폰 미선택시
         if(discountRate == 0 && maxDiscount == 0 && coupon_record_id == 0){
@@ -197,10 +194,12 @@
         	return;
         }
         
+        // 쿠폰 할인율/할인 금액 구분
         if(discountRate == 0 && maxDiscount > 0){
         	discountAmount = maxDiscount;
         	// 결제 금액 - 금액 할인권
-        	paymentMethodWidget.updateAmount(applicableAmount-discountAmount);
+        	paymentMethodWidget.updateAmount(applicableAmount = applicableAmount-discountAmount);
+        	
         }else{
         	discountAmount = discountRate;
         	// 결제 금액 - 퍼센트 할인권
@@ -217,12 +216,12 @@
     button.addEventListener("click", function () {
       paymentWidget.requestPayment({
         orderId: generateRandomString(),
-        orderName: "홍박사의 스프링 강의",
+        orderName: title,
         successUrl: currentURL + "/payment/success.do",
         failUrl: currentURL + "/payment/failure.do",
-        customerEmail: "customer123@gmail.com",
+        /* customerEmail: "customer123@gmail.com",
         customerName: "김토스",
-        customerMobilePhone: "01012341234",
+        customerMobilePhone: "01012341234", */
       }).catch(function(error){
     	  // 결제 취소 시 처리
     	  if(error.code === 'USER_CANCEL'){
@@ -249,9 +248,7 @@
     	document.getElementById("changeAmount").innerText = price+"원";
     }
     
- 	// coupon_record_id 세션에 저장(결제정보 저장을 위해)
- 	// 자바스크립트에서 세션 사용 불가(클라이언트 측에서는 세션 접근이 안됨)
- 	// 서버에 쿠폰 ID를 전송하는 AJAX 요청
+ 	// 적용된 쿠폰 정보 저장
     function sendCouponId(coupon_record_id) {
         $.ajax({
             url: '${path}/payment/save-coupon-id',
@@ -261,17 +258,14 @@
             success: function(response) {
                 var data = JSON.parse(response);
                 if (data.status === 'success') {
-                    // 성공 메시지를 표시하거나 UI를 업데이트
                     console.log('쿠폰이 성공적으로 저장되었습니다.');
-                    $('#couponStatus').text('쿠폰이 성공적으로 적용되었습니다.');
                 } else {
-                    // 오류 처리
-                    $('#couponStatus').text('쿠폰 적용에 실패하였습니다.');
+                    console.log('쿠폰 적용을 실패하였습니다.')
                 }
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
-                $('#couponStatus').text('서버 오류가 발생하였습니다.');
+                console.log('서버 오류가 발생하였습니다.')
             }
         });
     }

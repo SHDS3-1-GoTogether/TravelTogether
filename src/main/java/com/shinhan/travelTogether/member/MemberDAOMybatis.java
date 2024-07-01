@@ -3,6 +3,7 @@ package com.shinhan.travelTogether.member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -34,7 +35,7 @@ public class MemberDAOMybatis {
 
 	public MemberDTO loginChk(String login_id, String login_pwd) {
 		MemberDTO member = sqlSession.selectOne("com.shinhan.member.loginChk", login_id);
-		logger.info(member == null ? "Á¸ÀçÇÏÁö¾Ê´ÂÈ¸¿ø" : member.toString());
+		logger.info(member == null ? "è­°ëŒì˜±ï¿½ë¸¯ï§ï¿½ï¿½ë¸¡ï¿½ë’—ï¿½ì‰¶ï¿½ì" : member.toString());
 		return member;
 	}
 	
@@ -45,14 +46,22 @@ public class MemberDAOMybatis {
 	
 	public MemberDTO idDupChk(String login_id) {
 		MemberDTO member = sqlSession.selectOne("com.shinhan.member.loginChk", login_id);
-		logger.info(member == null ? "Á¸ÀçÇÏÁö¾Ê´ÂÈ¸¿ø=»ç¿ë°¡´É" : member.toString());
+		logger.info(member == null ? "è­°ëŒì˜±ï¿½ë¸¯ï§ï¿½ï¿½ë¸¡ï¿½ë’—ï¿½ì‰¶ï¿½ì=ï¿½ê¶—ï¿½ìŠœåª›ï¿½ï¿½ë’«" : member.toString());
 		return member;
 	}
 	
+	public List<MemberDTO> selectAllMember(){
+		List<MemberDTO> memberlist = sqlSession.selectList(namespace+"selectAllMember");
+		logger.info("<selectAllMember> "+memberlist.size()+"å«„ï¿½ ï¿½ì‰¶ï¿½ì è­°ê³ ì‰¶ ï¿½ì…¿çŒ·ï¿½");
+		return memberlist;
+	}
+
 	public int updateMember(MemberDTO member) {
 		logger.info("DeptDAOMybatis....memberUpdate()");
 		return sqlSession.insert(namespace + "memberUpdate", member);
 	}
 	
-	
+	public MemberDTO selectByMemberId(Integer member_id) {
+		return sqlSession.selectOne(namespace+"selectByMemberId", member_id);
+	}
 }

@@ -3,10 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.qna">
-	<select id="selectAllUserQnA" parameterType="int" resultType="userqnavo">
-    	select qna_category, title, create_date, answer_date
+	<select id="selectAllUserQnA" parameterType="int" resultType="qnavo">
+    	select *
 		from tt_qna
 		where member_id = #{member_id}
+		order by qna_id desc
   	</select>
+  	<insert id="insertUserQnA" parameterType="qnavo">
+  		insert into tt_qna(qna_id, title, qna_category, create_date, qna_content, answer, answer_date, member_id)
+  					 values(qna_seq.nextval, #{title}, #{qna_category}, sysdate, #{qna_content}, null, null, #{member_id})
+  	</insert>
+  	<delete id="deleteUserQnA" parameterType="int">
+  		delete from tt_qna where qna_id=#{qna_id}
+  	</delete>
+  	<update id="updateUserQnA" parameterType="qnavo">
+  		update tt_qna
+  		set title=#{title},
+  			qna_category=#{qna_category},
+  			qna_content=#{qna_content}
+  		where qna_id=#{qna_id}
+  	</update>
+  	
+  	<select id="selectAllAdminQnA" resultType="qnavo">
+  		select *
+  		from tt_qna
+  		order by qna_id desc
+  	</select>
+  	<update id="updateAdminQnA" parameterType="qnavo">
+  		update tt_qna
+  		set answer = #{answer},
+  			answer_date = sysdate
+  		where qna_id=#{qna_id}
+  	</update>
+  	
   	
 </mapper>

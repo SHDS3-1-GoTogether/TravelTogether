@@ -61,11 +61,17 @@
 
 	<select id="getFundingId" resultType="int">
 		select funding_id
-		from
-		(select * from tt_funding order by rownum desc)
+		from (select * from tt_funding order by funding_id desc)
 		where rownum=1
 	</select>
-
+	
+	<select id="selectAllAdminFunding" resultType="adminfundingvo">
+		select f.funding_id, m.member_id, m.nickname, f.title, 
+				f.area, f.deadline, f.people_num, f.funding_state
+		from tt_funding f join tt_member m on(f.member_id = m.member_id)
+		order by f.funding_id desc
+	</select>
+	
 	<insert id="insertFunding" parameterType="fundvo">
 		insert into
 		tt_funding(funding_id, title, funding_content, create_date, area,
@@ -90,5 +96,10 @@
 		#{views},
 		#{member_id})
 	</insert>
-
+	
+	<update id="updateFundingState" parameterType="map">
+		update tt_funding
+		set funding_state = #{update_state}
+		where funding_id=#{funding_id}
+	</update>
 </mapper>

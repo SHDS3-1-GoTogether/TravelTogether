@@ -1,30 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="side-menubar">
-	<ul>
-        <li>
-        	<p><i class="fas fa-home"></i></p>
-        	<p>대시보드</p>
+	<ul class="side-menubar-list">
+        <li id="dashboard">
+        	<a href="${path}/admin/dashboard.do">
+	        	<p><i class="fas fa-home"></i></p>
+	        	<p>대시보드</p>
+        	</a>
         </li>
-        <li>
-        	<p><i class="fas fa-id-badge"></i></p>
-        	<p>회원관리</p>
+        <li id="memberMenu">
+        	<a href="${path}/admin/memberList.do">
+	        	<p><i class="fas fa-id-badge"></i></p>
+	        	<p>회원관리</p>
+        	</a>
         </li>
-        <li>
-        	<p><i class="fas fa-suitcase-rolling"></i></p>
-        	<p>펀딩관리</p>
+        <li id="fundingMenu">
+        	<a href="${path}/admin/fundingList.do">
+	        	<p><i class="fas fa-suitcase-rolling"></i></p>
+	        	<p>펀딩관리</p>
+        	</a>
         </li>
-        <li>
-        	<p><i class="fas fa-question-circle"></i></p>
-        	<p>Q&A관리</p>
+        <li id="qnaMenu">
+        	<a href="${path}/admin/qndList.do">
+	        	<p><i class="fas fa-question-circle"></i></p>
+	        	<p>Q&A관리</p>
+        	</a>
         </li>
-        <li>
-        	<p><i class="fas fa-bell"></i></p>
-        	<p>알림</p>
+        <li id="notificationMenu">
+        	<a href="${path}/admin/notificationList.do">
+	        	<p><i class="fas fa-bell"></i></p>
+	        	<p>알림</p>
+        	</a>
         </li>
-        <li class="active">
-        	<p><i class="fas fa-tags"></i></p>
-        	<p>쿠폰</p>
+        <li id="couponMenu">
+        	<a href="${path}/admin/couponList.do">
+	        	<p><i class="fas fa-tags"></i></p>
+	        	<p>쿠폰</p>
+        	</a>
         </li>
     </ul>
 </div>
+<script>
+	$(function(){
+		// 페이지 로드 시 현재 URL에 맞는 메뉴 항목에 active 클래스 추가
+        var currentPath = window.location.pathname;
+        $(".side-menubar-list li a").each(function() {
+            var linkPath = $(this).attr("href");
+            if (linkPath === currentPath) {
+                $(this).parent().addClass("active");
+            }
+        });
+        
+	});
+	
+</script>
