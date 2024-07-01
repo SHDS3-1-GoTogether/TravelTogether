@@ -221,3 +221,8 @@
 	margin-top: 10px;
 	text-align: right;
 }
+
+.notify-item-header {
+	width: 100% !important;
+	padding-left: 0 !important;
+}
