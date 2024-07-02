@@ -51,19 +51,25 @@ public class LoginController {
 			System.out.println("성공");
 			session.setAttribute("loginResult", "login성공");
 			session.setAttribute("member", member);
-			String lastRequest = (String)session.getAttribute("lastRequest");
-			
 			String goPage;
-			if(lastRequest==null) {
-				//처음부터 로그인 요청
-				goPage = "../";
-			}else {
-				//로그인없이 다른 페이지를 요청
-				int length = request.getContextPath().length();
-				goPage = lastRequest.substring(length);
-				String queryString = (String)session.getAttribute("queryString");
-				if(queryString!=null) goPage = goPage + "?" + queryString;
+			
+			if(member.getIs_manager()) {	// 관리자가 로그인한 경우
+				goPage = "/admin/dashboard.do";	// 관리자 페이지로 이동
+			} else {	// 일반 회원 로그인한 경우
+				String lastRequest = (String)session.getAttribute("lastRequest");
+				
+				if(lastRequest==null) {
+					//처음부터 로그인 요청
+					goPage = "../";
+				}else {
+					//로그인없이 다른 페이지를 요청
+					int length = request.getContextPath().length();
+					goPage = lastRequest.substring(length);
+					String queryString = (String)session.getAttribute("queryString");
+					if(queryString!=null) goPage = goPage + "?" + queryString;
+				}
 			}
+			
 			return "redirect:" + goPage;
 		}
 	}
