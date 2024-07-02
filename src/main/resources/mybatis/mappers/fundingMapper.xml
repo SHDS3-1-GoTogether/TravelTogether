@@ -4,16 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.funding">
 	<select id="selectAllByViews" resultType="fundvo">
-		select * from tt_funding order by views desc
+		select * from tt_funding where funding_state = 1 order by views desc
 	</select>
 	<select id="selectAllByPriceDesc" resultType="fundvo">
-		select * from tt_funding order by price desc
+		select * from tt_funding where funding_state = 1 order by price desc
 	</select>
 	<select id="selectAllByPriceAsc" resultType="fundvo">
-		select * from tt_funding order by price asc
+		select * from tt_funding where funding_state = 1 order by price asc
 	</select>
 	<select id="selectAllByDate" resultType="fundvo">
-		select * from tt_funding order by create_date desc
+		select * from tt_funding where funding_state = 1 order by create_date desc
 	</select>
 	
 	<select id="selectFudingTheme" resultType="map">
@@ -36,6 +36,7 @@
 		left outer join tt_funding_theme
 			on tt_funding.funding_id = tt_funding_theme.funding_id
 		where 1=1
+			and funding_state = 1
 			<if test='search_title != null and !search_title.equals("")'>
 				and tt_funding.title like '%'||#{search_title}||'%'
 			</if>
@@ -78,4 +79,10 @@
 				#{views}, 
 				#{member_id})
 	</insert>
+	
+	<update id="updateViews" parameterType="int">
+		update tt_funding
+		set views = views + 1
+		where funding_id = #{funding_id}
+	</update>
 </mapper>

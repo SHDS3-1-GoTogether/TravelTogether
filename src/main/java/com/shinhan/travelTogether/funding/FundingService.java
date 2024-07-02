@@ -38,5 +38,9 @@ public class FundingService {
 	public FundingDTO selectFundingById(int funding_id) {
 		return fundingDAO.selectFundingById(funding_id);
 	}
+	
+	public int updateViews(int funding_id) {
+		return fundingDAO.updateViews(funding_id);
+	}
 
 }

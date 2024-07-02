@@ -69,4 +69,9 @@ public class FundingDAO {
 	public FundingDTO selectFundingById(int funding_id) {
 		return sqlSession.selectOne(namespace + "selectFundingById", funding_id);
 	}
+	
+	public int updateViews(int funding_id) {
+		int result = sqlSession.update(namespace + "updateViews", funding_id);
+		return result;
+	}
 }
