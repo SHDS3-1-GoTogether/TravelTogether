@@ -31,12 +31,15 @@
 	</script>
 </head>
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%@ include file="../common/header.jsp" %>
+<div class="mypage-header">
+	<h2>마이페이지</h2>
+</div>
 <div class="container">
-	<% request.setCharacterEncoding("UTF-8"); %>
-	<%@ include file="../common/header.jsp" %>
 	<%@ include file="./mypageMenu.jsp" %>
 	<div class="mypage-qna-content">
-		<h2><i class="fas fa-question-circle"></i> Q&amp;A 목록</h2>
+		<h3><i class="fas fa-question-circle"></i> Q&amp;A 목록</h3>
 		<div class="option">
 			<div class="select-category">
 				<!-- <p class="select-label">구분 : </p>
@@ -74,7 +77,7 @@
 						
 					</p>
 					
-						<button type="button" class="collapsible qna-answer">+ + + </button>
+						<button type="button" class="collapsible qna-answer">+</button>
 						<%-- <div class="content"> ${qna.answer}</div> --%>
 						<div class="content">
 							<c:if test="${qna.answer == null}">

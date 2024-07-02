@@ -75,8 +75,8 @@ public class NotificationService {
 			SseEmitter sseEmitterReceiver = NotificationController.emitters.get(member_id);
 			// 알림 메시지 전송 및 해체
 			try {
-				Map<String, String> eventData = new HashMap<>();
-				eventData.put("send_date", receiveNotification.getSend_date().toString());
+				Map<String, Object> eventData = new HashMap<>();
+				eventData.put("send_date", receiveNotification.getSend_date());
 				eventData.put("message_content", receiveNotification.getMessage_content());
 				sseEmitterReceiver.send(SseEmitter.event().name("notification").data(eventData));
 			} catch (IOException e) {
@@ -84,6 +84,4 @@ public class NotificationService {
 			}
 		}
 	}
-	
-	
 }

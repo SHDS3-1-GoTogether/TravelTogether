@@ -28,7 +28,9 @@
 			// "알림" 링크의 폰트 스타일 변경
 			$("#notification-link").addClass("highlight");
 		}
+		
 	});
+	
 </script>
 </head>
 <body>
@@ -47,9 +49,9 @@
 				<div class="notification-list-content">
 				<c:forEach items="${notificationlist}" var="notification">
 					<div class="notification-item-wrap">
-						<div class="notification-content">${notification.message_content}</div>
+						<div class="notification-item-content">${notification.message_content}</div>
 						<div class="notification-send-date">
-							<fmt:formatDate value="${notification.send_date}" pattern=""/>
+							<fmt:formatDate value="${notification.send_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						</div>
 					</div>
 				</c:forEach>

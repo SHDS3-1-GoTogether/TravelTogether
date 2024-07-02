@@ -73,4 +73,26 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 로그인 체크 필터 -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.shinhan.travelTogether.filter.LoginChkFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 관리자 체크 필터 -->
+	<filter>
+		<filter-name>adminFilter</filter-name>
+		<filter-class>com.shinhan.travelTogether.filter.AdminChkFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>adminFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>adminFilter</filter-name>
+		<url-pattern>/mypage/*</url-pattern>
+	</filter-mapping>
 </web-app>

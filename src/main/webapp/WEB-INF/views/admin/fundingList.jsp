@@ -68,7 +68,7 @@
 					<p class="funding-people-num">인원수</p>
 					<p class="funding-confirm-state">컨펌상태</p>
 					<p class="funding-process-state">진행상태</p>
-					<p class="funding-confirm-button"></p>
+					<!-- <p class="funding-confirm-button"></p> -->
 				</div>
 				<div class="list-item">
 				
