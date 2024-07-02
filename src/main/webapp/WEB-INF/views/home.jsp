@@ -36,7 +36,7 @@
 			<!-- The slideshow/carousel -->
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="${path}/resources/images/main.jpg" alt="메인이미지" class="d-block main_img">
+					<img src="${path}/resources/images/hanok.jpg" alt="메인이미지" class="d-block main_img">
 					<div class="carousel-caption">
 						<h3>&nbsp;&nbsp;여행가고 싶은데 혼자 가기는 싫을 때.. 같이 갈래?&nbsp;&nbsp;</h3>
 						<p>Click!</p>
@@ -46,6 +46,13 @@
 					<img src="${path}/resources/images/jeju.jpg" alt="메인이미지" class="d-block main_img">
 					<div class="carousel-caption">
 						<h3>&nbsp;&nbsp;혼자옵서예&nbsp;&nbsp;</h3>
+						<p>Click!</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="${path}/resources/images/forest.jpg" alt="메인이미지" class="d-block main_img">
+					<div class="carousel-caption">
+						<h3>&nbsp;&nbsp;자연과 함께 힐링 여행&nbsp;&nbsp;</h3>
 						<p>Click!</p>
 					</div>
 				</div>

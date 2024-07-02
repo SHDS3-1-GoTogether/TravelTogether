@@ -115,8 +115,8 @@
 			</div>
 			<div class="row rate-fields">
 				<label for="discount_rate">할인율</label>
-	            <input type="number" id="discount_rate" name="discount_rate" value="0"><span>%</span>
-	            <span class="note">1~100사이의 숫자만 입력 가능</span>
+	            <input type="number" id="discount_rate" name="discount_rate" value="0" max="50"><span>%</span>
+	            <span class="note">1~50사이의 숫자만 입력 가능</span>
 			</div>
 			<div class="row rate-fields">
 				<label for="max_discount">최대할인금액</label>
@@ -249,7 +249,7 @@
 			$(".delete-confirm-button").on("click", f_deleteConfirmClick);
 			$(".update-confirm-button").on("click", f_confirmBtnClick);
 			$("form").on("submit", f_formSubmitBtnClick);
-			$("input[type='number']").on("keydown", f_inputKeypress);
+			$("input[type='number']").on("input", f_inputKeypress);
 		});
 		
 		/* 쿠폰 등록 결과 모달창 호출 */
@@ -457,24 +457,28 @@
 		}
 		
 		function f_inputKeypress(){
-			var currentObj = $(this).attr("id");
+			var replaceNum = $(this).val($(this).val().replace(/[^0-9]/gi, ""));
+			var currentObj = $(this).attr("name");
 			var currentNum = $(this).val();
-			const isNum = c => /\d/.test(c);
+			console.log(currentNum);
+			
+			
 			if(currentObj == "discount_rate") {
-				if(!isNum(currentNum) || currentNum > 50) {
+				if(currentNum <1 || currentNum > 50) {
 					alert("할인율은 1~50 사이의 숫자만 입력 가능합니다.");
+					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();
 				}
 			} else if(currentObj == "max_discount") {
-				if(!isNum(currentNum) || currentNum <10000 || currentNum > 1000000){
+				if(currentNum > 1000000){
 					alert("최대 할인 금액은 10000~1000000 사이의 금액만 입력 가능합니다.");
-					$(this).val(0);
+					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();
 				}
 			} else if(currentObj == "discount_price") {
-				if(!isNum(currentNum) || currentNum < 10000 || currentNum > 1000000) {
+				if(currentNum > 1000000) {
 					alert("할인금액은 10000~1000000 사이의 금액만 입력 가능합니다.");
-					$(this).val(0);
+					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();
 				}
 			}
