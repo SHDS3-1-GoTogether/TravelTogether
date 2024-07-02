@@ -90,7 +90,7 @@ public class FundingController {
 	public void showDetail(Model model, int funding_id) {
 		model.addAttribute("fund", fService.selectFundingById(funding_id));
 		model.addAttribute("pic", pService.selectUserPhoto(funding_id));
-		System.out.println(pService.selectUserPhoto(funding_id));
+		model.addAttribute("tlist", fService.selectFudingTheme());
 	}
 	
 	@ResponseBody

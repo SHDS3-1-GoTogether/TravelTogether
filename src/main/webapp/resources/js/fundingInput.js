@@ -9,7 +9,7 @@ $(function() {
     	$("#" + inputArr[i]).hide();
     }
     //$("#input1").hide();
- 	//$("#input4").show();
+ 	//$("#input5").show();
 
 	
 	function showInputOption(inputOption) {
@@ -362,52 +362,15 @@ $(function() {
     $('#submit4').on('click', function() {
 
     	fund.title = $("#title").val();
-    	fund.funding_content = $("#content").val();
-
-    	
+    	var editor = CKEDITOR.instances['content'];
+    	var content = editor.getData();
+		console.log(content);
+		fund.funding_content = content;
     	showInputOption("input5");
     });
-
-//fundingOption 5 페이지 js 
-	function addImg() {
-		$("#extraImg").append("<div class='extraImg'><input type='file' accept='image/*' name='extra_pics'><span onclick='removeImg(this)'>x</span></div>");
-	}
-	function removeImg(id) {
-		$(id).parent().remove();
-	}
-	
-	$(document).on("change", "input[name=extra_pics]", function() {
-		const extraPic = event.target.files;
-		
-        let nextElement = $(this).next();
-        if (nextElement.is('img')) {
-            nextElement.remove();
-        }		
-		
-		if($(this).val() != "" ) {
-		 	var image = new Image();
-		 	var ImageTempUrl = window.URL.createObjectURL(extraPic[0]);
-		 	image.src = ImageTempUrl;
-		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
-		 	$(this).after(image);
-		}
-	});
-	
-	$("input[name=main_pic]").on("change", function(event){
-		 const mainPic = event.target.files;
-		 $("#mainImgArea").children().remove();
-		 mainPicArr = null;
-		 if($(this).val() != "" ) {
-		 	var image = new Image();
-		 	var ImageTempUrl = window.URL.createObjectURL(mainPic[0]);
-		 	image.src = ImageTempUrl;
-		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
-		 	$("#mainImgArea").append(image);
-		 	mainPicArr = $("input[name=main_pic]")[0].files[0];
-		 }
-	 });
-	
-	$('#submit5').on('click', function() {
+    
+//fundingOption 5 페이지 js
+$('#submit5').on('click', function() {
 		var value = $("input[name=extra_pics]");
 		for(var i = 0; i < value.length; i++) {
 			if(value[i].files[0] != null) {
@@ -455,6 +418,23 @@ $(function() {
 		});
 
 	});
+	
+	$(document).on("change", "input[name=main_pic]", function() {
+	 const mainPic = event.target.files;
+	 
+	 mainPicArr = null;
+	 if(mainPic[0] != null ) {
+	 	var image = $("#mainImageWrapper").children();
+	 	var ImageTempUrl = window.URL.createObjectURL(mainPic[0]);
+		image.removeAttr("class");
+		image.removeAttr("src");
+		image.attr("class", "selected-image");
+		image.attr("src", ImageTempUrl);
+	 	mainPicArr = $("input[name=main_pic]")[0].files[0];
+	 }
+ });
+
+	
 });
 
 	
@@ -487,4 +467,112 @@ function trafficCheck() {
 		$("#traffic_pic").val("");
 	}
 }
+
+//FundingOption5 
+
+let detailImageCount = 1;
+let currentIndex = 0;
+
+
+ function mainImageOnClick() {
+ 	$("#main-image").click();
+ 	
+	var image =$("#mainImage");
+	image.removeAttr("class");
+	image.removeAttr("src");
+	image.attr("class", "default-image");
+	image.attr("src", "../resources/images/add_img.png");
+ }
+
+
+function detailImageOnClick(index) {
+	$(`#detailImage${index}`).click();
+	
+		
+	var image =$(`#detailImage${index}Preview`).children();
+	image.removeAttr("class");
+	image.removeAttr("src");
+	image.attr("class", "default-image");
+	image.attr("src", "../resources/images/add_img.png");
+	
+}
+	
+$(document).on("change", "input[name=extra_pics]", function() {
+	const extraPic = event.target.files;
+	var prefixId = $(this).attr('id');	
+	
+	if(extraPic[0] != null) {
+		
+		var image =$(`#${prefixId}Preview`).children();
+		var ImageTempUrl = window.URL.createObjectURL(extraPic[0]);
+		image.removeAttr("class");
+		image.removeAttr("src");
+		image.attr("class", "selected-image");
+		image.attr("src", ImageTempUrl);
+	}
+});
+	
+
+
+ 
+
+function addDetailImage() {
+    const container = document.getElementById('detailImageContainer');
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('detail-image');
+    
+    newDiv.innerHTML = `
+        <input type="file"  id="detailImage${detailImageCount}" name="extra_pics" accept="image/*" style="display:none" >
+        <div id="detailImage${detailImageCount}Preview" class="image-preview" onclick="detailImageOnClick(${detailImageCount})">
+            <img class="default-image" src="../resources/images/add_img.png" alt="Upload Icon"">
+        </div>
+        <button type="button" class="remove-icon" onclick="removeDetailImage(${detailImageCount})">X</button>
+    `;
+    container.appendChild(newDiv);
+    detailImageCount++;
+    updateSlider();
+}
+
+function removeDetailImage(index) {
+    const imageDiv = document.getElementById(`detailImage${index}`).parentNode;
+    imageDiv.parentNode.removeChild(imageDiv);
+    updateSlider();
+}
+
+function updateSlider() {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    const containerWidth = document.querySelector('.image-slider').offsetWidth;
+    const totalWidth = detailImages.length * (detailImages[0].offsetWidth + 10); // including margin-right
+    container.style.width = `${totalWidth}px`;
+    slideToIndex(currentIndex);
+}
+
+function slideLeft() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        slideToIndex(currentIndex);
+    }
+}
+
+function slideRight() {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    if (currentIndex < detailImages.length - 1) {
+        currentIndex++;
+        slideToIndex(currentIndex);
+    }
+}
+
+function slideToIndex(index) {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    const itemWidth = detailImages[0].offsetWidth + 10; // including margin-right
+    const translateX = -index * itemWidth;
+    container.style.transform = `translateX(${translateX}px)`;
+}
+
+document.addEventListener("DOMContentLoaded", updateSlider);
+
+
 
