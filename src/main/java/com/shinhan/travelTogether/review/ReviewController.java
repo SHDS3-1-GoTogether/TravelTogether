@@ -23,6 +23,7 @@ public class ReviewController {
 	
 	@GetMapping("/reviewList.do")
 	public void showAllReview(Model model) {
+		
 		List<ReviewDTO> reviewlist = reviewService.selectAllReview();
 		List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
 		model.addAttribute("reviewlist", reviewlist);

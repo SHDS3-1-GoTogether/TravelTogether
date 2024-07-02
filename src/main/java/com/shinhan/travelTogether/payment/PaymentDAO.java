@@ -28,4 +28,10 @@ public class PaymentDAO {
 
 		return sqlSession.selectOne(namespace + "getFundingInfo", fundingId);
 	}
+	
+	public List<PaymentDTO> selectAllPayment() {
+		List<PaymentDTO> paymentlist = sqlSession.selectList(namespace + "selectAllPayment");
+		logger.info("<selectAllPayment>" + paymentlist.size() + "건의 결제 조회");
+		return paymentlist;
+	}
 }

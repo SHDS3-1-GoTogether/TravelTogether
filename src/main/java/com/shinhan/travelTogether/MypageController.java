@@ -25,10 +25,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
+import com.shinhan.travelTogether.funding.FundingDTO;
+import com.shinhan.travelTogether.funding.FundingService;
 import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
+import com.shinhan.travelTogether.payment.PaymentDTO;
+import com.shinhan.travelTogether.payment.PaymentService;
+import com.shinhan.travelTogether.review.ReviewDTO;
+import com.shinhan.travelTogether.review.ReviewService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -43,7 +49,16 @@ public class MypageController {
 	
 	@Autowired
 	NotificationService notificationService;
-
+	
+	@Autowired
+	ReviewService reviewService;
+	
+	@Autowired
+	FundingService fundingService;
+	
+	@Autowired
+	PaymentService paymentService;
+	
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -91,7 +106,7 @@ public class MypageController {
 
 	@GetMapping("/couponList.do")
 	public void userCouponList(Model model, HttpSession session) {
-
+		
 		// 로그인 기능 구현시 수정
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
@@ -107,4 +122,21 @@ public class MypageController {
 		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
 	}
+	
+	@GetMapping("/reviewList.do")
+	public void reviewList(Model model, HttpSession session) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		List<ReviewDTO> reviewlist = reviewService.selectMyreviewAll(member_id);
+		System.out.println(reviewlist);
+		logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
+		model.addAttribute("reviewlist", reviewlist);
+		
+		List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
+		//List<PaymentDTO> paymentlist = paymentService.selectAllPayment();
+		List<ReviewDTO> reviewlist2 = reviewService.selectMyWritableReview(member_id);
+		model.addAttribute("fundinglist", fundinglist);
+		//model.addAttribute("patmentlist", paymentlist);
+		model.addAttribute("reviewlist2", reviewlist2);
+	}
+	
 }

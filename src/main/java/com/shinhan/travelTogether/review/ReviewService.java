@@ -15,5 +15,23 @@ public class ReviewService {
 		return reviewDao.selectAllReview();
 	}
 	
+	public List<ReviewDTO> selectMyreviewAll(int member_id) {
+		return reviewDao.selectMyreviewAll(member_id);
+	}
 	
+	public List<ReviewDTO> selectMyreviewByFundingId() { //X
+		return reviewDao.selectMyreviewByFundingId();
+	}
+	
+	public int insertMyreview(ReviewDTO reviewDto) { //X
+		return reviewDao.insertMyreview(reviewDto);
+	}
+	
+	public List<ReviewDTO> selectMyreviewByFundingName(ReviewDTO reviewDto) {
+		return reviewDao.selectMyreviewByFundingName(reviewDto);
+	}
+	
+	public List<ReviewDTO> selectMyWritableReview(int member_id) {
+		return reviewDao.selectMyWritableReview(member_id);
+	}
 }
