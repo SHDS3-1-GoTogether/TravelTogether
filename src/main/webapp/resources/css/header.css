@@ -79,6 +79,10 @@
 	transform: translate(40px, 30px);
 }
 
+.navbar-menu > li.four-item {
+	width: 25%;
+}
+
 .navbar-menu2 {
 	width: 30%;
 	display: flex;
