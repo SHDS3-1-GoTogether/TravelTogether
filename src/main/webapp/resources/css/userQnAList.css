@@ -1,24 +1,40 @@
 body {
 	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.mypage-header {
+    width: 70vw;
+    margin: 0 auto;
+    padding: 20px 20px 10px 20px;
+}
+
+.mypage-header h2 {
+	font-size: 1.8em;
+	padding: 0 20px;
+	margin: 0;
 }
 
 .container {
 	width: 70vw;
 	margin: 0 auto;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	padding: 20px;
 }
 
 .mypage-qna-content {
-    width: 100%;
+    width: 70%;
     margin: 0 auto;
-    padding: 20px 0;
+    padding-bottom: 20px;
 }
 
-.mypage-qna-content > h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+.mypage-qna-content > h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin: 0;
     padding-left: 20px;
 }
 
@@ -35,8 +51,8 @@ body {
 .option {
 	width: 100%;
 	display: flex;
-	justify-content: space-between; margin : 0 auto;
-	padding: 10px;
+	justify-content: space-between; 
+	margin : 0 auto;
 	margin: 0 auto;
 }
 
@@ -128,7 +144,7 @@ body {
 }
 
 .qna-title {
-	width: 30% !important;
+	width: 25% !important;
 }
 
 .qna-create-date {
@@ -144,7 +160,7 @@ body {
 }
 
 .qna-answer {
-	width: 5% !important;
+	width: 7% !important;
 }
 
 /* .data .qna-title {
@@ -153,7 +169,7 @@ body {
 
 
 
-.button, .collapsible{
+.button .collapsible {
 	padding: 10px 15px;
 	border-radius: 10px;
 	background-color: #F9F9F9;
@@ -162,17 +178,26 @@ body {
 	cursor: pointer;
 }
 
-.collapsible {
-  /*background-color: #777;
-  color: white;*/
+.update-btn, .delete-btn, button[class~="qna-answer"] {
+	padding: 10px 15px;
+	border-radius: 10px;
+	background-color: #F9F9F9;
+	color: #99A1B7;
+	border: 0;
+	cursor: pointer;
+}
+
+/* .collapsible {
+  background-color: #777;
+  color: white;
   cursor: pointer;
   padding: 18px;
-  /*width: 100%;*/
+  width: 100%;
   border: none;
   text-align: left;
   outline: none;
   font-size: 15px;
-}
+} */
 .active, .collapsible:hover {
   background-color: #555;
 }
@@ -258,7 +283,7 @@ form {
 
 .row select {
 	/*-o-appearance: none;
-	-webkit-appearance: none; /* ³×ÀÌÆ¼ºê ¿ÜÇü °¨Ãß±â
+	-webkit-appearance: none; /*     Æ¼           ß± 
 	-moz-appearance: none;
 	appearance: none;*/
 	width: 70%;
@@ -323,7 +348,7 @@ select option {
 	color: #fff;
 }
 
-/* Ã³À½¿¡´Â rate ÇÊµå¸¦ ¼û±è */
+/* Ã³       rate  Êµå¸¦      */
 .row .rate-fields, .row .price-fields {
 	display: none;
 }

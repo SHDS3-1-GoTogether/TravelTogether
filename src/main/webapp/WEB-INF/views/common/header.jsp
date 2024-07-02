@@ -26,7 +26,7 @@
 		<li><a href="#"><img class="menuImage"
 				src="${path}/resources/images/travel2.png" alt="랜덤여행">
 				<p>랜덤펀딩</p></a></li>
-		<li><a href="#"><img class="menuImage"
+		<li><a href="${path}/review/reviewList.do"><img class="menuImage"
 				src="${path}/resources/images/review.png" alt="후기">
 				<p>후기</p></a></li>
 		<li><a href="${path}/admin/dashboard.do"><img class="menuImage"
@@ -57,7 +57,7 @@
 							<div id="popupMenu" class="notification-layer" role="menu"
 								aria-labelledby="notificationIcon">
 								<div class="notification-header">
-									<h3>알림</h3>
+									<h3 class="header-content">알림</h3>
 									<p id="plusBtn" class="notification-plus">더보기</p>
 								</div>
 								<div class="notification-content-wrap">
