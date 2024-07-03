@@ -16,6 +16,10 @@
 		select * from tt_member
 	</select>
 	
+	<select id="selectAllNormal" resultType="membervo">
+		select * from tt_member where is_manager=0
+	</select>
+
 	<insert id="memberInsert" parameterType="membervo">
 		insert into tt_member(member_id, login_id, login_pwd, username, nickname,
 		phone, email, gender, birth, is_manager, token, acc_amount, membership_id)
@@ -29,5 +33,11 @@
     
     <select id="selectByMemberId" parameterType="int">
     	select * from tt_member where member_id=#{member_id}
+    </select>
+    
+    <select id="searchByCondition" parameterType="String" resultType="membervo">
+    	select *
+    	from tt_member
+    	where login_id like '%' || #{word} || '%' or username like '%' || #{word} || '%' or nickname like '%' || #{word} || '%' 
     </select>
 </mapper>

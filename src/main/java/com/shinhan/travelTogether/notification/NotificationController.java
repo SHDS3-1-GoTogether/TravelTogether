@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -28,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class NotificationController {
 	
 	//private final ConcurrentHashMap<Integer, List<SseEmitter>> emitters = new ConcurrentHashMap<>();
-	public static ConcurrentHashMap<Integer, SseEmitter> emitters = new ConcurrentHashMap<>();
+	public static ConcurrentHashMap<String, SseEmitter> emitters = new ConcurrentHashMap<>();
+	public static final Map<String, Object> eventCache = new ConcurrentHashMap<>();
 
 	@Autowired
 	NotificationService notificationService;
@@ -48,10 +50,12 @@ public class NotificationController {
 	 * 
 	 * return emitter; }
 	 */
-	@GetMapping("/notifications/subscribe")
-	public SseEmitter subscribe(HttpSession session) {
+	@GetMapping(value="/notifications/subscribe", produces=MediaType.TEXT_EVENT_STREAM_VALUE)
+	public SseEmitter subscribe(
+			HttpSession session,
+			@RequestHeader(value="Last-Event-ID", required=false, defaultValue="") String lastEventId) {
 		Integer member_id = ((MemberDTO)session.getAttribute("member")).getMember_id();
-		SseEmitter sseEmitter = notificationService.subscribe(member_id);
+		SseEmitter sseEmitter = notificationService.subscribe(member_id, lastEventId);
 		
 		return sseEmitter;
 	}

@@ -6,9 +6,6 @@ body {
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
-	/* display: flex;
-	flex-direction: column; */
-	/* padding: 20px; */
 }
 
 #tt_footer {
@@ -17,8 +14,8 @@ body {
 }
 
 .container {
-	height: 100%;
 	width: 70vw;
+	height: 100%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
@@ -33,25 +30,22 @@ body {
 
 .content h2 {
 	width: 100%;
-	margin: 0 auto; 
-	margin-top : 20px;
+	margin: 0 auto; margin-top : 20px;
+	margin-bottom: 20px;
 	padding-left: 20px;
+	margin-top: 20px;
 }
 
-.button-wrap {
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-	margin-bottom: 10px;
+.search-content {
+	padding: 0 0 20px 20px;
+	font-size: 1em;
 }
 
-.button-wrap .add-button {
-	padding: 10px;
-	background-color: #F1F1F4;
-	font-weight: bold;
-	border-radius: 10px;
-	border: 0;
-	cursor: pointer;
+.search-content input[type='text'] {
+	
+	border-radius: 20px;
+	padding: 5px 20px;
+	width: 35%;
 }
 
 .list-table {
@@ -77,19 +71,15 @@ body {
 	font-size: 0.9em;
 	padding: 0 5px;
 	text-align: center;
-	width: 15%;
-}
-
-.data-wrap {
-	height: 90%;
-	overflow-y: scroll;	
+	vertical-align: middle;
+	/* width: 5%; */
 }
 
 .data {
 	width: 90%;
 	margin: 0 auto;
 	display: flex;
-	justify-content:space-between;
+	justify-content: space-between;
 }
 
 .data:not(.data:last-child) {
@@ -102,10 +92,5 @@ body {
 	padding: 0 5px;
 	text-align: center;
 	line-height: 40px;
-	width: 15%;
+	/* width: 8%; */
 }
-
-.message-content {
-	width: 45% !important;
-}
-
