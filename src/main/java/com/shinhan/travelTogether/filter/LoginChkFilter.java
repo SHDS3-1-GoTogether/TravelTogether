@@ -29,7 +29,8 @@ public class LoginChkFilter implements Filter {
 			"/funding/searchFunding.do",
 			"/review/*",
 			"/auth/*",
-			"/resources/**"
+			"/resources/**",
+			"/notifications/subscribe/*"
 	};
 	
 	public void destroy() {

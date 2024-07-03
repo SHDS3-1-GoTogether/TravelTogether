@@ -7,11 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <%@ include file="../common/header.jsp"%>
-
 <link rel="stylesheet" href="${path}/resources/css/join.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path}/resources/js/join.js"></script>
+
 </head>
 <body>
 	<div class="container">
@@ -61,7 +62,7 @@
 					name="birth">
 			</div>
 			<div class="form-group">
-				<button type="submit">가입</button>
+				<input type="button" id="submit" value="가입" onclick="call()">
 			</div>
 		</form>
 	</div>
@@ -69,5 +70,37 @@
 		<img src="${path}/resources/images/sh_character_02.png" alt="신한캐릭터2">
 	</div>
 	<%@ include file="../common/footer.jsp"%>
+	<script>
+	 
+		 function call() {
+			var formData = $("#registrationForm").serialize();
+			console.log(formData);
+			$.ajax({
+				url: "${path}/auth/join.do",
+				type: "post",
+				data: formData,
+				success:function(data) {
+					if(data=="1") {
+						swal(
+							'회원가입 성공',
+							'회원가입에 성공하였습니다.',
+							'success'
+						).then(function() {
+							location.href="${path}/auth/login.do";
+						});
+					} else {
+						swal(
+							'회원가입 실패',
+							'회원가입에 실패했습니다.',
+							'error'
+						).then(function() {
+							location.href="${path}/auth/join.do";
+						});
+					}
+				}
+			});
+		} 
+	 
+	</script>
 </body>
 </html>

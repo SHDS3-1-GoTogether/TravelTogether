@@ -1,5 +1,5 @@
 	var check1 = 0;
-	var check2 = 0;
+	var check2 = 1;
 
 	function validateForm() {
 		var loginId = document.getElementById("login_id").value;
