@@ -19,23 +19,38 @@
 		src="${path}/resources/images/logo.gif" alt="트투">
 	</a>
 	<ul class="navbar-menu" id="navbarMenu">
-		<li><a href="${path}/funding/fundingList.do"><img
-				class="menuImage" src="${path}/resources/images/travel1.png"
-				alt="일반여행">
-				<p>일반펀딩</p></a></li>
-		<li><a href="${path}/randomFunding/schedule.do"><img class="menuImage"
-				src="${path}/resources/images/travel2.png" alt="랜덤여행">
-				<p>랜덤펀딩</p></a></li>
-		<li><a href="#"><img class="menuImage"
-				src="${path}/resources/images/review.png" alt="후기">
-				<p>후기</p></a></li>
-		<li><a href="${path}/admin/dashboard.do"><img class="menuImage"
-				src="${path}/resources/images/manager.png" alt="관리자">
-				<p>관리자</p></a></li>
-		<li><a href="${path}/mypage/correction.do"><img
-				class="menuImage" src="${path}/resources/images/mypage.png"
-				alt="마이페이지">
-				<p>마이페이지</p></a></li>
+		<li>
+			<a href="${path}/funding/fundingList.do">
+				<img class="menuImage" src="${path}/resources/images/travel1.png" alt="일반여행">
+				<p>일반펀딩</p>
+			</a>
+		</li>
+		<li>
+			<a href="${path}/randomFunding/schedule.do">
+				<img class="menuImage" src="${path}/resources/images/travel2.png" alt="랜덤여행">
+				<p>랜덤펀딩</p>
+			</a>
+		</li>
+		<li>
+			<a href="${path}/review/reviewList.do">
+				<img class="menuImage" src="${path}/resources/images/review.png" alt="후기">
+				<p>후기</p>
+			</a>
+		</li>
+		<li>
+			<c:if test="${member != null && member.is_manager}">
+				<a href="${path}/admin/dashboard.do">
+					<img class="menuImage" src="${path}/resources/images/manager.png" alt="관리자">
+					<p>관리자</p>
+				</a>
+			</c:if>
+			<c:if test="${member != null && !member.is_manager}">
+				<a href="${path}/mypage/correction.do">
+					<img class="menuImage" src="${path}/resources/images/mypage.png" alt="마이페이지">
+					<p>마이페이지</p>
+				</a>
+			</c:if>
+		</li>
 	</ul>
 	<ul class="navbar-menu2" id="navbarMenu2">
 		<li><c:if test="${member==null}">
@@ -44,6 +59,7 @@
 				<%-- <img src="${path}/resources/images/profile.png" alt="프로필이미지"
 					class="profile_img"> --%>
 				<div id="infoHeader">
+					<c:if test="${!member.is_manager}">
 					<div id="icons">
 						<a href="${path}/chat" id="chat"> <i
 							class="far fa-comment-dots"></i>
@@ -57,7 +73,7 @@
 							<div id="popupMenu" class="notification-layer" role="menu"
 								aria-labelledby="notificationIcon">
 								<div class="notification-header">
-									<h3>알림</h3>
+									<h3 class="header-content">알림</h3>
 									<p id="plusBtn" class="notification-plus">더보기</p>
 								</div>
 								<div class="notification-content-wrap">
@@ -65,10 +81,8 @@
 								</div>
 							</div>
 						</div>
-						<%-- <a href="${path}/chat" id="notification">
-							<i class="far fa-bell"></i>
-						</a> --%>
 					</div>
+					</c:if>
 					<div id="loginInfo">
 						<span>${member.nickname }님</span> <a href="${path}/auth/logout.do"
 							id="logoutLink">logout</a>
@@ -80,6 +94,9 @@
 <script>
 	$(function(){
 		var member_id = ${member.member_id}; // 실제 memberId로 설정
+		console.log("=="+member_id);
+		loadPreviousNotifications(member_id);	// 이전 알림 불러오기
+		
 		$("#notificationIcon").on("click", togglePopup);
 		$(document).on("click", function(event){
 			if(!$(event.target).closest("#notificationIcon, #popupMenu").length) {
@@ -90,7 +107,10 @@
 		
 		$("#plusBtn").on("click", f_plusBtnClick);
 		
-        connect(member_id);
+		if(member_id != null) {
+			console.log(member_id);
+        	connect(member_id);			
+		}
 	});
 	
 	function f_plusBtnClick() {
@@ -106,8 +126,8 @@
 			popupMenu.hide();
 			$(this).attr("aria-expanded", "false");
 		} else {
-			$("#notifications").html("");
-			loadPreviousNotifications(${member.member_id});
+			//$("#notifications").html("");
+			//loadPreviousNotifications(${member.member_id});
 			popupMenu.show();
 			$(this).attr("aria-expanded", "true");
 		}
@@ -186,6 +206,7 @@
         	var data = event.data;
         	const parsedData = JSON.parse(data);	
        		console.log('Received notification:', parsedData);
+       		console.log("!!!!!!!!실시간 알림!!!!!!!!!");
                <%--const notificationDiv = document.getElementById('notifications');
                const newNotification = document.createElement('div');
                newNotification.textContent = message;
@@ -202,7 +223,7 @@
             console.error("EventSource failed: ", event);
             if (eventSource.readyState === EventSource.CLOSED) {
                 console.log("Connection was closed. Reconnecting...");
-                setTimeout(connect, 60000); // 5초 후 재연결 시도
+                setTimeout(connect, 10000); // 10초 후 재연결 시도
             }
         };
 
@@ -235,7 +256,6 @@
         }
     }
 	
-
     function formatTimestamp(timestamp) {
     	console.log("timestamp"+timestamp);
         const date = new Date(timestamp);

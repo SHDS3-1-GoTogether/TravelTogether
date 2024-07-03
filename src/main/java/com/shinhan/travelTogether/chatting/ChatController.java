@@ -1,6 +1,9 @@
 package com.shinhan.travelTogether.chatting;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,6 +36,7 @@ public class ChatController {
 	
 	@GetMapping("/mypage/chatroom.do")
 	public String chatroom(HttpSession session, Model model) {
+		
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		int memberId = member.getMember_id();
 		model.addAttribute("chatRoom", chatService.getChatRoom(memberId));
@@ -40,7 +44,13 @@ public class ChatController {
 	}
 
 	@GetMapping("/chat/{fundingId}")
-	public String chat(@PathVariable("fundingId") int fundingId, Model model) {
+	public String chat(@PathVariable("fundingId") int fundingId, Model model, HttpServletResponse response, HttpSession session) throws IOException {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		List<Object> roomInfo = chatService.openRoomCheck(fundingId, member.getMember_id());
+		System.out.println("************************"+roomInfo);
+		if(!roomInfo.contains(fundingId)) {
+			return "redirect:/mypage/chatroom.do";
+			};
 		model.addAttribute("beforeChat", chatService.getChatList(fundingId));
 		fundId = fundingId;
 		return "chat/chatting";

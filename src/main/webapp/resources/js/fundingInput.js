@@ -9,7 +9,7 @@ $(function() {
     	$("#" + inputArr[i]).hide();
     }
     //$("#input1").hide();
- 	//$("#input4").show();
+ 	//$("#input5").show();
 
 	
 	function showInputOption(inputOption) {
@@ -49,7 +49,7 @@ $(function() {
 
     
 //fundingOption 1 페이지 js 
-	    let currentMonth = new Date().getMonth();
+	    let currentMonth = new Date().getMonth()+1;
 	    let currentYear = new Date().getFullYear();
 	    
 	    let startDate = null;
@@ -86,6 +86,31 @@ $(function() {
                     $cell.addClass('empty');
                 } else if (date > daysInMonth) {
                     break;
+                } else if(
+                	(
+                	(year == new Date().getFullYear())
+                	 && 
+                	 (month == (new Date().getMonth()+1 ))
+                	 ) 
+                		|| (
+                	(year == (new Date().getFullYear())) 
+                	 && 
+                	(month == (new Date().getMonth()+2))
+                	 && 
+                	(date < new Date().getDate()) )
+                		|| (
+                	(year == (new Date().getFullYear()+1)) 
+                	 && 
+                	(month == (new Date().getMonth()+2))
+                	 && 
+                	(date > (new Date().getDate())) )
+                	) {
+
+                    $cell.text(date);
+                    $cell.data('date', `${year}-${month}-${date}`);
+                	$cell.addClass('empty');
+                	
+                	date++;
                 } else {
                     $cell.text(date);
                     $cell.data('date', `${year}-${month}-${date}`);
@@ -141,20 +166,32 @@ $(function() {
 
     $('#prev-button').on('click', function() {
         currentMonth -= 1;
-        if (currentMonth < 0) {
-            currentMonth += 12;
-            currentYear--;
-        }
-        renderCalendars();
+        if ((currentMonth < (new Date().getMonth() + 1)) && (currentYear == new Date().getFullYear())) {
+    	    alert("이전 달로 이동할 수 없습니다.");
+        	currentMonth += 1;
+	    } else {
+	        if (currentMonth < 0) {
+	            currentMonth += 12;
+	            currentYear--;
+        	}
+        	renderCalendars();
+	    }
+
     });
 
     $('#next-button').on('click', function() {
         currentMonth += 1;
-        if (currentMonth > 11) {
-            currentMonth -= 12;
-            currentYear++;
+        if((currentYear == (new Date().getFullYear()+1)) && (currentMonth == new Date().getMonth() +2)) {
+        	alert("다음 달로 이동할 수 없습니다.");
+        	currentMonth -= 1;
+        } else {
+	        if (currentMonth > 11) {
+	            currentMonth -= 12;
+	            currentYear++;
+	        }
+	        renderCalendars();        
         }
-        renderCalendars();
+
     });
     
 
@@ -281,6 +318,30 @@ $(function() {
                     $cell.addClass('empty-cell');
                 } else if (dateNumber > totalDaysInMonth) {
                     break;
+                } else if(
+                	(
+                	(year == new Date().getFullYear())
+                	 && 
+                	 (month == (new Date().getMonth() ))
+                	 ) 
+                		|| (
+                	(year == (new Date().getFullYear())) 
+                	 && 
+                	(month == (new Date().getMonth()+1))
+                	 && 
+                	(dateNumber < new Date().getDate()) )
+                		|| (
+                	(year == (new Date().getFullYear()+1)) 
+                	 && 
+                	(month == (new Date().getMonth()+1))
+                	 && 
+                	(dateNumber > (new Date().getDate())) )
+                	) { 
+                    $cell.text(dateNumber);
+                    $cell.data('date', `${year}-${month + 1}-${dateNumber}`);
+                    $cell.addClass('empty-cell');
+                    dateNumber++;
+                    
                 } else {
                     $cell.text(dateNumber);
                     $cell.data('date', `${year}-${month + 1}-${dateNumber}`);
@@ -321,20 +382,32 @@ $(function() {
 
     $('#prev-btn').on('click', function() {
         monthIndex -= 1;
-        if (monthIndex < 0) {
-            monthIndex += 12;
-            yearIndex--;
+        if( (yearIndex == new Date().getFullYear()) && (monthIndex < new Date().getMonth())) {
+        	monthIndex += 1;
+        	alert("이전 달로 이동할 수 없습니다.");
+        } else {
+	        if (monthIndex < 0) {
+	            monthIndex += 12;
+	            yearIndex--;
+	        }
+	        updateCalendar();        
         }
-        updateCalendar();
+
     });
 
     $('#next-btn').on('click', function() {
         monthIndex += 1;
-        if (monthIndex > 11) {
-            monthIndex -= 12;
-            yearIndex++;
+        if((yearIndex == new Date().getFullYear()+1) && (monthIndex > new Date().getMonth()+1)) {
+        	monthIndex -= 1;
+        	alert("다음 달로 이동할 수 없습니다.");
+        } else {
+	        if (monthIndex > 11) {
+	            monthIndex -= 12;
+	            yearIndex++;
+	        }
+	        updateCalendar();        
         }
-        updateCalendar();
+
     });
 
     $('#submit3').on('click', function() {
@@ -362,52 +435,15 @@ $(function() {
     $('#submit4').on('click', function() {
 
     	fund.title = $("#title").val();
-    	fund.funding_content = $("#content").val();
-
-    	
+    	var editor = CKEDITOR.instances['content'];
+    	var content = editor.getData();
+		console.log(content);
+		fund.funding_content = content;
     	showInputOption("input5");
     });
-
-//fundingOption 5 페이지 js 
-	function addImg() {
-		$("#extraImg").append("<div class='extraImg'><input type='file' accept='image/*' name='extra_pics'><span onclick='removeImg(this)'>x</span></div>");
-	}
-	function removeImg(id) {
-		$(id).parent().remove();
-	}
-	
-	$(document).on("change", "input[name=extra_pics]", function() {
-		const extraPic = event.target.files;
-		
-        let nextElement = $(this).next();
-        if (nextElement.is('img')) {
-            nextElement.remove();
-        }		
-		
-		if($(this).val() != "" ) {
-		 	var image = new Image();
-		 	var ImageTempUrl = window.URL.createObjectURL(extraPic[0]);
-		 	image.src = ImageTempUrl;
-		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
-		 	$(this).after(image);
-		}
-	});
-	
-	$("input[name=main_pic]").on("change", function(event){
-		 const mainPic = event.target.files;
-		 $("#mainImgArea").children().remove();
-		 mainPicArr = null;
-		 if($(this).val() != "" ) {
-		 	var image = new Image();
-		 	var ImageTempUrl = window.URL.createObjectURL(mainPic[0]);
-		 	image.src = ImageTempUrl;
-		 	image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
-		 	$("#mainImgArea").append(image);
-		 	mainPicArr = $("input[name=main_pic]")[0].files[0];
-		 }
-	 });
-	
-	$('#submit5').on('click', function() {
+    
+//fundingOption 5 페이지 js
+$('#submit5').on('click', function() {
 		var value = $("input[name=extra_pics]");
 		for(var i = 0; i < value.length; i++) {
 			if(value[i].files[0] != null) {
@@ -455,6 +491,23 @@ $(function() {
 		});
 
 	});
+	
+	$(document).on("change", "input[name=main_pic]", function() {
+	 const mainPic = event.target.files;
+	 
+	 mainPicArr = null;
+	 if(mainPic[0] != null ) {
+	 	var image = $("#mainImageWrapper").children();
+	 	var ImageTempUrl = window.URL.createObjectURL(mainPic[0]);
+		image.removeAttr("class");
+		image.removeAttr("src");
+		image.attr("class", "selected-image");
+		image.attr("src", ImageTempUrl);
+	 	mainPicArr = $("input[name=main_pic]")[0].files[0];
+	 }
+ });
+
+	
 });
 
 	
@@ -487,4 +540,112 @@ function trafficCheck() {
 		$("#traffic_pic").val("");
 	}
 }
+
+//FundingOption5 
+
+let detailImageCount = 1;
+let currentIndex = 0;
+
+
+ function mainImageOnClick() {
+ 	$("#main-image").click();
+ 	
+	var image =$("#mainImage");
+	image.removeAttr("class");
+	image.removeAttr("src");
+	image.attr("class", "default-image");
+	image.attr("src", "../resources/images/add_img.png");
+ }
+
+
+function detailImageOnClick(index) {
+	$(`#detailImage${index}`).click();
+	
+		
+	var image =$(`#detailImage${index}Preview`).children();
+	image.removeAttr("class");
+	image.removeAttr("src");
+	image.attr("class", "default-image");
+	image.attr("src", "../resources/images/add_img.png");
+	
+}
+	
+$(document).on("change", "input[name=extra_pics]", function() {
+	const extraPic = event.target.files;
+	var prefixId = $(this).attr('id');	
+	
+	if(extraPic[0] != null) {
+		
+		var image =$(`#${prefixId}Preview`).children();
+		var ImageTempUrl = window.URL.createObjectURL(extraPic[0]);
+		image.removeAttr("class");
+		image.removeAttr("src");
+		image.attr("class", "selected-image");
+		image.attr("src", ImageTempUrl);
+	}
+});
+	
+
+
+ 
+
+function addDetailImage() {
+    const container = document.getElementById('detailImageContainer');
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('detail-image');
+    
+    newDiv.innerHTML = `
+        <input type="file"  id="detailImage${detailImageCount}" name="extra_pics" accept="image/*" style="display:none" >
+        <div id="detailImage${detailImageCount}Preview" class="image-preview" onclick="detailImageOnClick(${detailImageCount})">
+            <img class="default-image" src="../resources/images/add_img.png" alt="Upload Icon"">
+        </div>
+        <button type="button" class="remove-icon" onclick="removeDetailImage(${detailImageCount})">X</button>
+    `;
+    container.appendChild(newDiv);
+    detailImageCount++;
+    updateSlider();
+}
+
+function removeDetailImage(index) {
+    const imageDiv = document.getElementById(`detailImage${index}`).parentNode;
+    imageDiv.parentNode.removeChild(imageDiv);
+    updateSlider();
+}
+
+function updateSlider() {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    const containerWidth = document.querySelector('.image-slider').offsetWidth;
+    const totalWidth = detailImages.length * (detailImages[0].offsetWidth + 10); // including margin-right
+    container.style.width = `${totalWidth}px`;
+    slideToIndex(currentIndex);
+}
+
+function slideLeft() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        slideToIndex(currentIndex);
+    }
+}
+
+function slideRight() {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    if (currentIndex < detailImages.length - 1) {
+        currentIndex++;
+        slideToIndex(currentIndex);
+    }
+}
+
+function slideToIndex(index) {
+    const container = document.getElementById('detailImageContainer');
+    const detailImages = container.querySelectorAll('.detail-image');
+    const itemWidth = detailImages[0].offsetWidth + 10; // including margin-right
+    const translateX = -index * itemWidth;
+    container.style.transform = `translateX(${translateX}px)`;
+}
+
+document.addEventListener("DOMContentLoaded", updateSlider);
+
+
 

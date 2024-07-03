@@ -25,6 +25,18 @@
 		from tt_payment
 		where member_id =
 		#{member_id} and refund = 0 and funding_state = 3
+		AND END_DATE + 7 > SYSDATE
 		)
+	</select>
+
+	<select id="openRoomCheck" parameterType="map"
+		resultType="Integer">
+		SELECT A.FUNDING_ID
+		FROM TT_FUNDING A , TT_PAYMENT B
+		WHERE A.FUNDING_ID = B.FUNDING_ID
+        AND A.FUNDING_ID = #{fundId}
+		AND END_DATE + 7 > SYSDATE
+		AND funding_state =3
+        AND B.MEMBER_ID = #{memId}
 	</select>
 </mapper>
