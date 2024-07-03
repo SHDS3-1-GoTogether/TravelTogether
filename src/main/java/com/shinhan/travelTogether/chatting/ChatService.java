@@ -1,6 +1,7 @@
 package com.shinhan.travelTogether.chatting;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public class ChatService {
 	
 	public List<FundingDTO> getChatRoom(int memberId){
 		return chatDao.getChatRoom(memberId);
+	}
+	
+	public List<Object> openRoomCheck(int fundId, int memId) {
+		return chatDao.openRoomCheck(fundId, memId);
 	}
 }
