@@ -22,4 +22,12 @@
 		JOIN tt_member m ON f.member_id = m.member_id
 		WHERE f.funding_id = #{fundingId}
 	</select>
+	
+	<select id="getPaymentRecipe" parameterType="int" resultType="map">
+		select ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, f.title, p.price, p.payment_date,'결제완료' as status 
+		from tt_payment p
+		join tt_funding f on f.member_id = p.member_id
+		where p.member_id = #{userId}
+		order by p.payment_date desc
+	</select>
 </mapper>

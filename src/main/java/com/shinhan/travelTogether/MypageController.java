@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
+import com.shinhan.travelTogether.payment.PaymentDTO;
+import com.shinhan.travelTogether.payment.PaymentService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -43,6 +46,9 @@ public class MypageController {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	PaymentService paymentService;
 
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -106,5 +112,21 @@ public class MypageController {
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
 		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
+	}
+	
+	
+	@GetMapping("/paymentList.do")
+	public void paymentList(Model model, HttpSession session) {
+		//int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> paymentList = paymentService.paymentRecipe(1);
+		
+		logger.info(paymentList.size()+"건 결제내역 조회됨");
+		
+		for (Map<String, Object> map : paymentList) {
+			System.out.println(map);;
+		}
+		
+		model.addAttribute("paymentDetail", paymentList);
 	}
 }
