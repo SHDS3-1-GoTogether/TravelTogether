@@ -54,7 +54,6 @@ public class FundingController {
 	//ÆÝµù ¸ñ·Ï
 	@GetMapping("/fundingListItem.do") 
 	public void selectItem(Model model, String selectOption) {
-		
 		model.addAttribute("fundlist", fService.selectAll(selectOption));
 		model.addAttribute("tlist", fService.selectFudingTheme());
 		model.addAttribute("plist", pService.selectMainPhoto());
@@ -88,9 +87,10 @@ public class FundingController {
 	
 	@GetMapping("/fundingDetail.do")
 	public void showDetail(Model model, int funding_id) {
+		fService.updateViews(funding_id);
 		model.addAttribute("fund", fService.selectFundingById(funding_id));
 		model.addAttribute("pic", pService.selectUserPhoto(funding_id));
-		System.out.println(pService.selectUserPhoto(funding_id));
+		model.addAttribute("tlist", fService.selectFudingTheme());
 	}
 	
 	@ResponseBody

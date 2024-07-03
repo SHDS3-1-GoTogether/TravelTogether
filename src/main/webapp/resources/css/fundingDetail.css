@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+.detailContent {
+	padding: 10px;
+}
+
+.detail-title{
+	font-size: 25px;
+	color: #4E548E;
+	font-weight: bold;
+	font-style: italic;
+	margin-top: 10px;
+}
+
+.detail-content {
+	font-size: 13px;
+	margin-bottom: 30px;
+}
+
+
+
+
+.slider__wrap {
+	position: relative;
+	left: 50%;
+	margin-top: 50px;
+    transform: translate(-50%, 0%);
+	width: 400px;
+	height: 250px;
+	box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+	border-radius: 20px;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+	
+    }
+.slider__img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.slider__img img {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transform: scale(1.2);
+	transition: all 600ms ease-in-out;
+	border-radius: 20px;
+}
+.slider__img img.active {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.slider__thumnail{
+	position: relative;
+	left: 50%;
+	top: 10%;
+	transform: translate(-50%, 0);
+	width: 30%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+.slider__thumnail img{
+	cursor: pointer;
+	width:100%;
+	height: 100%;
+	border-radius: 30px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.slider__thumnail img.active {
+	border: 3px solid #fff;
+	width: 100px;
+}
+
+.slider__thumnail img:hover {
+	width: 130%;
+	height: 130%;
+}
+
+.slider__btn {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    top: -100%;
+}
+.slider__btn a {
+	position: absolute;
+	top: 0;
+    width: 30px;
+    height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 13px;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #fff;
+	transition: all 400ms ease-in-out;
+}
+
+
+
+.slider__btn a:hover{
+	background-color: rgba(255, 255, 255, 0.2);
+}
+.slider__btn a.next {
+	right: 0;
+}
+.slider__btn a.previous {
+    left: 0;	
+}
+
+.payBtn {
+	width: 120px;
+	height: 40px;
+	background-color: #22548E;
+	border: 1px #1F508A;
+	color: white;
+	border-radius: 30px;
+	box-shadow: 0px 0px 4px 0px #1F508A;
+	display: inline-block;
+	position: relative;
+}
+
+.payBtn:hover {
+	background-color: #CFE5FF;
+	color: #1F508A;
+	font-weight: bold;
+	font-size: 18px;
+}
