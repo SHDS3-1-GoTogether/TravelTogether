@@ -62,7 +62,7 @@ public class AdminNotificationController {
 	
 	@GetMapping("/notificationInsert.do")
 	public void insertNotificationView(Model model) {
-		List<MemberDTO> memberlist = memberService.selectAllMember();
+		List<MemberDTO> memberlist = memberService.selectAllNormal();
 		model.addAttribute("memberlist", memberlist);
 	}
 	

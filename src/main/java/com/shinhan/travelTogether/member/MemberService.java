@@ -26,9 +26,17 @@ public class MemberService {
 	public List<MemberDTO> selectAllMember(){
 		return memberDAO.selectAllMember();
 	}
+	
+	public List<MemberDTO> selectAllNormal(){
+		return memberDAO.selectAllNormal();
+	}
 
 	public int updateMember(MemberDTO member) {
 		return memberDAO.updateMember(member);
+	}
+	
+	public List<MemberDTO> searchByWord(String word) {
+		return memberDAO.searchByWord(word);
 	}
 
 }

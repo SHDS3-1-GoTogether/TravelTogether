@@ -55,6 +55,12 @@ public class MemberDAOMybatis {
 		logger.info("<selectAllMember> "+memberlist.size()+"嫄� �쉶�썝 議고쉶 �셿猷�");
 		return memberlist;
 	}
+	
+	public List<MemberDTO> selectAllNormal(){
+		List<MemberDTO> memberlist = sqlSession.selectList(namespace+"selectAllNormal");
+		logger.info("<selectAllNormal> "+memberlist.size()+"명 회원 조회 완료");
+		return memberlist;
+	}
 
 	public int updateMember(MemberDTO member) {
 		logger.info("DeptDAOMybatis....memberUpdate()");
@@ -63,5 +69,11 @@ public class MemberDAOMybatis {
 	
 	public MemberDTO selectByMemberId(Integer member_id) {
 		return sqlSession.selectOne(namespace+"selectByMemberId", member_id);
+	}
+	
+	public List<MemberDTO> searchByWord(String word) {
+		List<MemberDTO> memberlist = sqlSession.selectList(namespace+"searchByCondition", word);
+		logger.info("<searchByCondition> "+memberlist.size()+"명 회원 조회 완료");
+		return memberlist;
 	}
 }
