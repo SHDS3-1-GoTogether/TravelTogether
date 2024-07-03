@@ -15,12 +15,12 @@
 	<select id="selectAllMember" resultType="membervo">
 		select * from tt_member
 	</select>
-
+	
 	<insert id="memberInsert" parameterType="membervo">
 		insert into tt_member(member_id, login_id, login_pwd, username, nickname,
 		phone, email, gender, birth, is_manager, token, acc_amount, membership_id)
 		values(MEMBER_SEQ.nextval,#{login_id},#{login_pwd},#{username},#{nickname},#{phone},#{email},
-		#{gender},#{birth},0,null,0,'뚜벅이')
+		#{gender},#{birth},0,null,0,'walker')
 	</insert>
 	
 	<update id="memberUpdate" parameterType="membervo">

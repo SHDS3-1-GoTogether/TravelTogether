@@ -12,94 +12,133 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="chat-container">
 		<div class="EnterOut_div">
 			<input type="text" id="user" class="form-control" placeholder="유저명">
-			<button type="button" class="btn btn-default enter_Btn"
+			<!-- <button type="button" class="btn btn-default enter_Btn"
 				id="btnConnect">연결</button>
 			<button type="button" class="btn btn-default out_Btn"
-				id="btnDisconnect" disabled>종료</button>
+				id="btnDisconnect" disabled>종료</button> -->
 		</div>
-		<div id="chat">
+		<div id="chatting">
 			<c:forEach var="message" items="${beforeChat}">
-				<p>${message.message_id}</p>
-				<p>${message.message_content}</p>
-				<p>${message.send_date}</p>
+				<c:if test="${message.member_id == member.member_id}">
+					<div class="message_container">
+					<span style="font-size:12px;color:#777;margin-bottom: 3px;">
+					${message.send_date}</span>
+					<div class="message">
+						 <span
+							class="message_content">${message.message_content}</span> <span
+							class="send_date">${message.send_date}</span>
+					</div>
+					</div>
+				</c:if>
+				<c:if test="${message.member_id != member.member_id}">
+					<div class="yourChat_message">
+						<span class="member_id">'🧳' + ${message.member_id}</span> 
+					<div class="your_message_background">
+					<div class="your_message">
+						<span class="message_content">${message.message_content}</span> 			
+							<span style="font-size:12px;color:#777;margin-bottom: 3px;">${message.send_date}</span>
+					</div>
+					</div>
+					</div>
+				</c:if>
 			</c:forEach>
 		</div>
 		<div class="input_Btn input_wrap">
 			<input type="text" name="msg" id="msg" placeholder="대화 내용을 입력하세요."
-				class="form-control" disabled>
+				class="form-control">
 			<button class="btn_send">전송</button>
 		</div>
 	</div>
 	<script>
-		var ws;
-
 		function connectWebSocket(url) {
+			//console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+url);
+			//console.log(location.host);
+			if (ws != null) {
+				//console.log("close 타니????????????")
+				ws.close();
+				ws = null;
+			}
 			ws = new WebSocket("ws://" + location.host + "/" + url);
 			ws.onopen = function(evt) {
-				console.log(ws);
-				console.log("url:"+url);
+				//console.log(ws);
+				//console.log("url:" + url);
 				ws.send('1#' + $('#user').val() + '#');
 				$('#user').attr('readonly', true);
 				$('#btnConnect').attr('disabled', true);
 				$('#btnDisconnect').attr('disabled', false);
 				$('#msg').attr('disabled', false);
-				
+
 				// 연결 후 마감일 + 7일 뒤에 연결 끊기 타이머 시작
-		        startDisconnectTimer();
+				startDisconnectTimer();
 			};
-			
+
 			function startDisconnectTimer() {
 				//funding정보 가져오기ㅣ
-			    $.ajax({
-	                url: "${path}/getFunding",
-	                type: "GET",
-	                data: { fundId: chatId },
-	                success: function(response) {
-	                    endDate = response;
-	                    console.log("aaaaaaaaa"+endDate);
-	                    
-	                    var currentTime = getCurrentTimeInMilliseconds();
-	                    var time = endDate - currentTime + 604800000;
+				$
+						.ajax({
+							url : "${path}/getFunding",
+							type : "GET",
+							data : {
+								fundId : chatId
+							},
+							success : function(response) {
+								endDate = response;
+								//console.log("aaaaaaaaa" + endDate);
 
-	                    console.log("지금: " + currentTime);
-	                    console.log("마감일: " + endDate);
-	                    console.log("타이머: " + time);
+								var currentTime = getCurrentTimeInMilliseconds();
+								var time = endDate - currentTime + 604800000;
 
-	                    if (time > 0) {
-	                        timerId = setTimeout(function() {
-	                            console.log('여행 마지막 + 7일 후 웹소켓이 닫힙니다.');
-	                            console.log("타임:"+time);
-	                            //ws.close();
-	                        }, time);
-	                    } else {
-	                        console.error("타이머가 0 또는 음수입니다. 즉시 웹소켓을 닫습니다.");
-	                        ws.close();
-	                    }
-	                },
-	                error: function(xhr, status, error) {
-	                    console.error("Error: " + error);
-	                }
-	            });
-			    
-				 function getCurrentTimeInMilliseconds() {
-			            var now = new Date();
-			            return now.getTime();
-			        }
+								console.log("지금: " + currentTime);
+								console.log("마감일: " + endDate);
+								console.log("타이머: " + time);
 
-				/*  timerId = setTimeout(function() {
-				        console.log('WebSocket connection will be closed after 7 days.');
-			            console.log("지금:" + getCurrentTimeInMilliseconds());
-			            console.log("마감일:" + endDate);
-			            var time = endDate -  getCurrentTimeInMilliseconds() + 604800000;
-			            console.log("타이머:" +  time);
+								// JavaScript의 setTimeout은 최대 2147483647 밀리초(약 24.8일)까지 처리 가능
+								var maxTimeout = 2147483647;
 
-				        ws.close();
-				    }, 30); // 7일 후 */
+								function setLongTimeout(callback, time) {
+									if (time > maxTimeout) {
+										let iterations = Math.floor(time
+												/ maxTimeout);
+										let remainder = time % maxTimeout;
+										let delay = 0;
+
+										function scheduleNextTimeout(iteration) {
+											if (iteration < iterations) {
+												setTimeout(
+														function() {
+															console
+																	.log(`Iteration ${iteration + 1}: ${maxTimeout}ms elapsed`);
+															scheduleNextTimeout(iteration + 1);
+														}, maxTimeout);
+											} else {
+												setTimeout(callback, remainder);
+											}
+										}
+
+										scheduleNextTimeout(0); // 시작점 호출
+									} else {
+										setTimeout(callback, time);
+									}
+								}
+								setLongTimeout(function() {
+									console.log('여행 마지막 + 7일 후 웹소켓이 닫힙니다.');
+									ws.close();
+								}, time);
+							},
+							error : function(xhr, status, error) {
+								console.error("Error: " + error);
+							}
+						});
+
+				function getCurrentTimeInMilliseconds() {
+					var now = new Date();
+					return now.getTime();
+				}
 			}
-			
+
 			ws.onmessage = function(evt) {
 				let no = evt.data.substring(0, 1);
 				let user = evt.data.substring(2, evt.data.length - 1);
@@ -125,48 +164,7 @@
 		var chatId;
 
 		var endDate;
-		$(document).ready(
-				function() {
-					var currentUrl = window.location.pathname;
-					 chatId = currentUrl.match(/\/chat\/(\d+)/)[1]; // 정규 표현식을 사용하여 숫자 부분 추출
-					$('#btnConnect').attr('data-url',
-							'/travelTogether/chatserver/' + chatId);
 
-					$.ajax({
-						url : '${path}/getUsername', // 위에서 작성한 컨트롤러 매핑 URL
-						type : 'GET',
-						success : function(username) {
-							$('#user').val(username); // 가져온 사용자 이름을 input 요소에 설정
-						},
-						error : function(xhr, status, error) {
-							console.error('Failed to get username:', error);
-						}
-					});
-
-		           
-					
-//					var url = $(this).data('url');
-					var url = '${path}/chatserver/' + chatId;
-					console.log("ddddd"+url);
-					connectWebSocket(url);
-					
-				});
-
-		/*  window.onload = function() {
-			var url = $(this).data('url');
-			connectWebSocket(url);
-		};
- */
-		     $('#btnConnect').click(function() {
-		      if ($('#user').val().trim() == '') {
-		          alert('유저명을 입력하세요.'); $('#user').focus();
-		      } else {
-		          var url = $(this).data('url');
-		          console.log(":::::"+url);
-		          connectWebSocket(url);
-		      }
-		  }); 
- 
 		function print(user, txt) {
 			if (txt.trim() == '')
 				return;
@@ -183,7 +181,7 @@
 			temp += '</div>';
 			temp += '</div>';
 			temp += '</div>';
-			$('#chat').append(temp);
+			$('#chatting').append(temp);
 		}
 
 		var isFirstMessage = {};
@@ -193,12 +191,12 @@
 			let temp = '';
 			if (!isFirstMessage[user]) {
 				temp += '<div class="coming_user">';
-				temp += "'" + user + "' 이(가) 접속했습니다.";
+				temp += "🛫  '" + user + "' 이(가) 접속했습니다.  🛬";
 				temp += '</div>';
 				isFirstMessage[user] = true;
 			}
 			temp += '<div class="yourChat_message">';
-			temp += '🍟' + user;
+			temp += '🧳' + user;
 			temp += '<div class="your_message_background">';
 			temp += '<div class="your_message">' + txt + '</div>';
 			temp += ' <span style="font-size:12px;color:#777;margin-bottom: 3px;">'
@@ -208,14 +206,8 @@
 					}) + '</span>';
 			temp += '</div>';
 			temp += '</div>';
-			$('#chat').append(temp);
+			$('#chatting').append(temp);
 		}
-
-		$('#user').keydown(function(event) {
-			if (event.keyCode == 13) {
-				$('#btnConnect').click();
-			}
-		});
 
 		$(".btn_send").on("click", function() {
 			let _msg = $("#msg").val();
@@ -246,27 +238,13 @@
 			}
 		});
 
-		$('#btnDisconnect').click(function() {
-			ws.close();
-			$('#user').attr('readonly', false);
-			$('#user').val('');
-			$('#btnConnect').attr('disabled', false);
-			$('#btnDisconnect').attr('disabled', true);
-			$('#msg').val('');
-			$('#msg').attr('disabled', true);
-		});
-
-		function rand(min, max) {
-			return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
-
 		$(function() {
-			var aa = rand(1, 8);
-			$("#chat")
+			var aa = chatId % 8 + 1;
+			$("#chatting")
 					.css(
 							{
 								"background-image" : `url("${path}/resources/images/sh_character_0\${aa}.png")`,
-								"background-size" : "70%", // or "cover"
+								"background-size" : "50%", // or "cover"
 								"background-repeat" : "no-repeat"
 							});
 		});

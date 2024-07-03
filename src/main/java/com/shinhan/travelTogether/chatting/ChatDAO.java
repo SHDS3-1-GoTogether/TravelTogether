@@ -37,4 +37,11 @@ public class ChatDAO {
 	public List<FundingDTO> getChatRoom(int memberId){
 		return sqlSession.selectList(namespace + "getChatRoom", memberId);
 	}
+	
+	public List<Object> openRoomCheck(int fundId, int memId) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("fundId", fundId);
+	    params.put("memId", memId);
+		return sqlSession.selectList(namespace + "openRoomCheck", params);
+	}
 }
