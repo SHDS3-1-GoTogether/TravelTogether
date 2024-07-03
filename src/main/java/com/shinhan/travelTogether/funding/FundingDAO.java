@@ -70,6 +70,10 @@ public class FundingDAO {
 		return sqlSession.selectOne(namespace + "selectFundingById", funding_id);
 	}
 	
+	public int updateViews(int funding_id) {
+		int result = sqlSession.update(namespace + "updateViews", funding_id);
+		return result;
+	}
 	public List<FundingAdminDTO> selectAllAdminFunding() {
 		return sqlSession.selectList(namespace+"selectAllAdminFunding");
 	}
