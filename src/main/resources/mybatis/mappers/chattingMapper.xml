@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.chatting">
+	<select id="getChatList" resultType="chatvo">
+		SELECT * FROM TT_MESSAGE
+		where funding_id = #{funding_id}
+		order by message_id
+	</select>
+
+	<insert id="submit" parameterType="map">
+		insert into
+		TT_MESSAGE(MESSAGE_ID, MESSAGE_CONTENT, SEND_DATE, MEMBER_ID,
+		FUNDING_ID)
+		values(MESSAGE_SEQ.nextval,#{content},
+		sysdate,#{member_id},#{funding_id})
+	</insert>
+
+	<select id="getChatRoom" resultType="fundvo">
+		select *
+		from tt_funding
+		where funding_id in (
+		select funding_id
+		from tt_payment
+		where member_id =
+		#{member_id} and refund = 0 and funding_state = 3
+		)
+	</select>
+</mapper>

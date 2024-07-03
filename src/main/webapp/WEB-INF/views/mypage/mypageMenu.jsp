@@ -32,7 +32,7 @@
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
-		    	<a href="" class="menu-link">
+		    	<a href="${path}/mypage/reviewList.do" class="menu-link">
 		    		<i class="fas fa-pencil-alt"></i> 후기
 		    	</a>
 		    </li>
@@ -49,6 +49,11 @@
 		    <li class="list-group-item">
 		    	<a href="${path}/mypage/notificationList.do" class="menu-link" id="notification-link">
 		    		<i class="fas fa-bell"></i> 알림
+		    	</a>
+		    </li>
+		    <li class="list-group-item">
+		    	<a href="${path}/mypage/chatroom.do" class="menu-link">
+		    		<i class="fas fa-comment-dots"></i> 채팅룸
 		    	</a>
 		    </li>
 		  </ul>

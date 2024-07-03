@@ -1,5 +1,6 @@
 body {
 	width: 100%;
+	margin: 0;
 }
 
 .mypage-header {
@@ -11,6 +12,7 @@ body {
 .mypage-header h2 {
 	font-size: 1.8em;
 	padding: 0 20px;
+	margin: 0;
 }
 
 .container {
@@ -67,4 +69,12 @@ body {
     padding: 20px;
     border: 2px solid #DBDFE9;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.notification-send-date {
+	text-align: right;
+}
+
+h3.notify-item-header {
+    margin-top: 0;
 }

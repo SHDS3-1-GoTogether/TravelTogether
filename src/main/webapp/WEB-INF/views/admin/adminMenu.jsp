@@ -21,7 +21,7 @@
         	</a>
         </li>
         <li id="qnaMenu">
-        	<a href="${path}/admin/qndList.do">
+        	<a href="${path}/admin/qnaList.do">
 	        	<p><i class="fas fa-question-circle"></i></p>
 	        	<p>Q&A관리</p>
         	</a>

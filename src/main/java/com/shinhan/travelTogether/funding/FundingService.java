@@ -43,4 +43,11 @@ public class FundingService {
 		return fundingDAO.updateViews(funding_id);
 	}
 
+	public List<FundingAdminDTO> selectAllAdminFunding() {
+		return fundingDAO.selectAllAdminFunding();
+	}
+
+	public int updateFundingState(int funding_id, int update_state) {
+		return fundingDAO.updateFundingState(funding_id, update_state);
+	}
 }
