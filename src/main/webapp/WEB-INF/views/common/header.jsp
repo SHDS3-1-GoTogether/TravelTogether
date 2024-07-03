@@ -93,7 +93,9 @@
 </nav>
 <script>
 	$(function(){
-		var member_id = null; // 실제 memberId로 설정
+		var member_id = ${member.member_id}; // 실제 memberId로 설정
+		console.log("=="+member_id);
+		loadPreviousNotifications(member_id);	// 이전 알림 불러오기
 		
 		$("#notificationIcon").on("click", togglePopup);
 		$(document).on("click", function(event){
@@ -106,6 +108,7 @@
 		$("#plusBtn").on("click", f_plusBtnClick);
 		
 		if(member_id != null) {
+			console.log(member_id);
         	connect(member_id);			
 		}
 	});
@@ -123,8 +126,8 @@
 			popupMenu.hide();
 			$(this).attr("aria-expanded", "false");
 		} else {
-			$("#notifications").html("");
-			loadPreviousNotifications(${member.member_id});
+			//$("#notifications").html("");
+			//loadPreviousNotifications(${member.member_id});
 			popupMenu.show();
 			$(this).attr("aria-expanded", "true");
 		}
@@ -203,6 +206,7 @@
         	var data = event.data;
         	const parsedData = JSON.parse(data);	
        		console.log('Received notification:', parsedData);
+       		console.log("!!!!!!!!실시간 알림!!!!!!!!!");
                <%--const notificationDiv = document.getElementById('notifications');
                const newNotification = document.createElement('div');
                newNotification.textContent = message;

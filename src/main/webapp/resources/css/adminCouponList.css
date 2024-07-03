@@ -112,6 +112,8 @@ body {
 	width: 90%;
 	margin: 0 auto;
 	border-bottom: 1px dashed #DBDFE9;
+	display: flex;
+	justify-content: space-between;
 }
 
 .list-table .header p {
@@ -126,6 +128,8 @@ body {
 .data {
 	width: 90%;
 	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
 }
 
 .data:not(.data:last-child) {
@@ -137,6 +141,7 @@ body {
 	font-size: 0.9em;
 	padding: 0 5px;
 	text-align: center;
+	line-height: 40px;
 	width: 8%;
 }
 
