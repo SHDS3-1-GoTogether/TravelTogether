@@ -139,4 +139,13 @@ public class MypageController {
 		model.addAttribute("reviewlist2", reviewlist2);
 	}
 	
+	/*
+	@GetMapping("/reviewInsert.do")
+	public String reviewInsert(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
+			ReviewDTO review) {
+		
+		return ;
+	}
+	*/
+	
 }

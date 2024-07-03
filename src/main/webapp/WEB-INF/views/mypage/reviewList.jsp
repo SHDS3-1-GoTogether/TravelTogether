@@ -55,10 +55,10 @@
 							<p>리뷰 작성</p>
 						</div>
 						<div class="data">
-							<c:forEach var="review" items="${reviewlist}">
-								<p>${review.title}</p>
-								<p></p>
-								<p><button onclick="">리뷰작성하기</button></p>					
+							<c:forEach var="review2" items="${reviewlist2}">
+								<p>${review2.title}</p>
+								<p>${review2.create_date}</p>
+								<p><button onclick="location.href = '${path}/mypage/reviewInsert.do' ">리뷰작성하기</button></p>					
 							</c:forEach>
 						</div>
 					</div>
