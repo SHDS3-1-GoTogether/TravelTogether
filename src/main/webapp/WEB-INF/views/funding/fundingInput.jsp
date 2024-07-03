@@ -14,6 +14,8 @@
 
 <script src="${path}/resources/js/fundingInput.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="${path}/resources/js/ckeditor/ckeditor.js"></script>
+
 
 <script>
 	function addImg() {
@@ -26,6 +28,7 @@
 		$(id).parent().remove();
 	}
 	
+	
 </script>
 </head>
 <body>
@@ -34,7 +37,6 @@
 		<h1 class="pageTitle">Funding Making</h1>
 		<div class="form-wrapper">
 		<div class="semi-title">펀딩 입력</div><br>
-		<input type="hidden" id="inputSelector" value=1>
 		<div class="form-left-wrapper">
 			<div id="input1" class="inputArr">
 				<%@ include file="fundingOption1.jsp" %>					
