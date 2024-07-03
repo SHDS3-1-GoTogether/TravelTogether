@@ -124,6 +124,15 @@ body {
 	background-color: #322dff73;
     color: white;
 }
+
+.empty {
+	background-color: #C4C4C4;	
+}
+.empty:hover {
+	background-color: #C4C4C4;
+    color: black;
+}
+
 .info-label {
 	display: flex;
     justify-content: center;
@@ -284,8 +293,13 @@ body {
 	background-color: #322dff73;
 }
 
+
+.empty-cell {
+	background-color: #C4C4C4;	
+}
 .empty-cell:hover {
-	background-color: none;
+	background-color: #C4C4C4;
+    color: black;
 }
 
 .selected-date {

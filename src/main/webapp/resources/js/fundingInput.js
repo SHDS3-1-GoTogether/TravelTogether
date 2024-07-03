@@ -49,7 +49,7 @@ $(function() {
 
     
 //fundingOption 1 페이지 js 
-	    let currentMonth = new Date().getMonth();
+	    let currentMonth = new Date().getMonth()+1;
 	    let currentYear = new Date().getFullYear();
 	    
 	    let startDate = null;
@@ -86,6 +86,31 @@ $(function() {
                     $cell.addClass('empty');
                 } else if (date > daysInMonth) {
                     break;
+                } else if(
+                	(
+                	(year == new Date().getFullYear())
+                	 && 
+                	 (month == (new Date().getMonth()+1 ))
+                	 ) 
+                		|| (
+                	(year == (new Date().getFullYear())) 
+                	 && 
+                	(month == (new Date().getMonth()+2))
+                	 && 
+                	(date < new Date().getDate()) )
+                		|| (
+                	(year == (new Date().getFullYear()+1)) 
+                	 && 
+                	(month == (new Date().getMonth()+2))
+                	 && 
+                	(date > (new Date().getDate())) )
+                	) {
+
+                    $cell.text(date);
+                    $cell.data('date', `${year}-${month}-${date}`);
+                	$cell.addClass('empty');
+                	
+                	date++;
                 } else {
                     $cell.text(date);
                     $cell.data('date', `${year}-${month}-${date}`);
@@ -141,20 +166,32 @@ $(function() {
 
     $('#prev-button').on('click', function() {
         currentMonth -= 1;
-        if (currentMonth < 0) {
-            currentMonth += 12;
-            currentYear--;
-        }
-        renderCalendars();
+        if ((currentMonth < (new Date().getMonth() + 1)) && (currentYear == new Date().getFullYear())) {
+    	    alert("이전 달로 이동할 수 없습니다.");
+        	currentMonth += 1;
+	    } else {
+	        if (currentMonth < 0) {
+	            currentMonth += 12;
+	            currentYear--;
+        	}
+        	renderCalendars();
+	    }
+
     });
 
     $('#next-button').on('click', function() {
         currentMonth += 1;
-        if (currentMonth > 11) {
-            currentMonth -= 12;
-            currentYear++;
+        if((currentYear == (new Date().getFullYear()+1)) && (currentMonth == new Date().getMonth() +2)) {
+        	alert("다음 달로 이동할 수 없습니다.");
+        	currentMonth -= 1;
+        } else {
+	        if (currentMonth > 11) {
+	            currentMonth -= 12;
+	            currentYear++;
+	        }
+	        renderCalendars();        
         }
-        renderCalendars();
+
     });
     
 
@@ -281,6 +318,30 @@ $(function() {
                     $cell.addClass('empty-cell');
                 } else if (dateNumber > totalDaysInMonth) {
                     break;
+                } else if(
+                	(
+                	(year == new Date().getFullYear())
+                	 && 
+                	 (month == (new Date().getMonth() ))
+                	 ) 
+                		|| (
+                	(year == (new Date().getFullYear())) 
+                	 && 
+                	(month == (new Date().getMonth()+1))
+                	 && 
+                	(dateNumber < new Date().getDate()) )
+                		|| (
+                	(year == (new Date().getFullYear()+1)) 
+                	 && 
+                	(month == (new Date().getMonth()+1))
+                	 && 
+                	(dateNumber > (new Date().getDate())) )
+                	) { 
+                    $cell.text(dateNumber);
+                    $cell.data('date', `${year}-${month + 1}-${dateNumber}`);
+                    $cell.addClass('empty-cell');
+                    dateNumber++;
+                    
                 } else {
                     $cell.text(dateNumber);
                     $cell.data('date', `${year}-${month + 1}-${dateNumber}`);
@@ -321,20 +382,32 @@ $(function() {
 
     $('#prev-btn').on('click', function() {
         monthIndex -= 1;
-        if (monthIndex < 0) {
-            monthIndex += 12;
-            yearIndex--;
+        if( (yearIndex == new Date().getFullYear()) && (monthIndex < new Date().getMonth())) {
+        	monthIndex += 1;
+        	alert("이전 달로 이동할 수 없습니다.");
+        } else {
+	        if (monthIndex < 0) {
+	            monthIndex += 12;
+	            yearIndex--;
+	        }
+	        updateCalendar();        
         }
-        updateCalendar();
+
     });
 
     $('#next-btn').on('click', function() {
         monthIndex += 1;
-        if (monthIndex > 11) {
-            monthIndex -= 12;
-            yearIndex++;
+        if((yearIndex == new Date().getFullYear()+1) && (monthIndex > new Date().getMonth()+1)) {
+        	monthIndex -= 1;
+        	alert("다음 달로 이동할 수 없습니다.");
+        } else {
+	        if (monthIndex > 11) {
+	            monthIndex -= 12;
+	            yearIndex++;
+	        }
+	        updateCalendar();        
         }
-        updateCalendar();
+
     });
 
     $('#submit3').on('click', function() {
