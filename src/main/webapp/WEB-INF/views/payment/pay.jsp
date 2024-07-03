@@ -3,8 +3,9 @@
 <%@page import="java.util.List"%>
 <%@page import="com.shinhan.travelTogether.coupon.CouponService"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	session="false"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%-- <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	session="false"%> --%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
+import com.shinhan.travelTogether.member.MemberDTO;
 
 @Controller
 @RequestMapping("/payment")
@@ -38,48 +39,31 @@ public class PaymentController {
 
 	@GetMapping(value = "/test.do")
 	public void showTest() {
-
 	}
 
 	@GetMapping(value = "/pay.do")
 	public void showPaymentPage(@RequestParam("funding_id") Integer funding_id,
-								Model model) {
-		
-		// test
-		System.out.println(funding_id);
-		
-		// userId부분에 맞게 받아오기
-		// Integer userId = (Integer) session.getAttribute("tt_id");
+								Model model,
+								HttpSession session) {
 
 		PaymentFundingInfoDTO fundingInfo = pService.getFundingInfo(funding_id);
-
-		System.out.println(fundingInfo.getTitle());
-		System.out.println(fundingInfo.getPrice());
-		System.out.println(fundingInfo.getApplicantNickname());
-
-		// redirectAttributes.addFlashAttribute("title", fundingInfo.getTitle());
-		// redirectAttributes.addFlashAttribute("price", fundingInfo.getPrice());
-		// redirectAttributes.addFlashAttribute("applicantNick",
-		// fundingInfo.getApplicantNickname());
-
-		// 로그인 정보 --> 나중에 적용
-		//redirectAttributes.addFlashAttribute("userId", 1);
 
 		model.addAttribute("title", fundingInfo.getTitle());
 		model.addAttribute("price", fundingInfo.getPrice());
 		model.addAttribute("applicantNick", fundingInfo.getApplicantNickname());
 
-		//model.addAttribute("userId",);
+		// 세션에 member_id, funding_id 추가
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		session.setAttribute("member_id", member_id);
+		session.setAttribute("funding_id", funding_id);
+		
 		// 로그인 기능 구현시 수정
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(1);
-		// System.out.println(couponlist.toString());
-		//logger.info(couponlist.size() + "건 조회됨");
 		model.addAttribute("couponlist", couponlist);
 	}
 
 	@PostMapping("/pay.do")
 	public String fundingApplyPayment(Integer funding_id, RedirectAttributes redirectAttributes, HttpSession session) {
-
 		return "redirect:/payment/pay.do";
 	}
 
@@ -124,22 +108,23 @@ public class PaymentController {
 		// System.out.println(paymentKey);
 
 		PaymentDTO payment = new PaymentDTO();
-		payment.setPayment_id(orderId); // 랜덤으로 들어감
+		payment.setPayment_id(orderId); // 중복결제 방지 난수 
 		payment.setPayment_date(requestAt); // 결제 성공 날짜
-		payment.setPrice(Integer.parseInt(totalAmount));
+		payment.setPrice(Integer.parseInt(totalAmount));	// 총 결제 금액
 		payment.setRefund(0); // - 결제시 0 / 환불시 1
-		payment.setPayment_method(provider);
-		payment.setMember_id(1); // 임시
-		payment.setFunding_id(1); // 임시
-		payment.setPayment_key(paymentKey); // test
+		payment.setPayment_method(provider);	// 결제 수단 
+		payment.setMember_id((Integer)session.getAttribute("member_id"));
+		payment.setFunding_id((Integer)session.getAttribute("funding_id"));
+		payment.setPayment_key(paymentKey);		// 결제 키
 
 		// 세션에서 couponId 가져오기
 		Integer couponId = (Integer) session.getAttribute("couponId");
 		if (couponId != null) {
 			payment.setCoupon_record_id(couponId);
 		} else {
-			payment.setCoupon_record_id(0); // 쿠폰 ID가 없으면 0으로 설정 (필요에 따라 수정)
+			payment.setCoupon_record_id(null); // 쿠폰 ID가 없으면 0으로 설정 (필요에 따라 수정)
 		}
+		
 		int result = pService.insertPaymentInfo(payment);
 		String message = result > 0 ? "success complete payment" : "fail complete payment";
 		// 성공 및 실패 시 리다이렉트 경로 설정
