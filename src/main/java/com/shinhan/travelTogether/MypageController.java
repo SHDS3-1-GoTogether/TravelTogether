@@ -117,9 +117,9 @@ public class MypageController {
 	
 	@GetMapping("/paymentList.do")
 	public void paymentList(Model model, HttpSession session) {
-		//int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		
-		List<Map<String, Object>> paymentList = paymentService.paymentRecipe(1);
+		List<Map<String, Object>> paymentList = paymentService.paymentRecipe(member_id);
 		
 		logger.info(paymentList.size()+"건 결제내역 조회됨");
 		

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -251,8 +250,13 @@ a {
 							<p class="payment-status">${payment.STATUS }</p>
 							<p class="payment-button">
 								<button class="detail-button" data-id="${payment.PAYMENT_ID}">상세보기</button>
-								<c:if test="${payment.refund == 1}">
-									<button class="refund-button" data-id="${payment.PAYMENT_KEY}">환불하기</button>
+								<c:if test="${payment.REFUND == 0}">
+								
+									<button type="button" class="btn btn-primary refund-button"
+										data-toggle="modal" data-target="#refundModal" data-id="${payment.PAYMENT_KEY}">funding-refund
+									</button>
+
+									<%-- <button class="refund-button" data-id="${payment.PAYMENT_KEY}">환불하기</button> --%>
 								</c:if>
 							</p>
 						</div>
@@ -268,15 +272,8 @@ a {
 						<p class="payment-button">상세</p>
 					</div>
 				</div>
+				<%@ include file="../refund/refundModal.jsp"%>
 			</div>
-
-
-
-
-			<!-- <div id="tab1" class="tab__content active">첫번째 탭 내용</div>
-				<div id="tab2" class="tab__content">두번째 탭 내용</div>
-				<div id="tab3" class="tab__content">세번째 탭 내용</div>
-				<div id="tab4" class="tab__content">네번째 탭 내용</div> -->
 		</div>
 	</div>
 	</div>

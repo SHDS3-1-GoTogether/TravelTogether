@@ -3,7 +3,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.shinhan.travelTogether.coupon.CouponService"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	session="false"%> --%>
 <!DOCTYPE html>
@@ -35,7 +36,13 @@
 			<div class="payment-info">
 				<div class="payment-details">
 					<div class="detail">
-						<span>리워드 금액:</span> <span>${price}원</span>
+						<span>리워드 금액:</span>
+						<span>
+							<fmt:formatNumber pattern="#,###">
+								${price}
+							</fmt:formatNumber>원
+						</span>
+						
 					</div>
 					<!-- <div class="detail">
 						<span>추가 후원금:</span> <span>0원</span>
@@ -127,7 +134,7 @@
   	//window.onload = updateAmount;
   	// 페이지 로드 됐을 때 html부분도 새로고침하게 되는 법 ########
   	// 현재 페이지 이동 후에 뒤로가기 버튼을 누르면 쿠폰 선택했던 부분은 그대로 남아있는데 가격 부분은 새로 고침이 되어 있는 상태임 이부분 확인해보고 병합 ㄱㄱ
-    document.getElementById("changeAmount").innerText = amount+"원";
+    document.getElementById("changeAmount").innerText = formatNumber(amount)+"원";
     // ------  결제위젯 초기화 ------
     // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
     // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
@@ -246,7 +253,8 @@
     }
     // 총 결제 금액 갱신
     function updateAmount(price){
-    	document.getElementById("changeAmount").innerText = price+"원";
+    	document.getElementById("changeAmount").innerText = formatNumber(price)+"원";
+    	//document.getElementById("changeAmount").innerText = price+"원";
     }
     
  	// 적용된 쿠폰 정보 저장
@@ -269,6 +277,10 @@
                 console.log('서버 오류가 발생하였습니다.')
             }
         });
+    }
+ 	// 가격 단위 포맷팅
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
   </script>

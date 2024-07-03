@@ -24,10 +24,22 @@
 	</select>
 	
 	<select id="getPaymentRecipe" parameterType="int" resultType="map">
-		select ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, f.title, p.price, p.payment_date,'결제완료' as status 
-		from tt_payment p
-		join tt_funding f on f.member_id = p.member_id
-		where p.member_id = #{userId}
-		order by p.payment_date desc
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, 
+		    f.title, 
+		    p.price, 
+		    p.payment_date,
+		    '결제완료' AS status, 
+		    p.payment_id,
+		    p.payment_key,
+		    p.refund
+		FROM 
+		    tt_payment p
+		JOIN 
+		    tt_funding f ON f.funding_id = p.funding_id
+		WHERE
+		    p.refund = 0 AND p.member_id = #{userId}
+		ORDER BY 
+		    p.payment_date DESC
 	</select>
 </mapper>
