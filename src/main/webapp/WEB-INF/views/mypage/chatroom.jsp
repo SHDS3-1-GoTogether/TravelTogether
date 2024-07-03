@@ -81,11 +81,11 @@ var ws = null;
 function initChatPage(chatId) {
 	$('#btnConnect').attr('data-url',
 			'/travelTogether/chatserver/' + chatId);
-	//console.log(${member.nickname});
-	//console.log("test");
+	console.log("${member.nickname}");
+	console.log("test");
 	//$('#user').val(${member.nickname});
 	var chatUrl = '${path}/chatserver/' + chatId;
-	//console.log("ddddd" + chatUrl);
+	console.log("ddddd" + chatUrl);
 	
 	$.ajax({
 		url : '${path}/getUsername', // 위에서 작성한 컨트롤러 매핑 URL

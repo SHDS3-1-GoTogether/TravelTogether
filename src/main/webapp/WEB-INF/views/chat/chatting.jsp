@@ -54,14 +54,15 @@
 	</div>
 	<script>
 		function connectWebSocket(url) {
-			//console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+url);
-			//console.log(location.host);
+			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+url);
+			console.log(location.host);
 			if (ws != null) {
-				//console.log("close 타니????????????")
+				console.log("close 타니????????????")
 				ws.close();
 				ws = null;
 			}
-			ws = new WebSocket("ws://" + location.host + "/" + url);
+			//ws = new WebSocket("ws://" + location.host + "/" + url);
+			ws = new WebSocket("ws://" + location.host + url);
 			ws.onopen = function(evt) {
 				//console.log(ws);
 				//console.log("url:" + url);
