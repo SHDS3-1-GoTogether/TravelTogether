@@ -33,6 +33,7 @@
 			        <span>금액</span>
 			    </div> 
 		        <input type="number" min="0" id="price" placeholder="1인 예산을 입력해주세요.">
+	            <div id="price_info">예산 금액은 10,000,000원 이하만 입력 가능합니다.</div>
 			</div>
 		</div>
 			<button id="submit3" class="submit">NEXT</button>		

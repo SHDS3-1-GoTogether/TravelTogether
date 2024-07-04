@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.payment;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,13 @@ public class PaymentDAO {
 
 		return sqlSession.selectOne(namespace + "getFundingInfo", fundingId);
 	}
+	
+	public List<HashMap<String, Integer>> getConsumerCount() {
+		return sqlSession.selectList(namespace + "getConsumerCount");
+}
+
 	public List<Map<String, Object>> paymentRecipe(int userId){
 		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
+    
 	}
 }

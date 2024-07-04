@@ -23,6 +23,11 @@
 		WHERE f.funding_id = #{fundingId}
 	</select>
 	
+	<select id="getConsumerCount" resultType="map">
+		select funding_id as "funding_id", count(*) as "consumerCount" 
+		from tt_payment
+		group by funding_id
+  </select>
 	<select id="getPaymentRecipe" parameterType="int" resultType="map">
 		SELECT 
 		    ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, 

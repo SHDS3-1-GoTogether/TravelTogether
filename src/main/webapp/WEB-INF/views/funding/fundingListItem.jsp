@@ -39,7 +39,13 @@
 					<div class="v-line"></div>
 					<span class="item_detail_content"> 
 						<span id="fund_area">${fund.area}</span><br>
-						<span id="people_num">${fund.people_num}</span><br> 
+						<span id="people_num">
+							<c:forEach var="consumer" items="${consumer}">
+								<c:if test="${fund.funding_id == consumer.funding_id}">
+									${consumer.consumerCount}
+								</c:if>
+							</c:forEach>
+						/ ${fund.people_num}</span><br> 
 						<span id="fund_date">${fund.start_date}- ${fund.end_date}</span><br>
 					</span>
 				</div>
