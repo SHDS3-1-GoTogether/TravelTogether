@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter @Setter @ToString
 public class FundingThemeDTO {
-	int funding_theme_id;
-	int funding_id;
-	int theme_id;
+	private int funding_theme_id;
+	private int funding_id;
+	private int theme_id;
 }

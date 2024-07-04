@@ -22,4 +22,10 @@
 		JOIN tt_member m ON f.member_id = m.member_id
 		WHERE f.funding_id = #{fundingId}
 	</select>
+	
+	<select id="getConsumerCount" resultType="map">
+		select funding_id as "funding_id", count(*) as "consumerCount" 
+		from tt_payment
+		group by funding_id
+	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.shinhan.travelTogether.payment;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,5 +28,9 @@ public class PaymentDAO {
 	public PaymentFundingInfoDTO getFundingInfo(int fundingId) {
 
 		return sqlSession.selectOne(namespace + "getFundingInfo", fundingId);
+	}
+	
+	public List<HashMap<String, Integer>> getConsumerCount() {
+		return sqlSession.selectList(namespace + "getConsumerCount");
 	}
 }

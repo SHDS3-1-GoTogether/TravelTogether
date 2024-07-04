@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinhan.travelTogether.member.MemberDTO;
+import com.shinhan.travelTogether.payment.PaymentService;
 import com.shinhan.travelTogether.photo.PhotoDTO;
 import com.shinhan.travelTogether.photo.PhotoService;
 import com.shinhan.travelTogether.theme.FundingThemeDTO;
@@ -43,6 +44,9 @@ public class FundingController {
 	@Autowired
 	ThemeService tService;
 	
+	@Autowired
+	PaymentService payService;
+	
 	@Value("${s3.bucket}")
 	private String bucket;
 	
@@ -57,6 +61,7 @@ public class FundingController {
 		model.addAttribute("fundlist", fService.selectAll(selectOption));
 		model.addAttribute("tlist", fService.selectFudingTheme());
 		model.addAttribute("plist", pService.selectMainPhoto());
+		model.addAttribute("consumer", payService.getConsumerCount() );
 	}
 	
 	//ÆÝµù °Ë»ö
@@ -130,11 +135,11 @@ public class FundingController {
 		if(funding==null) {
 			return 0;
 		}
-		if(funding.traffic==null && funding.accommodation == null)
+		if(funding.getTraffic()==null && funding.getAccommodation()== null)
 			funding.setConfirm_option(0);
-		else if(funding.traffic != null && funding.accommodation != null) {
+		else if(funding.getTraffic() != null && funding.getAccommodation()!= null) {
 			funding.setConfirm_option(3);
-		} else if(funding.accommodation !=null) {
+		} else if(funding.getAccommodation() !=null) {
 			funding.setConfirm_option(1);
 		} else {
 			funding.setConfirm_option(2);

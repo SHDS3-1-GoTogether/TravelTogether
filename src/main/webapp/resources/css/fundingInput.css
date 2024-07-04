@@ -173,6 +173,37 @@ body {
 	text-align: center;
 	color: #D9D9D9;
 }
+.info2 {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.info2 input {
+    padding: 10px;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #D9D9D9;
+    text-align: center;
+    background-color: transparent;
+}
+
+.info2 input:focus {
+	outline:none;
+}
+
+.info2 input::placeholder {
+	margin: 0 auto;
+	text-align: center;
+	color: #D9D9D9;
+}
+.info2 div {
+    font-size: 10px;
+    color: #4E548E;
+    width: 100%;
+    padding: 10px;
+}
+
+
 
 /* fundingOption2  */
 
@@ -310,6 +341,13 @@ body {
     margin: 5px;
 }
 
+#price_info {
+    font-size: 10px;
+    color: #4E548E;
+    width: 100%;
+    padding: 10px;
+}
+
 //InputOption4 
 
 #title-wrapper{
@@ -411,10 +449,12 @@ h1 {
  }
 
 .selected-image{
-	max-width: 100%;
+    max-width: 100%;
     max-height: 100%;
-	width:100%;
-	border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: scale-down;
 }
 
 .detail-image-upload {
