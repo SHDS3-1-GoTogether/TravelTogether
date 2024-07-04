@@ -2,6 +2,7 @@ package com.shinhan.travelTogether.payment;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -32,5 +33,10 @@ public class PaymentDAO {
 	
 	public List<HashMap<String, Integer>> getConsumerCount() {
 		return sqlSession.selectList(namespace + "getConsumerCount");
+}
+
+	public List<Map<String, Object>> paymentRecipe(int userId){
+		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
+    
 	}
 }
