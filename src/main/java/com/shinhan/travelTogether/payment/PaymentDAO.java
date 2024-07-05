@@ -34,6 +34,7 @@ public class PaymentDAO {
 	public List<HashMap<String, Integer>> getConsumerCount() {
 		return sqlSession.selectList(namespace + "getConsumerCount");
 }
+
 	public List<Map<String, Object>> paymentRecipe(int userId){
 		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
 	}
