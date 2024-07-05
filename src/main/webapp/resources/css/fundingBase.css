@@ -15,7 +15,7 @@ html {
 .content_wrapper {
 	position: relative;
 	margin: 0 auto;
-	width: 90%;
+	width: 80%;
 	min-width: 800px;
 	text-align: center;
 	margin-bottom: 200px;
@@ -102,7 +102,7 @@ html {
 	background-color: #FFFFFF;
 	text-align: left;
 	padding: 5px;
-	margin-bottom: 100px;
+	margin-bottom: 30px;
 }
 
 .option-title{

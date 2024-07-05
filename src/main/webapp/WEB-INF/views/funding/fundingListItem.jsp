@@ -52,10 +52,10 @@
 				<span class="traffic-wrapper">
 					<img alt="출발옵션" src="${path}/resources/images/traffic_op.png">
 					<c:choose>
-						<c:when test="${fund.confirm_option <= 1}">
+						<c:when test="${fund.confirm_option < 2}">
 							<span class="traffic-contentPink">따로출발</span>
 						</c:when>
-						<c:when test="${fund.confirm_option > 1}">
+						<c:when test="${fund.confirm_option >= 2}">
 							<span class="traffic-contentBlue">같이출발</span>
 						</c:when>
 					</c:choose>

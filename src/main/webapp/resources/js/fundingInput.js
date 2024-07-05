@@ -49,9 +49,7 @@ $(function() {
 		function f_inputKeypress(){
 			var replaceNum = $(this).val($(this).val().replace(/[^0-9]/gi, ""));
 			var currentObj = $(this).attr("id");
-			var currentNum = $(this).val();
-			console.log(currentNum);
-			
+			var currentNum = $(this).val();			
 			
 			if(currentObj == "people_num") {
 				if(currentNum < 1 || currentNum > 50) {
@@ -468,8 +466,8 @@ $(function() {
 	    	for(var i = 0; i < themeTitle.length; i++) {
 	    		themeStr += " #" + themeTitle[i];
 	    	}
-	    		
-	    	$(".option-li-wrapper li:nth-child(6)").append("<div>"+ fund.price +"</div>"); 
+	    	var price2 = fund.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	    	$(".option-li-wrapper li:nth-child(6)").append("<div>"+ price2 + "원</div>"); 
 	    	$(".option-li-wrapper li:nth-child(7)").append("<div>"+ themeStr +"</div>"); 
 			$(".option-li-wrapper li:nth-child(8)").append("<div>"+ fund.deadline +"</div>"); 		
 	    	

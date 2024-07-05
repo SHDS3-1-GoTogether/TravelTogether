@@ -135,11 +135,11 @@ public class FundingController {
 		if(funding==null) {
 			return 0;
 		}
-		if(funding.getTraffic()==null && funding.getAccommodation()== null)
+		if(funding.getTraffic()=="" && funding.getAccommodation()== "")
 			funding.setConfirm_option(0);
-		else if(funding.getTraffic() != null && funding.getAccommodation()!= null) {
+		else if(funding.getTraffic() != "" && funding.getAccommodation()!= "") {
 			funding.setConfirm_option(3);
-		} else if(funding.getAccommodation() !=null) {
+		} else if(funding.getAccommodation() !="") {
 			funding.setConfirm_option(1);
 		} else {
 			funding.setConfirm_option(2);
