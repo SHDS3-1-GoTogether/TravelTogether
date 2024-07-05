@@ -76,4 +76,9 @@ public class MemberDAOMybatis {
 		logger.info("<searchByCondition> "+memberlist.size()+"명 회원 조회 완료");
 		return memberlist;
 	}
+
+	public int deleteMember(Integer member_id) {
+		Integer result = sqlSession.update(namespace+"deleteMember", member_id);
+		return result;
+	}
 }

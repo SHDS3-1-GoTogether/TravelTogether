@@ -39,4 +39,8 @@ public class MemberService {
 		return memberDAO.searchByWord(word);
 	}
 
+	public int deleteMember(Integer member_id) {
+		return memberDAO.deleteMember(member_id);
+	}
+
 }

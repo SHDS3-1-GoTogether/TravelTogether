@@ -52,3 +52,8 @@
     color: white;
     font-weight: bold;
 }
+
+/* 모달창 사용시 본문 스크롤 막기 */
+.scrollLock {
+	overflow: hidden;
+}

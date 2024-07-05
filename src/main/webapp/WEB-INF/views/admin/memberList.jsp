@@ -24,28 +24,33 @@
 			<h2><i class="fas fa-id-badge"></i> 회원 목록</h2>
 			<div class="search-content">
 				<input type="text" id="searchInput" placeholder="아이디, 이름, 닉네임 등 검색">
-				<button id="searchBtn"><i class="fas fa-search"></i></button>
+				<button id="searchBtn" class="search-btn"><i class="fas fa-search"></i></button>
 			</div>
 			<div class="list-table">
 				<div class="header">
-					<p>회원번호</p>
-					<p class="">아이디</p>
-					<p class="">닉네임</p>
-					<p class="">이메일</p>
-					<p class="">성별</p>
-					<p class="">등급</p>
-					<p>글/댓글/후기/문의</p>
-					<p>탈퇴<p>
+					<p class="member-id">회원번호</p>
+					<p class="member-login-id">아이디</p>
+					<p class="member-nickname">닉네임</p>
+					<p class="member-email">이메일</p>
+					<p class="member-membership">등급</p>
+					<p class="member-acc-amount">누적금액</p>
+					<p class="member-delete">탈퇴</p>
 				</div>
 				<div class="list-item">
 					<c:forEach var="member" items="${memberlist}">
 						<div class="data">
-							<p>${member.member_id}</p>
-							<p class="">${member.login_id}</p>
-							<p class="">${member.nickname}</p>
-							<p class="">${member.email}</p>
-							<p class="">${member.membership_id}</p>
-							
+							<p class="member-id">${member.member_id}</p>
+							<p class="member-login-id">${member.login_id}</p>
+							<p class="member-nickname">${member.nickname}</p>
+							<p class="member-email">${member.email}</p>
+							<p class="member-membership">${member.membership_id}</p>
+							<p class="member-acc-amount">${member.acc_amount}</p>
+							<p class="member-delete">
+								<c:if test="${member.is_delete == false}">
+									<button class="button delete-btn" onclick="f_memberDelete(${member.member_id})"><i class="fas fa-trash-alt"></i></button>
+								</c:if>
+								<c:if test="${member.is_delete == true}">탈퇴</c:if>
+							</p>
 						</div>
 					</c:forEach>
 				</div>
@@ -54,17 +59,32 @@
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 	
+	<%-- 회원 삭제 성공 모달 --%>
+	<div class="delete-success-modal-box">
+		<h3>회원삭제 성공</h3>
+		<p>회원을 삭제하였습니다.</p>
+		<button type="button" class="confirm-button">확인</button>
+	</div>
+	<div class="delete-fail-modal-box">
+		<h3>회원삭제 실패</h3>
+		<p>삭제할 수 없는 회원입니다.</p>
+		<button type="button" class="confirm-button">확인</button>
+	</div>
+	<div class="modal_bg"></div>
+	
 	<script>
 		$(function(){
 			$("#searchInput").on("keypress", f_keypressEnter);
 			$("#searchBtn").on("click", f_searchWord);
+			$(".confirm-button").on("click", f_confirmBtnClick);
 		});
 		
 		function f_searchWord(){
-			var word = $("#searchInput").val();
+			var word = $("#searchInput");
 			
-			if(word == null) {
+			if(word.val() == "") {
 				alert("검색어를 입력해주세요.");
+				word.focus();
 			} else {
 				location.href="${path}/admin/memberList.do?word="+word;
 			}	
@@ -79,6 +99,28 @@
 			if(e.keyCode && e.keyCode == 13){
 				  e.preventDefault();	
 			}
+		}
+		
+		function f_memberDelete(member_id) {
+			console.log(member_id);
+			$.ajax({
+				url: "${path}/admin/memberDelete.do",
+				method: "post",
+				data: {"member_id": member_id},
+				success: function(responseData){
+					console.log(responseData);
+					$("body").addClass("scrollLock");
+					$(".modal_bg").fadeIn(500);
+					if(responseData == "0") {
+						$(".delete-fail-modal-box").fadeIn(500);
+					} else {
+						$(".delete-success-modal-box").fadeIn(500);
+					}
+				}
+			});
+		}
+		function f_confirmBtnClick(){
+			location.href="${path}/admin/memberList.do";
 		}
 	</script>
 </body>
