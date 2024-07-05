@@ -37,6 +37,5 @@ public class PaymentDAO {
 
 	public List<Map<String, Object>> paymentRecipe(int userId){
 		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
-    
 	}
 }

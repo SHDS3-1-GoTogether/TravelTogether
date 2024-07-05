@@ -27,7 +27,8 @@
 		select funding_id as "funding_id", count(*) as "consumerCount" 
 		from tt_payment
 		group by funding_id
-  </select>
+	</select>
+	
 	<select id="getPaymentRecipe" parameterType="int" resultType="map">
 		SELECT 
 		    ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, 
