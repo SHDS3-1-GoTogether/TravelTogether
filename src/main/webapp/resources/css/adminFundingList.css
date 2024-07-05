@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	width: 70vw;
+	width: 100%;
 	height: 100%;
 	margin: 0 auto;
 }
@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-	width: 100%;
+	width: 70vw;
 	height: 100%;
 	margin: 0 auto;
 	display: flex;
@@ -53,9 +53,9 @@ body {
 }
 
 .select-option-item {
-	width: 30%;
+	width: 40%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 }
 
 .select-option:first-child {
@@ -74,7 +74,7 @@ body {
 }
 
 .select-label {
-	margin: 0;
+	margin: 0 10px 0 0;
 	display: flex;
 	align-items: flex-end;
 }
@@ -85,7 +85,7 @@ body {
 }
 
 .option select {
-	width: 100%;
+	width: 70%;
 	height: 25px;
 	padding-left: 10px;
 	font-size: 1em;

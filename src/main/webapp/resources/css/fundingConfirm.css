@@ -2,11 +2,11 @@ html {
 	height: 100%;
 }
 
-body {
+/* body {
 	width: 70vw;
 	height: 100%;
 	margin: 0 auto;
-}
+} */
 
 #tt_footer {
 	position: relative;
@@ -26,6 +26,19 @@ body {
 	width: 70%;
 	flex-grow: 1;
 	padding: 40px 80px;
+}
+
+.title-content {
+	width: 100%;
+	display: flex;
+}
+
+.button-group {
+	display: flex;
+    justify-content: flex-end; /* 버튼들을 오른쪽 끝으로 정렬 */
+    align-items: flex-end; /* 버튼들을 아래쪽 끝으로 정렬 */
+    height: 100%; /* 부모 컨테이너의 높이를 100%로 설정 */
+    width: 20vw;
 }
 
 /* 승인 모달창 */
@@ -149,9 +162,4 @@ body {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 99;
-}
-
-/* 모달창 사용시 본문 스크롤 막기 */
-.scrollLock {
-	overflow: hidden;
 }

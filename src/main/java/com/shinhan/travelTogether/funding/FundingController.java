@@ -139,7 +139,13 @@ public class FundingController {
 		} else {
 			funding.setConfirm_option(2);
 		}
-		funding.setFunding_state(0);
+		
+		if(member.getIs_manager()) {
+			funding.setFunding_state(1);
+		} else {
+			funding.setFunding_state(0);
+		}
+		
 		funding.setViews(0);
 		funding.setMember_id(member.getMember_id());
 		System.out.println("Funding Input »Æ¿Œ 2 : " + fund);
@@ -168,7 +174,6 @@ public class FundingController {
 				insertPhotoList(extraPicArr, "/normal",  1);
 			}
 		 }
-		 
 
 		return result;
 	}
