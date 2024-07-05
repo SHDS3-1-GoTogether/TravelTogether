@@ -49,7 +49,7 @@
 								<c:if test="${member.is_delete == false}">
 									<button class="button delete-btn" onclick="f_memberDelete(${member.member_id})"><i class="fas fa-trash-alt"></i></button>
 								</c:if>
-								<c:if test="${member.is_delete == true}">탈퇴</c:if>
+								<c:if test="${member.is_delete == true}"><span>탈퇴</span></c:if>
 							</p>
 						</div>
 					</c:forEach>

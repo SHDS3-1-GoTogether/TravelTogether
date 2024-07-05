@@ -166,12 +166,12 @@ body {
 }
 
 .button {
-	padding: 10px 15px;
-	border-radius: 10px;
-	background-color: #F9F9F9;
-	color: #99A1B7;
-	border: 0;
-	cursor: pointer;
+	    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    color: #99A1B7;
+    border: 0;
+    cursor: pointer;
 }
 
 .add-coupon-modal-box, .update-coupon-modal-box {

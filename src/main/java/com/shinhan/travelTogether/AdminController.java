@@ -113,15 +113,17 @@ public class AdminController {
 					@RequestParam(value = "check", required = false) List<String> check,
 					@RequestParam(value="etc_text", required = false) String etc_text) {
 		Integer result = null;
-		System.out.println(check);
+		MemberDTO member = memberService.selectByMemberId(member_id);
 		if(check != null && check.size() > 0) {	// 컨펌 반려
 			result = fundingService.updateFundingState(funding_id, 2);
 		} else {	// 컨펌 승인
 			result = fundingService.updateFundingState(funding_id, 1);
 		}
-		String content = makeNotificationContent(check, etc_text);
-		notificationService.insertNotification(new NotificationDTO(null, content, null, member_id));
-		notificationService.notifyMessage(member_id);
+		if(member.getIs_manager() == false) {	// 일반 회원에게만 알림 보내기
+			String content = makeNotificationContent(check, etc_text);
+			notificationService.insertNotification(new NotificationDTO(null, content, null, member_id));
+			notificationService.notifyMessage(member_id);
+		}
 		
 		return result.toString();
 	}
@@ -130,7 +132,7 @@ public class AdminController {
 		StringBuilder message = new StringBuilder("<h3 class=\'notify-item-header\'>[컨펌 결과]</h3>\n");
 		
 		if(check != null && check.size() > 0) {	// 반려 메시지 작성
-			message.append("<p>회원님이 등록하신 펀딩이 반려되었습니다.</p>\n"
+			message.append("<p class='notify-item-content'>회원님이 등록하신 펀딩이 반려되었습니다.</p>\n"
 			+ "<p>반려사유</p>\n<ul>");
 			
 			for(String c: check) {
@@ -143,7 +145,7 @@ public class AdminController {
 				}
 			}
 		} else {
-			message.append("<p>회원님이 등록하신 펀딩이 승인되었습니다.</p>\n");
+			message.append("<p class='notify-item-content'>회원님이 등록하신 펀딩이 승인되었습니다.</p>\n");
 		}
 		
 		return message.toString();

@@ -42,5 +42,9 @@ public class MemberService {
 	public int deleteMember(Integer member_id) {
 		return memberDAO.deleteMember(member_id);
 	}
+	
+	public MemberDTO selectByMemberId(Integer member_id) {
+		return memberDAO.selectByMemberId(member_id);
+	}
 
 }

@@ -107,5 +107,18 @@ body {
 
 .message-content {
 	width: 45% !important;
+	align-self: center;
 }
 
+.notify-item-header {
+	margin: 10px 0;
+}
+
+div.message-content > p.notify-item-content {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 0;
+	text-align: left;
+}

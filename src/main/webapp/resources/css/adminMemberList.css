@@ -140,6 +140,10 @@ body {
 	cursor: pointer;
 }
 
+.member-delete > span {
+	color: red;
+}
+
 .delete-success-modal-box,
 .delete-fail-modal-box {
 	display: none;
