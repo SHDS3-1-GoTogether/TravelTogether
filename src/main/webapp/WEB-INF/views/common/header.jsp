@@ -63,20 +63,34 @@
 				<div id="infoHeader">
 					<c:if test="${!member.is_manager}">
 					<div id="icons">
-						<a href="${path}/chat" id="chat"> <i
-							class="far fa-comment-dots"></i>
-						</a>
+						<div class="chat-wrap">
+							<button type="button" id="chatIcon" class="chat-btn"
+								aria-haspopup="true" aria-expanded="false"
+								aria-controls="popupMenu1">
+								<i class="far fa-comment-dots"></i>
+							</button>
+							<div id="popupMenu1" class="chat-layer" role="menu"
+								aria-labelledby="chatIcon">
+								<div class="chat-header">
+									<h3 class="header-content">채팅방</h3>
+									<p id="plusBtn" class="plus-button chat-plus">더보기</p>
+								</div>
+								<div class="chat-content-wrap">
+									<div id="chats"></div>
+								</div>
+							</div>
+						</div>
 						<div class="notification-wrap">
 							<button type="button" id="notificationIcon" class="notification-btn"
 								aria-haspopup="true" aria-expanded="false"
-								aria-controls="popupMenu">
+								aria-controls="popupMenu2">
 								<i class="far fa-bell"></i>
 							</button>
-							<div id="popupMenu" class="notification-layer" role="menu"
+							<div id="popupMenu2" class="notification-layer" role="menu"
 								aria-labelledby="notificationIcon">
 								<div class="notification-header">
 									<h3 class="header-content">알림</h3>
-									<p id="plusBtn" class="notification-plus">더보기</p>
+									<p id="plusBtn" class="plus-button notification-plus">더보기</p>
 								</div>
 								<div class="notification-content-wrap">
 									<div id="notifications"></div>
@@ -105,31 +119,50 @@
 	    %>
 	    var member_id = <%= member_id %>;
 	    var is_manager = <%= is_manager %>
-		console.log("=="+member_id);
 		
 		$("#notificationIcon").on("click", togglePopup);
+		$("#chatIcon").on("click", togglePopup);
 		$(document).on("click", function(event){
-			if(!$(event.target).closest("#notificationIcon, #popupMenu").length) {
-				$("#popupMenu").hide();
+			if(!$(event.target).closest("#notificationIcon, #popupMenu2").length) {
+				$("#popupMenu2").hide();
 				$("#notificationIcon").attr("aria-expended", "false");
+			}
+			if(!$(event.target).closest("#chatIcon, #popupMenu1").length) {
+				$("#popupMenu1").hide();
+				$("#chatIcon").attr("aria-expended", "false");
 			}
 		});
 		
-		$("#plusBtn").on("click", f_plusBtnClick);
+		$(".plus-button").on("click", f_plusBtnClick);
+		/* $(".chatroom").on("click", f_chatroomClick); */
 		
 		if(member_id != null && !is_manager) {
+			loadChatrooms();
 			loadPreviousNotifications(member_id);	// 이전 알림 불러오기
         	connect(member_id);			
 		}
 	});
 	
 	function f_plusBtnClick() {
-		location.href="${path}/mypage/notificationList.do";
+		if($(this).hasClass("chat-plus")) {
+			location.href="${path}/mypage/chatroom.do";
+		} 
+		 if($(this).hasClass("notification-plus")) {
+			location.href="${path}/mypage/notificationList.do";
+		}
+	}
+	
+	function f_chatroomClick(){
+		alert("채팅방클릭");
 	}
 	
 	function togglePopup() {
-		var popupMenu = $("#popupMenu");
-		var notificationIcon = $("notificationIcon");
+		var controlId = $(this).attr('aria-controls');
+
+        // 해당 ID를 가진 요소를 찾습니다.
+        var popupMenu = $('#' + controlId);
+		//var popupMenu = $("#popupMenu");
+		//var icon = $("notificationIcon");
 		var isExpanded = $(this).attr("aria-expanded") === "true";
 		
 		if(isExpanded) {
@@ -150,8 +183,6 @@
         const notificationDiv = document.getElementById('notifications');
         notifications.forEach((notification, index) => {
         	if(index < 10){
-        		console.log(notification.message_content);
-        		console.log("시간:"+notification.send_date);
             	const message = notification.message_content;
             	const send_date = notification.send_date;
             	addNotification(message, 1, send_date);
@@ -159,9 +190,31 @@
         });
 	}
 	
+	async function loadChatrooms(){
+		const response = await fetch("${path}/chatroomList");
+		const chatrooms = await response.json();
+		const chatroomDiv = document.getElementById('chats');
+		chatrooms.forEach((room, index) => {
+			var newRoom = document.createElement('div');
+			newRoom.className = 'chatroom';
+			newRoom.innerHTML = `
+	            <div class="chat-content">
+	                <p>` + room.title + `</p>
+	            </div>
+	        `;
+	        
+	         newRoom.addEventListener('click', function() {
+	        	// 채팅방 ID를 로컬 스토리지에 저장
+			    localStorage.setItem('selectedRoomId', room.funding_id);
+		        // 이동할 URL 지정 (여기서는 room.url 사용 가정)
+		        window.location.href = "${path}/mypage/chatroom.do";
+		    });
+			chatroomDiv.appendChild(newRoom);
+		});
+	}
+	
 	function connect(member_id) {
         const eventSource = new EventSource("${path}/notifications/subscribe?member_id="+member_id);
-		console.log(eventSource);
         eventSource.addEventListener('notification', function(event) {
         	var data = event.data;
         	const parsedData = JSON.parse(data);
