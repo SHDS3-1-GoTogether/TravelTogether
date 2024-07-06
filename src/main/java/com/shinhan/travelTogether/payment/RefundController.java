@@ -45,6 +45,7 @@ public class RefundController {
 		redirectAttributes.addFlashAttribute("reason", reason);
 		redirectAttributes.addFlashAttribute("primaryKey", productId);
 		redirectAttributes.addFlashAttribute("refundDate", refundDate);
+
 		return "redirect:cancel.do";
 	}
 	
@@ -54,8 +55,9 @@ public class RefundController {
 															@RequestParam("refund_reason") String refundReason) {
 		Map<String, Object> response = new HashMap<>();
 		
-		System.out.println(paymentKey);
-		System.out.println(refundReason);
+		// test
+		//System.out.println(paymentKey);
+		//System.out.println(refundReason);
 		
 		// DB Ã³¸®
 		int result = refundService.insertRefundInfo(paymentKey, refundReason);

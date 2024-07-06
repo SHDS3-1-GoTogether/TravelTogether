@@ -15,6 +15,11 @@
 		<param-value>/WEB-INF/spring/*.xml</param-value>
 		-->
 	</context-param>
+	
+	<!-- Custom listener for environment variable -->
+    <listener>
+        <listener-class>com.shinhan.travelTogether.payment.ContextListener</listener-class>
+    </listener>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>

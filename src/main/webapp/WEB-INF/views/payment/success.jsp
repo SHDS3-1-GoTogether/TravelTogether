@@ -1,3 +1,6 @@
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="com.shinhan.travelTogether.payment.EnvConfig"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -23,7 +26,13 @@
 // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
 // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
 // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+
+// secretKey 보안처리
+EnvConfig envConfig = (EnvConfig) application.getAttribute("envConfig");
+String secretKey = envConfig.getProperty("SECRET_KEY");
+
+// String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+
 
 Encoder encoder = Base64.getEncoder();
 byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -32,7 +41,6 @@ String authorizations = "Basic " + new String(encodedBytes, 0, encodedBytes.leng
 String orderId = request.getParameter("orderId");
 String paymentKey = request.getParameter("paymentKey");
 String amount = request.getParameter("amount");
-
 
 URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
 
@@ -64,12 +72,12 @@ String approvedAt = (String) jsonObject.get("approvedAt");
 String formattedApprovedAt = approvedAt;
 
 try {
-SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
-SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-Date date = inputFormat.parse(approvedAt);
-formattedApprovedAt = outputFormat.format(date);
+	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Date date = inputFormat.parse(approvedAt);
+	formattedApprovedAt = outputFormat.format(date);
 } catch (Exception e) {
-e.printStackTrace();
+	e.printStackTrace();
 }
 %>
 
@@ -90,44 +98,44 @@ e.printStackTrace();
 			src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
 		<h2>결제를 완료했어요</h2>
 
-		<div class="p-grid typography--p" style="margin-top: 50px">
+		<%-- <div class="p-grid typography--p" style="margin-top: 50px">
 			<div class="p-grid-col text--left">
 				<b>결제금액</b>
 			</div>
 			<div class="p-grid-col text--right" id="amount">
 				<%=jsonObject.get("totalAmount")%></div>
+		</div> --%>
+
+		<div class="p-grid">
+			<button class="button p-grid-col5" onclick="#" id="sendDataBtn">홈으로</button>
 		</div>
 	</div>
-	<div class="p-grid">
-		<button class="button p-grid-col5" onclick="#" id="sendDataBtn">홈으로</button>
-	</div>
-	</div>
-	
-	
-	<div class="box_section" style="width: 600px; text-align: left">
-            <b>Response Data :</b>
-            <div id="response">
-              <pre>
+
+
+	<%-- <div class="box_section" style="width: 600px; text-align: left">
+		<b>Response Data :</b>
+		<div id="response">
+			<pre>
                 <%
                 Set<String> keys = jsonObject.keySet();
                 for (String key : keys) {
                 %>
-                <%= key %>: <%= jsonObject.get(key) %>
+                <%=key%>: <%=jsonObject.get(key)%>
                 <%
                 }
                 %>
               </pre>
-            </div>
-          </div>
-	
+		</div>
+	</div> --%>
 
-	<div class="box_section" style="width: 600px; text-align: left">
+
+	<div class="box_section" style="width: 600px; text-align: left; display: none;">
 		<b>Response Data :</b>
 		<div id="orderId"><%=jsonObject.get("orderId")%></div>
 		<div id="approvedAt"><%=formattedApprovedAt%></div>
 		<div id="totalAmount"><%=jsonObject.get("totalAmount")%></div>
 		<div id="provider"><%=jsonObject.get("easyPay")%></div>
-		<div id="paymentKey"><%=jsonObject.get("paymentKey") %></div>
+		<div id="paymentKey"><%=jsonObject.get("paymentKey")%></div>
 	</div>
 </body>
 <script>
@@ -154,25 +162,8 @@ document.getElementById('sendDataBtn').addEventListener('click', function() {
     		paymentKey:paymentKey,
     };
 
-    /* // Fetch API를 사용하여 데이터를 서버로 POST 방식으로 보냅니다.
-    fetch('${path}/payment/savepayment.do', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'  // 서버에 JSON 형식의 데이터를 전달하고 있음을 명시
-        },
-        body: JSON.stringify(jsonData)  // JavaScript 객체를 JSON 문자열로 변환
-    })
-    .then(response => response.json())  // 서버로부터의 응답을 JSON으로 파싱
-    .then(data => {
-        console.log('Server response:', data.message);
-        window.location.href = '${path}/payment/success.do';
-        //alert('서버로부터의 응답: ' + data.message);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    }); */
     
- // Fetch API를 사용하여 데이터를 서버로 POST 방식으로 보냅니다.(toss api jsonObject에서 데이터 파싱한 뒤 db저장위해)
+ // Fetch API를 사용하여 데이터를 서버로 POST 방식으로 (toss api jsonObject에서 데이터 파싱한 뒤 db저장위해)
     fetch('${path}/payment/savepayment.do', {
         method: 'POST',
         headers: {

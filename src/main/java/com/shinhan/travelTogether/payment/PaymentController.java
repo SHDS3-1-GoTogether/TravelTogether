@@ -25,6 +25,8 @@ import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
 import com.shinhan.travelTogether.member.MemberDTO;
 
+
+
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
@@ -42,9 +44,7 @@ public class PaymentController {
 	}
 
 	@GetMapping(value = "/pay.do")
-	public void showPaymentPage(@RequestParam("funding_id") Integer funding_id,
-								Model model,
-								HttpSession session) {
+	public void showPaymentPage(@RequestParam("funding_id") Integer funding_id, Model model, HttpSession session) {
 
 		PaymentFundingInfoDTO fundingInfo = pService.getFundingInfo(funding_id);
 
@@ -56,7 +56,7 @@ public class PaymentController {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		session.setAttribute("member_id", member_id);
 		session.setAttribute("funding_id", funding_id);
-		
+
 		// 로그인 기능 구현시 수정
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(1);
 		model.addAttribute("couponlist", couponlist);
@@ -93,9 +93,8 @@ public class PaymentController {
 
 	// 결제 정보 db저장(결제 성공 페이지에서 홈으로 버튼 클릭 시)
 	@RequestMapping(value = "/savepayment.do", method = RequestMethod.POST)
-	public void savePayment(@RequestBody Map<String, Object> payload,
-							  HttpSession session,
-							  HttpServletResponse response) {
+	public void savePayment(@RequestBody Map<String, Object> payload, HttpSession session,
+			HttpServletResponse response) {
 
 		String orderId = (String) payload.get("orderId");
 		String requestAt = (String) payload.get("requestAt"); // ISO8601 형식 -> jsp에서 convert
@@ -108,14 +107,14 @@ public class PaymentController {
 		// System.out.println(paymentKey);
 
 		PaymentDTO payment = new PaymentDTO();
-		payment.setPayment_id(orderId); // 중복결제 방지 난수 
+		payment.setPayment_id(orderId); // 중복결제 방지 난수
 		payment.setPayment_date(requestAt); // 결제 성공 날짜
-		payment.setPrice(Integer.parseInt(totalAmount));	// 총 결제 금액
+		payment.setPrice(Integer.parseInt(totalAmount)); // 총 결제 금액
 		payment.setRefund(0); // - 결제시 0 / 환불시 1
-		payment.setPayment_method(provider);	// 결제 수단 
-		payment.setMember_id((Integer)session.getAttribute("member_id"));
-		payment.setFunding_id((Integer)session.getAttribute("funding_id"));
-		payment.setPayment_key(paymentKey);		// 결제 키
+		payment.setPayment_method(provider); // 결제 수단
+		payment.setMember_id((Integer) session.getAttribute("member_id"));
+		payment.setFunding_id((Integer) session.getAttribute("funding_id"));
+		payment.setPayment_key(paymentKey); // 결제 키
 
 		// 세션에서 couponId 가져오기
 		Integer couponId = (Integer) session.getAttribute("couponId");
@@ -124,23 +123,43 @@ public class PaymentController {
 		} else {
 			payment.setCoupon_record_id(null); // 쿠폰 ID가 없으면 0으로 설정 (필요에 따라 수정)
 		}
+
+		System.out.println("여기되냐???");
 		
-		int result = pService.insertPaymentInfo(payment);
-		String message = result > 0 ? "success complete payment" : "fail complete payment";
+		int result_payment = pService.insertPaymentInfo(payment);
+		String message = result_payment > 0 ? "success complete payment" : "fail complete payment";
+
+		// --------------------------------여기까지 결제 정보 DB
+		// 저장------------------------------------------
+
+		Map<String, Object> info = pService.checkingFundingState(payment.getFunding_id());
+
+		// int people_num = (int)info.get("PEOPLE_NUM");
+		// int participants = (int)info.get("PARTICIPANTS");
+
+		int people_num = ((Number) info.get("PEOPLE_NUM")).intValue();
+		int participants = ((Number) info.get("PARTICIPANTS")).intValue();
+
+		System.out.println("-------------------------펀딩 참여인원 비교----------------------");
+		System.out.println("모집인원");
+		System.out.println(people_num);
+		System.out.println("참여인원");
+		System.out.println(participants);
+		System.out.println("-------------------------펀딩 참여인원 비교----------------------");
+
+		if (people_num >= participants) {
+			// 펀딩 테이블 참여상태 변경 update 문 실행
+			int result_fundingStatus = pService.updatePeopleNum(payment.getFunding_id());
+			System.out.println("결과 : " + result_fundingStatus);
+		}
+
 		// 성공 및 실패 시 리다이렉트 경로 설정
-		if (result > 0) {
+		if (result_payment > 0) {
 			System.out.println(message);
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
 			System.out.println(message);
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
-	}
-
-	// TEST 혜진이 페이지 - 상품 상세보기
-	@GetMapping(value = "/reward.do")
-	public String showRewardPage() {
-		logger.info("Handling /travel/reward request");
-		return "payment/reward";
 	}
 }
