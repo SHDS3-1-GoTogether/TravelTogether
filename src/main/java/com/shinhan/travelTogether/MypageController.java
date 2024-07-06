@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -128,5 +130,21 @@ public class MypageController {
 		}
 		
 		model.addAttribute("paymentDetail", paymentList);
+	}
+	
+	@GetMapping("/refundList.do")
+	public String refundList(Model model, HttpSession session){
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> refundList = paymentService.refundRecipe(member_id);
+		logger.info(refundList.size()+"건 환불내역 조회됨");
+		
+		// test
+		for (Map<String, Object> map : refundList) {
+			System.out.println(map);;
+		}
+		model.addAttribute("refundDetail", refundList);
+		
+		return "mypage/paymentList";
 	}
 }

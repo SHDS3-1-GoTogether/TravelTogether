@@ -38,4 +38,14 @@ public class PaymentDAO {
 	public List<Map<String, Object>> paymentRecipe(int userId){
 		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
 	}
+	public List<Map<String, Object>> refundRecipe(int userId){
+		return sqlSession.selectList(namespace + "getRefundRecipe", userId);
+	}
+	
+	public Map<String, Object>checkingFundingState(int funding_id){
+		return sqlSession.selectOne(namespace + "getFundingParticipants", funding_id);
+	}
+	public int updatePeopleNum(int funding_id) {
+		return sqlSession.update(namespace + "updatePeopleNum", funding_id);
+	}
 }

@@ -42,10 +42,8 @@
 		AND <![CDATA[ f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
         AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
         ]]>
+        AND f.funding_state != 3
 	</select>
-	
-	
-	<!-- @@@@@@@ 펀딩 랜덤 배정 @@@@@@@ -->
 	
 	<!-- 가격 100만원 이상 or 금액 무관 선택 시 랜던펀딩  -->
 	<select id="freeAmount" resultType="Integer" parameterType="randomFundingvo">
@@ -63,6 +61,7 @@
           <if test="priceLow != null and priceLow != ''">
               AND f.price >= #{priceLow}
           </if>
+          AND f.funding_state != 3
           <if test="themes != null and themes.size() > 0">
 	          AND t.title IN
 	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">
@@ -89,6 +88,7 @@
           AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
           ]]>
           AND f.price BETWEEN #{priceLow} AND #{priceHigh}
+          AND f.funding_state != 3
           <if test="themes != null and themes.size() > 0">
 	          AND t.title IN
 	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">

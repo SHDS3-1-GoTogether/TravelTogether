@@ -14,6 +14,23 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
+body {
+	width: 100%;
+	margin: 0;
+}
+
+.mypage-header {
+	width: 70vw;
+	margin: 0 auto;
+	padding: 20px 20px 10px 20px;
+}
+
+.mypage-header h2 {
+	font-size: 1.8em;
+	padding: 0 20px;
+	margin: 0;
+}
+
 .container {
 	width: 70vw;
 	margin: 0 auto;
@@ -28,17 +45,6 @@
 	padding-bottom: 20px;
 }
 
-.mypage-header {
-	width: 70vw;
-	margin: 0 auto;
-	padding: 20px 20px 10px 20px;
-}
-
-.mypage-header h2 {
-	font-size: 1.8em;
-	padding: 0 20px;
-}
-
 .mypage-payment-content>h2 {
 	font-size: 24px;
 	margin-top: 0;
@@ -46,7 +52,6 @@
 	padding-left: 20px;
 }
 
-/* ------------------------- */
 html, body {
 	width: 100%;
 }
@@ -60,7 +65,6 @@ ul, li {
 	list-style: none;
 }
 
-/*tab css*/
 a {
 	text-decoration: none;
 	color: inherit;
@@ -86,9 +90,11 @@ a {
 	color: #fff;
 }
 
-/* .tab__content-wrapper {
-	padding: 1rem
-} */
+.tab__content-wrapper {
+	width: 100%;
+	padding: 0;
+}
+
 .tab__content {
 	display: none;
 }
@@ -96,7 +102,7 @@ a {
 .tab__content.active {
 	display: block;
 }
-/* ---------정민이 코드 참고--------- */
+
 .list-table {
 	width: 100%;
 	margin: 0 auto;
@@ -105,102 +111,136 @@ a {
 	padding: 10px 0;
 }
 
-.list-table .header p {
-	display: inline-block;
+.list-table .header, .list-table .data {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* padding: 10px 0; */
+}
+
+.list-table .header p, .list-table .data p {
 	color: #99A1B7;
 	font-size: 0.9em;
-	padding: 0 5px;
 	text-align: center;
-	width: 8%;
+	flex: 1;
+}
+
+.list-table .header p {
+	font-weight: bold;
 }
 
 .list-table .data p {
-	display: inline-block;
-	font-size: 0.9em;
-	padding: 0 5px;
-	text-align: center;
-	width: 8%;
+	color: black;
 }
 
-.header {
-	width: 90%;
-	margin: 0 auto;
-	border-bottom: 1px dashed #DBDFE9;
+.list-table .data .payment-buttons {
+	/* display: flex; */
+	flex-direction: column;
+	align-items: flex-start;
 }
 
-.payment-number {
-	width: 10% !important;
+.list-table .data .payment-buttons button {
+	width: 100px !important;
+	height: 30px !important;
+	font-size: 14px !important;
+	box-sizing: border-box;
+	margin: 3px 0 !important;
+	padding: 0 !important;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
-.payment-title {
-	width: 20% !important;
+.payment-buttons .detail-button {
+	background-color: #007bff;
+	color: white;
 }
 
-.payment-price {
-	width: 10% !important;
+.payment-buttons .detail-button:hover {
+	background-color: #0056b3;
 }
 
-.payment-target {
-	width: 20% !important;
+.payment-buttons .refund-button {
+	background-color: #dc3545;
+	color: white;
 }
 
-.payment-status {
-	width: 10% !important;
+.payment-buttons .refund-button:hover {
+	background-color: #c82333;
 }
 
-.payment-button {
-	width: 15% !important;
+.refund-unavailable {
+	color: red;
+	font-weight: bold;
+	padding: 5px;
 }
 </style>
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	$(function() {
-		// 현재 페이지의 URL 가져오기
-		var currentUrl = window.location.href;
-		$(".menu-link").removeClass("highlight");
+$(document).ready(function() {
+    // 현재 페이지의 URL 가져오기
+    var currentUrl = window.location.href;
+    $(".menu-link").removeClass("highlight");
 
-		// URL에 "coupon"이 포함되어 있는지 확인
-		if (currentUrl.includes("payment")) {
-			// "쿠폰" 링크의 폰트 스타일 변경
-			$("#payment-link").addClass("highlight");
-		}
+    // URL에 따라 적절한 탭을 활성화
+    if (currentUrl.includes("refundList.do")) {
+        $(".tab__item").removeClass("active");
+        $(".tab__content").removeClass("active");
+        $(".tab__item").filter(function() {
+            return $(this).text().trim() === "환불내역";
+        }).addClass("active");
+        $("#tab2").addClass("active");
+    } else if (currentUrl.includes("paymentList.do")) {
+        $(".tab__item").removeClass("active");
+        $(".tab__content").removeClass("active");
+        $(".tab__item").filter(function() {
+            return $(this).text().trim() === "결제내역";
+        }).addClass("active");
+        $("#tab1").addClass("active");
+    }
 
-		
-		// 1. 탭 버튼과 탭 내용 부분들을 querySelectorAll을 사용해 변수에 담는다.
-		const tabItem = document.querySelectorAll(".tab__item");
-		const tabContent = document.querySelectorAll(".tab__content");
+    // 탭 버튼과 탭 내용 부분들을 querySelectorAll을 사용해 변수에 담는다.
+    const tabItem = document.querySelectorAll(".tab__item");
 
-		// 2. 탭 버튼들을 forEach 문을 통해 한번씩 순회한다.
-		// 이때 index도 같이 가져온다.
-		tabItem.forEach((item, index) => {
-		  // 3. 탭 버튼에 클릭 이벤트를 준다.
-		  item.addEventListener("click", (e) => {
-		    // 4. 버튼을 a 태그에 만들었기 때문에, 
-		    // 태그의 기본 동작(링크 연결) 방지를 위해 preventDefault를 추가한다.
-		    e.preventDefault(); // a 
-		    
-		    // 5. 탭 내용 부분들을 forEach 문을 통해 한번씩 순회한다.
-		    tabContent.forEach((content) => {
-		      // 6. 탭 내용 부분들 전부 active 클래스를 제거한다.
-		      content.classList.remove("active");
-		    });
+    // 탭 버튼들을 forEach 문을 통해 한번씩 순회한다.
+    tabItem.forEach((item) => {
+        // 탭 버튼에 클릭 이벤트를 준다.
+        item.addEventListener("click", (e) => {
+            // 태그의 기본 동작(링크 연결) 방지를 위해 preventDefault를 추가한다.
+            e.preventDefault();
 
-		    // 7. 탭 버튼들을 forEach 문을 통해 한번씩 순회한다.
-		    tabItem.forEach((content) => {
-		      // 8. 탭 버튼들 전부 active 클래스를 제거한다.
-		      content.classList.remove("active");
-		    });
+            // 만약 환불내역 탭을 클릭했다면 refundList.do로 이동하여 데이터 가져오기
+            if (item.textContent.trim() === "환불내역") {
+                window.location.href = "${path}/mypage/refundList.do";
+            } else if (item.textContent.trim() === "결제내역") {
+                window.location.href = "${path}/mypage/paymentList.do";
+            }
+        });
+    });
 
-		    // 9. 탭 버튼과 탭 내용 영역의 index에 해당하는 부분에 active 클래스를 추가한다.
-		    // ex) 만약 첫번째 탭(index 0)을 클릭했다면, 같은 인덱스에 있는 첫번째 탭 내용 영역에
-		    // active 클래스가 추가된다.
-		    tabItem[index].classList.add("active");
-		    tabContent[index].classList.add("active");
-		  });
-		});
-	});
+    // 모달창 띄우기
+    $('.refund-button').click(function() {
+        var paymentId = $(this).data('id');
+        $('#productId').val(paymentId);
+        $('#refundModal').css('display', 'block');
+    });
+
+    // 모달창 닫기
+    $('.close').click(function() {
+        $('#refundModal').css('display', 'none');
+    });
+
+    // 모달 외부 클릭 시 닫기
+    $(window).click(function(event) {
+        if (event.target.id === 'refundModal') {
+            $('#refundModal').css('display', 'none');
+        }
+    });
+});
+
+
 </script>
 </head>
 <body>
@@ -216,21 +256,18 @@ a {
 			</h2>
 			<!-- 탭 버튼 영역 -->
 			<ul class="tab">
-				<li class="tab__item active"><a href="#tab1">Tab 1</a></li>
-				<li class="tab__item"><a href="#tab2">Tab 2</a></li>
-				<li class="tab__item"><a href="#tab3">Tab 3</a></li>
-				<li class="tab__item"><a href="#tab4">Tab 4</a></li>
+				<li class="tab__item active"><a href="#tab1">결제내역</a></li>
+				<li class="tab__item"><a href="#tab2">환불내역</a></li>
 			</ul>
-
 			<!-- 탭 내용 영역 -->
 			<div class="tab__content-wrapper">
 				<div class="list-table tab__content active" id="tab1">
 					<div class="header">
-						<p class="payment-number">결제번호</p>
+						<p class="payment-number">NO</p>
 						<p class="payment-title">내역</p>
 						<p class="payment-price">금액</p>
 						<p class="payment-target">결제일</p>
-						<p class="payment-status">결제상태</p>
+						<p class="payment-status">상태</p>
 						<p class="payment-button">상세</p>
 					</div>
 					<c:forEach var="payment" items="${paymentDetail}">
@@ -238,9 +275,7 @@ a {
 							<p class="payment-number">${payment.ROW_NUM }</p>
 							<p class="payment-title">${payment.TITLE }</p>
 							<p class="payment-price">
-								<fmt:formatNumber pattern="#,###">
-									${payment.PRICE }
-								</fmt:formatNumber>
+								<fmt:formatNumber pattern="#,###">${payment.PRICE }</fmt:formatNumber>
 								원
 							</p>
 							<p class="payment-target">
@@ -248,34 +283,52 @@ a {
 									pattern="YYYY-MM-dd" />
 							</p>
 							<p class="payment-status">${payment.STATUS }</p>
-							<p class="payment-button">
-								<button class="detail-button" data-id="${payment.PAYMENT_ID}">상세보기</button>
-								<c:if test="${payment.REFUND == 0}">
-								
-									<button type="button" class="btn btn-primary refund-button"
-										data-toggle="modal" data-target="#refundModal" data-id="${payment.PAYMENT_KEY}">funding-refund
-									</button>
-
-									<%-- <button class="refund-button" data-id="${payment.PAYMENT_KEY}">환불하기</button> --%>
-								</c:if>
+							<p class="payment-buttons">
+								<c:choose>
+									<c:when
+										test="${payment.REFUND == 0 and payment.FUNDING_STATE != 3}">
+										<button type="button" class="refund-button"
+											data-id="${payment.PAYMENT_KEY}">환불 신청</button>
+									</c:when>
+									<c:otherwise>
+										<span class="refund-unavailable">펀딩 확정</span>
+									</c:otherwise>
+								</c:choose>
 							</p>
 						</div>
 					</c:forEach>
 				</div>
+				<!-- 환불 내역 리스트 -->
 				<div class="list-table tab__content" id="tab2">
 					<div class="header">
-						<p class="payment-number">결제번호</p>
+						<p class="payment-number">NO</p>
 						<p class="payment-title">내역</p>
 						<p class="payment-price">금액</p>
-						<p class="payment-target">결제일</p>
-						<p class="payment-status">결제상태</p>
-						<p class="payment-button">상세</p>
+						<p class="payment-target">환불일</p>
+						<p class="payment-status">상태</p>
+						<p class="payment-button">사유</p>
 					</div>
+					<c:forEach var="refund" items="${refundDetail}">
+						<div class="data">
+							<p class="payment-number">${refund.ROW_NUM }</p>
+							<p class="payment-title">${refund.TITLE }</p>
+							<p class="payment-price">
+								<fmt:formatNumber pattern="#,###">${refund.PRICE }</fmt:formatNumber>
+								원
+							</p>
+							<p class="payment-target">
+								<fmt:formatDate value="${refund.REFUND_DATE}"
+									pattern="YYYY-MM-dd" />
+							</p>
+							<p class="payment-status">${refund.STATUS }</p>
+							<p class="payment-buttons">${refund.REFUND_REASON }</p>
+						</div>
+					</c:forEach>
 				</div>
 				<%@ include file="../refund/refundModal.jsp"%>
 			</div>
 		</div>
 	</div>
-	</div>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

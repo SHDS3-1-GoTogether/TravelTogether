@@ -169,17 +169,6 @@
     });
 
     // ------  결제 금액 업데이트 ------
-    // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
-    /*coupon.addEventListener("change", function () {
-    	const selectedValue = this.value;
-    	console.log(selectedValue);
-    	const discount = parseInt(selectedValue, 10) || 0;
-      if (coupon.checked) {
-        paymentMethodWidget.updateAmount(amount - discount);
-      } else {
-        paymentMethodWidget.updateAmount(amount);
-      }
-    });*/
     coupon.addEventListener("change", function() {
         var selectedValue = this.value;
         
