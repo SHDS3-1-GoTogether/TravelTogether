@@ -45,6 +45,33 @@ $(function() {
 	    let themeSelection = [];
     	let themeTitle = [];
     	
+
+		function f_inputKeypress(){
+			var replaceNum = $(this).val($(this).val().replace(/[^0-9]/gi, ""));
+			var currentObj = $(this).attr("id");
+			var currentNum = $(this).val();			
+			
+			if(currentObj == "people_num") {
+				if(currentNum < 1 || currentNum > 50) {
+					$("#people_num_info").attr("style", "color:red");
+					$(this).val(currentNum.slice(0,-1));
+					$(this).focus();
+				} else {
+					$("#people_num_info").attr("style", "color:#4E548E");
+				}
+			} else if(currentObj == "price") {
+				if(currentNum < 1 || currentNum > 10000000){
+					$("#price_info").attr("style", "color:red");
+					$(this).val(currentNum.slice(0,-1));
+					$(this).focus();
+				} else {
+					$("#price_info").attr("style", "color:#4E548E");
+				}
+			}
+		}
+    	
+    	$("input[type='number']").on("input", f_inputKeypress);
+    	
     	
 
     
@@ -201,7 +228,7 @@ $(function() {
 		fund.area = $('#area').val();
 		fund.people_num = $('#people_num').val();
 		
-		if(startDate == "" || fund.area == "" || fund.people_num =="") {
+		if(startDate == "" || startDate == null || fund.area == "" || fund.people_num =="") {
 			alert("전부 입력해주세요");
 		} else {
 			fund.start_date = startDate;
@@ -234,7 +261,7 @@ $(function() {
 	 		var image = new Image();
 	 		var ImageTempUrl = window.URL.createObjectURL(accFile[0]);
 	 		image.src = ImageTempUrl;
-	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
+	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E; margin-bottom: 10px;";
 	 		$("#accImgArea").append(image);
 	 		accPicArr = document.getElementById('accommodation_pic').files[0];
 	 	}
@@ -248,37 +275,22 @@ $(function() {
 	 		var image = new Image();
 	 		var ImageTempUrl = window.URL.createObjectURL(accFile[0]);
 	 		image.src = ImageTempUrl;
-	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;";
+	 		image.style = "width:200px; height:200px; border-radius: 20px; box-shadow: 4px 4px 4px #4E548E;margin-bottom: 10px;";
 	 		$("#trafficImgArea").append(image);
 	 		trafficPicArr = document.getElementById('traffic_pic').files[0];
 	 	}
 	 });
+	 
+	 $("#accommodation_pic").on('click', function() {
+		accPicArr = "";
+	 });
+	 $("#traffic_pic").on('click', function() {
+		trafficPicArr = "";
+	 });
 	 	
 
 	
-    $('#submit2').on('click', function() {
-		fund.accommodation = $('#accommodation').val();
-		fund.traffic = $('#traffic').val();
-		fund.departure = $('#departure').val();
-		
-
-		showInputOption("input3");
-		
-		if(fund.accommodation != "") {
-			$(".option-li-wrapper li:nth-child(4)").append("<div>"+ fund.accommodation +"</div>"); 
-		} else {
-			$(".option-li-wrapper li:nth-child(4)").append("<div>미정</div>"); 
-			accPicArr = null;
-		}
-		if(fund.traffic != "") {
-			$(".option-li-wrapper li:nth-child(5)").append("<div>"+ fund.traffic +", " + fund.departure + "에서 출발" +"</div>"); 
-	 	} else {
-			$(".option-li-wrapper li:nth-child(5)").append("<div>미정</div>"); 
-			trafficPicArr = null;
-	 	}
-
-
-	});
+  
 	
 //fundingOption 3 페이지 js 
 
@@ -319,23 +331,9 @@ $(function() {
                 } else if (dateNumber > totalDaysInMonth) {
                     break;
                 } else if(
-                	(
-                	(year == new Date().getFullYear())
-                	 && 
-                	 (month == (new Date().getMonth() ))
-                	 ) 
-                		|| (
-                	(year == (new Date().getFullYear())) 
-                	 && 
-                	(month == (new Date().getMonth()+1))
-                	 && 
-                	(dateNumber < new Date().getDate()) )
-                		|| (
-                	(year == (new Date().getFullYear()+1)) 
-                	 && 
-                	(month == (new Date().getMonth()+1))
-                	 && 
-                	(dateNumber > (new Date().getDate())) )
+                	(((month+1) == startDate.getMonth()) && (dateNumber > startDate.getDate())) 
+                	||
+                	(((month+1) == (new Date().getMonth()+1)) && (dateNumber < new Date().getDate()))
                 	) { 
                     $cell.text(dateNumber);
                     $cell.data('date', `${year}-${month + 1}-${dateNumber}`);
@@ -397,7 +395,7 @@ $(function() {
 
     $('#next-btn').on('click', function() {
         monthIndex += 1;
-        if((yearIndex == new Date().getFullYear()+1) && (monthIndex > new Date().getMonth()+1)) {
+        if(monthIndex > startDate.getMonth()-1) {
         	monthIndex -= 1;
         	alert("다음 달로 이동할 수 없습니다.");
         } else {
@@ -409,27 +407,74 @@ $(function() {
         }
 
     });
+    
+      $('#submit2').on('click', function() {
+    
+    	if($("#accommodationCheck").is(":checked") && (($('#accommodation').val()=="") || (accPicArr == "") || (accPicArr == null))) {
+    		alert("숙소와 예약내역사진을 입력하거나 숙소 예약 체크를 해제해주세요.");
+    	} else if(($("#trafficCheck").is(":checked")) && (($('#traffic').val()=="") || ($('#departure').val()=="") || (trafficPicArr == "") || (trafficPicArr == null)) ) {
+    		alert("교통수단, 출발지를 입력하거나 교통 예약 체크를 해제해주세요.");
+    	} else {
+    		if($("#accommodationCheck").is(":checked"))
+    			fund.accommodation = $('#accommodation').val();
+    		else
+    			fund.accommodation = "";
+    		if($("#trafficCheck").is(":checked")) {
+				fund.traffic = $('#traffic').val();
+				fund.departure = $('#departure').val();
+			}
+			else {
+				fund.traffic = "";
+				fund.departure = "";
+			}
+			
+	
+			showInputOption("input3");
+			
+			if(fund.accommodation != "") {
+				$(".option-li-wrapper li:nth-child(4)").append("<div>"+ fund.accommodation +"</div>"); 
+			} else {
+				$(".option-li-wrapper li:nth-child(4)").append("<div>미정</div>"); 
+				accPicArr = null;
+			}
+			if(fund.traffic != "") {
+				$(".option-li-wrapper li:nth-child(5)").append("<div>"+ fund.traffic +", " + fund.departure + "에서 출발" +"</div>"); 
+		 	} else {
+				$(".option-li-wrapper li:nth-child(5)").append("<div>미정</div>"); 
+				trafficPicArr = null;
+		 	}
+	
+	    }
+	    updateCalendar();
+	});
+    
 
     $('#submit3').on('click', function() {
         collectSelectedThemes();
         const price = $('#price').val();
-    	fund.deadline = selectedDate;
-    	fund.price = price;
-    	let themeStr = "";
-    	
-    	for(var i = 0; i < themeTitle.length; i++) {
-    		themeStr += " #" + themeTitle[i];
+     	
+     	
+     	if(selectedDate == "" || selectedDate == null) {
+     		alert("펀딩 마감일을 입력해주세요.")
+     	}  else if(price == "") {
+     		alert("예산을 입력해주세요.")
+     	} else {
+	    	fund.deadline = selectedDate;
+	    	fund.price = price;
+	    	let themeStr = "";
+	    	
+	    	for(var i = 0; i < themeTitle.length; i++) {
+	    		themeStr += " #" + themeTitle[i];
+	    	}
+	    	var price2 = fund.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	    	$(".option-li-wrapper li:nth-child(6)").append("<div>"+ price2 + "원</div>"); 
+	    	$(".option-li-wrapper li:nth-child(7)").append("<div>"+ themeStr +"</div>"); 
+			$(".option-li-wrapper li:nth-child(8)").append("<div>"+ fund.deadline +"</div>"); 		
+	    	
+	    	showInputOption("input4");
     	}
-    	
-    	
-    	$(".option-li-wrapper li:nth-child(6)").append("<div>"+ fund.price +"</div>"); 
-    	$(".option-li-wrapper li:nth-child(7)").append("<div>"+ themeStr +"</div>"); 
-		$(".option-li-wrapper li:nth-child(8)").append("<div>"+ fund.deadline +"</div>"); 		
-    	
-    	showInputOption("input4");
     });
 
-    updateCalendar();
 
 //fundingOption 4  페이지 js 
     $('#submit4').on('click', function() {
@@ -439,11 +484,20 @@ $(function() {
     	var content = editor.getData();
 		console.log(content);
 		fund.funding_content = content;
-    	showInputOption("input5");
+		if(fund.title == "") {
+			alert("제목을 입력해주세요.");
+		} else if(fund.funding_content == "") {
+			alert("내용을 입력해주세요.");
+		} else {
+    		showInputOption("input5");
+		}
     });
     
 //fundingOption 5 페이지 js
 $('#submit5').on('click', function() {
+		if(mainPicArr == null || mainPicArr == "") {
+			alert("메인 사진을 첨부헤주세요.");
+		} else { 
 		var value = $("input[name=extra_pics]");
 		for(var i = 0; i < value.length; i++) {
 			if(value[i].files[0] != null) {
@@ -489,7 +543,7 @@ $('#submit5').on('click', function() {
 				}
 			}
 		});
-
+	}
 	});
 	
 	$(document).on("change", "input[name=main_pic]", function() {
@@ -505,6 +559,10 @@ $('#submit5').on('click', function() {
 		image.attr("src", ImageTempUrl);
 	 	mainPicArr = $("input[name=main_pic]")[0].files[0];
 	 }
+	 
+	 $("#main-image").on('click', function() {
+	 	mainPicArr = null;
+	 });
  });
 
 	

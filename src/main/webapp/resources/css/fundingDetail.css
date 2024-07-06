@@ -21,73 +21,71 @@
 
 
 .slider__wrap {
-	position: relative;
-	left: 50%;
-	margin-top: 50px;
-    transform: translate(-50%, 0%);
-	width: 400px;
-	height: 250px;
-	box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-	border-radius: 20px;
-	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+    margin-top: 50px;
+    margin: 0 auto;
+    margin-bottom: 20px;
 	
-    }
+}
+
 .slider__img {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+    position: relative;
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
 .slider__img img {
-	position: absolute;
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	opacity: 0;
-	transform: scale(1.2);
-	transition: all 600ms ease-in-out;
-	border-radius: 20px;
+    position: absolute;
+    display: block;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    opacity: 0;
+    transform: scale(1.2);
+    transition: all 600ms ease-in-out;
+    border-radius: 20px;
+    margin: 0 auto;
 }
 .slider__img img.active {
 	opacity: 1;
 	transform: scale(1);
 }
 
-.slider__thumnail{
-	position: relative;
-	left: 50%;
-	top: 10%;
-	transform: translate(-50%, 0);
-	width: 30%;
-	height: 100px;
-	display: flex;
-	justify-content: center;
-	gap: 10px;
+.slider__thumnail {
+    position: relative;
+    width: 80%;
+    height: 110px;
+    display: flex;
+    gap: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    transform: none;
 }
 .slider__thumnail img{
-	cursor: pointer;
-	width:100%;
-	height: 100%;
-	border-radius: 30px;
+    cursor: pointer;
+    width: 100px;
+    height: 80px;
+    border-radius: 30px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 .slider__thumnail img.active {
-	border: 3px solid #fff;
-	width: 100px;
+	border: 3px solid #22548E;
 }
 
 .slider__thumnail img:hover {
-	width: 130%;
-	height: 130%;
+	width: 120px;
+	height: 100px;
 }
 
 .slider__btn {
     display: inline-block;
     position: relative;
     width: 100%;
-    top: -100%;
+    transform: translate(0, 20px);
 }
+
 .slider__btn a {
 	position: absolute;
 	top: 0;
@@ -97,7 +95,6 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 13px;
-	background-color: rgba(0, 0, 0, 0.3);
 	color: #fff;
 	transition: all 400ms ease-in-out;
 }
