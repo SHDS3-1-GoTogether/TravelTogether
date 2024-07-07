@@ -43,7 +43,7 @@
 							<p class="notification-number">${notification.message_id}</p>
 							<div class="message-content">${notification.message_content}</div>
 							<p class="send-date">${notification.send_date}</p>
-							<p>${notification.member_id}</p>
+							<p>${notification.login_id}</p>
 						</div>
 					</c:forEach>
 				</div>

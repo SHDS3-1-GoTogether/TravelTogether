@@ -49,7 +49,8 @@
 		
 	<script>
 $(document).ready(function() {
-	var chatId = localStorage.getItem('selectedRoomId');
+	localStorage.removeItem('selectedRoomId');
+	chatId = sessionStorage.getItem('selectedRoomId');
 	if (chatId) {
 		var chatUrl = '${path}/chat/' + chatId;
 		
@@ -66,6 +67,7 @@ $(document).ready(function() {
                 document.head.appendChild(link);
                 
                 initChatPage(chatId);
+                sessionStorage.removeItem('selectedRoomId');
 			},
 			error: function() {
 				alert('채팅방 내용을 불러오는 데 실패했습니다.');

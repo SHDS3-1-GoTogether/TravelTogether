@@ -194,6 +194,14 @@
 		const response = await fetch("${path}/chatroomList");
 		const chatrooms = await response.json();
 		const chatroomDiv = document.getElementById('chats');
+		
+		if(chatrooms == null || chatrooms.length <= 0){
+			var noContent = document.createElement('p');
+			noContent.className = 'no-content';
+			noContent.innerText = '채팅방이 없습니다.';
+			chatroomDiv.appendChild(noContent);
+			return;
+		}
 		chatrooms.forEach((room, index) => {
 			var newRoom = document.createElement('div');
 			newRoom.className = 'chatroom';
@@ -205,7 +213,7 @@
 	        
 	         newRoom.addEventListener('click', function() {
 	        	// 채팅방 ID를 로컬 스토리지에 저장
-			    localStorage.setItem('selectedRoomId', room.funding_id);
+			    sessionStorage.setItem('selectedRoomId', room.funding_id);
 		        // 이동할 URL 지정 (여기서는 room.url 사용 가정)
 		        window.location.href = "${path}/mypage/chatroom.do";
 		    });

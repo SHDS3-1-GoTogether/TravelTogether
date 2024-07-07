@@ -233,7 +233,12 @@
 	margin-right: 10px;
 }
 
-.notification-content, .chat-content {
+.notification-content {
+	flex: 1;
+	width: 90%;
+}
+
+..chat-content {
 	flex: 1;
 }
 
