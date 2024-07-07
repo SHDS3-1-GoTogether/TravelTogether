@@ -121,7 +121,7 @@ public class AdminController {
 		}
 		if(member.getIs_manager() == false) {	// 일반 회원에게만 알림 보내기
 			String content = makeNotificationContent(check, etc_text);
-			notificationService.insertNotification(new NotificationDTO(null, content, null, member_id));
+			notificationService.insertNotification(new NotificationDTO(null, content, null, member_id, null));
 			notificationService.notifyMessage(member_id);
 		}
 		

@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -95,8 +98,22 @@ public class MypageController {
 		// 로그인 기능 구현시 수정
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
-		System.out.println(couponlist.toString());
-		logger.info(couponlist.size() + "건 쿠폰 조회됨");
+		
+		Map<Integer, Long> couponCountMap = couponlist.stream()
+			    .collect(Collectors.groupingBy(UserCouponDTO::getCoupon_id, Collectors.counting()));
+
+		// 각 쿠폰에 동일한 coupon_id의 개수를 설정
+		
+		int coupon_id = -1;
+		int length = couponlist.size();
+		for(int i=0; i<length; i++) {
+			if(couponlist.get(i).getCoupon_id() == coupon_id) {
+				couponlist.remove(i);
+			} else {
+				couponlist.get(i).setCount(couponCountMap.get(couponlist.get(i).getCoupon_id()).intValue());
+				coupon_id = couponlist.get(i).getCoupon_id();
+			}
+		}
 		model.addAttribute("couponlist", couponlist);
 	}
 	

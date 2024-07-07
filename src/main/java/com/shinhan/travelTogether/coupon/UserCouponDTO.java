@@ -19,4 +19,6 @@ public class UserCouponDTO {
 	private String title;
 	private int discount_rate;
 	private int max_discount;
+	private int coupon_id;
+	private int count;
 }

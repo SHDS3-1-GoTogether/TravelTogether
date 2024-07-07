@@ -46,17 +46,36 @@ body {
     flex-direction: column;
     gap: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
-.coupon-item-wrap {
-	width: 60%;
+.coupon-item-outer-wrap {
+	display: flex;
+	width: 80%;
 	margin: 0 auto;
+}
+
+.coupon-item-inner-wrap {
+	width: 85%;	
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fff;
     padding: 20px;
     border: 2px solid #DBDFE9;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.coupon-count {
+	width: 15%;
+	display: flex;
+	align-items: center;
+}
+
+.coupon-count > p {
+	width: 100%;
+	padding-left: 30px;
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 .coupon-title {
