@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,6 +31,7 @@ import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
+import com.shinhan.travelTogether.payment.PaymentService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -46,6 +46,9 @@ public class MypageController {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	PaymentService paymentService;
 
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -121,7 +124,38 @@ public class MypageController {
 	public void notificationList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
-		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
+	}
+	
+	
+	@GetMapping("/paymentList.do")
+	public void paymentList(Model model, HttpSession session) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> paymentList = paymentService.paymentRecipe(member_id);
+		
+		logger.info(paymentList.size()+"건 결제내역 조회됨");
+		
+		for (Map<String, Object> map : paymentList) {
+			System.out.println(map);;
+		}
+		
+		model.addAttribute("paymentDetail", paymentList);
+	}
+	
+	@GetMapping("/refundList.do")
+	public String refundList(Model model, HttpSession session){
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> refundList = paymentService.refundRecipe(member_id);
+		logger.info(refundList.size()+"건 환불내역 조회됨");
+		
+		// test
+		for (Map<String, Object> map : refundList) {
+			System.out.println(map);;
+		}
+		model.addAttribute("refundDetail", refundList);
+		
+		return "mypage/paymentList";
 	}
 }

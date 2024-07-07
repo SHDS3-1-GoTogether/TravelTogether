@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-body {
-	width: 99%;
-    height: 100%;
-}
-
 
 /* 펀딩 만들기 버튼  */
 .goBtn {
@@ -18,8 +13,8 @@ body {
 	font-weight: 700;
 	border-radius: 150px;
 	float: right;
-	margin-top: 20px;
-	right: 0px;
+    margin-top: 40px;
+    right: 6%;
 }
 
 
@@ -130,7 +125,7 @@ body {
 .item {
 	width: 80%;
 	min-width: 700px;
-	height: 250px;
+	height: 270px;
 	position: relative;
 	display: block;
 	border: 1px solid rgba(0, 0, 0, 0.19);
@@ -174,7 +169,7 @@ body {
 	display: inline-block;
 	position: relative;
 	font-size: 24px;
-	width: 22vw;
+    width: 50%;
 	text-overflow: ellipsis;
    	overflow: hidden;
    	white-space: nowrap;
@@ -191,7 +186,7 @@ body {
 	display: inline-block;
 	position: relative;
 	font-size: 20px;
-	width: 10vw;
+	width: 30%;
 	color: rgba(0, 0, 0, 1);
    	font-weight: bold;
    	margint-bottom: 10px;
@@ -203,7 +198,7 @@ body {
 .item_detail_wrapper{
 	display:inline-block;
 	position: relative;
-	margin-top: 2%;
+    margin-top: 5%;
 	margin-right: 6%;
 	width: 95%;
 	color: rgba(0, 0, 0, 1);
@@ -212,7 +207,8 @@ body {
 .item_detail_title{
 	display:inline-block;
 	position: relative;
-	width: 8vw;
+    width: 10%;
+    min-width: 60px;
 	height: 60%;
 	left: 0;
 }
@@ -224,7 +220,7 @@ body {
 .item_detail_content{
 	display:block;
 	position: relative;
-	width: 15vw;
+    width: 50%;
 	height: 60%;
 	text-align: left;
 	float: right;
@@ -241,9 +237,8 @@ body {
 	position: relative;
  	border-left: 2px solid rgba(0, 0, 0, 0.19);
  	height:100%;
- 	left: 45%;
+ 	left: 40%;
  	position: absolute;
- 	margin-right: 5%;
  
 }
 
@@ -251,7 +246,7 @@ body {
 	display: inline-block;
 	float:right;
 	position: relative;
-	transform: translate( -10px, -100px );
+    transform: translate(-50%, -100px);
 	font-size: 12px;
 }
 .traffic-contentPink{

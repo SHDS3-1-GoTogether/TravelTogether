@@ -1,3 +1,6 @@
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="com.shinhan.travelTogether.payment.EnvConfig"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -35,8 +38,12 @@ String bank = "신한";
 String accountNumber = "12345678901234";
 String holderName = "홍길동";
 
+// secretKey 보안처리
+EnvConfig envConfig = (EnvConfig) application.getAttribute("envConfig");
+String secretKey = envConfig.getProperty("SECRET_KEY");
+
 // --- 시크릿키 변경
-String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+// String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
 
 Encoder encoder = Base64.getEncoder();
 byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -172,7 +179,6 @@ try {
 		}
 		%>
 		<div class="p-grid">
-			<%-- <button class="button p-grid-col5" onclick="location.href= ${path}/" id="sendDataBtn">홈으로</button> --%>
 			<button class="button p-grid-col5" id="sendDataBtn">홈으로</button>
 		</div>
 		

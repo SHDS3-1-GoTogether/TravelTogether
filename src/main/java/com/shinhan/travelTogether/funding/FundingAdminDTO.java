@@ -21,5 +21,6 @@ public class FundingAdminDTO {
 	private String area;
 	private Date deadline;
 	private int people_num;
+	private int consumer_num;
 	private int funding_state;
 }
