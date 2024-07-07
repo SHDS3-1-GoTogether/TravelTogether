@@ -21,6 +21,10 @@ public class FundingDAO {
 	
 	Logger logger = LoggerFactory.getLogger(FundingDAO.class);
 	
+	public List<FundingDTO> selectPopular() {
+		return sqlSession.selectList(namespace+"selectPopular");
+	}
+	
 	public List<FundingDTO> selectAll(String selectOption) {
 		System.out.println("========");
 		switch(selectOption) {
