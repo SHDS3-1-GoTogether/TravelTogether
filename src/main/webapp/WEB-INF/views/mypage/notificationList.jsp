@@ -28,13 +28,13 @@
 			// "알림" 링크의 폰트 스타일 변경
 			$("#notification-link").addClass("highlight");
 		}
-		
 	});
 	
 </script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
+	<div class="container-wrapper">
 	<div class="mypage-header">
 		<h2>마이페이지</h2>
 	</div>
@@ -58,6 +58,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 </body>

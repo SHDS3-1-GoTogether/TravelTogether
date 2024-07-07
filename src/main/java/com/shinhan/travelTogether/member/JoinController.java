@@ -34,17 +34,10 @@ public class JoinController {
 	}
 
 	@PostMapping("/join.do")
-	public String join(MemberDTO member, RedirectAttributes redirectAttr) throws ParseException {
-		int result = mService.insertMember(member);
-		String message;
-		if (result > 0) {
-			message = "join success";
-		} else {
-			message = "join fail";
-		}
-		redirectAttr.addFlashAttribute("joinResult", message);
-
-		return "redirect:join.do";
+	@ResponseBody
+	public Integer join(MemberDTO member) throws ParseException {
+		Integer result = mService.insertMember(member);
+		return result;
 	}
 
 	@GetMapping("/idCheck.do")

@@ -79,7 +79,7 @@
 	</servlet-mapping>
 
 	<!-- 로그인 체크 필터 -->
-	 <filter>
+ 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>com.shinhan.travelTogether.filter.LoginChkFilter</filter-class>
 		<async-supported>true</async-supported>

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,6 @@ import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
-import com.shinhan.travelTogether.payment.PaymentDTO;
 import com.shinhan.travelTogether.payment.PaymentService;
 
 @Controller
@@ -103,8 +101,22 @@ public class MypageController {
 		// 로그인 기능 구현시 수정
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
-		System.out.println(couponlist.toString());
-		logger.info(couponlist.size() + "건 쿠폰 조회됨");
+		
+		Map<Integer, Long> couponCountMap = couponlist.stream()
+			    .collect(Collectors.groupingBy(UserCouponDTO::getCoupon_id, Collectors.counting()));
+
+		// 각 쿠폰에 동일한 coupon_id의 개수를 설정
+		
+		int coupon_id = -1;
+		int length = couponlist.size();
+		for(int i=0; i<length; i++) {
+			if(couponlist.get(i).getCoupon_id() == coupon_id) {
+				couponlist.remove(i);
+			} else {
+				couponlist.get(i).setCount(couponCountMap.get(couponlist.get(i).getCoupon_id()).intValue());
+				coupon_id = couponlist.get(i).getCoupon_id();
+			}
+		}
 		model.addAttribute("couponlist", couponlist);
 	}
 	
@@ -112,7 +124,6 @@ public class MypageController {
 	public void notificationList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
-		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
 	}
 	

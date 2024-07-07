@@ -1,0 +1,39 @@
+.admin-content-wrapper {
+	display: flex;
+	position: relative;
+	margin: 0 auto;
+	width: 70vw;
+	min-width: 800px;
+	/* margin-bottom: 200px; */
+	z-index: -1;
+}
+
+.content{
+	width: 70%;
+	flex-grow: 1;
+	padding: 40px 10px 40px 40px;
+}
+
+.admin-form-wrapper {
+	text-align: center;
+	/* display: flex;
+	flex-direction: row; */
+	position: relative;
+	width: 95%;
+	min-width: 800px;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.25);
+	margin-top: 2%;
+	/* overflow: auto; */
+	background-color: #FFFCFC;
+	padding-left: 2%;
+	padding-right: 2%;
+    margin-bottom: 50px;
+}
+
+.semi-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}

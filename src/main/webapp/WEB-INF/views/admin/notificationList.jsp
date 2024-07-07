@@ -41,9 +41,9 @@
 					<c:forEach var="notification" items="${notificationlist}">
 						<div class="data">
 							<p class="notification-number">${notification.message_id}</p>
-							<p class="message-content">${notification.message_content}</p>
+							<div class="message-content">${notification.message_content}</div>
 							<p class="send-date">${notification.send_date}</p>
-							<p>${notification.member_id}</p>
+							<p>${notification.login_id}</p>
 						</div>
 					</c:forEach>
 				</div>
@@ -54,11 +54,23 @@
 	<script>
 		$(function() {
 			$("#addBtn").on("click", f_addBtnClick);
+			
+			extractTextContent();
 		});
 
 		function f_addBtnClick() {
 			location.href = "${path}/admin/notificationInsert.do";
 		}
+		
+		function extractTextContent() {
+            var originalElements = document.getElementsByClassName('notification-content');
+            var targetElements = document.getElementsByClassName('text-only-content');
+
+            for (var i = 0; i < originalElements.length; i++) {
+                var textContent = originalElements[i].textContent || originalElements[i].innerText;
+                targetElements[i].textContent = textContent;
+            }
+        }
 	</script>
 </body>
 </html>

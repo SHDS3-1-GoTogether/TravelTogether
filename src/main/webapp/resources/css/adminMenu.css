@@ -14,7 +14,6 @@
 
 .side-menubar {
     width: 150px;
-    height: content-fit;
     margin: 0;
     border-right: 1px solid #9D9D9D;
     /* box-shadow: 2px 0 5px rgba(0,0,0,0.1); */
@@ -51,4 +50,9 @@
     background-color: #007BFF;
     color: white;
     font-weight: bold;
+}
+
+/* 모달창 사용시 본문 스크롤 막기 */
+.scrollLock {
+	overflow: hidden;
 }

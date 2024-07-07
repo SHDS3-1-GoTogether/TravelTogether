@@ -63,9 +63,22 @@
 	</select>
 	
 	<select id="selectAllAdminFunding" resultType="adminfundingvo">
-		select f.funding_id, m.member_id, m.nickname, f.title, 
+		select f.funding_id, m.member_id, m.nickname, m.is_manager, f.title,
 				f.area, f.deadline, f.people_num, f.funding_state
 		from tt_funding f join tt_member m on(f.member_id = m.member_id)
+		order by f.funding_id desc
+	</select>
+	
+	<select id="selectAdminFundingByOption" parameterType="map" resultType="adminfundingvo">
+		select f.funding_id, m.member_id, m.nickname, f.title, f.area, f.deadline, f.people_num, f.funding_state
+		from tt_funding f join tt_member m on(f.member_id = m.member_id)
+		where 1=1
+			<if test="member_type != -1">
+				and m.is_manager=#{member_type}
+			</if> 
+			<if test="funding_state != -1">
+				and funding_state=#{funding_state}
+			</if>
 		order by f.funding_id desc
 	</select>
 	

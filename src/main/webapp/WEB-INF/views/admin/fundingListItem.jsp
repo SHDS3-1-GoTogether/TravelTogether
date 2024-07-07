@@ -6,7 +6,9 @@
 	<div class="data">
 		<p class="funding_id">${funding.funding_id}</p>
 		<p class="funding-writer">${funding.nickname}</p>
-		<p class="funding-title">${funding.title}</p>
+		<p class="funding-title">
+			<a href="fundingDetail.do?funding_id=${funding.funding_id}">${funding.title}</a>
+		</p>
 		<p class="funding-area">${funding.area}</p>
 		<p class="funding-deadline">${funding.deadline}</p>
 		<p class="funding-people-num">${funding.people_num}</p>
@@ -57,7 +59,7 @@
 		if(funding_id == null){
 			alert("잘못된 요청입니다.");
 		} else {
-			location.href="fundingConfirm.do?id="+funding_id;
+			location.href="fundingDetail.do?funding_id="+funding_id;
 		}
 	}
 </script>
