@@ -153,6 +153,16 @@ body {
 	text-overflow: ellipsis;
 }
 
+.funding-link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.funding-link:hover {
+	color: rgba(0, 123, 255, 0.8);
+	font-weight: bold;
+}
+
 .list-item {
 	width: 100%;
 	height: 90%;
@@ -203,6 +213,24 @@ body {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.confirm-button {
+	width: 100%;
+    padding: 5px;
+    /* border: 0; */
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid rgba(0, 123, 255, 0.8);
+    color: rgba(0, 123, 255, 0.8);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.confirm-button:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
 }
 
 .data .confirm-complete {

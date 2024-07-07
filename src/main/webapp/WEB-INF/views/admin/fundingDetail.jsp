@@ -29,8 +29,8 @@
 			<h1 class="pageTitle">펀딩 상세보기</h1>
 			<c:if test="${fund.funding_state == 0}">
 				<div class="button-group">
-					<button class="confirm-button" onclick="f_confirmBtnClick()">승인하기</button>
-					<button class="reject-button" onclick="f_rejectBtnClick()">반려하기</button>
+					<button class="btn approve" onclick="f_confirmBtnClick()">승인하기</button>
+					<button class="btn reject" onclick="f_rejectBtnClick()">반려하기</button>
 				</div>
 			</c:if>
 		</div>

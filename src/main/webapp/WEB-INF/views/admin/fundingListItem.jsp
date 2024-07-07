@@ -7,7 +7,9 @@
 		<p class="funding_id">${funding.funding_id}</p>
 		<p class="funding-writer">${funding.nickname}</p>
 		<p class="funding-title">
-			<a href="fundingDetail.do?funding_id=${funding.funding_id}">${funding.title}</a>
+			<a href="fundingDetail.do?funding_id=${funding.funding_id}" class="funding-link">
+				${funding.title}
+			</a>
 		</p>
 		<p class="funding-area">${funding.area}</p>
 		<p class="funding-deadline">${funding.deadline}</p>

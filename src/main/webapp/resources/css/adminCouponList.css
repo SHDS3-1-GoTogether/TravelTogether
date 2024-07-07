@@ -100,6 +100,10 @@ body {
 	cursor: pointer;
 }
 
+.add-button:hover {
+	box-shadow: inset -1px -1px 0 2px rgb(0, 0, 0, .2);
+}
+
 .list-table {
 	width: 100%;
 	margin: 0 auto;
