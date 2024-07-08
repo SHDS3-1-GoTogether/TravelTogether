@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.shinhan.travelTogether.funding.FundingDTO;
+
 @Repository("photoDAO")
 public class PhotoDAO {
 
@@ -27,4 +29,20 @@ public class PhotoDAO {
 		return sqlSession.selectList(namespace + "selectMainPhoto");
 	}
 	
+	public List<HashMap<Integer, String>> selectMainReviewPhoto() {
+		return sqlSession.selectList(namespace + "selectMainReviewPhoto");
+	}
+	
+	public List<String> selectReviewPhoto(int review_id) {
+		return sqlSession.selectList(namespace + "selectReviewPhoto", review_id);
+	}
+	
+	public List<PhotoDTO> selecBestReviewPhoto(List<Integer> reviewlist){
+		return sqlSession.selectList(namespace+"selecBestReviewPhoto", reviewlist);
+	}
+	
+	public List<PhotoDTO> selectFundingPhoto(List<Integer> fundinglist){
+		return sqlSession.selectList(namespace+"selectFundingPhoto", fundinglist);
+	}
+
 }

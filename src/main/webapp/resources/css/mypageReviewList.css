@@ -1,8 +1,7 @@
 @charset "UTF-8";
 body {
-	width: 99%;
-	display: flex;
-	flex-direction: column;
+	width: 100%;
+	margin: 0;
 }
 
 .mypage-header {
@@ -14,6 +13,7 @@ body {
 .mypage-header h2 {
 	font-size: 1.8em;
 	padding: 0 20px;
+	margin: 0;
 }
 
 .container {
@@ -47,6 +47,19 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+html, body {
+	width: 100%;
+}
+
+body, div, ul, li {
+	margin: 0;
+	padding: 0;
+}
+
+ul, li {
+	list-style: none;
+}
+
 a {
 	text-decoration: none;
 	color: inherit;
@@ -73,16 +86,64 @@ a {
 }
 
 .tab__content-wrapper {
-	padding: 1rem
+	width: 100%;
+	padding: 0;
 }
 
 .tab__content {
 	display: none;
+}
+
+.tab__content.active {
+	display: block;
+}
+.list-table {
 	width: 100%;
 	margin: 0 auto;
 	border: 1px solid #C9C9C9;
 	border-radius: 8px;
 	padding: 10px 0;
+}
+
+.list-table .header, .list-table .data {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* padding: 10px 0; */
+}
+
+.list-table .header p, .list-table .data p {
+	color: #99A1B7;
+	font-size: 0.9em;
+	text-align: center;
+	flex: 1;
+}
+
+.list-table .header p {
+	font-weight: bold;
+}
+
+.list-table .data p {
+	color: black;
+}
+
+.list-table .data .payment-buttons {
+	/* display: flex; */
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.list-table .data .payment-buttons button {
+	width: 100px !important;
+	height: 30px !important;
+	font-size: 14px !important;
+	box-sizing: border-box;
+	margin: 3px 0 !important;
+	padding: 0 !important;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .header {
@@ -92,15 +153,48 @@ a {
 }
 
 .funding-name {
-	width: 20% !important;
+	width: 15% !important;
+}
+
+.funding-departure {
+	width: 10% !important;
+}
+
+.funding-price {
+	width: 15% !important;
+}
+
+.funding-people-num {
+	width: 5% !important;
 }
 
 .funding-date {
-	width: 50% !important;
+	width: 25% !important;
 }
 
-.review-create {
-	width: 20% !important;
+.funding-review {
+	width: 15% !important;
+}
+
+
+.review-name {
+	width: 25% !important;
+}
+
+.review-create-date {
+	width: 25% !important;
+}
+
+.review-like {
+	width: 10% !important;
+}
+
+.review-view {
+	width: 10% !important;
+}
+
+.review-go {
+	width: 15% !important;
 }
 
 .tab__content .header p {
@@ -121,14 +215,20 @@ a {
 	border-bottom: 1px dashed #DBDFE9;
 }
 
-.tab__content .data p {
-	display: inline-block;
-	font-size: 0.9em;
-	padding: 0 5px;
-	text-align: center;
-	width: 8%;
+.insert-result-modal-box {
+	display: none;
 }
-
-.tab__content.active {
-	display: block;
+.confirm-button {
+    /* width: 100%; */
+    padding: 6px;
+    /* border: 0; */
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid rgba(0, 123, 255, 0.8);
+    color: rgba(0, 123, 255, 0.8);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.buttons {
+    margin-top: 5px;
 }

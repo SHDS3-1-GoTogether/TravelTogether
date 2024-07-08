@@ -72,7 +72,7 @@
 				<div class="slides">
 					<img src="${path}/resources/images/randomfunding-1.JPG"
 						alt="Image 1" class="center"> <img
-						src="${path}/resources/images/randomfunding-2.jpg" alt="Image 2">
+						src="${path}/resources/images/randomfunding-4.JPG" alt="Image 2">
 					<img src="${path}/resources/images/randomfunding-3.JPG"
 						alt="Image 3">
 				</div>

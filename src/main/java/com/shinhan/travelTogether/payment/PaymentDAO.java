@@ -54,4 +54,11 @@ public class PaymentDAO {
 	public int updatePeopleNum(int funding_id) {
 		return sqlSession.update(namespace + "updatePeopleNum", funding_id);
 	}
+	public int checkAlreadyPay(int member_id, int funding_id) {
+		Map<String,Integer> arr = new HashMap<String, Integer>();
+		arr.put("member_id", member_id);
+		arr.put("funding_id", funding_id);
+		
+		return sqlSession.selectOne(namespace + "checkAlreadyPay", arr);
+	}
 }

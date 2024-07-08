@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinhan.travelTogether.member.MemberDTO;
@@ -91,11 +88,22 @@ public class FundingController {
 	}
 	
 	@GetMapping("/fundingDetail.do")
-	public void showDetail(Model model, int funding_id) {
+	public void showDetail(Model model, int funding_id, HttpSession session) {
 		fService.updateViews(funding_id);
 		model.addAttribute("fund", fService.selectFundingById(funding_id));
 		model.addAttribute("pic", pService.selectUserPhoto(funding_id));
 		model.addAttribute("tlist", fService.selectFudingTheme());
+		int isPay;
+		System.out.println("여기!!1");
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		System.out.println("여기!!2" +member);
+
+		if(member != null) {
+			isPay = payService.checkAlreadyPay(member.getMember_id(), funding_id);
+		} else {
+			isPay = 1;
+		}
+		model.addAttribute("isPay", isPay);
 	}
 	
 	@ResponseBody
