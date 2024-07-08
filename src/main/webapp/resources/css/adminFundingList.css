@@ -14,8 +14,7 @@ body {
 }
 
 .container {
-<<<<<<< HEAD
-	width: 100%;
+	width: 70vw;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
