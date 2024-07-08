@@ -57,9 +57,7 @@ public class AdminQnAController {
 			
 			session.setAttribute("category", category);
 			model.addAttribute("qnalist", qnalist);
-			
 		}
-		
 	}
 	@PostMapping("/qnaUpdate.do")
 	public String updateAdminQnA(Model model,HttpServletRequest request, RedirectAttributes attr
