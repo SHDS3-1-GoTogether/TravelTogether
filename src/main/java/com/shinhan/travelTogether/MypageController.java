@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,23 +17,32 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import com.shinhan.travelTogether.comment.CommentService;
 import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
+import com.shinhan.travelTogether.funding.FundingDTO;
+import com.shinhan.travelTogether.funding.FundingService;
 import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
-import com.shinhan.travelTogether.payment.PaymentDTO;
+
+
 import com.shinhan.travelTogether.payment.PaymentService;
+
+import com.shinhan.travelTogether.review.ReviewDTO;
+import com.shinhan.travelTogether.review.ReviewService;
+
 
 @Controller
 @RequestMapping("/mypage")
@@ -50,7 +59,16 @@ public class MypageController {
 	NotificationService notificationService;
 	
 	@Autowired
+	ReviewService reviewService;
+	
+	@Autowired
+	FundingService fundingService;
+	
+	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -99,12 +117,26 @@ public class MypageController {
 
 	@GetMapping("/couponList.do")
 	public void userCouponList(Model model, HttpSession session) {
-
+		
 		// 로그인 기능 구현시 수정
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
-		System.out.println(couponlist.toString());
-		logger.info(couponlist.size() + "건 쿠폰 조회됨");
+		
+		Map<Integer, Long> couponCountMap = couponlist.stream()
+			    .collect(Collectors.groupingBy(UserCouponDTO::getCoupon_id, Collectors.counting()));
+
+		// 각 쿠폰에 동일한 coupon_id의 개수를 설정
+		
+		int coupon_id = -1;
+		int length = couponlist.size();
+		for(int i=0; i<length; i++) {
+			if(couponlist.get(i).getCoupon_id() == coupon_id) {
+				couponlist.remove(i);
+			} else {
+				couponlist.get(i).setCount(couponCountMap.get(couponlist.get(i).getCoupon_id()).intValue());
+				coupon_id = couponlist.get(i).getCoupon_id();
+			}
+		}
 		model.addAttribute("couponlist", couponlist);
 	}
 	
@@ -112,10 +144,46 @@ public class MypageController {
 	public void notificationList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
-		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
 	}
+
+	@GetMapping("/reviewList.do")
+	public void reviewList(Model model, HttpSession session) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		List<ReviewDTO> reviewlist = reviewService.selectMyreviewAll(member_id);
+		System.out.println(reviewlist);
+		logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
+		model.addAttribute("reviewlist", reviewlist);
+		
+		//List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
+		//List<PaymentDTO> paymentlist = paymentService.selectAllPayment();
+		List<FundingDTO> reviewlist2 = reviewService.selectMyWritableReview(member_id);
+		//model.addAttribute("fundinglist", fundinglist);
+		//model.addAttribute("patmentlist", paymentlist);
+		model.addAttribute("reviewlist2", reviewlist2);
+	}
 	
+	@GetMapping("/reviewInsert.do")
+	public void reviewInsert(Model model,HttpSession session, Integer funding_id) {
+		//model.addAttribute("", reviewService.);
+		if (session.getAttribute("insertResult") == null) {
+			session.setAttribute("insertResult", -1);
+		}
+		model.addAttribute("funding_id", funding_id);
+	}
+	
+	@PostMapping("/reviewInsert.do")
+	public String reviewInsert(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
+			@RequestParam("review_content") String review_content, Integer funding_id
+			, ReviewDTO review ) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		//int funding_id = ((FundingDTO) session.getAttribute("funding_id")).getFunding_id();
+		review.setMember_id(member_id);
+		review.setFunding_id(funding_id);
+		int result = reviewService.insertMyreview(review);
+		attr.addFlashAttribute("insertResult", result);
+		return "redirect:reviewList.do";
+	}
 	
 	@GetMapping("/paymentList.do")
 	public void paymentList(Model model, HttpSession session) {
@@ -147,4 +215,5 @@ public class MypageController {
 		
 		return "mypage/paymentList";
 	}
+
 }

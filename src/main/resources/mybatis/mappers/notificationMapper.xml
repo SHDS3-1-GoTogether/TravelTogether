@@ -20,9 +20,9 @@
 		where message_id = #{message_id}
 	</select>
 	<select id="selectAllNotification" resultType="notificationvo">
-		select *
+		select msg.*, mem.login_id
 		from
-		tt_message
+		tt_message msg join tt_member mem on(msg.member_id=mem.member_id)
 		where funding_id is null
 		order by send_date desc
 	</select>

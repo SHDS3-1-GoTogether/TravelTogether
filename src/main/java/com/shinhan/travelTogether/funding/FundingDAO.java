@@ -21,6 +21,10 @@ public class FundingDAO {
 	
 	Logger logger = LoggerFactory.getLogger(FundingDAO.class);
 	
+	public List<FundingDTO> selectPopular() {
+		return sqlSession.selectList(namespace+"selectPopular");
+	}
+	
 	public List<FundingDTO> selectAll(String selectOption) {
 		System.out.println("========");
 		switch(selectOption) {
@@ -83,5 +87,12 @@ public class FundingDAO {
 		map.put("funding_id", funding_id);
 		map.put("update_state", update_state);
 		return sqlSession.update(namespace+"updateFundingState", map);
+	}
+
+	public List<FundingAdminDTO> selectByOption(Integer member_type, Integer funding_state) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("member_type", member_type);
+		map.put("funding_state", funding_state);
+		return sqlSession.selectList(namespace+"selectAdminFundingByOption", map);
 	}
 }

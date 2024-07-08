@@ -457,14 +457,14 @@
 		}
 		
 		function f_inputKeypress(){
-			var replaceNum = $(this).val($(this).val().replace(/[^0-9]/gi, ""));
+			var replaceNum = $(this).val($(this).val().replace(/[^0-9][\b]/gi, ""));
 			var currentObj = $(this).attr("name");
 			var currentNum = $(this).val();
 			console.log(currentNum);
 			
 			
 			if(currentObj == "discount_rate") {
-				if(currentNum <1 || currentNum > 50) {
+				if(currentNum > 50) {
 					alert("할인율은 1~50 사이의 숫자만 입력 가능합니다.");
 					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();

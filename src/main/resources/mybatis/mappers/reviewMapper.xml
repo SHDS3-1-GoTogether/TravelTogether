@@ -3,22 +3,56 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.review">
-	<select id="selectAll" resultType="reviewvo">
-		select r.*, m.nickname
-		from tt_review r join tt_member m on(r.member_id=m.member_id)
+
+	<select id="selectAllReview" resultType="reviewvo">
+		select r.*, m.nickname, f.title
+		from tt_review r
+			join tt_member m on(r.member_id=m.member_id)
+			join tt_funding f on(r.funding_id=f.funding_id)
 	</select>
+	
 	<select id="selectMyreviewAll" parameterType="int" resultType="reviewvo">
-		select r.*, m.nickname
-		from tt_review r join tt_member m on(r.member_id=m.member_id)
-		where member_id=#{member_id}
+		select r.*, f.title
+        from tt_review r
+            join tt_funding f on(r.funding_id=f.funding_id)
+		where r.member_id=#{member_id}
 	</select>
-	<select	 id="selectMyreviewByFundingId" resultType="int">
-		select r.funding_id
-		from tt_review r join tt_member m on(r.member_id=m.member_id)
-	</select>
+	
 	<insert id="insertMyreview" parameterType="reviewvo">
 		insert into tt_review(review_id, review_content, create_date, like_count, views, funding_id, member_id)
-		values(review_seq.nextval, #{review_content}, #{create_date}, #{like_count}, #{views}, #{funding_id}, #{member_id})
+		values(review_seq.nextval, #{review_content}, sysdate, 0, 0, #{funding_id}, #{member_id})
 	</insert>
+
+	<select id="selectMyWritableReview" parameterType="int" resultType="fundvo">
+		select *
+        from tt_funding
+		where funding_id in (
+            select funding_id
+                from tt_payment
+                where member_id =#{member_id} and refund = 0 and funding_state = 3)
+ 		
+        and funding_id not in (select f.funding_id
+                                        from tt_review r
+                                            join tt_funding f on(r.funding_id=f.funding_id)
+                                        where r.member_id=#{member_id})
+	</select>
+	
+	
+	<select id="selectAllByDate" resultType="reviewvo">
+		select * from tt_review order by create_date desc
+	</select>
+	
+	<select id="selectAllByViews" resultType="reviewvo">
+		select * from tt_review order by views desc
+	</select>
+	
+	<select id="selectAllMainReview" parameterType="int" resultType="reviewvo">
+		select * from tt_review  where review_id=#{review_id}
+	</select>
+	
+	<select id="selectAllMainFunding" parameterType="int" resultType="fundvo">
+		select * from tt_funding where funding_id = 
+				(select funding_id from tt_review  where review_id=#{review_id})
+	</select>
 	
 </mapper>

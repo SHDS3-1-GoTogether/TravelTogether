@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.coupon">
 	<select id="selectAllUserCoupon" parameterType="int" resultType="usercouponvo">
-    	select coupon_record_id, available, due_date, member_id, title, discount_rate, max_discount 
+    	select coupon_record_id, available, due_date, member_id, title, discount_rate, max_discount, coupon_id
 		from tt_coupon_record cr join tt_coupon c using(coupon_id)
 		where cr.member_id = #{mid} 
 			and cr.available = 0

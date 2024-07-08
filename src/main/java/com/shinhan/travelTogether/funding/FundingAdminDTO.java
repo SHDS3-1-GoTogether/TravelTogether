@@ -16,6 +16,7 @@ public class FundingAdminDTO {
 	private int funding_id;
 	private int member_id;
 	private String nickname;
+	private int is_manager;
 	private String title;
 	private String area;
 	private Date deadline;
