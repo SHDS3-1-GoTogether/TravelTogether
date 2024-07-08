@@ -46,5 +46,8 @@ public class PaymentService {
 	public int updatePeopleNum(int funding_id) {
 		return paymentDAO.updatePeopleNum(funding_id);
 	}
+	public int checkAlreadyPay(int member_id, int funding_id) {
+		return paymentDAO.checkAlreadyPay(member_id, funding_id);
+	}
 	
 }

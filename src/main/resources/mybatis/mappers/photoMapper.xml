@@ -43,4 +43,48 @@
 		where main = 1
 	</select>
 	
+	<select id="selecBestReviewPhoto" parameterType="list" resultType="photovo">
+		select 
+	        photo_id,
+	        photo_name,
+	        review_id
+	    from (
+	        select 
+	            photo_id,
+	            photo_name,
+	            review_id,
+	            row_number() over (partition by review_id order by photo_id) as rn
+	        from 
+	            tt_photo
+	        where 
+	            review_id in 
+	            <foreach item="reviewid" collection="list" open="(" separator="," close=")">
+	                #{reviewid}
+	            </foreach>
+	    ) t
+	    where t.rn = 1
+	</select>
+	
+	<select id="selectFundingPhoto" parameterType="list" resultType="photovo">
+		select 
+			photo_id,
+	        photo_name,
+	        funding_id
+		from (
+		    select 
+		      	photo_id, 
+		      	funding_id, 
+		      	photo_name, 
+		      	rank() over(partition by funding_id order by photo_id) as main
+		    from 
+		      	tt_photo
+		    where 
+		      	funding_id in 
+	            <foreach item="fundingid" collection="list" open="(" separator="," close=")">
+	                #{fundingid}
+	            </foreach>
+		    ) t
+		where t.main = 1
+	</select>
+
 </mapper>

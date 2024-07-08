@@ -67,4 +67,9 @@ public class ReviewDAO {
 		int result = sqlSession.update(namespace + "updateReviewViews", review_id);
 		return result;
 	}
+
+	public List<ReviewDTO> selectBestReview(){
+		return sqlSession.selectList(namespace+"selectBestReview");
+	}
+	
 }

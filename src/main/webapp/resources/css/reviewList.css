@@ -3,6 +3,8 @@
 body {
 	width: 99%;
 	height: 100%;
+	position: relative;
+    z-index: -1;
 }
 
 /* Wrapper  */
@@ -11,6 +13,7 @@ body {
 	margin: 0 auto;
 	width: 70vw;
 	text-align: center;
+	z-index: -1;
 }
 
 /* 페이지 제목  */

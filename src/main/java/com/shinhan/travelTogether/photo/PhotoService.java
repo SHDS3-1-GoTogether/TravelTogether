@@ -23,6 +23,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
+import com.shinhan.travelTogether.funding.FundingDTO;
 
 @Service
 public class PhotoService {
@@ -104,6 +105,13 @@ public class PhotoService {
 	
 	public List<HashMap<Integer, String>> selectMainReviewPhoto(){
 		return photoDAO.selectMainReviewPhoto();
+	}
+	public List<PhotoDTO> selecBestReviewPhoto(List<Integer> reviewlist){
+		return photoDAO.selecBestReviewPhoto(reviewlist);
+	}
+	
+	public List<PhotoDTO> selectFundingPhoto(List<Integer> fundinglist){
+		return photoDAO.selectFundingPhoto(fundinglist);
 	}
 	
 }

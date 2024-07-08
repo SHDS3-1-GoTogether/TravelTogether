@@ -26,7 +26,6 @@ public class RefundController {
 	@Autowired
 	RefundService refundService;
 	
-	
 	@GetMapping("/cancel.do")
 	public void showRefund() {
 		logger.info("Handling /travel/payment request cancel");
@@ -38,7 +37,7 @@ public class RefundController {
 						 RedirectAttributes redirectAttributes) {
 		logger.info("Handling /travel/payment request cancelPost");
 
-		LocalDateTime dateTime = LocalDateTime.now(); // 현재 날짜와 시간
+		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String refundDate = dateTime.format(formatter);
 		
@@ -54,11 +53,7 @@ public class RefundController {
 	public ResponseEntity<Map<String, Object>> processRefund(@RequestParam("payment_key") String paymentKey,
 															@RequestParam("refund_reason") String refundReason) {
 		Map<String, Object> response = new HashMap<>();
-		
-		// test
-		//System.out.println(paymentKey);
-		//System.out.println(refundReason);
-		
+
 		// DB 처리
 		int result = refundService.insertRefundInfo(paymentKey, refundReason);
 		
@@ -69,13 +64,5 @@ public class RefundController {
 			response.put("status", "error");
 			return ResponseEntity.badRequest().body(response);
 		}
-	}
-	
-	
-
-	// TEST 윤철이 페이지 - 상품 환불하기
-	@GetMapping(value = "/refundtest.do")
-	public String testPage1() {
-		return "refund/refundtest";
 	}
 }

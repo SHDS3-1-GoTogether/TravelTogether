@@ -6,12 +6,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #fff;
-	/* background-color: #f5f5f5;*/
 }
 
-/* body {
-	background-color: #e8f3ff;
-} */
 html {
 	font-family: Arial, sans-serif, Toss Product Sans, -apple-system,
 		BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI,
@@ -25,16 +21,16 @@ html {
 
 .container {
 	width: 45%;
-	margin: 20px auto; /* 상단 간격을 주기 위해 margin-top을 20px로 설정 */
+	margin: 20px auto;
 	background-color: #fff;
 	padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px; /* 모서리를 둥글게 */
-	transition: box-shadow 0.3s ease; /* 박스 그림자에 대한 전환 효과 */
+	border-radius: 10px;
+	transition: box-shadow 0.3s ease; 
 }
 
 .container:hover {
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* 마우스를 올렸을 때 그림자 강화 */
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 nav a {
@@ -48,25 +44,25 @@ h1 {
 	margin-top: 40px;
 	margin-bottom: 40px;
 	margin-left: 10px;
-	text-decoration: underline; /* 텍스트에 밑줄을 추가합니다 */
-	text-decoration-thickness: 1px; /* 밑줄의 두께를 설정합니다 */
-	text-underline-offset: 10px; /* 밑줄과 텍스트 사이의 거리를 설정합니다 */
+	text-decoration: underline; 
+	text-decoration-thickness: 1px; 
+	text-underline-offset: 10px;
 }
 
 .coupon-box {
     border: 1px solid #d1d6db;
-    padding: 10px 12px; /* 패딩을 더해서 좀 더 편안한 느낌 */
-    border-radius: 6px; /* 모서리를 조금 더 둥글게 */
+    padding: 10px 12px;
+    border-radius: 6px; 
     background-color: #fff;
     font-size: 16px;
     color: #333;
-    transition: border-color 0.3s, box-shadow 0.3s; /* 전환 시간을 늘려 부드럽게 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 기본 상태에서도 약간의 그림자 추가 */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .coupon-box:focus {
     border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* 더 부드럽고 넓은 그림자 */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
     outline: none;
 }
 
@@ -80,8 +76,8 @@ h1 {
 	height: 60px;
 	font-size: 18px;
 	padding-left: 20px;
-	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), /* 내부 그림자 */
-                0 2px 4px rgba(0, 0, 0, 0.1); /* 외부 그림자 */
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .progress {
@@ -99,30 +95,37 @@ h1 {
 }
 
 .progress-step {
-	width: 110px;
-	height: 110px;
+	width: 130px;
+	height: 130px;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 10px;
-	border: 2px dashed #000;
+	font-weight: bold;
+	/* margin: 0 60px; */
+	border: 2px dashed gray;
 	transition: all 0.3s ease;
-	background-color: #f0f0f0;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .progress-step.active {
 	background-color: #007bff;
 	color: #fff;
+	font-weight: bold;
 	border: 2px solid #007bff;
 	box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
 	transform: scale(1.1);
 }
 
 .arrow {
-	font-size: 3em;
-	margin: 0 30px;
+	/* font-size: 3em;
+	margin: 0 40px; */
+	border: none;
+    border-top: 1px dotted gray;
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+    width: 20%;
 }
 
 .payment-info {
@@ -131,9 +134,9 @@ h1 {
 }
 
 .payment-info .detail {
-	border-bottom: 1px solid #ccc; /* 밝은 회색의 1픽셀 밑줄 추가 */
-	padding-bottom: 10px; /* 밑줄과 텍스트 사이에 간격을 추가 */
-	margin-bottom: 15px; /* 다음 요소와의 간격을 추가 */
+	border-bottom: 1px solid #ccc; 
+	padding-bottom: 10px; 
+	margin-bottom: 15px; 
 }
 
 .payment-details .detail {
@@ -168,8 +171,8 @@ h1 {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
-	padding-bottom: 10px; /* 밑줄과 요소 사이의 간격을 주기 위해 패딩 추가 */
-	border-bottom: 1px solid #ccc; /* 밑줄 추가 */
+	padding-bottom: 10px; 
+	border-bottom: 1px solid #ccc; 
 }
 
 .new {
@@ -239,7 +242,7 @@ footer {
 	border-radius: 5px;
 	font-size: 1.2em;
 	font-weight: bold;
-	margin: 20px auto 50px; /* 상단 마진 20px, 좌우 자동, 하단 50px */
+	margin: 20px auto 50px;
 }
 
 .wrapper {
@@ -263,12 +266,12 @@ footer {
     color: #333d4b;
     align-items: center;
     text-align: center;
-    overflow-x: auto; /* Add this property for horizontal scrolling */
-    white-space: nowrap; /* Prevent text wrapping */
-    padding: 30px; /* 내부 여백 추가 */
-    max-width: 100%; /* 최대 너비를 100%로 설정 */
-    width: calc(100% - 20px); /* 너비를 화면에서 20px 줄여 설정 (왼쪽, 오른쪽 각각 10px) */
-    box-sizing: border-box; /* 패딩 포함하여 박스 크기 계산 */
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 30px;
+    max-width: 100%;
+    width: calc(100% - 20px); 
+    box-sizing: border-box;
 }
 
 :root { -

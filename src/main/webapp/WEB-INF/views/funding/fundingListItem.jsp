@@ -42,9 +42,15 @@
 						<span id="people_num">
 							<c:forEach var="consumer" items="${consumer}">
 								<c:if test="${fund.funding_id == consumer.funding_id}">
-									${consumer.consumerCount}
+									<c:set var="consumerCount" value="${consumer.consumerCount}"></c:set>
 								</c:if>
 							</c:forEach>
+							<c:if test="${consumerCount!=null}">
+								${consumerCount}
+							</c:if>
+							<c:if test="${consumerCount==null}">
+								0
+							</c:if>
 						/ ${fund.people_num}</span><br> 
 						<span id="fund_date">${fund.start_date}- ${fund.end_date}</span><br>
 					</span>

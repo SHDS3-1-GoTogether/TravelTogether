@@ -23,16 +23,10 @@
 <c:set var="path" value="${pageContext.servletContext.contextPath}" />
 <%
 // ------ 결제 승인 API 호출 ------
-// @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
-// TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
-// @docs https://docs.tosspayments.com/reference/using-api/api-keys
-
 // secretKey 보안처리
 EnvConfig envConfig = (EnvConfig) application.getAttribute("envConfig");
 String secretKey = envConfig.getProperty("SECRET_KEY");
-
 // String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
-
 
 Encoder encoder = Base64.getEncoder();
 byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -97,37 +91,10 @@ try {
 		<img width="100px"
 			src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
 		<h2>결제를 완료했어요</h2>
-
-		<%-- <div class="p-grid typography--p" style="margin-top: 50px">
-			<div class="p-grid-col text--left">
-				<b>결제금액</b>
-			</div>
-			<div class="p-grid-col text--right" id="amount">
-				<%=jsonObject.get("totalAmount")%></div>
-		</div> --%>
-
 		<div class="p-grid">
 			<button class="button p-grid-col5" onclick="#" id="sendDataBtn">홈으로</button>
 		</div>
 	</div>
-
-
-	<%-- <div class="box_section" style="width: 600px; text-align: left">
-		<b>Response Data :</b>
-		<div id="response">
-			<pre>
-                <%
-                Set<String> keys = jsonObject.keySet();
-                for (String key : keys) {
-                %>
-                <%=key%>: <%=jsonObject.get(key)%>
-                <%
-                }
-                %>
-              </pre>
-		</div>
-	</div> --%>
-
 
 	<div class="box_section" style="width: 600px; text-align: left; display: none;">
 		<b>Response Data :</b>
@@ -161,7 +128,6 @@ document.getElementById('sendDataBtn').addEventListener('click', function() {
     		provider: provider,
     		paymentKey:paymentKey,
     };
-
     
  // Fetch API를 사용하여 데이터를 서버로 POST 방식으로 (toss api jsonObject에서 데이터 파싱한 뒤 db저장위해)
     fetch('${path}/payment/savepayment.do', {
@@ -183,5 +149,4 @@ document.getElementById('sendDataBtn').addEventListener('click', function() {
     });
 });
 </script>
-
 </html>
