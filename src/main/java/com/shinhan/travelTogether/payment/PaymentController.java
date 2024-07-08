@@ -136,7 +136,7 @@ public class PaymentController {
 		System.out.println(participants);
 		System.out.println("-------------------------펀딩 참여인원 비교----------------------");
 
-		if (people_num >= participants) {
+		if (people_num == participants) {
 			// 펀딩 테이블 참여상태 변경 update 문 실행
 			int result_fundingStatus = pService.updatePeopleNum(payment.getFunding_id());
 			System.out.println("결과 : " + result_fundingStatus);
