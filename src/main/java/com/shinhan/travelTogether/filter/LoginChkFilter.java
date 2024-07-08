@@ -25,12 +25,11 @@ public class LoginChkFilter implements Filter {
 	private static final String[] whiteList = {
 			"/", 
 			"/funding/fundingList*", 
-			"/funding/fundingDetail.do",
+			"/funding/fundingDetail.do*",
 			"/funding/searchFunding.do",
 			"/review/*",
 			"/auth/*",
-			"/resources/**",
-			"/notifications/subscribe/*"
+			"/resources/**"
 	};
 	
 	public void destroy() {
