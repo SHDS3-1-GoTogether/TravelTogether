@@ -94,9 +94,16 @@ public class PhotoService {
 		return photoDAO.selectUserPhoto(funding_id);
 	}
 	
+	public List<String> selectReviewPhoto(int review_id) {
+		return photoDAO.selectReviewPhoto(review_id);
+	}
+	
 	public List<HashMap<Integer, String>> selectMainPhoto() {
 		return photoDAO.selectMainPhoto();
 	}
 	
+	public List<HashMap<Integer, String>> selectMainReviewPhoto(){
+		return photoDAO.selectMainReviewPhoto();
+	}
 	
 }

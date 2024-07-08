@@ -18,6 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+	<% request.setCharacterEncoding("UTF-8"); %>
 	<%@ include file="../common/header.jsp"%>
 	<div class="mypage-header">
 		<h2>마이페이지</h2>
@@ -25,64 +26,58 @@
 	<div class="container">
 		<%@ include file="./mypageMenu.jsp"%>
 		<div class="mypage-review-content">
-			<h3>
-				<i class="fas fa-pencil-alt"></i> 나의 후기
-			</h3>
-			<div class="review-content-wrap">
+			<h3><i class="fas fa-pencil-alt"></i> 나의 후기</h3>
 				<!-- 탭 버튼 영역 -->
-				<div class="tab">
-					<div class="tab__item active">
-						<a href="#tab1">작성가능한 후기</a>
-						<div class=""></div>
-					</div>
-					<div class="tab__item">
-						<a href="#tab2">작성한 후기</a>
-						<div class=""></div>
-					</div>
-				</div>
-			
+				<ul class="tab">
+					<li class="tab__item active"><a href="#tab1">작성가능한 후기</a></li>
+					<li class="tab__item"><a href="#tab2">작성한 후기</a></li>
+				</ul>
 			<!-- 탭 내용 영역 -->
 			<div class="tab__content-wrapper">
-				<div id="tab1" class="tab__content active">
-					<div class="review-content-wrap">
+				<!-- 작성가능한 리뷰 영역 -->
+				<div id="tab1" class="list-table tab__content active">
 						<div class="header">
-							<p clsss="funding-name">펀딩 이름</p>
-							<p clsss="funding-departure">펀딩 장소</p>
-							<p clsss="funding-price">펀딩 가격</p>
-							<p clsss="funding-people-num">펀딩참여 수</p>
-							
+							<p class="funding-name">펀딩 이름</p>
+							<p class="funding-departure">펀딩 장소</p>
+							<p class="funding-price">펀딩 가격</p>
+							<p class="funding-people-num">인원</p>
 							<p class="funding-date">펀딩 참여 날짜</p>
-							<p class="review-create">리뷰 작성</p>
+							<p class="funding-review"></p>
 						</div>
-						<div class="data">
-							<c:forEach var="review2" items="${reviewlist2}">
-								<p clsss="funding-name">${review2.title}</p>
+						<c:forEach var="review2" items="${reviewlist2}">
+							<div class="data">
+								<p class="funding-name">${review2.title}</p>
+								<p class="funding-departure">${review2.departure}</p>
+								<p class="funding-price">${review2.price}</p>
+								<p class="funding-people-num">${review2.people_num}</p>
 								<p class="funding-date">${review2.start_date} - ${review2.end_date}</p>
-								<p class="review-create"><button onclick="location.href = '${path}/mypage/reviewInsert.do?funding_id='+${review2.funding_id} ">리뷰작성하기</button></p>					
-							</c:forEach>
-						</div>
+								<p class="funding-review">
+									<button class="confirm-button" onclick="location.href = '${path}/mypage/reviewInsert.do?funding_id='+${review2.funding_id}">리뷰작성</button>
+								</p>					
+							</div>
+						</c:forEach>
 					</div>
-				</div>
-					<div id="tab2" class="tab__content">
+					<!-- 작성한 리뷰 영역 -->
+					<div id="tab2" class="list-table tab__content">
 						<div class="header">
-							<p>펀딩 이름</p>
-							<!-- <p>펀딩 날짜</p> -->
-							<p>리뷰 쓴 날짜</p>
-							<p>좋아요 수</p>
-							<p>조회수</p>
-							<p>보러가기</p>
+							<p class="review-name">펀딩 이름</p>
+							<p class="review-create-date">리뷰 쓴 날짜</p>
+							<p class="review-like">좋아요 수</p>
+							<p class="review-view">조회수</p>
+							<p class="review-go">보러가기</p>
 						</div>
-						<div class="data">
-							<c:forEach var="review" items="${reviewlist}">
-								<p>${review.title}</p>
-								<p>${review.create_date}</p>
-								<p>${review.like_count}</p>
-								<p>${review.views}</p>
-								<p><button onclick="">상세보기</button></p>
-							</c:forEach>
-						</div>
+						<c:forEach var="review" items="${reviewlist}">
+							<div class="data">
+								<p class="review-name">${review.title}</p>
+								<p class="review-create-date">${review.create_date}</p>
+								<p class="review-like">${review.like_count}</p>
+								<p class="review-view">${review.views}</p>
+								<p class="review-go">
+									<button class="confirm-button" onclick="location.href = '${path}/review/reviewDetail.do?review_id='+${review.review_id}">상세보기</button>
+								</p>
+							</div>
+						</c:forEach>
 					</div>
-				</div>
 				</div>
 			</div>
 		</div>

@@ -27,4 +27,12 @@ public class PhotoDAO {
 		return sqlSession.selectList(namespace + "selectMainPhoto");
 	}
 	
+	public List<HashMap<Integer, String>> selectMainReviewPhoto() {
+		return sqlSession.selectList(namespace + "selectMainReviewPhoto");
+	}
+	
+	public List<String> selectReviewPhoto(int review_id) {
+		return sqlSession.selectList(namespace + "selectReviewPhoto", review_id);
+	}
+	
 }

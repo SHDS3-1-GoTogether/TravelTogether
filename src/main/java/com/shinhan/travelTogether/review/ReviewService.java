@@ -38,4 +38,12 @@ public class ReviewService {
 	public FundingDTO selectAllMainFunding(int review_id){
 		return reviewDao.selectAllMainFunding(review_id);
 	}
+	
+	public int updateReviewViews(int review_id) {
+		return reviewDao.updateReviewViews(review_id);
+	}
+	
+	public int getReviewId() {
+		return reviewDao.getReviewId();
+	}
 }
