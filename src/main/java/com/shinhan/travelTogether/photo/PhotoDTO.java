@@ -10,9 +10,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter @Setter @ToString
 public class PhotoDTO {
-	int photo_id;
-	int purpose;
-	String photo_name;
-	Integer funding_id;
-	Integer review_id;
+	private int photo_id;
+	private int purpose;
+	private String photo_name;
+	private Integer funding_id;
+	private Integer review_id;
 }

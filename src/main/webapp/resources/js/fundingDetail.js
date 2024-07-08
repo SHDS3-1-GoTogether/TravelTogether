@@ -1,5 +1,8 @@
 $(document).ready(function() {
-	console.log(images[0]);
+	console.log(images.length);
+	
+	let indexNow = 0;
+	let maxIndex = images.length - 1;
 	
 	function ImageSlider (parent, images) {
             let currentIndex = 0;
@@ -40,33 +43,30 @@ $(document).ready(function() {
 	                imageNode[currentIndex].classList.add("active")
                 });
             });
+            
+			let container = $(".slider__thumnail");
+			var width = 0;
 
             //왼쪽 버튼 클릭
             Slider.PreviousBtn.addEventListener("click", function(){
-             	event.preventDefault();
-               imageNode[currentIndex].classList.remove("active");
-               currentIndex--;
-
-               if(currentIndex < 0) currentIndex = images.length - 1;
-               imageNode[currentIndex].classList.add("active");
-
-                //활성화 되는 이미지와 같은 썸네일에 active 활성화
-                Slider.thumnail.querySelector("img.active").classList.remove("active");
-                thumnailNode[currentIndex].classList.add("active");
-
+                event.preventDefault();
+                if(indexNow >= 0) {
+                	indexNow--;
+                	width += 100;
+					const container = $(".slider__thumnail").children();
+					container.attr("style",`transform:translateX(${width}px); transition: 1s ease;`);
+            	}
             });
 
             //오른쪽 버튼 클릭
             Slider.NextBtn.addEventListener("click", function(){
                 event.preventDefault();
-                imageNode[currentIndex].classList.remove("active");
-
-                currentIndex = (currentIndex + 1) % images.length;
-                imageNode[currentIndex].classList.add("active");
-
-                //활성화 되는 이미지와 같은 썸네일에 active 활성화
-                Slider.thumnail.querySelector("img.active").classList.remove("active");
-                thumnailNode[currentIndex].classList.add("active");
+				if(indexNow < (images.length + 1 - maxIndex)) {
+					indexNow++;
+					width -= 100;
+					const container = $(".slider__thumnail").children();
+					container.attr("style",`transform:translateX(${width}px); transition: 1s ease;`);
+				}
             });
         }
         ImageSlider(document.querySelector(".slider__wrap"),images);

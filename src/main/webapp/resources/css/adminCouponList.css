@@ -42,7 +42,7 @@ body {
 .content {
 	width: 70%;
 	flex-grow: 1;
-	padding: 40px 80px;
+	padding: 40px 10px 40px 40px;
 }
 
 .content h2 {
@@ -98,6 +98,10 @@ body {
 	border-radius: 10px;
 	border: 0;
 	cursor: pointer;
+}
+
+.add-button:hover {
+	box-shadow: inset -1px -1px 0 2px rgb(0, 0, 0, .2);
 }
 
 .list-table {
@@ -166,12 +170,12 @@ body {
 }
 
 .button {
-	padding: 10px 15px;
-	border-radius: 10px;
-	background-color: #F9F9F9;
-	color: #99A1B7;
-	border: 0;
-	cursor: pointer;
+	    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    color: #99A1B7;
+    border: 0;
+    cursor: pointer;
 }
 
 .add-coupon-modal-box, .update-coupon-modal-box {

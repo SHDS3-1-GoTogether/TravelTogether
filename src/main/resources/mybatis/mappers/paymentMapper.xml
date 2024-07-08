@@ -27,4 +27,73 @@
 		select *
 		from tt_payment
 	</select>
+
+	<select id="getConsumerCount" resultType="map">
+		select funding_id as "funding_id", count(*) as "consumerCount" 
+		from tt_payment
+		group by funding_id
+	</select>
+	
+	<select id="getPaymentRecipe" parameterType="int" resultType="map">
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, 
+		    f.title,
+		    f.funding_state,
+		    p.price, 
+		    p.payment_date,
+		    '결제완료' AS status, 
+		    p.payment_id,
+		    p.payment_key,
+		    p.refund
+		FROM 
+		    tt_payment p
+		JOIN 
+		    tt_funding f ON f.funding_id = p.funding_id
+		WHERE
+		    p.refund = 0 AND p.member_id = #{userId}
+		ORDER BY 
+		    p.payment_date DESC
+	</select>
+	
+	<select id="getRefundRecipe" parameterType="int" resultType="map">
+		SELECT 
+		    ROW_NUMBER() OVER (ORDER BY p.payment_date DESC) AS row_num, 
+		    f.title, 
+		    p.price, 
+		    p.refund_date,
+		    '환불완료' AS status, 
+		    p.payment_id,
+		    p.refund_reason
+		FROM 
+		    tt_payment p
+		JOIN 
+		    tt_funding f ON f.funding_id = p.funding_id
+		WHERE
+		    p.refund = 1 AND p.member_id = #{userId}
+		ORDER BY 
+		    p.refund_date DESC
+	</select>
+	
+	<!-- 펀딩 참여인원과 현재 참여인원 비교 -->
+	<select id="getFundingParticipants" parameterType="int" resultType="map">
+		SELECT 
+		    p.funding_id,
+		    f.people_num,
+		    COUNT(CASE WHEN p.refund = 0 THEN p.member_id END) AS PARTICIPANTS
+		FROM 
+		    tt_payment p
+		JOIN 
+		    tt_funding f ON p.funding_id = f.funding_id
+		WHERE 
+		    p.funding_id = #{funding_id}
+		GROUP BY 
+		    p.funding_id, f.people_num
+	</select>
+	
+	<!-- 펀딩 참여인원 다차면 status 변경 -->
+	<update id="updatePeopleNum" parameterType="int">
+		update tt_funding set FUNDING_STATE = 3 where funding_id = #{funding_id}
+	
+	</update>
+
 </mapper>

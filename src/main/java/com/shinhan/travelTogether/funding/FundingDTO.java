@@ -14,22 +14,22 @@ import lombok.ToString;
 @Getter @Setter
 public class FundingDTO {
 	
-	int funding_id;
-	String title;
-	String funding_content;
-	Date create_date;
-	String area;
-	Date start_date;
-	Date end_date;
-	Date deadline;
-	int price;
-	String departure;
-	String traffic;
-	String accommodation;
-	int people_num;
-	int funding_state;
-	int confirm_option;
-	int views;
-	int member_id;
-	
+	private int funding_id;
+	private String title;
+	private String funding_content;
+	private Date create_date;
+	private String area;
+	private Date start_date;
+	private Date end_date;
+	private Date deadline;
+	private int price;
+	private String departure;
+	private String traffic;
+	private String accommodation;
+	private int people_num;
+	private int funding_state;
+	private int confirm_option;
+	private int views;
+	private int member_id;
+	private int consumer_num;
 }

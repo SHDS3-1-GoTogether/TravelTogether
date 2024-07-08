@@ -15,6 +15,10 @@ public class FundingService {
 	@Qualifier("fundingDAO")
 	FundingDAO fundingDAO;
 	
+	public List<FundingDTO> selectPopular() {
+		return fundingDAO.selectPopular();
+	}
+	
 	public List<FundingDTO> selectAll(String selectOption) {
 		return fundingDAO.selectAll(selectOption);
 	}
@@ -49,5 +53,9 @@ public class FundingService {
 
 	public int updateFundingState(int funding_id, int update_state) {
 		return fundingDAO.updateFundingState(funding_id, update_state);
+	}
+
+	public List<FundingAdminDTO> selectByOption(Integer member_type, Integer funding_state) {
+		return fundingDAO.selectByOption(member_type, funding_state);
 	}
 }

@@ -26,34 +26,27 @@
 			<div class="option">
 				<div class="select-option">
 					<div class="select-option-item">
-						<p class="select-label">분류</p>
-						<select id="coupon_option">
-							<option value="-1">전체</option>
-							<option value="0">관리자</option>
-							<option value="1">일반회원</option>
+						<p class="select-label">회원유형 :</p>
+						<select id="member_option">
+							<option value="-1" selected>전체</option>
+							<option value="0">일반회원</option>
+							<option value="1">관리자</option>
 						</select>
 					</div>
 					<div class="select-option-item">
-						<p class="select-label">컨펌상태</p>
-						<select id="">
-							<option value="-1">전체</option>
-							<option value="0">대기</option>
-							<option value="1">완료</option>
-							<option value="2">반려</option>
-						</select>
-					</div>
-					<div class="select-option-item">
-						<p class="select-label">펀딩상태</p>
-						<select id="">
-							<option value="-1">전체</option>
-							<option value="0">진행중</option>
-							<option value="1">성공</option>
-							<option value="2">실패</option>
+						<p class="select-label">펀딩상태 :</p>
+						<select id="state_option">
+							<option value="-1" selected>전체</option>
+							<option value="0">컨펌대기</option>
+							<option value="1">컨펌완료/진행중</option>
+							<option value="2">컽펌반려</option>
+							<option value="3">펀딩성공</option>
+							<option value="4">펀딩실패</option>
 						</select>
 					</div>
 				</div>
 				<div class="select-option">
-					<button class="add-button" id="addBtn">
+					<button class="add-button" onclick="location.href='${path}/admin/fundingInput.do'">
 						<i class="fas fa-plus"></i> 펀딩등록
 					</button>
 				</div>
@@ -87,7 +80,26 @@
 					$(".list-item").html(responseData);
 				}
 			});
+			
+			$("#member_option").on("change", f_memberOptSelect);
+			$("#state_option").on("change", f_memberOptSelect);
 		});
+		
+		function f_memberOptSelect(){
+			var member_type = $("#member_option").val();
+			var funding_state = $("#state_option").val();
+			$.ajax({
+				url: "${path}/admin/fundingListItem.do",
+				type: "get",
+				data: {
+					"member_type": member_type,
+					"funding_state": funding_state
+				},
+				success: function(responseData){
+					$(".list-item").html(responseData);
+				}
+			});
+		}
 	</script>
 </body>
 </html>

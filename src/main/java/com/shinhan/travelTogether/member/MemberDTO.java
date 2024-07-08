@@ -28,4 +28,5 @@ public class MemberDTO {
 	String token;
 	Integer acc_amount;
 	String membership_id;
+	Boolean is_delete;
 }

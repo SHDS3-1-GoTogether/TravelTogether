@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -19,6 +20,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.transfer.Upload;
 
 @Service
 public class PhotoService {
@@ -58,9 +62,24 @@ public class PhotoService {
 		String saveFileName = String.format("%d_%s", time, originFileName);
 
 		String detailBucket = this.bucket + detailPath;
+
+		TransferManager transferManager = TransferManagerBuilder.standard().withS3Client(s3Client).build();
+		PutObjectRequest request = new PutObjectRequest(detailBucket, saveFileName, file.getInputStream(), null).withCannedAcl(CannedAccessControlList.PublicRead);
+		Upload upload = transferManager.upload(request);
 		
-        s3Client.putObject(new PutObjectRequest(detailBucket, saveFileName, file.getInputStream(), null)
-                .withCannedAcl(CannedAccessControlList.PublicRead));
+        try {
+            upload.waitForCompletion();
+        } catch (AmazonClientException amazonClientException) {
+        	amazonClientException.printStackTrace();
+        } catch (InterruptedException e) {
+        	e.printStackTrace();
+        }
+		
+		/*
+		 * s3Client.putObject(new PutObjectRequest(detailBucket, saveFileName,
+		 * file.getInputStream(), null)
+		 * .withCannedAcl(CannedAccessControlList.PublicRead));
+		 */
         return s3Client.getUrl(detailBucket, saveFileName).toString();
     }
 	

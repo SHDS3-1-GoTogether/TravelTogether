@@ -1,6 +1,8 @@
 package com.shinhan.travelTogether.payment;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -33,5 +35,23 @@ public class PaymentDAO {
 		List<PaymentDTO> paymentlist = sqlSession.selectList(namespace + "selectAllPayment");
 		logger.info("<selectAllPayment>" + paymentlist.size() + "건의 결제 조회");
 		return paymentlist;
+	}
+	
+	public List<HashMap<String, Integer>> getConsumerCount() {
+		return sqlSession.selectList(namespace + "getConsumerCount");
+}
+
+	public List<Map<String, Object>> paymentRecipe(int userId){
+		return sqlSession.selectList(namespace + "getPaymentRecipe", userId);
+	}
+	public List<Map<String, Object>> refundRecipe(int userId){
+		return sqlSession.selectList(namespace + "getRefundRecipe", userId);
+	}
+	
+	public Map<String, Object>checkingFundingState(int funding_id){
+		return sqlSession.selectOne(namespace + "getFundingParticipants", funding_id);
+	}
+	public int updatePeopleNum(int funding_id) {
+		return sqlSession.update(namespace + "updatePeopleNum", funding_id);
 	}
 }

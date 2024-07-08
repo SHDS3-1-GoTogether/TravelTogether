@@ -18,6 +18,11 @@
 </script>
 </head>
 <body>
+	<c:forEach var="photo" items="${pic}">
+		<script>
+			images.push("${photo}");	
+		</script>
+	</c:forEach>
 	<%@ include file="../common/header.jsp" %>
 		<div class="content_wrapper">
 		<h1 class="pageTitle">Join Funding!</h1>
@@ -25,23 +30,17 @@
 		<div class="form-left-wrapper">
 			<div class="detailContent">
 				<div class="detail-title">"${fund.title}"</div>
-				<div class="detail-content">${fund.funding_content}</div>
-				<c:forEach var="photo" items="${pic}">
-<%-- 					<img alt="${photo}" 
-					src="${photo}"
-					width="200" height="200"> --%>
-					<script>
-						images.push("${photo}");	
-					</script>
-				</c:forEach>	
-						<div class="slider__wrap">
-		            <div class="slider__img"></div>
-		            <div class="slider__thumnail"></div>
-		            <div class="slider__btn">
-		                <a href="#" class="previous"><img alt="vector-left.png" src="${path}/resources/images/vector-left.png"></a>
-		                <a href="#" class="next"><img alt="" src="${path}/resources/images/vector-right.png"/></a>
-		            </div>
-		        </div>
+				<div class="detail-content">${fund.funding_content}
+					<div class="slider__wrap">
+			            <div class="slider__img"></div>
+       			            <div class="slider__btn">
+			                	<a href="#" class="previous"><img alt="vector-left.png" src="${path}/resources/images/vector-left.png"></a>
+			                	<a href="#" class="next"><img alt="" src="${path}/resources/images/vector-right.png"/></a>
+			            	</div>
+			            <div class="slider__thumnail"></div>
+
+		        	</div>
+				</div>	
 			</div>
 
 		</div>
@@ -97,6 +96,5 @@
 		</div>
 	</div>
 </div>
-	<button id="doPay" onclick="location.href='${path}/payment/pay.do?funding_id=${fund.funding_id}'" >신청하기</button>	
 </body>
 </html>

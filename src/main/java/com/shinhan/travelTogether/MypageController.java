@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shinhan.travelTogether.comment.CommentDTO;
+
 import com.shinhan.travelTogether.comment.CommentService;
 import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
@@ -34,12 +36,13 @@ import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
-import com.shinhan.travelTogether.payment.PaymentDTO;
+
+
 import com.shinhan.travelTogether.payment.PaymentService;
-import com.shinhan.travelTogether.photo.PhotoService;
-import com.shinhan.travelTogether.qna.UserQnADTO;
+
 import com.shinhan.travelTogether.review.ReviewDTO;
 import com.shinhan.travelTogether.review.ReviewService;
+
 
 @Controller
 @RequestMapping("/mypage")
@@ -66,7 +69,7 @@ public class MypageController {
 	
 	@Autowired
 	CommentService commentService;
-	
+
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -118,8 +121,22 @@ public class MypageController {
 		// 로그인 기능 구현시 수정
 		int userId = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(userId);
-		System.out.println(couponlist.toString());
-		logger.info(couponlist.size() + "건 쿠폰 조회됨");
+		
+		Map<Integer, Long> couponCountMap = couponlist.stream()
+			    .collect(Collectors.groupingBy(UserCouponDTO::getCoupon_id, Collectors.counting()));
+
+		// 각 쿠폰에 동일한 coupon_id의 개수를 설정
+		
+		int coupon_id = -1;
+		int length = couponlist.size();
+		for(int i=0; i<length; i++) {
+			if(couponlist.get(i).getCoupon_id() == coupon_id) {
+				couponlist.remove(i);
+			} else {
+				couponlist.get(i).setCount(couponCountMap.get(couponlist.get(i).getCoupon_id()).intValue());
+				coupon_id = couponlist.get(i).getCoupon_id();
+			}
+		}
 		model.addAttribute("couponlist", couponlist);
 	}
 	
@@ -127,10 +144,9 @@ public class MypageController {
 	public void notificationList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<NotificationDTO> notificationlist = notificationService.selectByMemberId(member_id);
-		logger.info(notificationlist.size()+"건 알림 조회됨");
 		model.addAttribute("notificationlist", notificationlist);
 	}
-	
+
 	@GetMapping("/reviewList.do")
 	public void reviewList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
@@ -169,4 +185,35 @@ public class MypageController {
 		return "redirect:reviewList.do";
 	}
 	
+	@GetMapping("/paymentList.do")
+	public void paymentList(Model model, HttpSession session) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> paymentList = paymentService.paymentRecipe(member_id);
+		
+		logger.info(paymentList.size()+"건 결제내역 조회됨");
+		
+		for (Map<String, Object> map : paymentList) {
+			System.out.println(map);;
+		}
+		
+		model.addAttribute("paymentDetail", paymentList);
+	}
+	
+	@GetMapping("/refundList.do")
+	public String refundList(Model model, HttpSession session){
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		
+		List<Map<String, Object>> refundList = paymentService.refundRecipe(member_id);
+		logger.info(refundList.size()+"건 환불내역 조회됨");
+		
+		// test
+		for (Map<String, Object> map : refundList) {
+			System.out.println(map);;
+		}
+		model.addAttribute("refundDetail", refundList);
+		
+		return "mypage/paymentList";
+	}
+
 }

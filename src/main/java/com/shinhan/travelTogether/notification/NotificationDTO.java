@@ -17,4 +17,5 @@ public class NotificationDTO {
 	private String message_content;
 	private Date send_date;
 	private Integer member_id;
+	private String login_id;
 }
