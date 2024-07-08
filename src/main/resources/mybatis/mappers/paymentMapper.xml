@@ -95,5 +95,11 @@
 		update tt_funding set FUNDING_STATE = 3 where funding_id = #{funding_id}
 	
 	</update>
+	<select id="checkAlreadyPay" parameterType="map" resultType="int">
+		select count(*) 
+		from tt_payment
+		where funding_id = #{funding_id} and member_id = #{member_id}
+	</select>
+	
 
 </mapper>

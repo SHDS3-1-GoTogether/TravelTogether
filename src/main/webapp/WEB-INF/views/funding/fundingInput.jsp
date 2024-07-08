@@ -56,18 +56,47 @@
 				<%@ include file="fundingOption5.jsp" %>
 			</div>
 		</div>
+		<!--로딩바-->
+		<div id="loading" style="margin-left: 0px;">
+		    <img src="${path}/resources/images/loading.gif">
+		    <p>업로드중입니다..잠시기다려주세요.😊</p>
+		</div>
 		<div class="right-wrapper">
 			<div class="option_wrapper">
 				<p class="option-title">옵션내역</p>
 				<ul class="option-li-wrapper">
-					<li>여행일정</li>
-					<li>여행지</li>
-					<li>인원</li>
-					<li>숙소</li>
-					<li>교통</li>
-					<li>예산</li>
-					<li>테마</li>
-					<li>펀딩마감일</li>
+					<li>
+						<img alt="달력" src="${path}/resources/images/calendar.svg">
+						여행일정
+					</li>
+					<li>
+						<img alt="여행지" src="${path}/resources/images/flag.png">
+						여행지
+					</li>
+					<li>
+						<img alt="인원" src="${path}/resources/images/person.png">
+						인원
+					</li>
+					<li>
+						<img alt="숙소" src="${path}/resources/images/hotel.svg">
+						숙소
+					</li>
+					<li>
+						<img alt="교통" src="${path}/resources/images/car.svg">
+						교통
+					</li>
+					<li>
+						<img alt="예산" src="${path}/resources/images/dollar.svg">
+						예산
+					</li>
+					<li>
+						<img alt="테마" src="${path}/resources/images/star.svg">
+						테마
+					</li>
+					<li>
+						<img alt="마감일" src="${path}/resources/images/fire.svg">
+						펀딩마감일
+					</li>
 				</ul>			
 			</div>
 		</div>
