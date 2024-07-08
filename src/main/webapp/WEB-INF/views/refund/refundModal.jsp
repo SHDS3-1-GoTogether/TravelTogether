@@ -60,36 +60,36 @@
 }
 
 .modal-footer {
-	display: flex; justify-content : flex-end; /* 버튼을 오른쪽으로 배치 */
+	display: flex; justify-content : flex-end;
 	align-items : center; padding : 10px 0;
 	border-top: 1px solid #eee;
-	justify-content: flex-end; /* 버튼을 오른쪽으로 배치 */
+	justify-content: flex-end;
 	align-items: center;
 	padding: 10px 0;
 }
 
 .modal-footer button {
-	width: 100px; /* 버튼의 동일한 너비 */
-	height: 35px; /* 버튼의 동일한 높이 */
-	font-size: 14px; /* 버튼 텍스트 크기 */
-	margin-left: 10px; /* 버튼 간의 간격 */
-	border: none; /* 버튼 테두리 제거 */
-	border-radius: 5px; /* 둥근 모서리 */
-	cursor: pointer; /* 포인터 커서 */
-	transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+	margin-left: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 .modal-footer .btn-secondary {
-	background-color: #6c757d; /* 기본 배경색 */
+	background-color: #6c757d;
 	color: white;
 }
 
 .modal-footer .btn-secondary:hover {
-	background-color: #5a6268; /* 호버 시 배경색 */
+	background-color: #5a6268;
 }
 
 .modal-footer .btn-primary {
-	background-color: #007bff; /* 기본 배경색 */
+	background-color: #007bff;
 	color: white;
 }
 
@@ -134,9 +134,9 @@
 }
 
 .modal-body .alert img {
-	width: 20px; /* 이미지 너비를 줄임 */
-	height: 20px; /* 이미지 높이를 줄임 */
-	margin-right: 10px; /* 오른쪽 여백 */
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
 }
 </style>
 </head>

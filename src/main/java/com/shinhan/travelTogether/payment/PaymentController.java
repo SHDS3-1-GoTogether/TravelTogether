@@ -39,10 +39,6 @@ public class PaymentController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
-	@GetMapping(value = "/test.do")
-	public void showTest() {
-	}
-
 	@GetMapping(value = "/pay.do")
 	public void showPaymentPage(@RequestParam("funding_id") Integer funding_id, Model model, HttpSession session) {
 
@@ -104,8 +100,6 @@ public class PaymentController {
 		// paymentKey
 		String paymentKey = (String) payload.get("paymentKey");
 
-		// System.out.println(paymentKey);
-
 		PaymentDTO payment = new PaymentDTO();
 		payment.setPayment_id(orderId); // 중복결제 방지 난수
 		payment.setPayment_date(requestAt); // 결제 성공 날짜
@@ -124,22 +118,17 @@ public class PaymentController {
 			payment.setCoupon_record_id(null); // 쿠폰 ID가 없으면 0으로 설정 (필요에 따라 수정)
 		}
 
-		System.out.println("여기되냐???");
-		
 		int result_payment = pService.insertPaymentInfo(payment);
 		String message = result_payment > 0 ? "success complete payment" : "fail complete payment";
 
-		// --------------------------------여기까지 결제 정보 DB
-		// 저장------------------------------------------
+		// --------------------------------여기까지 결제 정보 DB 저장------------------------------------------
 
 		Map<String, Object> info = pService.checkingFundingState(payment.getFunding_id());
-
-		// int people_num = (int)info.get("PEOPLE_NUM");
-		// int participants = (int)info.get("PARTICIPANTS");
 
 		int people_num = ((Number) info.get("PEOPLE_NUM")).intValue();
 		int participants = ((Number) info.get("PARTICIPANTS")).intValue();
 
+		// test
 		System.out.println("-------------------------펀딩 참여인원 비교----------------------");
 		System.out.println("모집인원");
 		System.out.println(people_num);

@@ -5,15 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	session="false"%> --%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/resources/css/payment.css" />
+<link rel="stylesheet" href="${path}/resources/css/payment.css"/>
 <title>결제 예약</title>
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -42,11 +40,7 @@
 								${price}
 							</fmt:formatNumber>원
 						</span>
-						
 					</div>
-					<!-- <div class="detail">
-						<span>추가 후원금:</span> <span>0원</span>
-					</div> -->
 
 					<!-- 쿠폰 콤보박스 -->
 					<div class="detail">
@@ -115,15 +109,9 @@
 	    }
 	};
 	
-	
     const button = document.getElementById("payment-button");
     const coupon = document.getElementById("coupon-box");
-    /* couponBox.addEventListener("change", function() {
-        var coupon = couponBox.value;
-        console.log(coupon); // 선택된 옵션의 value 출력
-    }); */
     const currentURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split("/")[1];
-    //console.log(currentURL);
     const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
     
     // 상품금액 적용
@@ -131,9 +119,6 @@
     // 상품명 적용
     var title = "${title}";
     
-  	//window.onload = updateAmount;
-  	// 페이지 로드 됐을 때 html부분도 새로고침하게 되는 법 ########
-  	// 현재 페이지 이동 후에 뒤로가기 버튼을 누르면 쿠폰 선택했던 부분은 그대로 남아있는데 가격 부분은 새로 고침이 되어 있는 상태임 이부분 확인해보고 병합 ㄱㄱ
     document.getElementById("changeAmount").innerText = formatNumber(amount)+"원";
     // ------  결제위젯 초기화 ------
     // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
@@ -142,24 +127,17 @@
     
     // API 개별 연동 client Key 
     //const clientKey = "test_ck_ex6BJGQOVDk0KzEMB1z53W4w2zNb";
-    // sample
     const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
     const customerKey = generateRandomString();
     const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
-    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS); // 비회원 결제
 
     // ------  결제 UI 렌더링 ------
-    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     paymentMethodWidget = paymentWidget.renderPaymentMethods(
       "#payment-method",
       { value: amount },
-      // 렌더링하고 싶은 결제 UI의 variantKey
-      // 결제 수단 및 스타일이 다른 멀티 UI를 직접 만들고 싶다면 계약이 필요해요.
-      // @docs https://docs.tosspayments.com/guides/payment-widget/admin#멀티-결제-ui
       { variantKey: "DEFAULT" }
     );
     // ------  이용약관 UI 렌더링 ------
-    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
 
     //  ------  결제 UI 렌더링 완료 이벤트 ------
@@ -216,9 +194,6 @@
         orderName: title,
         successUrl: currentURL + "/payment/success.do",
         failUrl: currentURL + "/payment/failure.do",
-        /* customerEmail: "customer123@gmail.com",
-        customerName: "김토스",
-        customerMobilePhone: "01012341234", */
       }).catch(function(error){
     	  // 결제 취소 시 처리
     	  if(error.code === 'USER_CANCEL'){
@@ -243,7 +218,6 @@
     // 총 결제 금액 갱신
     function updateAmount(price){
     	document.getElementById("changeAmount").innerText = formatNumber(price)+"원";
-    	//document.getElementById("changeAmount").innerText = price+"원";
     }
     
  	// 적용된 쿠폰 정보 저장
