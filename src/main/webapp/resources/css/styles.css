@@ -7,41 +7,14 @@
 
 body {
     line-height: 1.6;
+    position: relative;
+    z-index: -1;
 }
 
-/* 헤더 스타일 */
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
-
-header .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-}
-
-header nav ul li {
-    margin-left: 2rem;
-}
-
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-header nav ul li a:hover {
-    text-decoration: underline;
+.container {
+	margin:0;
+	position: relative;
+    z-index: -1;
 }
 
 /* 메인 배너 스타일 */
@@ -82,7 +55,8 @@ header nav ul li a:hover {
 /* 추천 프로젝트 스타일 */
 .recommended-projects {
 	width: 80vw;
-    padding: 8rem 2rem;
+    /* padding: 8rem 2rem; */
+    padding-top: 8rem;
     background: white;
     text-align: center;
     margin: 0 auto;
@@ -98,9 +72,10 @@ header nav ul li a:hover {
 
 .section-title {
 	display: flex;
-	flex-direction: row;
-	width: 80%;
+    flex-direction: row;
+    width: 80%;
     margin: 0 auto;
+
 }
 
 .section-title h2 {
@@ -121,9 +96,16 @@ header nav ul li a:hover {
     flex-direction: column;
 }
 
+.img-wrap {
+	width: 100%;
+	height: 60%;
+	border-radius: 10px 10px 0 0;
+}
+
 .project-card img {
     /* max-width: 100%; */
-    height: 50%;
+    width: 100%;
+    height: 100%;
     border-radius: 10px 10px 0 0;
 }
 
@@ -145,6 +127,7 @@ header nav ul li a:hover {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	height: 10%;
 }
 
 .progress-content progress {
@@ -155,77 +138,32 @@ header nav ul li a:hover {
 	width: 20%;
 }
 
-/* 카테고리 스타일 */
-.categories {
-    padding: 2rem;
-    text-align: center;
-}
-
-.categories h2 {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-}
-
-.category {
-    display: inline-block;
-    margin: 1rem;
-    text-align: center;
-}
-
-.category img {
-    max-width: 100px;
-    border-radius: 50%;
-}
-
-.category h3 {
-    margin-top: 0.5rem;
-    font-size: 1rem;
-}
-
-/* 성공 사례 스타일 */
-.success-stories {
-    padding: 2rem;
-    background: #f4f4f4;
-    text-align: center;
-}
-
-.success-stories h2 {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-}
-
-.story {
-    background: #fff;
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    width: calc(50% - 2rem);
-    vertical-align: top;
-}
-
-.story img {
-    max-width: 100%;
-    border-radius: 10px 10px 0 0;
-}
-
-.story h3 {
-    margin: 1rem 0 0.5rem;
-    font-size: 1.25rem;
-}
-
-.story p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
 /* 회원 리뷰 스타일 */
 .reviews {
     padding: 2rem;
     text-align: center;
     width: 80vw;
     margin: 0 auto;
+    margin-bottom: 200px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.reviews.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.review-item {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+}
+
+.review-rank {
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 .review {
@@ -234,19 +172,70 @@ header nav ul li a:hover {
     margin: 1rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    width: calc(33% - 2rem);
+    display: flex;
+    flex-direction: column;
     vertical-align: top;
+    min-height: 300px;
+    transition:transform 1s;
+	overflow:hidden;
+	cursor: pointer;
 }
 
-.review p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+.review-list {
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.review img {
+	width: 100%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.review > p {
+	height: 15%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    display: flex;
+    padding-top: 10px;
+}
+
+.review-info {
+	display: flex;
+	height: 15%;
+	align-items: center;
+	padding-top: 10px;
+}
+
+.review-info p {
+	width: 20%;
+	text-align: right;
+	color: #C4C4C4;
+}
+
+.review-title {
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.review-info > p.review-nickname {
+	width: 60%;
+	text-align: left;
+	color: black;
+}
+
+.review-info > p > i {
+	font-size: 1.2em;
 }
 
 .review span {
-    color: #ff6347;
-    font-size: 1.25rem;
+    color: #C4C4C4;
+    padding-left: 10px;
 }
 
 /* 푸터 스타일 */
@@ -320,29 +309,18 @@ footer p {
 
 /* 펀딩 슬라이더 */
 .slider {
-	display: flex;
+    display: flex;
     overflow: hidden;
-    padding: 10px 40px;
+    /* padding: 10px 40px; */
     width: 80%;
     margin: 0 auto;
     flex-direction: row;
-	/* height: 450px;
-	margin: auto;
-	position:relative;
-	width: 100%;
-	display:flex;
-	place-items:center;
-	overflow:hidden; */
-	/* left:-10%; */
+
 }
 
 .funding-box {
 	display:flex;
 	animation: scroll 40s linear infinite;
-}
-
-.funding-box:hover{
-  animation-play-state:paused;
 }
 
 .funding-box > div {
@@ -354,6 +332,10 @@ footer p {
 }
 .funding-box.clone {
 	animation: scroll2 33s linear infinite;
+}
+
+.slider:hover .funding-box {
+  animation-play-state:paused;
 }
 
 @keyframes scroll1 {
@@ -369,23 +351,44 @@ footer p {
 }
 
 .slide {
-	min-height: 400px;
-	min-width: 350px;
-	display: flex;
-	align-items:center;
-	padding: 15px;
-	perspective:100px;
+    height: 90%;
+    /* min-height: 200px; */
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+    /* padding: 15px; */
+    perspective: 100px;
 }
 
 .project-card {
 	width: 90%;
-	height: 90%;
+	height: 70%;
 	transition:transform 1s;
 	border-radius:10px;
 	overflow:hidden;
+	cursor: pointer;
 }
 
 .project-card:hover{
 	transform:translateZ(10px);
 }
 
+.review:hover{
+	transform:translateZ(10px);
+}
+
+.fas {
+	margin-right: 10px;
+}
+
+
+.rank1 {
+	color: #FFD43B;
+}
+.rank2 {
+	color: #dedede;
+	
+}
+.rank3 {
+	color: #cb8710;
+}

@@ -59,4 +59,8 @@ public class ReviewDAO {
 		return fundingDetail;
 	}
 	
+	public List<ReviewDTO> selectBestReview(){
+		return sqlSession.selectList(namespace+"selectBestReview");
+	}
+	
 }

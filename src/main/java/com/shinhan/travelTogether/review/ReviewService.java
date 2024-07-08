@@ -38,4 +38,8 @@ public class ReviewService {
 	public FundingDTO selectAllMainFunding(int review_id){
 		return reviewDao.selectAllMainFunding(review_id);
 	}
+	
+	public List<ReviewDTO> selectBestReview(){
+		return reviewDao.selectBestReview();
+	}
 }

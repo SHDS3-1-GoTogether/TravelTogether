@@ -129,6 +129,7 @@
 		
 		var funding_id = ${funding.funding_id};
 		var member_id = ${funding.member_id}
+		console.log("member="+member_id);
 		$.ajax({
 			url: "${path}/admin/fundingConfirm.do",
 			type: "post",
