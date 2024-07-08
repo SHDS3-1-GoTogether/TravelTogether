@@ -1,6 +1,13 @@
 package com.shinhan.travelTogether;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinhan.travelTogether.funding.FundingAdminDTO;
 import com.shinhan.travelTogether.funding.FundingDTO;
 import com.shinhan.travelTogether.funding.FundingService;
@@ -35,8 +40,93 @@ public class AdminController {
 	NotificationService notificationService;
 	
 	@GetMapping("/dashboard.do")	// 관리자 - 대시보드 페이지
-	public void dashboard() {
+	public void dashboard(Model model) {
+		int existingNormalMember = memberService.countExistingNormalMember();
+		int maleMember = memberService.countMaleMember();
+		int deletedNormalMember = memberService.countDeletedNormalMember();
+		int walkerMember = memberService.getMembershipNum("walker");
+		int bicycleMember = memberService.getMembershipNum("bicycle");
+		int carMember = memberService.getMembershipNum("car");
+		int money = memberService.getMoney();
 		
+		List<Map<String, Object>> monthAgoMember = memberService.getMonthAgoJoinedMemberNum();
+		System.out.println("!!!!!!!!저기"+monthAgoMember);
+		List<String> monthList = monthAgoMember.stream()
+	            .filter(x -> x.containsKey("JOIN_DATE"))
+	            .map(m -> "\"" + m.get("JOIN_DATE").toString()+"\"")
+	            .collect(Collectors.toList());
+		List<Integer> numList = monthAgoMember.stream()
+	            .filter(x -> x.containsKey("NUM"))
+	            .map(m -> Integer.parseInt(m.get("NUM").toString()))
+	            .collect(Collectors.toList());
+		
+        
+		model.addAttribute("monthList",monthList);
+		model.addAttribute("numList",numList);
+		System.out.println("!!!!!!여기"+monthList);
+		
+		List<Map<String, Object>> monthAgoMember2 = memberService.getMonthAgoDeletedMemberNum();
+		System.out.println("!!!!!!!!저기"+monthAgoMember);
+		/*
+		 * List<String> monthList2 = monthAgoMember2.stream() .filter(x ->
+		 * x.containsKey("JOIN_DATE")) .map(m -> "\"" +
+		 * m.get("JOIN_DATE").toString()+"\"") .collect(Collectors.toList());
+		 */
+		List<Integer> numList2 = monthAgoMember2.stream()
+	            .filter(x -> x.containsKey("NUM"))
+	            .map(m -> Integer.parseInt(m.get("NUM").toString()))
+	            .collect(Collectors.toList());
+		
+        
+		/* model.addAttribute("monthList2",monthList2); */
+		model.addAttribute("numList2",numList2);
+		
+		
+		
+		
+		
+		
+		model.addAttribute("existingNormalMember",existingNormalMember);
+		model.addAttribute("maleMember", maleMember);
+		model.addAttribute("deletedNormalMember",deletedNormalMember);
+		
+		model.addAttribute("walkerMember",walkerMember);
+		model.addAttribute("bicycleMember",bicycleMember);
+		model.addAttribute("carMember",carMember);
+		model.addAttribute("money", money);
+		
+		int qna = memberService.getQnaNum();
+		model.addAttribute("qnaNum",qna);
+		
+
+		List<Map<String, Object>> fund = memberService.getFundingState();
+		System.out.println("ffffffffffffffffffff"+fund);
+
+		List<String> fundState = fund.stream()
+		        .map(m -> "\"" + m.get("FUNDING_STATE").toString() + "\"") // 실제 컬럼명을 사용
+		        .collect(Collectors.toList());
+
+		List<Integer> fundNum = fund.stream()
+				 .map(m -> Integer.parseInt(m.get("COUNT").toString()))
+				 .collect(Collectors.toList());
+		
+		System.out.println(fundState);
+		System.out.println(fundNum);
+
+		model.addAttribute("fundState", fundState);
+		model.addAttribute("fundNum", fundNum);
+		// "FUNDING_STATE" 키를 가진 값들을 필터링하여 문자열 리스트로 변환
+		/*
+		 * List<String> fundState = fund.stream() .map(m ->
+		 * m.get("FUNDING_STATE").toString()) .collect(Collectors.toList());
+		 * 
+		 * // "COUNT" 키를 가진 값들을 필터링하여 정수 리스트로 변환 List<Integer> fundNum = fund.stream()
+		 * .map(m -> Integer.parseInt(m.get("COUNT").toString()))
+		 * .collect(Collectors.toList());
+		 * 
+		 * model.addAttribute("fundState",fundState);
+		 * model.addAttribute("fundNum",fundNum);
+		 */
 	}
 	
 	@GetMapping("/memberList.do")	// 관리자 - 회원관리 페이지
