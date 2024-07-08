@@ -1,6 +1,9 @@
 
 $(function() {
 
+$('#loading').hide();
+
+
 //보여줄 Option 페이지 선택
 
     const inputArr = ["input1", "input2", "input3", "input4", "input5"];
@@ -52,7 +55,7 @@ $(function() {
 			var currentNum = $(this).val();			
 			
 			if(currentObj == "people_num") {
-				if(currentNum < 1 || currentNum > 50) {
+				if(currentNum < 2 || currentNum > 50) {
 					$("#people_num_info").attr("style", "color:red");
 					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();
@@ -517,7 +520,8 @@ $('#submit5').on('click', function() {
 		}
           for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]); 
-            }
+        	}
+        $('#loading').show();
 		$.ajax({
 			url: "../funding/fundingInput.do",
 			enctype: 'multipart/form-data',
@@ -527,19 +531,21 @@ $('#submit5').on('click', function() {
 			processData:false,
 			success:function(data) {
 				if(data=="1") {
-				swal(
-					'펀딩 성공',
-					'펀딩 제출에 성공했습니다. 관리자의 컨펌을 기다려주세요.',
-					'success'
-				).then(function() {
-					location.href="fundingList.do";
-				});
+			        $('#loading').hide();
+					swal(
+						'펀딩 성공',
+						'펀딩 제출에 성공했습니다. 관리자의 컨펌을 기다려주세요.',
+						'success'
+					).then(function() {
+						location.href="fundingList.do";
+					});
 				} else {
-				swal(
-					'펀딩 실패',
-					'펀딩 제출에 실패했습니다. 소중한 시간을 내어 다시 등록 부탁드립니다.',
-					'error'
-				)
+			        $('#loading').hide();
+					swal(
+						'펀딩 실패',
+						'펀딩 제출에 실패했습니다. 소중한 시간을 내어 다시 등록 부탁드립니다.',
+						'error'
+					)
 				}
 			}
 		});

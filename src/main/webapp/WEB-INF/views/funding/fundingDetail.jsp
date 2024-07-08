@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 글 상세보기</title>
 <link rel="stylesheet" href="${path}/resources/css/fundingBase.css">
 <link rel="stylesheet" href="${path}/resources/css/fundingDetail.css">
 <script src="${path}/resources/js/fundingDetail.js"></script>
@@ -49,33 +49,40 @@
 			<p class="option-title">옵션내역</p>
 			<ul class="option-li-wrapper">
 				<li>
+					<img alt="달력" src="${path}/resources/images/calendar.svg">
 					여행일정
 					<div>${fund.start_date}-${fund.end_date}</div>
 					
 				</li>
 				<li>
+					<img alt="여행지" src="${path}/resources/images/flag.png">
 					여행지
 					<div>${fund.area}</div>
 				</li>
 				<li>
+					<img alt="인원" src="${path}/resources/images/person.png">
 					인원
-					<div>${fund.people_num}</div>
+					<div>${fund.people_num} 명</div>
 				</li>
 				<li>
+					<img alt="숙소" src="${path}/resources/images/hotel.svg">
 					숙소
 					<c:if test="${fund.accommodation==null}"><div>미정</div></c:if>
 					<div>${fund.accommodation}</div>
 				</li>
 				<li>
+					<img alt="교통" src="${path}/resources/images/car.svg">
 					교통
 					<c:if test="${fund.traffic==null}"><div>미정</div></c:if>
 					<div>${fund.traffic}</div>	
 				</li>
 				<li>
+					<img alt="예산" src="${path}/resources/images/dollar.svg">
 					예산
 					<div><fmt:formatNumber type="number" maxFractionDigits="3" value="${fund.price}" />원</div>
 				</li>
 				<li>
+					<img alt="테마" src="${path}/resources/images/star.svg">
 					테마<br>
 					<c:forEach var="theme" items="${tlist}">
 						<c:if test="${theme.funding_id==fund.funding_id}">
@@ -84,6 +91,7 @@
 					</c:forEach>
 				</li>
 				<li>
+					<img alt="마감일" src="${path}/resources/images/fire.svg">
 					펀딩마감일
 					<div>${fund.deadline}</div>
 				</li>
@@ -91,7 +99,13 @@
 
 		</div>
 		<div class="payBtn-wrapper">
-			<button id="doPay" class="payBtn" onclick="location.href='${path}/payment/pay.do?funding_id=${fund.funding_id}'" >신청하기</button>	
+			<c:if test="${isPay==0}">
+				<button id="doPay" class="payBtn" onclick="location.href='${path}/payment/pay.do?funding_id=${fund.funding_id}'" >신청하기</button>	
+				
+			</c:if>
+			<c:if test="${isPay>0}">
+				<button id="doPay" class="payBtn" >신청완료</button>		
+			</c:if>
 		</div>
 		</div>
 	</div>
