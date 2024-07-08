@@ -54,6 +54,10 @@ body {
 	cursor: pointer;
 }
 
+.add-button:hover {
+	box-shadow: inset -1px -1px 0 2px rgb(0, 0, 0, .2);
+}
+
 .list-table {
 	width: 100%;
 	height: 70%;
@@ -107,5 +111,18 @@ body {
 
 .message-content {
 	width: 45% !important;
+	align-self: center;
 }
 
+.notify-item-header {
+	margin: 10px 0;
+}
+
+div.message-content > p.notify-item-content {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 0;
+	text-align: left;
+}

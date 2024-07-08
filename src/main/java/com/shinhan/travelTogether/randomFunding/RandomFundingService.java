@@ -13,7 +13,6 @@ public class RandomFundingService {
 	RandomFundingDAO rfDAO;
 	
 	public List<String> getAmountAll(RandomFundingDTO randomgfundingDTO){
-		
 		return rfDAO.getAmountAll(randomgfundingDTO);
 	}
 	public List<String> getThemeAll(Map<String, Object> map){

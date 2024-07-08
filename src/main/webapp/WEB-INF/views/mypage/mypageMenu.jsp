@@ -62,10 +62,11 @@
 		    		<i class="fas fa-comment-dots"></i> 채팅룸
 		    	</a>
 		    </li>
-		    <li class="list-group-item"><a 
-			href="${path}/mypage/paymentList.do" class="menu-link"
-			id="payment-link"> <i class="fas fa-receipt"></i> 결제내역
-			</a></li>
+		    <li class="list-group-item">
+			    <a href="${path}/mypage/paymentList.do" class="menu-link" id="payment-link">
+			    	<i class="fas fa-receipt"></i> 결제내역
+				</a>
+			</li>
 		  </ul>
 	</div>
 </div>

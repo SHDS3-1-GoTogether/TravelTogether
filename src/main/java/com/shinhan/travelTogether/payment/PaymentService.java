@@ -1,9 +1,11 @@
 package com.shinhan.travelTogether.payment;
 
+import java.util.List;
+
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,10 @@ public class PaymentService {
 		return paymentDAO.getFundingInfo(fundingId);
 	}
 	
+	public List<PaymentDTO> selectAllPayment(){
+		return paymentDAO.selectAllPayment();
+	}
+
 	public List<HashMap<String, Integer>> getConsumerCount() {
 		return paymentDAO.getConsumerCount();
 	}

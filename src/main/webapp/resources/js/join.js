@@ -1,5 +1,5 @@
 	var check1 = 0;
-	var check2 = 0;
+	var check2 = 1;
 
 	function validateForm() {
 		var loginId = document.getElementById("login_id").value;
@@ -80,10 +80,27 @@
 		$("#btnDupCheck").on("click", f_dupCheck);
 		$("#sendEmail").on("click", emailSend);
 		$("#checkEmail").on("click", emailCheck);
-	})
-
+		$("#login_id").on("keydown", f_loginIdchange);
+	});
+	
+	function f_loginIdchange() {
+		if($("#btnDupCheck").attr("disabled")) {
+			$("#btnDupCheck").text("중복체크");
+			$("#btnDupCheck").removeAttr("disabled");
+			check1 = 0;
+		}
+	}
+ 
 	function f_dupCheck() {
 		var memid = $("#login_id").val();
+		let pttrn=/^[a-zA-Z]{1}[\w_!]{3,11}$/;
+		if(!pttrn.test(memid)){
+			document.querySelector("#login_id").focus();
+			$(".id-check").css("color", "#c90000");
+			return;
+		} else {
+			$(".id-check").css("color", "#787878");
+		}
 		if (memid == "") {
 			alert("아이디를 입력하세요");
 			document.querySelector("#login_id").focus();
@@ -100,9 +117,13 @@
 				if (responseData == "0") {
 					message = "사용가능";
 					check1 = 1;
+					alert("사용가능한 아이디입니다.")
+					$("#btnDupCheck").text("확인완료");
+					$("#btnDupCheck").attr("disabled", true);
 				} else {
 					message = "사용불가능";
-					$("login_id").val("");
+					alert("이미 존재하는 아이디입니다.");
+					$("#login_id").val("");
 					document.querySelector("#login_id").focus();
 				}
 				$("#resultMessage").val(message);

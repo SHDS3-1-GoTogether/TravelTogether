@@ -42,6 +42,14 @@ public class ChatController {
 		model.addAttribute("chatRoom", chatService.getChatRoom(memberId));
 		return "mypage/chatroom";
 	}
+	
+	@GetMapping(value="/chatroomList", produces="application/json")
+	@ResponseBody
+	public List<FundingDTO> chatroomList(HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		int memberId = member.getMember_id();
+		return chatService.getChatRoom(memberId);
+	}
 
 	@GetMapping("/chat/{fundingId}")
 	public String chat(@PathVariable("fundingId") int fundingId, Model model, HttpServletResponse response, HttpSession session) throws IOException {

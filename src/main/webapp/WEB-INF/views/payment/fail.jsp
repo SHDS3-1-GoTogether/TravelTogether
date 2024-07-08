@@ -26,14 +26,6 @@
     <div id="info" class="box_section" style="width: 600px; margin-top: 200px;">
       <img width="100px" src="https://static.toss.im/lotties/error-spot-no-loop-space-apng.png" />
       <h2>결제를 실패했어요</h2>
-<%--       <div class="p-grid typography--p" style="margin-top: 50px">
-        <div class="p-grid-col text--left"><b>에러메시지</b></div>
-        <div class="p-grid-col text--right" id="message"><%= message %></div>
-      </div>
-      <div class="p-grid typography--p" style="margin-top: 10px">
-        <div class="p-grid-col text--left"><b>에러코드</b></div>
-        <div class="p-grid-col text--right" id="code"><%= code %></div>
-      </div> --%>
       <div class="p-grid">
         <button class="button p-grid-col5" onclick="window.location.href = '${path}/';">홈으로</button>
         <button class="button p-grid-col5" onclick="#" style="background-color: #e8f3ff; color: #1b64da">결제 재시도</button>

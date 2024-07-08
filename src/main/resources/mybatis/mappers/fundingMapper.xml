@@ -3,6 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.funding">
+	<select id="selectPopular" resultType="fundvo">
+		select *
+		from (
+		    select 
+		        f.funding_id, 
+		        f.title,
+		        f.start_date,
+		        f.end_date, 
+		        f.deadline, 
+		        f.price,
+		        f.views,
+		        f.people_num,
+		        count(p.member_id) as consumer_num
+		    from 
+		        tt_funding f
+		    left join 
+		        tt_payment p on f.funding_id = p.funding_id
+		    where 
+		        f.deadline >= sysdate
+		        and f.funding_state = 1
+		    group by 
+		        f.funding_id, f.title, f.create_date, f.start_date,
+		        f.end_date, f.deadline, f.price, f.people_num,
+		        f.funding_state, f.views, f.member_id
+		)
+		<![CDATA[ 
+		where rownum <= 5]]>
+		order by 
+		    deadline asc, consumer_num desc, views desc
+	</select>
 	<select id="selectAllByViews" resultType="fundvo">
 		select * from tt_funding where funding_state = 1 order by views desc
 	</select>
@@ -63,9 +93,22 @@
 	</select>
 	
 	<select id="selectAllAdminFunding" resultType="adminfundingvo">
-		select f.funding_id, m.member_id, m.nickname, f.title, 
+		select f.funding_id, m.member_id, m.nickname, m.is_manager, f.title,
 				f.area, f.deadline, f.people_num, f.funding_state
 		from tt_funding f join tt_member m on(f.member_id = m.member_id)
+		order by f.funding_id desc
+	</select>
+	
+	<select id="selectAdminFundingByOption" parameterType="map" resultType="adminfundingvo">
+		select f.funding_id, m.member_id, m.nickname, f.title, f.area, f.deadline, f.people_num, f.funding_state
+		from tt_funding f join tt_member m on(f.member_id = m.member_id)
+		where 1=1
+			<if test="member_type != -1">
+				and m.is_manager=#{member_type}
+			</if> 
+			<if test="funding_state != -1">
+				and funding_state=#{funding_state}
+			</if>
 		order by f.funding_id desc
 	</select>
 	
