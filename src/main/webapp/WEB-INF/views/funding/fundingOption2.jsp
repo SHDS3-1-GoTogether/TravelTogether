@@ -23,8 +23,8 @@
 			<div  class="checkWrapper"><input type="checkbox" id="trafficCheck" onclick="trafficCheck()"> <span class="checkLabel">예약완료</span></div><br>
 			<div class="inputWrapper"><span>교통수단 : </span> <input type="text" id="traffic" name="traffic" disabled> <img id="traffic-upload" alt="upload" src="${path}/resources/images/upload.png"></div>
 			<div class="inputGuide">교통수단을 입력 후 예약 내역을 첨부해주세요.</div>
-			<div class="inputWrapper"><span>&nbsp출발지 : </span><input type="text" id="departure" name="departure" disabled></div><br>
 			<div id="trafficImgArea"></div>
+			<div class="inputWrapper" style="margin-left: -10px;"><span>&nbsp출발지 : </span><input type="text" id="departure" name="departure" disabled></div><br>
 		</div>
 	</div>
 	<button id="submit2" class="submit">NEXT</button>

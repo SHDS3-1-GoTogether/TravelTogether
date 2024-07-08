@@ -73,4 +73,12 @@ public class MemberService {
 	public List<Map<String, Object>> getMonthAgoDeletedMemberNum() {
 		return memberDAO.getMonthAgoDeletedMemberNum();
 	}
+	public int deleteMember(Integer member_id) {
+		return memberDAO.deleteMember(member_id);
+	}
+	
+	public MemberDTO selectByMemberId(Integer member_id) {
+		return memberDAO.selectByMemberId(member_id);
+	}
+
 }

@@ -20,6 +20,6 @@ public class PaymentDTO {
 	
 	private int member_id;
 	private int funding_id;
-	private int coupon_record_id;
+	private Integer coupon_record_id;
 
 }

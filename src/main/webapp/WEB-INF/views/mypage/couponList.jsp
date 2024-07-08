@@ -47,7 +47,8 @@
 				<div class="no-coupon-content">사용가능한 쿠폰이 없습니다.</div>
 			</c:if>
 			<c:forEach items="${couponlist}" var="coupon">
-				<div class="coupon-item-wrap">
+			<div class="coupon-item-outer-wrap">
+				<div class="coupon-item-inner-wrap">
 					<c:if test="${coupon.discount_rate > 0}">
 						<div class="coupon-title">${coupon.title}</div>
 						<div class="coupon-info1">
@@ -60,13 +61,17 @@
 					<c:if test="${coupon.discount_rate == 0}">
 						<div class="coupon-title">${coupon.title}</div>
 						<%-- <div class="coupon-title"><fmt:formatNumber pattern="#,###">${coupon.max_discount}</fmt:formatNumber>원 할인쿠폰</div> --%>
-						<div class="coupon-info2">
-							<div class="coupon-info-due-date">
-								<p>만료일</p>
-								<p>${coupon.due_date}</p>
-							</div>
-						</div>
 					</c:if>
+					<div class="coupon-info2">
+						<div class="coupon-info-due-date">
+							<p>만료일</p>
+							<p>${coupon.due_date}</p>
+						</div>
+					</div>
+				</div>
+				<div class="coupon-count">
+					<p>X ${coupon.count}</p>
+				</div>
 				</div>
 			</c:forEach>
 		</div>

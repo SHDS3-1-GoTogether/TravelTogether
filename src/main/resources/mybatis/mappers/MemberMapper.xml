@@ -30,6 +30,7 @@
 	</insert>
 
 	<update id="memberUpdate" parameterType="membervo">
+<<<<<<< HEAD
 		UPDATE tt_member SET
 		login_pwd = #{login_pwd}, nickname = #{nickname}, phone
 		= #{phone}
@@ -193,4 +194,38 @@ SELECT m.WITHDRAWAL_DATE,
 		WHERE funding_state = 4
 		
 	</select>
+	
+	<update id="memberUpdate" parameterType="membervo">
+        UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}
+    </update>
+    
+    <select id="selectByMemberId" parameterType="int">
+    	select * from tt_member where member_id=#{member_id}
+    </select>
+    
+    <select id="searchByCondition" parameterType="String" resultType="membervo">
+    	select *
+    	from tt_member
+    	where login_id like '%' || #{word} || '%' or username like '%' || #{word} || '%' or nickname like '%' || #{word} || '%' 
+    </select>
+    
+    <update id="deleteMember" parameterType="int">
+    	update tt_member m
+		set is_delete = 1
+		where m.member_id=#{member_id}
+		and not exists(
+		select 1
+		    from tt_funding f
+		    where f.member_id = m.member_id
+		    and f.funding_state = 1
+		    and f.end_date > current_date)
+		and not exists (
+		    select 1
+		    from tt_payment p
+		    join tt_funding f on p.funding_id = f.funding_id
+		    where p.member_id = m.member_id
+		    and f.funding_state =3
+		    and f.end_date > current_date
+		)
+    </update>
 </mapper>

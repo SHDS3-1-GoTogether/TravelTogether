@@ -1,3 +1,6 @@
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="com.shinhan.travelTogether.payment.EnvConfig"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,12 +23,10 @@
 <%@ page import="java.nio.charset.StandardCharsets"%>
 
 <%
-// payments key는 각 작업의 후속작업을 발생하는 코유의 키인데 환불시 해당 키가 반드시 필요함
+// payments key는 각 작업의 후속작업을 발생하는 코유의 키인데 환불시 해당 키가 반드시 필요
 String paymentKey = (String) request.getAttribute("primaryKey");
 String cancelReason = (String) request.getAttribute("reason");
 String refundDate = (String) request.getAttribute("refundDate");
-//String paymentKey = "${primaryKey}";
-//String cancelReason = "${reason}";
 
 //부분 취소에서만 사용
 String cancelAmount = "300";
@@ -35,8 +36,9 @@ String bank = "신한";
 String accountNumber = "12345678901234";
 String holderName = "홍길동";
 
-// --- 시크릿키 변경
-String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+// ***** secretKey 보안처리 *****
+EnvConfig envConfig = (EnvConfig) application.getAttribute("envConfig");
+String secretKey = envConfig.getProperty("SECRET_KEY");
 
 Encoder encoder = Base64.getEncoder();
 byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -172,38 +174,32 @@ try {
 		}
 		%>
 		<div class="p-grid">
-			<%-- <button class="button p-grid-col5" onclick="location.href= ${path}/" id="sendDataBtn">홈으로</button> --%>
 			<button class="button p-grid-col5" id="sendDataBtn">홈으로</button>
 		</div>
-		
 	</div>
 	
 	<script>
 		$(document).ready(function() {
 			$("#sendDataBtn").click(function() {
-				 var refundReason = $('#refundReason').text(); // 사용자 입력에서 환불 사유 가져오기
-		         var paymentKey = $('#paymentKey').text(); // 사용자 입력에서 결제
+				 var refundReason = $('#refundReason').text();
+		         var paymentKey = $('#paymentKey').text();
 				
 				// AJAX 요청 설정
 				$.ajax({
 					url : '${path}/refund/saveinfo.do',
-					type : 'POST', // 데이터 전송 방식
+					type : 'POST',
 					data : {
 						payment_key : paymentKey,
 						refund_reason : refundReason
 					},
 					success : function(response) {
-						// 서버로부터 응답 받았을 때 처리
 						if (response.status === 'ok') {
-							// 응답이 'ok'일 경우 홈 페이지로 리다이렉트
 							window.location.href = '${path}/';
 						} else {
-							// 응답이 'ok'가 아닐 경우 에러 처리
 							alert('Error: ' + response.message);
 						}
 					},
 					error : function(xhr, status, error) {
-						// AJAX 요청 실패 시 처리
 						alert('AJAX Error: ' + error);
 					}
 				});

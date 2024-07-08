@@ -1,6 +1,8 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -54,18 +56,20 @@
 				<%@ include file="fundingOption5.jsp" %>
 			</div>
 		</div>
-		<div class="option_wrapper">
-			<p class="option-title">옵션내역</p>
-			<ul class="option-li-wrapper">
-				<li>여행일정</li>
-				<li>여행지</li>
-				<li>인원</li>
-				<li>숙소</li>
-				<li>교통</li>
-				<li>예산</li>
-				<li>테마</li>
-				<li>펀딩마감일</li>
-			</ul>			
+		<div class="right-wrapper">
+			<div class="option_wrapper">
+				<p class="option-title">옵션내역</p>
+				<ul class="option-li-wrapper">
+					<li>여행일정</li>
+					<li>여행지</li>
+					<li>인원</li>
+					<li>숙소</li>
+					<li>교통</li>
+					<li>예산</li>
+					<li>테마</li>
+					<li>펀딩마감일</li>
+				</ul>			
+			</div>
 		</div>
 	</div>
 </div>

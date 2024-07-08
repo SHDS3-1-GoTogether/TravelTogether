@@ -2,6 +2,11 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<error-page>
+        <error-code>404</error-code>
+        <location>/error/404</location>
+    </error-page>
 
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
@@ -12,6 +17,11 @@
 
 		<!-- spring 폴더 내 모든 설정 파일을 읽어 오도록 수정 <param-value>/WEB-INF/spring/*.xml</param-value> -->
 	</context-param>
+	
+	<!-- Custom listener for environment variable -->
+    <listener>
+        <listener-class>com.shinhan.travelTogether.payment.ContextListener</listener-class>
+    </listener>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
@@ -71,7 +81,7 @@
 	</servlet-mapping>
 
 	<!-- 로그인 체크 필터 -->
-	<filter>
+ 	<filter>
 		<filter-name>loginFilter</filter-name>
 		<filter-class>com.shinhan.travelTogether.filter.LoginChkFilter
 		</filter-class>
@@ -81,8 +91,8 @@
 		<filter-name>loginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- 관리자 체크 필터 -->
-	<filter>
+<!-- 	관리자 체크 필터
+ -->	<filter>
 		<filter-name>adminFilter</filter-name>
 		<filter-class>com.shinhan.travelTogether.filter.AdminChkFilter
 		</filter-class>

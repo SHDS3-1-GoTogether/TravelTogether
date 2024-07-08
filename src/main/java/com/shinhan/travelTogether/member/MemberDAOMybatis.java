@@ -128,4 +128,8 @@ public class MemberDAOMybatis {
 		return map;
 	}
 
+	public int deleteMember(Integer member_id) {
+		Integer result = sqlSession.update(namespace+"deleteMember", member_id);
+		return result;
+	}
 }

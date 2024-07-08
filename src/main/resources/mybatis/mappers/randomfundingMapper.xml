@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shinhan.travelTogether.randomfunding">
 
-	<!-- 선택된 날짜정보로 추출 -->
+	<!-- 선택된 날짜정보로 가격 추출 -->
 	<select id="selectAmountAll" resultType="String" parameterType="randomFundingvo">
 	SELECT amountRange FROM (
 	    SELECT DISTINCT
@@ -27,11 +27,12 @@
 	    AND <![CDATA[ f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
         AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
         ]]>
+        AND f.funding_state != 3
 	) subquery
 	ORDER BY subquery.order_key
 	</select>
 	
-	<!-- 선택된 날짜정보로 추출 -->
+	<!-- 선택된 날짜정보로 테마 추출 -->
 	<select id = "selectTheme" resultType="String" parameterType="map">
 		SELECT DISTINCT t.title
 		FROM tt_theme t
@@ -42,10 +43,8 @@
 		AND <![CDATA[ f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
         AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
         ]]>
+        AND f.funding_state != 3
 	</select>
-	
-	
-	<!-- @@@@@@@ 펀딩 랜덤 배정 @@@@@@@ -->
 	
 	<!-- 가격 100만원 이상 or 금액 무관 선택 시 랜던펀딩  -->
 	<select id="freeAmount" resultType="Integer" parameterType="randomFundingvo">
@@ -53,8 +52,10 @@
     FROM (
         SELECT f.funding_id
         FROM tt_funding f
-        JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
-        JOIN tt_theme t ON ft.theme_id = t.theme_id
+        <if test="themes != null and !themes.contains('미정')">
+	        JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
+	        JOIN tt_theme t ON ft.theme_id = t.theme_id
+        </if>
         JOIN tt_member m ON m.member_id = f.member_id
         WHERE <![CDATA[
         f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
@@ -63,7 +64,8 @@
           <if test="priceLow != null and priceLow != ''">
               AND f.price >= #{priceLow}
           </if>
-          <if test="themes != null and themes.size() > 0">
+          AND f.funding_state != 3
+          <if test="themes != null and !themes.contains('미정')">
 	          AND t.title IN
 	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">
 	              #{theme}
@@ -81,15 +83,18 @@
     FROM (
         SELECT f.funding_id
         FROM tt_funding f
-        JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
-        JOIN tt_theme t ON ft.theme_id = t.theme_id
+        <if test="themes != null and !themes.contains('미정')">
+        	JOIN tt_funding_theme ft ON f.funding_id = ft.funding_id
+        	JOIN tt_theme t ON ft.theme_id = t.theme_id
+        </if>
         JOIN tt_member m ON m.member_id = f.member_id
         WHERE <![CDATA[
         f.start_date >= TO_DATE(#{departure}, 'YYYY-MM-DD')
           AND f.end_date <= TO_DATE(#{arrival}, 'YYYY-MM-DD')
           ]]>
           AND f.price BETWEEN #{priceLow} AND #{priceHigh}
-          <if test="themes != null and themes.size() > 0">
+          AND f.funding_state != 3
+          <if test="themes != null and !themes.contains('미정')">
 	          AND t.title IN
 	          <foreach item="theme" index="index" collection="themes" open="(" separator="," close=")">
 	              #{theme}
@@ -99,7 +104,5 @@
         ORDER BY DBMS_RANDOM.VALUE()
     ) result
     WHERE ROWNUM = 1
-    
 	</select>
-
 </mapper>

@@ -17,9 +17,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<%@ include file="../common/header.jsp"%>
+		
 </head>
 <body>
+	<%@ include file="../common/header.jsp"%>
 	<div class="container">
 		<%@ include file="./mypageMenu.jsp"%>
 		<div class="mypage-coupon-content">
@@ -48,6 +49,32 @@
 		
 	<script>
 $(document).ready(function() {
+	localStorage.removeItem('selectedRoomId');
+	chatId = sessionStorage.getItem('selectedRoomId');
+	if (chatId) {
+		var chatUrl = '${path}/chat/' + chatId;
+		
+		// 채팅방 내용 로드
+		$.ajax({
+			url: chatUrl,
+			method: 'GET',
+			success: function(response) {
+				$('#content-view').html(response);
+				// 동적으로 로드한 HTML의 스크립트를 실행하도록 추가
+				var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = '${path}/resources/css/chatting.css';
+                document.head.appendChild(link);
+                
+                initChatPage(chatId);
+                sessionStorage.removeItem('selectedRoomId');
+			},
+			error: function() {
+				alert('채팅방 내용을 불러오는 데 실패했습니다.');
+			}
+		});
+	}
+	
     $('#chatroom').on('click', '.myRoom', function(event) {
         event.preventDefault();
         var url = $(this).attr('href');

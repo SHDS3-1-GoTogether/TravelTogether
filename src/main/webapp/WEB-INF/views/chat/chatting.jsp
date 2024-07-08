@@ -75,6 +75,7 @@
 			};
 
 			function startDisconnectTimer() {
+				console.log("확인!!!!!!!"+chatId);
 				//funding정보 가져오기ㅣ
 				$
 						.ajax({

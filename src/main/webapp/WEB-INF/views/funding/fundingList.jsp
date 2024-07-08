@@ -136,5 +136,7 @@ $(function(){
 		<hr class="top_hr">
 		<div class="items"></div>
 	</div>
+	<%@ include file="../common/footer.jsp" %>
+	
 </body>
 </html>

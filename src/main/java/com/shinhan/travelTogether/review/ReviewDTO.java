@@ -21,4 +21,7 @@ public class ReviewDTO {
 	private int funding_id;
 	private int member_id;
 	private String nickname;
+	
+	private String title; //funding_title
+	private String payment_id;
 }
