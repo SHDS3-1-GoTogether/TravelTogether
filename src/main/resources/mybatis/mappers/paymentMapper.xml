@@ -23,6 +23,11 @@
 		WHERE f.funding_id = #{fundingId}
 	</select>
 	
+	<select id="selecAllPayment" resultType="paymentvo">
+		select *
+		from tt_payment
+	</select>
+
 	<select id="getConsumerCount" resultType="map">
 		select funding_id as "funding_id", count(*) as "consumerCount" 
 		from tt_payment
@@ -90,4 +95,5 @@
 		update tt_funding set FUNDING_STATE = 3 where funding_id = #{funding_id}
 	
 	</update>
+
 </mapper>
