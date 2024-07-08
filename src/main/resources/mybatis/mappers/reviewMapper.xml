@@ -55,4 +55,17 @@
 				(select funding_id from tt_review  where review_id=#{review_id})
 	</select>
 	
+	<select id="selectBestReview" resultType="reviewvo">
+		<![CDATA[ 
+		select *
+		from (
+		    select r.*, f.title, m.nickname
+		    from tt_review r
+		        join tt_funding f on r.funding_id = f.funding_id
+		        join tt_member m on r.member_id=m.member_id
+		    where to_char(r.create_date, 'mm') = to_char(sysdate, 'mm')
+		    order by r.like_count desc)
+		where rownum <= 3]]>
+	</select>
+	
 </mapper>

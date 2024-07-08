@@ -177,7 +177,7 @@ SELECT m.WITHDRAWAL_DATE,
         UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}
     </update>
     
-    <select id="selectByMemberId" parameterType="int">
+    <select id="selectByMemberId" parameterType="int" resultType="membervo">
     	select * from tt_member where member_id=#{member_id}
     </select>
     
