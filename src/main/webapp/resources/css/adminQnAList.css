@@ -25,7 +25,9 @@ body {
  
 .container {
 	width: 70vw;
+	/* 
 	height: 100%;
+	 */
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
@@ -247,7 +249,7 @@ form {
 
 .row select {
 	/*-o-appearance: none;
-	-webkit-appearance: none; /* 네이티브 외형 감추기
+	-webkit-appearance: none; /* �꽕�씠�떚釉� �쇅�삎 媛먯텛湲�
 	-moz-appearance: none;
 	appearance: none;*/
 	width: 70%;
@@ -315,7 +317,7 @@ select option {
 	color: #fff;
 }
 
-/* 처음에는 rate 필드를 숨김 */
+/* 泥섏쓬�뿉�뒗 rate �븘�뱶瑜� �닲源� */
 .row .rate-fields, .row .price-fields {
 	display: none;
 }

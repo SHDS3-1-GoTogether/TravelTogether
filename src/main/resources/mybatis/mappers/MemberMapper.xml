@@ -4,28 +4,174 @@
 
 <mapper namespace="com.shinhan.member">
 
-	<select id="loginChk"
-		resultType="membervo"
+	<select id="loginChk" resultType="membervo"
 		parameterType="string">
 		select *
 		from tt_member
 		where login_id = #{login_id}
 	</select>
-	
+
 	<select id="selectAllMember" resultType="membervo">
 		select * from tt_member
 	</select>
-	
+
 	<select id="selectAllNormal" resultType="membervo">
-		select * from tt_member where is_manager=0
+		select * from tt_member
+		where is_manager=0
 	</select>
 
 	<insert id="memberInsert" parameterType="membervo">
-		insert into tt_member(member_id, login_id, login_pwd, username, nickname,
-		phone, email, gender, birth, is_manager, token, acc_amount, membership_id)
+		insert into
+		tt_member(member_id, login_id, login_pwd, username, nickname,
+		phone,
+		email, gender, birth, is_manager, token, acc_amount, membership_id)
 		values(MEMBER_SEQ.nextval,#{login_id},#{login_pwd},#{username},#{nickname},#{phone},#{email},
 		#{gender},#{birth},0,null,0,'walker')
 	</insert>
+
+
+	<select id="countExistingNormalMember" resultType="int">
+		select
+		COUNT(*) AS member_count from tt_member
+		where is_manager = 0 and
+		is_delete = 0
+	</select>
+
+	<select id="countMaleMember" resultType="int">
+		select
+		COUNT(*) AS
+		member_count from tt_member
+		where is_manager = 0 and
+		is_delete = 0 and
+		gender = 0
+	</select>
+
+	<select id="countDeletedNormalMember" resultType="int">
+		select
+		COUNT(*)
+		AS member_count from tt_member
+		where is_manager = 0 and is_delete = 1
+	</select>
+
+	<select id="getNormalMemberNum" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) AS
+		member_count
+		FROM tt_member
+		WHERE
+		is_manager = 0 and is_delete = 0
+		AND
+		EXTRACT(YEAR FROM join_date) =
+		EXTRACT(YEAR FROM ADD_MONTHS(SYSDATE, -#{month}))
+		AND EXTRACT(MONTH
+		FROM join_date) = EXTRACT(MONTH FROM ADD_MONTHS(SYSDATE, -#{month}))
+	</select>
+
+	<select id="getNormalMemberWithdrawalNum" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) AS
+		member_count
+		FROM tt_member
+		WHERE
+		is_manager = 0 and is_delete = 1
+		AND EXTRACT(YEAR FROM join_date) =
+		EXTRACT(YEAR FROM ADD_MONTHS(SYSDATE, -#{month}))
+		AND EXTRACT(MONTH
+		FROM join_date) = EXTRACT(MONTH FROM ADD_MONTHS(SYSDATE, -#{month}))
+	</select>
+
+	<select id="getMembershipNum" parameterType="String"
+		resultType="int">
+		select count(*)
+		from tt_member
+		where membership_id =
+		#{membershipId}
+	</select>
+
+	<select id="getMoney" resultType="int">
+		SELECT SUM(price) FROM
+		tt_payment
+	</select>
+
+
+	<select id="getMonthAgoJoinedMemberNum" resultType="Map">
+		<![CDATA[
+		WITH months AS (
+    SELECT TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -LEVEL), 'YYYY/MM') AS join_date
+    FROM DUAL
+    CONNECT BY LEVEL <= 6
+)
+SELECT m.join_date,
+       NVL(t.num, 0) AS num
+  FROM months m
+  LEFT JOIN (
+      SELECT TO_CHAR(join_date, 'YYYY/MM') AS join_date,
+             COUNT(*) AS num
+        FROM tt_member
+       WHERE is_manager = 0
+         AND is_delete = 0
+         AND join_date BETWEEN ADD_MONTHS(SYSDATE, -6) AND SYSDATE
+       GROUP BY TO_CHAR(join_date, 'YYYY/MM')
+  ) t
+    ON m.join_date = t.join_date
+ ORDER BY m.join_date ASC
+		]]>
+	</select>
+
+
+	<select id="getMonthAgoDeletedMemberNum" resultType="Map">
+<![CDATA[
+ WITH months AS (
+    SELECT TO_CHAR(ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -LEVEL), 'YYYY/MM') AS WITHDRAWAL_DATE
+    FROM DUAL
+    CONNECT BY LEVEL <= 6
+)
+SELECT m.WITHDRAWAL_DATE,
+       NVL(t.num, 0) AS num
+  FROM months m
+  LEFT JOIN (
+      SELECT TO_CHAR(WITHDRAWAL_DATE, 'YYYY/MM') AS WITHDRAWAL_DATE,
+             COUNT(*) AS num
+        FROM tt_member
+       WHERE is_manager = 0
+         AND is_delete = 1
+         AND WITHDRAWAL_DATE < TRUNC(SYSDATE, 'MM')
+         AND WITHDRAWAL_DATE >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -6)
+       GROUP BY TO_CHAR(WITHDRAWAL_DATE, 'YYYY/MM')
+  ) t
+    ON m.WITHDRAWAL_DATE = t.WITHDRAWAL_DATE
+ ORDER BY m.WITHDRAWAL_DATE ASC
+ ]]>
+	</select>
+
+	<select id="getQnaNum" resultType="int">
+		SELECT COUNT(*)
+		FROM tt_qna
+		WHERE answer_date IS NULL
+	</select>
+
+	<select id="getFundingState" resultType="Map">
+		SELECT '컨펌대기' AS funding_state, COUNT(*) AS count
+		FROM tt_funding
+		WHERE funding_state = 0
+		UNION ALL
+		SELECT '컨펌성공' AS funding_state, COUNT(*) AS count
+		FROM tt_funding
+		WHERE funding_state = 1
+		UNION ALL
+		SELECT '컨펌실패' AS funding_state, COUNT(*) AS count
+		FROM tt_funding
+		WHERE funding_state = 2
+		UNION ALL
+		SELECT '펀딩완료' AS funding_state, COUNT(*) AS count
+		FROM tt_funding
+		WHERE funding_state = 3
+		UNION ALL
+		SELECT '펀딩실패' AS funding_state, COUNT(*) AS count
+		FROM tt_funding
+		WHERE funding_state = 4
+		
+	</select>
 	
 	<update id="memberUpdate" parameterType="membervo">
         UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}

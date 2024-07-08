@@ -24,24 +24,22 @@
 			<c:forEach var="message" items="${beforeChat}">
 				<c:if test="${message.member_id == member.member_id}">
 					<div class="message_container">
-					<span style="font-size:12px;color:#777;margin-bottom: 3px;">
-					${message.send_date}</span>
-					<div class="message">
-						 <span
-							class="message_content">${message.message_content}</span> <span
-							class="send_date">${message.send_date}</span>
-					</div>
+						<span style="font-size: 12px; color: #777; margin-bottom: 3px;">
+							${message.send_date}</span>
+						<div class="message">
+							<span class="message_content">${message.message_content}</span>
+						</div>
 					</div>
 				</c:if>
 				<c:if test="${message.member_id != member.member_id}">
 					<div class="yourChat_message">
-						<span class="member_id">'🧳' + ${message.member_id}</span> 
-					<div class="your_message_background">
-					<div class="your_message">
-						<span class="message_content">${message.message_content}</span> 			
-							<span style="font-size:12px;color:#777;margin-bottom: 3px;">${message.send_date}</span>
-					</div>
-					</div>
+						<span class="member_id">🧳 ${message.nickname}</span>
+						<div class="your_message_background">
+							<div class="your_message">
+								<span class="message_content">${message.message_content}</span>
+							</div>
+							 <span style="font-size: 12px; color: #777; margin-bottom: 3px;">${message.send_date}</span>
+						</div>
 					</div>
 				</c:if>
 			</c:forEach>
@@ -54,7 +52,7 @@
 	</div>
 	<script>
 		function connectWebSocket(url) {
-			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+url);
+			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + url);
 			console.log(location.host);
 			if (ws != null) {
 				console.log("close 타니????????????")
