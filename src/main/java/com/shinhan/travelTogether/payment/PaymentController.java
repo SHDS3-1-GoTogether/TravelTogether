@@ -52,9 +52,10 @@ public class PaymentController {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		session.setAttribute("member_id", member_id);
 		session.setAttribute("funding_id", funding_id);
-
+		
+		
 		// 로그인 기능 구현시 수정
-		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon(1);
+		List<UserCouponDTO> couponlist = userCouponService.selectAllUserCoupon((int)session.getAttribute("member_id"));
 		model.addAttribute("couponlist", couponlist);
 	}
 
