@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .select-category {
-	width: 50%;
+	width: 23%;
 	padding: 10px 20px;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .list-table {
-	width: 100%;
+	width: 84%;
 	margin: 0 auto;
 	border: 1px solid #C9C9C9;
 	border-radius: 8px;
@@ -103,7 +103,7 @@ form {
 }
 
 .modal_bg {
-	/* display: none; */
+	display: none;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -112,7 +112,7 @@ form {
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 99;
 	
-	display :flex; 
+	/* display :flex;  */
 	/* justify-content:center;
 	align-items :center;	 */
 }
@@ -153,7 +153,7 @@ form {
 
 .row select {
 	/*-o-appearance: none;
-	-webkit-appearance: none; /*     티           薩 
+	-webkit-appearance: none; 
 	-moz-appearance: none;
 	appearance: none;*/
 	width: 70%;
@@ -248,4 +248,18 @@ select option {
 	font-weight: bold;
 	font-size: 1em;
 	cursor: pointer;
+}
+.fa-heart:before {
+    /* content: "\f004"; */
+    color: crimson;
+    font-size: large;
+}
+
+.update-btn, .delete-btn, button[class~="comment-answer"] {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    color: #99A1B7;
+    border: 0;
+    cursor: pointer;
 }

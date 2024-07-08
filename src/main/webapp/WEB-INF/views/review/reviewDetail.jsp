@@ -14,40 +14,48 @@
 <link rel="stylesheet" href="${path}/resources/css/fundingDetail.css">
 <link rel="stylesheet" href="${path}/resources/css/reviewDetail.css">
 <%-- <script src="${path}/resources/js/fundingDetail.js"></script> --%>
-
-
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+/>
+<script src="${path}/resources/js/fundingDetail.js"></script>
+<script>
+	let images = new Array();
+</script>
 </head>
 <body>
+<c:forEach var="photo" items="${pic}">
+		<script>
+			images.push("${photo}");	
+		</script>
+	</c:forEach>
 <%@ include file="../common/header.jsp" %>
-		<div class="content_wrapper">
-		<h1 class="pageTitle">Review </h1>
+	<div class="content_wrapper">
+	<h1 class="pageTitle">Review </h1>
 		<div class="form-wrapper">
-		<div class="form-left-wrapper">
-		
-			<div class="detailContent">
-			
-				<div class="detail-title">"${fundingDetail.title}"</div>
-			
-				<div class="detail-content">${reviewDetail.review_content}</div>
-				<%-- <c:forEach var="photo" items="${pic}">
-					<img alt="${photo}" 
-					src="${photo}"
-					width="200" height="200">
-					<script>
-						images.push("${photo}");	
-					</script>
-				</c:forEach> --%>	
+			<div class="form-left-wrapper">
+				<div class="detailContent">
+					<div class="detail-title">"${fundingDetail.title}"</div>
+					<div class="detail-content">${reviewDetail.review_content}</div>
 						<div class="slider__wrap">
-		            <div class="slider__img"></div>
-		            <div class="slider__thumnail"></div>
-		            <div class="slider__btn">
-		                <a href="#" class="previous"><img alt="vector-left.png" src="${path}/resources/images/vector-left.png"></a>
-		                <a href="#" class="next"><img alt="" src="${path}/resources/images/vector-right.png"/></a>
-		            </div>
-		        </div>
+				            <div class="slider__img"></div>
+	       			            <div class="slider__btn">
+				                	<a href="#" class="previous"><img alt="vector-left.png" src="${path}/resources/images/vector-left.png"></a>
+				                	<a href="#" class="next"><img alt="" src="${path}/resources/images/vector-right.png"/></a>
+				            	</div>
+				            <div class="slider__thumnail"></div>
+			       		</div>
+			       		<%-- <div class="row mt-2">
+	            			<div class="col">
+	               				<button class="heart-button"><i id="heartBox" onclick="toggleLike()" class="fas fa-heart"></i> ${reviewDetail.like_count}</button>
+	                			<span id="totalLikeCount"></span>
+	               				<input type="hidden" name="review_id" value="${reviewDetail.review_id}">
+	                			<input type="hidden" name="member_id" value="${member.member_id}">						
+	            			</div>
+	    			 	</div> --%>
+				</div>
+		
 			</div>
-	
-		</div>
 		<div class="right-wrapper">
 		<div class="option_wrapper">
 			<p class="option-title">옵션내역</p>
@@ -142,8 +150,8 @@
 	<div class="add-comment-modal-box">
 		<h2>댓글 등록</h2>
 		<form id="insert_form" action="${path}/review/commentInsert.do" method="post">
-			<input type="text" name="comment_id" value="0">
-			<input type="text" name="review_id" value="${param.review_id}">
+			<input type="hidden" name="comment_id" value="0">
+			<input type="hidden" name="review_id" value="${param.review_id}">
 			 
 			<div class="row">
 				<label for="comment_content">내용</label>
@@ -160,8 +168,8 @@
 	<div class="update-comment-modal-box">
 		<h2>댓글 수정</h2>
 		<form id="update_form" action="${path}/review/commentUpdate.do" method="post">
-			<input type="text" id="update_comment_id" name="comment_id">
-			<input type="text" name="review_id" value="${param.review_id}">
+			<input type="hidden" id="update_comment_id" name="comment_id">
+			<input type="hidden" name="review_id" value="${param.review_id}">
 			<div class="row">
 				<label for="update_comment_content">내용</label>
 				<textarea name="comment_content" id="update_comment_content" maxlength="5000" rows="4" required></textarea>

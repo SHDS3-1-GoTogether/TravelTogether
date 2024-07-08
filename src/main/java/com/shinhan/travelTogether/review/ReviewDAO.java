@@ -59,6 +59,15 @@ public class ReviewDAO {
 		return fundingDetail;
 	}
 	
+	public int getReviewId() {
+		return sqlSession.selectOne(namespace + "getReviewId");
+	}
+	
+	public int updateReviewViews(int review_id) {
+		int result = sqlSession.update(namespace + "updateReviewViews", review_id);
+		return result;
+	}
+
 	public List<ReviewDTO> selectBestReview(){
 		return sqlSession.selectList(namespace+"selectBestReview");
 	}

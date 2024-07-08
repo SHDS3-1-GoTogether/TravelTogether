@@ -66,7 +66,7 @@ public class HomeController {
 		List<Integer> reviewIdList = reviewlist.stream()
 			.map(ReviewDTO::getReview_id)
 			.collect(Collectors.toList());
-		List<PhotoDTO> reviewphotolist = pService.selectReviewPhoto(reviewIdList);
+		List<PhotoDTO> reviewphotolist = pService.selecBestReviewPhoto(reviewIdList);
 		
 		List<Integer> fundingIdList = fundinglist.stream()
 				.map(FundingDTO::getFunding_id)
