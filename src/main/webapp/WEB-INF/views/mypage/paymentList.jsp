@@ -11,179 +11,25 @@
 <title>결제 내역</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${path}/resources/css/mypageMenu.css" rel="stylesheet">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<style>
-body {
-	width: 100%;
-	margin: 0;
-}
-
-.mypage-header {
-	width: 70vw;
-	margin: 0 auto;
-	padding: 20px 20px 10px 20px;
-}
-
-.mypage-header h2 {
-	font-size: 1.8em;
-	padding: 0 20px;
-	margin: 0;
-}
-
-.container {
-	width: 70vw;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: row;
-	padding: 20px;
-}
-
-.mypage-payment-content {
-	width: 70%;
-	margin: 0 auto;
-	padding-bottom: 20px;
-}
-
-.mypage-payment-content>h2 {
-	font-size: 24px;
-	margin-top: 0;
-	margin-bottom: 20px;
-	padding-left: 20px;
-}
-
-html, body {
-	width: 100%;
-}
-
-body, div, ul, li {
-	margin: 0;
-	padding: 0;
-}
-
-ul, li {
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-.tab {
-	display: flex;
-	align-items: center;
-	padding: 1rem;
-}
-
-.tab__item {
-	padding: 0.6rem 1.3rem;
-	margin-right: 1rem;
-	border: 1px solid #ddd;
-	border-radius: 2rem;
-}
-
-.tab__item.active {
-	display: inline-block;
-	border: 1px solid #68A6F3;
-	background-color: #68A6F3;
-	color: #fff;
-}
-
-.tab__content-wrapper {
-	width: 100%;
-	padding: 0;
-}
-
-.tab__content {
-	display: none;
-}
-
-.tab__content.active {
-	display: block;
-}
-
-.list-table {
-	width: 100%;
-	margin: 0 auto;
-	border: 1px solid #C9C9C9;
-	border-radius: 8px;
-	padding: 10px 0;
-}
-
-.list-table .header, .list-table .data {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	/* padding: 10px 0; */
-}
-
-.list-table .header p, .list-table .data p {
-	color: #99A1B7;
-	font-size: 0.9em;
-	text-align: center;
-	flex: 1;
-}
-
-.list-table .header p {
-	font-weight: bold;
-}
-
-.list-table .data p {
-	color: black;
-}
-
-.list-table .data .payment-buttons {
-	/* display: flex; */
-	flex-direction: column;
-	align-items: flex-start;
-}
-
-.list-table .data .payment-buttons button {
-	width: 100px !important;
-	height: 30px !important;
-	font-size: 14px !important;
-	box-sizing: border-box;
-	margin: 3px 0 !important;
-	padding: 0 !important;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-.payment-buttons .detail-button {
-	background-color: #007bff;
-	color: white;
-}
-
-.payment-buttons .detail-button:hover {
-	background-color: #0056b3;
-}
-
-.payment-buttons .refund-button {
-	background-color: #dc3545;
-	color: white;
-}
-
-.payment-buttons .refund-button:hover {
-	background-color: #c82333;
-}
-
-.refund-unavailable {
-	color: red;
-	font-weight: bold;
-	padding: 5px;
-}
-</style>
+<link href="${path}/resources/css/mypagePaymentList.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-    // 현재 페이지의 URL 가져오기
-    var currentUrl = window.location.href;
-    $(".menu-link").removeClass("highlight");
+    
+ 	// 현재 페이지의 URL 가져오기
+	var currentUrl = window.location.href;
+	$(".menu-link").removeClass("highlight");
 
+	// URL에 "coupon"이 포함되어 있는지 확인
+	if (currentUrl.includes("payment") || currentUrl.includes("refund")) {
+		// "쿠폰" 링크의 폰트 스타일 변경
+		$("#payment-link").addClass("highlight");
+	}
+    
     // URL에 따라 적절한 탭을 활성화
     if (currentUrl.includes("refundList.do")) {
         $(".tab__item").removeClass("active");
@@ -239,8 +85,6 @@ $(document).ready(function() {
         }
     });
 });
-
-
 </script>
 </head>
 <body>
