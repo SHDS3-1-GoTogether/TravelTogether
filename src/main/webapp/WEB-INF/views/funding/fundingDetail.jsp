@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>펀딩 글 상세보기</title>
 <link rel="stylesheet" href="${path}/resources/css/fundingBase.css">
 <link rel="stylesheet" href="${path}/resources/css/fundingDetail.css">
 <script src="${path}/resources/js/fundingDetail.js"></script>
