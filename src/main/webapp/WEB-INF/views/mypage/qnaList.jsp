@@ -70,8 +70,14 @@
 					<p class="qna-title">${qna.title}</p>
 					<p class="qna-create-date">${qna.create_date}</p>
 					<p class="qna-answer-date">${qna.answer_date}</p>
-					<p class="qna-button"><button class="button update-btn" onclick="f_updateBtnClick('${qna.qna_category}','${qna.title}', '${qna.qna_content}', ${qna.qna_id})">
-						<i class="fas fa-pencil-alt"></i></button></p>
+					
+					<p class="qna-button">
+						<c:if test="${empty qna.answer}">
+							<button class="button update-btn" onclick="f_updateBtnClick('${qna.qna_category}','${qna.title}', '${qna.qna_content}', ${qna.qna_id})">
+								<i class="fas fa-pencil-alt"></i>
+							</button>
+						</c:if>
+					</p>
 					<p class="qna-button"><button class="button delete-btn"><i class="fas fa-trash-alt"></i></button></p>
 					
 						<button type="button" class="collapsible qna-answer">+</button>
