@@ -1,4 +1,14 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'Ownglyph_ryuttung-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryuttung-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@keyframes slideIn {
+	from {transform: translateX(30%);}
+	to {transform: translateX(0);}
+}
 body {
 	width: 99%;
 	height: 100%;
@@ -65,6 +75,8 @@ html {
 	padding-left: 2%;
 	padding-right: 2%;
     margin-bottom: 50px;
+    	background-image: url("../images/travel.jpg");
+    
 }
 
 .form-left-wrapper {
@@ -103,6 +115,7 @@ html {
 	text-align: left;
 	padding: 5px;
 	margin-bottom: 30px;
+	font-family: Ownglyph_ryuttung-Rg;
 }
 
 .option-title{
@@ -118,7 +131,7 @@ html {
 }
 
 .option-li-wrapper > li {
-	color: #0053b5;
+	color: #7591b1;
 	margin-bottom: 3px;
 	font-weight: bold;
 	font-size: 18px;
@@ -132,20 +145,28 @@ html {
 }
 
 .option-li-wrapper > li > div {
-	margin-left: 20px;
-	margin-top: 10px;
-	font-weight: lighter;
-	font-style: italic;
-	font-size: 15px;
-	color: #4E548E;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+    color: #0e22dd;
+    animation: slideIn 3s ease-out;
+    text-decoration: wavy;
+    text-decoration-line: underline;
+    text-decoration-color: chocolate;
 }
 .option-li-wrapper > li > span {
 	margin-left: 5px;
 	margin-top: 10px;
-	font-weight: lighter;
-	font-style: italic;
-	font-size: 15px;
-	color: #4E548E;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+    color: #0e22dd;
+    animation: slideIn 3s ease-out;
+    text-decoration: wavy;
+    text-decoration-line: underline;
+    text-decoration-color: chocolate;
 }
 
 .payBtn-wrapper {
