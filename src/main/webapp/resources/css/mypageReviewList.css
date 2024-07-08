@@ -91,6 +91,18 @@ a {
 	border-bottom: 1px dashed #DBDFE9;
 }
 
+.funding-name {
+	width: 20% !important;
+}
+
+.funding-date {
+	width: 50% !important;
+}
+
+.review-create {
+	width: 20% !important;
+}
+
 .tab__content .header p {
 	display: inline-block;
 	color: #99A1B7;

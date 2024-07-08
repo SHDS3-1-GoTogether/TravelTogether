@@ -33,7 +33,7 @@ html {
 	margin-left: 5%;
 	text-align: left;
 	font-size: 30px;
-	font-weight: 500;
+	font-weight: bold;
 	font-style: italic;
 }
 
@@ -57,7 +57,6 @@ html {
 	position: relative;
 	width: 100%;
 	min-width: 800px;
-	height: calc(100% + 100px);
 	border: 1px solid rgba(0, 0, 0, 0.25);
 	border-radius: 15px;
 	box-shadow: rgba(0, 0, 0, 0.25);
@@ -66,6 +65,7 @@ html {
 	background-color: #FFFCFC;
 	padding-left: 2%;
 	padding-right: 2%;
+    margin-bottom: 50px;
 }
 
 .form-left-wrapper {
@@ -80,17 +80,22 @@ html {
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 	margin-top: 2%;
 	margin-left: 1%;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 	background-color: #FFFFFF;
 }
 
-.option_wrapper {
+.right-wrapper{
+	width: 30%;
+	margin-left: 2%;
 	float: right;
+	margin-top: 2%;
+}
+
+.option_wrapper {
 	display: inline-block;
 	position: relative;
-	width: 30%;
+	width: 100%;
 	max-width: 280px;
-	height: 100%;
 	border: 1px solid rgba(0, 0, 0, 0.19);
 	border-radius: 15px;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -104,8 +109,10 @@ html {
 
 .option-title{
 	color: #4E548E;
-	margin-left: 10px;
+	margin-left: 20px;
+	margin-top: 10px;
 	font-weight: bold;
+	
 }
 
 .option-li-wrapper > li {

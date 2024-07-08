@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shinhan.travelTogether.funding.FundingDTO;
+
 @Service
 public class ReviewService {
 
@@ -19,19 +21,21 @@ public class ReviewService {
 		return reviewDao.selectMyreviewAll(member_id);
 	}
 	
-	public List<ReviewDTO> selectMyreviewByFundingId() { //X
-		return reviewDao.selectMyreviewByFundingId();
-	}
-	
-	public int insertMyreview(ReviewDTO reviewDto) { //X
+	public int insertMyreview(ReviewDTO reviewDto) {
 		return reviewDao.insertMyreview(reviewDto);
 	}
 	
-	public List<ReviewDTO> selectMyreviewByFundingName(ReviewDTO reviewDto) {
-		return reviewDao.selectMyreviewByFundingName(reviewDto);
+	public List<FundingDTO> selectMyWritableReview(int member_id) {
+		return reviewDao.selectMyWritableReview(member_id);
 	}
 	
-	public List<ReviewDTO> selectMyWritableReview(int member_id) {
-		return reviewDao.selectMyWritableReview(member_id);
+	/////////////////////////////////////////////////////////////////
+	
+	public ReviewDTO selectAllMainReview(int review_id) {
+		return reviewDao.selectAllMainReview(review_id);
+	}
+	
+	public FundingDTO selectAllMainFunding(int review_id){
+		return reviewDao.selectAllMainFunding(review_id);
 	}
 }

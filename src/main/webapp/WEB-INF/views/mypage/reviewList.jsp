@@ -16,10 +16,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<style>
-
-</style>
-
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -44,21 +40,25 @@
 						<div class=""></div>
 					</div>
 				</div>
-			</div>
+			
 			<!-- 탭 내용 영역 -->
 			<div class="tab__content-wrapper">
 				<div id="tab1" class="tab__content active">
 					<div class="review-content-wrap">
 						<div class="header">
-							<p>펀딩 이름</p>
-							<p>펀딩 날짜</p>
-							<p>리뷰 작성</p>
+							<p clsss="funding-name">펀딩 이름</p>
+							<p clsss="funding-departure">펀딩 장소</p>
+							<p clsss="funding-price">펀딩 가격</p>
+							<p clsss="funding-people-num">펀딩참여 수</p>
+							
+							<p class="funding-date">펀딩 참여 날짜</p>
+							<p class="review-create">리뷰 작성</p>
 						</div>
 						<div class="data">
 							<c:forEach var="review2" items="${reviewlist2}">
-								<p>${review2.title}</p>
-								<p>${review2.create_date}</p>
-								<p><button onclick="location.href = '${path}/mypage/reviewInsert.do' ">리뷰작성하기</button></p>					
+								<p clsss="funding-name">${review2.title}</p>
+								<p class="funding-date">${review2.start_date} - ${review2.end_date}</p>
+								<p class="review-create"><button onclick="location.href = '${path}/mypage/reviewInsert.do?funding_id='+${review2.funding_id} ">리뷰작성하기</button></p>					
 							</c:forEach>
 						</div>
 					</div>
@@ -82,6 +82,7 @@
 							</c:forEach>
 						</div>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

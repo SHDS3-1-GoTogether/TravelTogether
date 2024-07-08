@@ -16,12 +16,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shinhan.travelTogether.funding.FundingAdminDTO;
 import com.shinhan.travelTogether.funding.FundingDTO;
 import com.shinhan.travelTogether.funding.FundingService;
+import com.shinhan.travelTogether.member.MemberDTO;
+import com.shinhan.travelTogether.member.MemberService;
 import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Autowired
+	MemberService memberService;
 	
 	@Autowired
 	FundingService fundingService;
@@ -35,8 +40,16 @@ public class AdminController {
 	}
 	
 	@GetMapping("/memberList.do")	// 包府磊 - 雀盔包府 其捞瘤
-	public void memberList() {
+	public void memberList(Model model, 
+			@RequestParam(value="word", required=false, defaultValue = "") String word) {
+		List<MemberDTO> memberlist = null;
+		if(word.equals("")) {			
+			memberlist = memberService.selectAllNormal();
+		} else {
+			memberlist = memberService.searchByWord(word);
+		}
 		
+		model.addAttribute("memberlist", memberlist);
 	}
 	
 	@GetMapping("/fundingList.do")	// 包府磊 - 戚爹包府 其捞瘤

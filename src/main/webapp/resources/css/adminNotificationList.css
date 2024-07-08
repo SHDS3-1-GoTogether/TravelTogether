@@ -28,7 +28,7 @@ body {
 .content {
 	width: 70%;
 	flex-grow: 1;
-	padding: 40px 80px;
+	padding: 40px 10px 40px 40px;
 }
 
 .content h2 {
@@ -67,6 +67,8 @@ body {
 	width: 90%;
 	margin: 0 auto;
 	border-bottom: 1px dashed #DBDFE9;
+	display: flex;
+	justify-content: space-between;
 }
 
 .list-table .header p {
@@ -99,6 +101,7 @@ body {
 	font-size: 0.9em;
 	padding: 0 5px;
 	text-align: center;
+	line-height: 40px;
 	width: 15%;
 }
 

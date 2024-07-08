@@ -1,21 +1,65 @@
+.mypage-coupon-content {
+    margin: 20px;
+}
+
 .coupon-content-wrap {
-         width: 100%; /* 부모 요소의 너비를 100%로 설정 */
-        max-width: 800px; /* 최대 너비를 설정 (예: 800px) */
-        margin: 0 auto; /* 좌우 마진을 auto로 설정하여 가운데 정렬 */
-        text-align: center; /* 내부 요소의 텍스트를 가운데 정렬 */
-        display: block; /* 블록 레벨 요소로 설정 */
-        position: relative; /* 상대 위치 지정 */
-        margin-bottom: 20px; /* 하단 마진 설정 */
-    }
-.myRoom{
-display: inline-block; /* 인라인 블록 요소로 설정 */
-    width: 500px; 
- border: 1px solid #ccc; 
- border-radius: 10px;
- padding: 10px; 
- margin: 10px; 
- background-color: #FAE100; 
- text-align: center;
- color: #391B1B;
- font-weight: bold;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #e1f3fd;
+    display: flex;
+    flex-direction: column;
+}
+
+.coupon-content-wrap h1 {
+	padding-left: 20px;
+	margin-bottom: 0;
+	margin-top: 10px;
+}
+
+#row-css{
+    display: flex;
+    flex-direction: row;
+}
+
+#chatroom {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    background-color: #FFF;
+}
+
+.myRoom {
+    display: block; /* a 태그를 블록 요소로 설정 */
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px auto;
+    background-color: #e1f3fd;
+    text-align: center;
+    color: #391B1B;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis;
+    text-decoration: none; /* 링크의 기본 스타일 제거 */
+}
+
+.myRoom:hover {
+    background-color: #95caff;
+}
+
+.content-view {
+	width:400px;
+    flex: 2; /* 오른쪽 영역이 가변적 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #FFF;
+    margin-left: 20px;
+    max-width: 70%
 }

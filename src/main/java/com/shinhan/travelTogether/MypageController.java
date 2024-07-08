@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shinhan.travelTogether.comment.CommentDTO;
+import com.shinhan.travelTogether.comment.CommentService;
 import com.shinhan.travelTogether.coupon.CouponService;
 import com.shinhan.travelTogether.coupon.UserCouponDTO;
 import com.shinhan.travelTogether.funding.FundingDTO;
@@ -33,6 +36,8 @@ import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
 import com.shinhan.travelTogether.payment.PaymentDTO;
 import com.shinhan.travelTogether.payment.PaymentService;
+import com.shinhan.travelTogether.photo.PhotoService;
+import com.shinhan.travelTogether.qna.UserQnADTO;
 import com.shinhan.travelTogether.review.ReviewDTO;
 import com.shinhan.travelTogether.review.ReviewService;
 
@@ -58,6 +63,9 @@ public class MypageController {
 	
 	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -131,21 +139,34 @@ public class MypageController {
 		logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
 		model.addAttribute("reviewlist", reviewlist);
 		
-		List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
+		//List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
 		//List<PaymentDTO> paymentlist = paymentService.selectAllPayment();
-		List<ReviewDTO> reviewlist2 = reviewService.selectMyWritableReview(member_id);
-		model.addAttribute("fundinglist", fundinglist);
+		List<FundingDTO> reviewlist2 = reviewService.selectMyWritableReview(member_id);
+		//model.addAttribute("fundinglist", fundinglist);
 		//model.addAttribute("patmentlist", paymentlist);
 		model.addAttribute("reviewlist2", reviewlist2);
 	}
 	
-	/*
 	@GetMapping("/reviewInsert.do")
-	public String reviewInsert(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
-			ReviewDTO review) {
-		
-		return ;
+	public void reviewInsert(Model model,HttpSession session, Integer funding_id) {
+		//model.addAttribute("", reviewService.);
+		if (session.getAttribute("insertResult") == null) {
+			session.setAttribute("insertResult", -1);
+		}
+		model.addAttribute("funding_id", funding_id);
 	}
-	*/
+	
+	@PostMapping("/reviewInsert.do")
+	public String reviewInsert(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
+			@RequestParam("review_content") String review_content, Integer funding_id
+			, ReviewDTO review ) {
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		//int funding_id = ((FundingDTO) session.getAttribute("funding_id")).getFunding_id();
+		review.setMember_id(member_id);
+		review.setFunding_id(funding_id);
+		int result = reviewService.insertMyreview(review);
+		attr.addFlashAttribute("insertResult", result);
+		return "redirect:reviewList.do";
+	}
 	
 }

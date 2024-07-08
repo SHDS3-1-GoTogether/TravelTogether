@@ -71,17 +71,17 @@
 					<p class="qna-create-date">${qna.create_date}</p>
 					<p class="qna-answer-date">${qna.answer_date}</p>
 					<p class="qna-button"><button class="button update-btn" onclick="f_updateBtnClick('${qna.qna_category}','${qna.title}', '${qna.qna_content}', ${qna.qna_id})">
-						<i class="fas fa-pencil-alt"></i></button>
-					</p>
-					<p class="qna-button"><button class="button delete-btn"><i class="fas fa-trash-alt"></i></button>
-						
-					</p>
+						<i class="fas fa-pencil-alt"></i></button></p>
+					<p class="qna-button"><button class="button delete-btn"><i class="fas fa-trash-alt"></i></button></p>
 					
 						<button type="button" class="collapsible qna-answer">+</button>
 						<%-- <div class="content"> ${qna.answer}</div> --%>
 						<div class="content">
+							<h3>[문의 내용]</h3>
+							<h4>${qna.qna_content}</h4><br>
+							<h3>[답변 내용]</h3>
 							<c:if test="${qna.answer == null}">
-								관리자가 확인중에 있습니다. 잠시만 기다려주세요.
+							<h4>관리자가 확인중에 있습니다. 잠시만 기다려주세요.</h4>
 							</c:if>
 						 	${qna.answer}</div>
 					<input type="hidden" class="qna_id" value="${qna.qna_id}">
@@ -115,7 +115,7 @@
 			</div>
 			<div class="row">
 				<label for="qna_content">내용</label>
-				<textarea name="qna_content" id="qna_content" placeholder="문의할 내용을 작성해주세요." maxlength="5000" rows="10" required></textarea>
+				<textarea name="qna_content" id="qna_content" placeholder="문의할 내용을 작성해주세요." maxlength="5000" rows="8" required></textarea>
 			</div>
 			<div class="buttons">
                 <button type="button" class="cancel-button">취소</button>
@@ -145,7 +145,7 @@
 			</div>
 			<div class="row">
 				<label for="update_qna_content">내용</label>
-				<textarea name="qna_content" id="update_qna_content" maxlength="5000" rows="10" required></textarea>
+				<textarea name="qna_content" id="update_qna_content" maxlength="5000" rows="8" required></textarea>
 			</div>
 			<div class="buttons">
                 <button type="button" class="cancel-button">취소</button>

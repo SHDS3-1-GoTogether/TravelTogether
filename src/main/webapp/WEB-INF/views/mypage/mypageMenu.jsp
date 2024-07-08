@@ -23,7 +23,7 @@
 		<ul class="list-group">			
 		    <li class="list-group-item">
 		    	<a href="${path}/mypage/correction.do" class="menu-link" id="correction-link">
-		    		<i class="fas fa-user"></i> 회원정보수정
+		    		<i class="fas fa-user"></i> 정보수정
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
