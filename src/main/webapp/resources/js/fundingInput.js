@@ -52,7 +52,7 @@ $(function() {
 			var currentNum = $(this).val();			
 			
 			if(currentObj == "people_num") {
-				if(currentNum < 1 || currentNum > 50) {
+				if(currentNum < 2 || currentNum > 50) {
 					$("#people_num_info").attr("style", "color:red");
 					$(this).val(currentNum.slice(0,-1));
 					$(this).focus();
