@@ -29,28 +29,6 @@
 		#{gender},#{birth},0,null,0,'walker')
 	</insert>
 
-	<update id="memberUpdate" parameterType="membervo">
-<<<<<<< HEAD
-		UPDATE tt_member SET
-		login_pwd = #{login_pwd}, nickname = #{nickname}, phone
-		= #{phone}
-		WHERE member_id = #{member_id}
-	</update>
-
-	<select id="selectByMemberId" parameterType="int">
-		select * from
-		tt_member where member_id=#{member_id}
-	</select>
-
-	<select id="searchByCondition" parameterType="String"
-		resultType="membervo">
-		select *
-		from tt_member
-		where login_id like '%' || #{word} ||
-		'%' or username like '%' || #{word}
-		|| '%' or nickname like '%' ||
-		#{word} || '%'
-	</select>
 
 	<select id="countExistingNormalMember" resultType="int">
 		select
