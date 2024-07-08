@@ -75,6 +75,7 @@ public class RandomFundingController {
 
 		// 테마 선택
 		List<String> theme = rfService.getThemeAll(map);
+		theme.add("미정");
 		model.addAttribute("theme", theme);
 	}
 
