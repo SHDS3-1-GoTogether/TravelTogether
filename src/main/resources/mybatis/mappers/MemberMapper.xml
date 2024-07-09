@@ -24,9 +24,10 @@
 		insert into
 		tt_member(member_id, login_id, login_pwd, username, nickname,
 		phone,
-		email, gender, birth, is_manager, token, acc_amount, membership_id)
+		email, gender, birth, is_manager, token, acc_amount, membership_id,
+		is_delete, join_date)
 		values(MEMBER_SEQ.nextval,#{login_id},#{login_pwd},#{username},#{nickname},#{phone},#{email},
-		#{gender},#{birth},0,null,0,'walker')
+		#{gender},#{birth},0,null,0,'walker', 0, sysdate)
 	</insert>
 
 
@@ -175,6 +176,10 @@ SELECT m.WITHDRAWAL_DATE,
 	
 	<update id="memberUpdate" parameterType="membervo">
         UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}
+    </update>
+    
+    <update id="memberDelete" parameterType="int">
+        UPDATE tt_member SET WITHDRAWAL_DATE = sysdate, is_delete = 1 WHERE member_id = #{member_id}
     </update>
     
     <select id="selectByMemberId" parameterType="int" resultType="membervo">

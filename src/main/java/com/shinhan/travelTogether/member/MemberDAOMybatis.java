@@ -49,6 +49,10 @@ public class MemberDAOMybatis {
 		logger.info("DeptDAOMybatis....memberInsert()");
 		return sqlSession.insert(namespace + "memberInsert", member);
 	}
+	
+	public int deleteMember(MemberDTO member) {
+		return sqlSession.insert(namespace + "memberDelete", member);
+	}
 
 	public MemberDTO idDupChk(String login_id) {
 		MemberDTO member = sqlSession.selectOne("com.shinhan.member.loginChk", login_id);

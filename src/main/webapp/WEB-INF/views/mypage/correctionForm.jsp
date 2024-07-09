@@ -8,14 +8,16 @@
 <link href="${path}/resources/css/correctionForm.css" rel="stylesheet">
 </head>
 <body>
-	<form action="${path}/mypage/correction.do" method="post" id="registrationForm">
+	<form action="${path}/mypage/correction.do" method="post"
+		id="registrationForm">
 		<div class="form-group">
-			<label for="member_id">회원코드:</label> <input type="text" id="member_id"
-				name="member_id" value=${member.member_id } readonly>
+			<label for="member_id">회원코드:</label> <input type="text"
+				id="member_id" name="member_id" value=${member.member_id } readonly>
 		</div>
 		<div class="form-group">
-			<label for="membership_id">회원등급:</label> <input type="text" id="membership_id"
-				name="membership_id" value=${member.membership_id } readonly>
+			<label for="membership_id">회원등급:</label> <input type="text"
+				id="membership_id" name="membership_id"
+				value=${member.membership_id } readonly>
 		</div>
 		<div class="form-group">
 			<label for="login_id">아이디:</label> <input type="text" id="login_id"
@@ -43,8 +45,10 @@
 		</div>
 		<div>
 			<label for="gender">성별:</label> <input type="radio" id="male"
-				name="gender" value="0" <c:if test="${member.gender == 0}">checked</c:if> disabled><label for="male">남성</label> <input
-				type="radio" id="female" name="gender" value="1" <c:if test="${member.gender == 1}">checked</c:if> disabled><label
+				name="gender" value="0"
+				<c:if test="${member.gender == 0}">checked</c:if> disabled><label
+				for="male">남성</label> <input type="radio" id="female" name="gender"
+				value="1" <c:if test="${member.gender == 1}">checked</c:if> disabled><label
 				for="female">여성</label>
 		</div>
 		<div>
@@ -54,6 +58,11 @@
 		<div class="form-group">
 			<button type="submit">수정</button>
 		</div>
+	</form>
+	<form action="${path}/mypage/delete.do" method="get">
+	<div>
+		<button type="submit">회원탈퇴</button>
+	</div>
 	</form>
 </body>
 </html>
