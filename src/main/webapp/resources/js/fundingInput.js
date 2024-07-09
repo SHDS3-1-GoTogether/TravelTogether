@@ -519,7 +519,7 @@ $('#submit5').on('click', function() {
 			formData.append("extraPicArr", extraPicArr[i]);
 		}
           for (var pair of formData.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]); 
+               console.log(pair[0]+ ', ' + pair[1]); 
         	}
         $('#loading').show();
 		$.ajax({
@@ -612,25 +612,26 @@ let currentIndex = 0;
 
 
  function mainImageOnClick() {
- 	$("#main-image").click();
  	
 	var image =$("#mainImage");
 	image.removeAttr("class");
 	image.removeAttr("src");
 	image.attr("class", "default-image");
 	image.attr("src", "../resources/images/add_img.png");
+	$("#main-image").click();
+	
  }
 
 
 function detailImageOnClick(index) {
-	$(`#detailImage${index}`).click();
-	
 		
 	var image =$(`#detailImage${index}Preview`).children();
 	image.removeAttr("class");
 	image.removeAttr("src");
 	image.attr("class", "default-image");
 	image.attr("src", "../resources/images/add_img.png");
+	$(`#detailImage${index}`).click();
+	
 	
 }
 	
