@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.refund">
+	
+	<insert id="insertRefundInfo">
+		update tt_payment set refund = 1, refund_date = SYSDATE, refund_reason = #{refundReason} where payment_key = #{paymentKey}
+	</insert>
+
+</mapper>

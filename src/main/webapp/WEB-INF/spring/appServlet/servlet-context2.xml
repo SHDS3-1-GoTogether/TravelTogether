@@ -9,12 +9,16 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location"
-			value="/WEB-INF/spring/appServlet/oracleDB.properties" />
-		<property name="fileEncoding" value="UTF-8" />
-	</bean>
+	 <bean
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+        <list>
+            <value>/WEB-INF/spring/appServlet/oracleDB.properties</value>
+            <value>/WEB-INF/spring/appServlet/application.properties</value>
+        </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8" />
+    </bean>
 
 	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> 
 		<property name="driverClassName" value="${jdbc.driverClassName}" /> <property 

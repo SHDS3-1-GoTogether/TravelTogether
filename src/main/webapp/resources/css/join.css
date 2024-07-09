@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 600px;
+	margin: 50px auto;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.form-group:first-child {
+	margin: 0;
+}
+
+.form-group label:first-child {
+	width: 25%;
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+.form-group label:not(first-child) {
+	width: 15%;
+	font-size: 1.1em;
+}
+
+.form-group input[type="text"], .form-group input[type="password"],
+	.form-group input[type="email"] {
+	width: calc(45% - 0px);
+	padding: 10px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.form-group #emailCode {
+	font-size: 15px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.form-group input[type="radio"] {
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	transition: border 0.5s ease-in-out;
+	border-radius: 50%;
+}
+
+.form-group input[type="checkbox"] {
+	width: auto;
+}
+
+.duplication {
+	width: 25%;
+	text-aling: right;
+}
+
+.form-group button {
+	margin-left: 20px;
+	/* width: 80%; */
+	padding: 5px 10px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.form-group button:hover {
+	background-color: #0056b3;
+}
+
+.id-content {
+	font-size: small;
+	color: #787878;
+	margin-bottom: 20px;
+	display: flex;
+}
+
+.blank {
+    flex: 0 0 30%; /* 30%의 너비를 차지하도록 설정 */
+}
+
+.id-content p {
+    flex: 1; /* 남은 공간을 p 요소가 차지하도록 설정 */
+}
+
+.text-center {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.text-center a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.text-center a:hover {
+	text-decoration: underline;
+}
+
+.character-img {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.character-img img {
+	max-width: 100%;
+	height: auto;
+}
+
+.button-group {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	margin-top: 40px;
+}
+
+.button-group input[type='button'] {
+	width: 45%;
+	padding: 8px 0;
+	border-radius: 10px;
+	font-size: 1.2em;
+	font-weight: bold;
+	border: 0;
+}
+
+.button-group #cancel {
+	
+	background-color: #c2c2c2;
+	color: white;
+}
+
+.button-group #submit {
+	background-color: #007bff;
+	color: white;
+}

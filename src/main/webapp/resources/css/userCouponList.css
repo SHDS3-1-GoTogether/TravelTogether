@@ -1,0 +1,133 @@
+body {
+	width: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.mypage-header {
+    width: 70vw;
+    margin: 0 auto;
+    padding: 20px 20px 10px 20px;
+}
+
+.mypage-header h2 {
+	font-size: 1.8em;
+	padding: 0 20px;
+	margin: 0;
+}
+
+.container {
+	width: 70vw;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
+}
+
+.mypage-coupon-content {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.mypage-coupon-content > h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.coupon-content-wrap {
+	width: 100%;
+	max-height: 600px;
+	border-radius: 8px;
+	padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.coupon-item-outer-wrap {
+	display: flex;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.coupon-item-inner-wrap {
+	width: 85%;	
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #DBDFE9;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+.coupon-count {
+	width: 15%;
+	display: flex;
+	align-items: center;
+}
+
+.coupon-count > p {
+	width: 100%;
+	padding-left: 30px;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.coupon-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.coupon-info1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.coupon-info2 {
+    display: flex;
+    font-size: 14px;
+    color: #555;
+    justify-content: flex-end;
+    > p {
+    	padding: 5px;
+    }
+}
+
+.coupon-info-max-discount, .coupon-info-due-date {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-weight: bold;
+    > p {
+    	padding: 5px;
+    }
+}
+
+.coupon-info-max-discount p:first-child, .coupon-info-due-date p:first-child {
+    color: #99A1B7;
+    margin: 0;
+    
+}
+
+.coupon-info-max-discount p:last-child, .coupon-info-due-date p:last-child {
+    color: #9D9D9D;
+    margin: 0;
+}
+
+.no-coupon-content {
+	width: 100%;
+	text-align: center;
+	color: #9D9D9D;
+}

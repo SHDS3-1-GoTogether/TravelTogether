@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shinhan.travelTogether.comment">
+	<select id="selectAllComment" resultType="commentvo" parameterType="int">
+		select c.*, m.nickname
+		from tt_comment c
+			join tt_member m on(c.member_id=m.member_id)
+		where review_id=#{review_id}
+		order by create_date
+	</select>
+	
+	<insert id="insertComment" parameterType="commentvo">
+		insert into tt_comment(comment_id, comment_content, create_date, member_id, review_id)
+		 values(comment_seq.nextval, #{comment_content}, sysdate, #{member_id}, #{review_id})
+	</insert>
+	
+	<update id="updateComment" parameterType="commentvo">
+		update tt_comment 
+		set comment_content=#{comment_content} 
+		where comment_id=#{comment_id}
+	</update>	
+	
+	<delete id="deleteComment" parameterType="commentvo">
+		delete from tt_comment 
+		where comment_id=#{comment_id}
+	</delete>
+	
+</mapper>

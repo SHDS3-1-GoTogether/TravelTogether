@@ -1,0 +1,174 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Ownglyph_ryuttung-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryuttung-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@keyframes slideIn {
+	from {transform: translateX(30%);}
+	to {transform: translateX(0);}
+}
+body {
+	width: 99%;
+	height: 100%;
+	position: relative;
+    z-index: 5;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+/* Wrapper  */
+.content_wrapper {
+	position: relative;
+	margin: 0 auto;
+	width: 80%;
+	min-width: 800px;
+	text-align: center;
+	margin-bottom: 200px;
+	z-index: -1;
+}
+
+/* 페이지 제목  */
+.pageTitle {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    min-width: 300px;
+    margin: 10px auto;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+.semi-title {
+	display: block;
+	position: relative;
+	float: left;
+	width:90%;
+	min-width: 100px;
+	margin-top: 7px;
+	margin-left: 5%;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 600;
+	color: #4E548E;
+}
+
+
+.form-wrapper {
+	display: inline-block;
+	position: relative;
+	width: 80%;
+	min-width: 800px;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.25);
+	margin-top: 2%;
+	overflow: auto;
+	background-color: #f8fdff;
+	padding-left: 2%;
+	padding-right: 2%;
+    margin-bottom: 50px;
+    background-image: url("../images/travel.jpg");
+    background-size: contain;
+}
+
+.form-left-wrapper {
+	float: left;
+	display: inline-block;
+	position: relative;
+	width: 65%;
+	min-width: 470px;
+	border: 1px solid rgba(0, 0, 0, 0.19);
+	border-radius: 15px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	margin-top: 2%;
+	margin-left: 1%;
+	margin-bottom: 50px;
+	background-color: #FFFFFF;
+}
+
+.right-wrapper{
+	width: 30%;
+	margin-left: 2%;
+	float: right;
+	margin-top: 2%;
+}
+
+.option_wrapper {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	max-width: 280px;
+	border: 1px solid rgba(0, 0, 0, 0.19);
+	border-radius: 15px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	margin-top: 2%;
+	margin-right: 1%;
+	background-color: #FFFFFF;
+	text-align: left;
+	padding: 5px;
+	margin-bottom: 30px;
+	font-family: Ownglyph_ryuttung-Rg;
+}
+
+.option-title{
+	color: #4E548E;
+	margin-left: 20px;
+	margin-top: 10px;
+	font-weight: bold;
+	font-size: 20px;
+	
+}
+.option-li-wrapper {
+    padding-inline-start: 30px;
+}
+
+.option-li-wrapper > li {
+	color: #7591b1;
+	margin-bottom: 3px;
+	font-weight: bold;
+	font-size: 18px;
+	list-style:none;
+}
+
+.option-li-wrapper > li >img{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.option-li-wrapper > li > div {
+    margin-left: 20px;
+    margin-top: 10px;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+    color: #0e22dd;
+    animation: slideIn 3s ease-out;
+    text-decoration: wavy;
+    text-decoration-line: underline;
+    text-decoration-color: chocolate;
+}
+.option-li-wrapper > li > span {
+	margin-left: 5px;
+	margin-top: 10px;
+    font-weight: lighter;
+    font-style: italic;
+    font-size: 15px;
+    color: #0e22dd;
+    animation: slideIn 3s ease-out;
+    text-decoration: wavy;
+    text-decoration-line: underline;
+    text-decoration-color: chocolate;
+}
+
+.payBtn-wrapper {
+    margin-bottom: 50px;
+}

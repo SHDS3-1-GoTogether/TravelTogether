@@ -1,0 +1,58 @@
+/* 관리자메뉴 */
+
+/* .side-menubar {
+	width: 250px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 20px 0px;
+	gap: 20px;
+	position: absolute;
+	left: 0px;
+} */
+
+.side-menubar {
+    width: 150px;
+    margin: 0;
+    border-right: 1px solid #9D9D9D;
+    /* box-shadow: 2px 0 5px rgba(0,0,0,0.1); */
+}
+
+.side-menubar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-menubar ul li {
+    padding: 5px 20px;
+    cursor: pointer;
+    color: black;
+}
+
+.side-menubar ul li a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.side-menubar ul li a p {
+	display: inline-block;
+	color: inherit;
+}
+
+.side-menubar ul li a p:first-child {
+	width: 23px;
+	text-align: center;
+	margin-right: 5px;
+}
+
+.side-menubar ul li.active {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+/* 모달창 사용시 본문 스크롤 막기 */
+.scrollLock {
+	overflow: hidden;
+}

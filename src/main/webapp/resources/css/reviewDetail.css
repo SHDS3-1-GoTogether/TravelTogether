@@ -1,0 +1,282 @@
+@charset "UTF-8";
+.select-category {
+	width: 23%;
+	padding: 10px 20px;
+}
+
+.add-button {
+	padding: 10px;
+	background-color: #F1F1F4;
+	font-weight: bold;
+	border-radius: 10px;
+	border: 0;
+	cursor: pointer;
+}
+
+.list-table {
+	width: 84%;
+	margin: 0 auto;
+	border: 1px solid #C9C9C9;
+	border-radius: 8px;
+	padding: 10px 0;
+}
+
+.header {
+	width: 90%;
+	margin: 0 auto;
+	border-bottom: 1px dashed #DBDFE9;
+}
+
+.list-table .header p {
+	display: inline-block;
+	color: #99A1B7;
+	font-size: 0.9em;
+	padding: 0 5px;
+	text-align: center;
+	width: 8%;
+}
+
+.data {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.data:not(.data:last-child) {
+	border-bottom: 1px dashed #DBDFE9;
+}
+
+.list-table .data p {
+	display: inline-block;
+	font-size: 0.9em;
+	padding: 0 5px;
+	text-align: center;
+	width: 8%;
+}
+
+.comment-nickname {
+	width: 15% !important;
+}
+
+.comment-content {
+	width: 55% !important;
+}
+
+.comment-create-date {
+	width: 10% !important;
+}
+
+.comment-button {
+	width: 10% !important;
+}
+
+.content {
+  padding: 20px 20px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.add-comment-modal-box, .update-comment-modal-box {
+	display: none;
+	width: 50%;
+	height: fit-content;
+	border-radius: 20px;
+	padding: 20px 40px;
+	margin: 0 auto;
+	background-color: white;
+	flex-flow: column;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+	z-index: 99999;
+}
+
+form {
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.modal_bg {
+	display: none;
+	/* position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 99; */
+	
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    transform: translate(-50%, -50%);
+	
+	
+	/* display :flex;  */
+	/* justify-content:center;
+	align-items :center;	 */
+}
+
+.add-comment-modal-box .row, .update-comment-modal-box .row {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.row label {
+	width: 30%;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.row input[type="text"], .row input[type="number"] {
+	width: 65%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	line-height: 1.5;
+	font-weight: bold;
+}
+
+.row textarea {
+	resize: none;
+	width: 67%;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 1.1em;
+	line-height: 1.5;
+	padding: 10px;
+}
+
+.row select {
+	/*-o-appearance: none;
+	-webkit-appearance: none; 
+	-moz-appearance: none;
+	appearance: none;*/
+	width: 70%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	font-weight: bold;
+	line-height: 1.5;
+	background-size: 20px;
+	background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 7px) center no-repeat;
+}
+
+.row select::-ms-expand { 
+	display: none;
+}
+.row select:focus-visible, 
+.row input:focus-visible,
+.row textarea:focus-visible {
+	border-color: rgba(27,132,255,1);
+	box-shadow: 0 0 0 .25rem rgba(27,132,255,.25);
+	outline: rgba(27,132,255,.5);
+}
+
+select option {
+	font-size: 1.2em;
+	height: 1.5em;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.note {
+	display: block;
+	margin-bottom: 10px;
+	color: #1B84FF;
+	font-size: small;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	margin: 10px 0;
+}
+
+.cancel-button, .submit-button {
+	width: 45%;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.cancel-button {
+	background-color: #ccc;
+	color: #fff;
+}
+
+.submit-button, .confirm-button {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.row .rate-fields, .row .price-fields {
+	display: none;
+}
+
+.insert-result-modal-box, .delete-result-modal-box, .update-result-modal-box {
+	display: none;
+	width: 200px;
+	height: fit-content;
+	border-radius: 20px;
+	padding: 20px 40px;
+	margin: 0 auto;
+	background-color: white;
+	flex-flow: column;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+	z-index: 99999;
+}
+
+.confirm-button, .delete-confirm-button, .update-confirm-button {
+	width: 100%;
+	border: none;
+	border-radius: 10px;
+	padding: 5px 0;
+	margin: 10px 0;
+	font-weight: bold;
+	font-size: 1em;
+	cursor: pointer;
+}
+.fa-heart:before {
+    /* content: "\f004"; */
+    color: crimson;
+    font-size: large;
+}
+
+.update-btn, .delete-btn, button[class~="comment-answer"] {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    color: #99A1B7;
+    border: 0;
+    cursor: pointer;
+}
+
+.modal_bg, .add-comment-modal-box, .update-comment-modal-box  {
+    position: fixed;  /* .modal_fram 속성을 가진 요소를 현재 보고있는 창을 기준으로 고정, 스크롤되어도 따라다님 */
+    left: 50%; /*  보고 있는 화면 (= 뷰 포트, position이 fixed 이므로) 가로 선 중앙 50%로 이동 */
+    top: 50%; /*  보고 있는 화면 세로 선 중앙 50% 이동 */
+    transform: translate(-50%, -50%); /*  요소를 수직 및 수평으로 -50% 만큼 이동 > 최종적으로 화면 정 중앙에 위 */치
+}

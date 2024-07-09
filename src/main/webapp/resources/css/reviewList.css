@@ -1,0 +1,270 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	height: 100%;
+	position: relative;
+    z-index: -1;
+}
+
+/* Wrapper  */
+.content_wrapper {
+	height: 100%;
+	position: relative;
+	margin: 0 auto;
+	width: 70vw;
+	text-align: center;
+	z-index: -1;
+}
+
+/* 페이지 제목  */
+.pageTitle {
+	display: block;
+	position: relative;
+	float: left;
+	width:30vw;
+	margin-bottom: 0;
+	margin-left: 5%;
+	text-align: left;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+
+/* 검색란  */
+
+.search_submit{
+	display: inline-block;
+	position: relative;
+	background: rgba(231, 229, 249, 1);
+	border : 1px solid rgba(0, 0, 0, 0.19);
+	width: 50px;
+	height: 30px;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 150px;
+}
+
+.search_wrapper {
+	position: relative;
+	display: inline-block;
+	margin: 3% auto;
+	width: 80%;
+	height: 120px;
+	margin-top: 30px;
+	border: 1px solid rgba(0, 0, 0, 0.19);
+	border-radius: 10px;
+	padding-left: 20px;
+	padding-top: 10px;
+	transform: translate(50px, 0);
+}
+
+.search_left {
+	width: 40%;
+	height: 80%;
+	margin: 0 auto;
+	text-align: left;
+	float: left;
+	padding-left: 5%;
+}
+.search_left > span{
+	position: relative;
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+
+}
+.input-wrapper {
+	width: 60%;
+	display: inline-block;
+	position: relative;
+}
+
+
+.input-wrapper > input {
+	width: 100%;
+}
+.search_right {
+	position: relative;
+	display: inline-block;
+	width: 40%;
+	height: 80%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 31px;
+	transform: translate(-30px, 0);
+	
+}
+.search_right > span{
+	position: relative;
+	display: inline-block;
+	margin-top: 10px;
+	width: 100%;
+}
+
+.search_right span:last-child{
+	display: inline-block;
+	position: relative;
+	margint-right: 50px;
+}
+
+.search_wrapper > input {
+	margin: 10px 2px 10px 2px;
+}
+
+
+
+/* 구분선  */
+
+.top_hr{
+	position: relative;
+	width: 95%;
+	margin-bottom: 2%;
+}
+
+.review-list{
+	width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 24px;
+}
+
+.card{
+	margin-bottom: 30px;
+	border: 1px solid #C9C9C9;
+	border-radius: 8px;
+	padding: 10px 0;
+	adding: 10px 0;
+    width: 48%;
+    height: 100%;
+    min-height: 500px;
+}
+
+.img-wrap{
+	width: 100%;
+	height: 60%;
+	min-height: 300px;	
+}
+
+.item_img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-footer {
+    margin-bottom: 20px;
+}
+
+
+
+/* 펀딩 글 목록  */
+
+.item {
+	width: 80%;
+	height: 200px;
+	position: relative;
+	display: block;
+	border: 1px solid rgba(0, 0, 0, 0.19);
+	border-radius: calc(var(- -curve)* 1px);
+	overflow: hidden;
+	text-decoration: none;
+	border-radius: 15px;	
+	margin: 0 auto;
+	margin-bottom: 20px;
+	
+}
+
+/* 펀딩 리스트 필터  */
+
+.dropdown{
+	width: 90px;
+	height: 30px;
+  	position : relative;
+  	display : inline-block;
+  	float: right;
+  	right: 5%;
+  	bottom: 10px;
+}
+
+.dropbtn_click {
+	text-align: center;
+	transform: translate(0, 2px);
+	
+}
+
+.dropbtn{
+  display : block;
+  border : 1px solid rgb(94, 94, 94);
+  border-radius : 4px;
+  background-color: #fcfcfc;
+  font-weight: 400;
+  color : rgb(124, 124, 124);
+  padding : 5px;
+  width: 90px;
+  height: 30px;
+  text-align: left  cursor : pointer;
+  font-size : 10px;
+  z-index :1;
+  position : relative;
+  margin: 0 auto;
+
+}
+.dropdown-content{
+  position: relative;
+  display : none;
+  font-weight: 400;
+  background-color: #fcfcfc;
+  width : 90spx;
+  border-radius: 5px;
+  height : 160px;
+  overflow : scroll;
+  box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
+  margin-left: 8px;
+}
+.dropdown-content::-webkit-scrollbar{
+  width : 5px;
+  height : 10px;
+}
+.dropdown-content::-webkit-scrollbar-thumb{
+  border-radius : 2px;
+  background-color :rgb(194, 194, 194)
+}
+
+.dropdown-content div{
+  display : block;
+  text-decoration : none;
+  color : rgb(37, 37, 37);
+  font-size: 12px;
+  padding-top: 15px;
+  width: 90px;
+  height: 40px;
+}
+.dropdown-content div:hover{
+  background-color: rgb(226, 226, 226);
+}
+
+.dropdown-content.show{
+  display : block;
+  position: absolute;
+  z-index: 1;
+}
+.fa-heart:before {
+    /* content: "\f004"; */
+    color: crimson;
+}
+.confirm-button {
+    /* width: 100%; */
+    padding: 6px;
+    /* border: 0; */
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid rgba(0, 123, 255, 0.8);
+    color: rgba(0, 123, 255, 0.8);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.buttons {
+    margin-top: 5px;
+}

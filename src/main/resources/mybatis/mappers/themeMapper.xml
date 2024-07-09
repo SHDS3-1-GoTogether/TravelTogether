@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.shinhan.travelTogether.theme">
+	<select id="selectTheme" resultType="themevo">
+  		select * from tt_theme
+  	</select>  
+  	<insert id="insertFundingTheme" parameterType="fundingthemevo">
+  		insert 
+  		into tt_funding_theme(funding_theme_id, funding_id, theme_id) 
+  		values(
+  			funding_theme_seq.nextval, #{funding_id}, #{theme_id}
+  		)
+  	</insert>
+  	
+  </mapper>
