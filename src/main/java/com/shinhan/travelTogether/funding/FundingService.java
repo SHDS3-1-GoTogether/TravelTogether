@@ -58,4 +58,8 @@ public class FundingService {
 	public List<FundingAdminDTO> selectByOption(Integer member_type, Integer funding_state) {
 		return fundingDAO.selectByOption(member_type, funding_state);
 	}
+	
+	public List<FundingDTO> selectAllByMemberId(Integer member_id){
+		return fundingDAO.selectAllByMemberId(member_id);
+	}
 }

@@ -32,9 +32,7 @@ body {
 
 .container {
 	width: 70vw;
-	/* 
 	height: 100%;
-	 */
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
@@ -359,7 +357,7 @@ select option {
 	margin: 0 auto;
 	background-color: white;
 	flex-flow: column;
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);

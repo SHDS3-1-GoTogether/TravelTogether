@@ -17,6 +17,20 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	$(function() {
+		// 현재 페이지의 URL 가져오기
+		var currentUrl = window.location.href;
+		$(".menu-link").removeClass("highlight");
+
+		// URL에 "notification"이 포함되어 있는지 확인
+		if (currentUrl.includes("chatroom")) {
+			// "알림" 링크의 폰트 스타일 변경
+			$("#chatroom-link").addClass("highlight");
+		}
+	});
+	
+</script>
 		
 </head>
 <body>

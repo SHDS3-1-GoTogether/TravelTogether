@@ -17,14 +17,17 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 	
-
+	<script>
+	
+	
+	</script>
 	
 	</head>
 	<body>
 		<%@ include file="../common/header.jsp" %>
 		<div class="content_wrapper">
 			<h1 class="pageTitle">Review List</h1>
-			<form class="search_wrapper">
+			<%-- <form class="search_wrapper">
 				<span class="search_left">
 					<span>제&nbsp&nbsp목 : <span class="input-wrapper"><input type="text" name="serarch_title"></span></span><br>
 					<span>지&nbsp&nbsp역 : <span class="input-wrapper"><input type="text" name="serarch_area"></span> </span><br>
@@ -46,9 +49,9 @@
 			      <div class="filter" onclick="showMenu(this.innerText)">최신순</div>
 			      <div class="filter" onclick="showMenu(this.innerText)">조회순</div>
 			    </div>
-		  	</div>
+		  	</div> --%>
 			
-			<hr class="top_hr">
+			<!-- <hr class="top_hr"> -->
 
 			
 

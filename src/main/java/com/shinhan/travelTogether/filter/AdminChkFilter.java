@@ -31,14 +31,12 @@ public class AdminChkFilter implements Filter {
 		if(req.getRequestURI().contains("admin")) {	// 관리자 페이지일 경우 관리자 계정 체크
 			
 			if(member == null || !member.getIs_manager()) {	// 관리자페이지에 접근하는 유저가 관리자 계정이 아닐 경우
-				System.out.println("!!!!!관리자 외 접근!!!!!");
 				String path = req.getContextPath();
 				res.sendRedirect(path);
 				return;
 			} 
 		} else if(req.getRequestURI().contains("mypage")) {	// 마이페이지일 경우 일반 회원만 접근 가능
 			if(member != null && member.getIs_manager()) {	// 마이페이지에 접근하는 유저가 관리자 계정일 경우
-				System.out.println("!!!!!마이페이지 관리자 접근!!!!!");
 				String path = req.getContextPath();
 				res.sendRedirect(path+"/admin/dashboard.do");
 				return;

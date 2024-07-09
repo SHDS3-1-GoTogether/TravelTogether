@@ -178,10 +178,6 @@ SELECT m.WITHDRAWAL_DATE,
         UPDATE tt_member SET login_pwd = #{login_pwd}, nickname = #{nickname}, phone = #{phone} WHERE member_id = #{member_id}
     </update>
     
-    <update id="memberDelete" parameterType="int">
-        UPDATE tt_member SET WITHDRAWAL_DATE = sysdate, is_delete = 1 WHERE member_id = #{member_id}
-    </update>
-    
     <select id="selectByMemberId" parameterType="int" resultType="membervo">
     	select * from tt_member where member_id=#{member_id}
     </select>
@@ -194,7 +190,8 @@ SELECT m.WITHDRAWAL_DATE,
     
     <update id="deleteMember" parameterType="int">
     	update tt_member m
-		set is_delete = 1
+		set is_delete = 1,
+			withdrawal_date = sysdate
 		where m.member_id=#{member_id}
 		and not exists(
 		select 1

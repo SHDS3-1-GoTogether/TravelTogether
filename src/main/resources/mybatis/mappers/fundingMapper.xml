@@ -112,6 +112,10 @@
 		order by f.funding_id desc
 	</select>
 	
+	<select id="selectAllByMemberId" parameterType="int" resultType="fundvo">
+		select * from tt_funding where member_id = #{member_id}
+	</select>
+	
 	<insert id="insertFunding" parameterType="fundvo">
 		insert into
 		tt_funding(funding_id, title, funding_content, create_date, area,

@@ -17,9 +17,7 @@ body {
 }
 
 .container {
-	/*  
 	height: 100%;
-	*/
 	width: 70vw;
 	margin: 0 auto;
 	display: flex;
@@ -87,7 +85,7 @@ body {
 }
 
 .data-wrap {
-	height: 90%;
+	height: 85%;
 	overflow-y: scroll;	
 }
 

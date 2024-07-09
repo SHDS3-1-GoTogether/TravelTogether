@@ -140,7 +140,7 @@ body {
 
 /* 회원 리뷰 스타일 */
 .reviews {
-    padding: 2rem;
+    /* padding: 2rem; */
     text-align: center;
     width: 80vw;
     margin: 0 auto;
