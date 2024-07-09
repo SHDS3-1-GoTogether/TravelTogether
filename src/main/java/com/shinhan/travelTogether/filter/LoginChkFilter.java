@@ -49,7 +49,8 @@ public class LoginChkFilter implements Filter {
 		if(session.getAttribute("member") == null) {
 			session.setAttribute("member", null);
 		}
-		if(requestURI.equals("/notifications/subscribe"))
+		if(requestURI.contains("/notifications/subscribe") ||
+				requestURI.contains("chatroomList"))
 			requestURI = "/";
 		if(isLoginCheckPath(requestURI)){	// 로그인 페이지를 제외한 모든 페이지에 방문할 때
 			// 로그인 전 머물렀던 페이지 URI 저장
