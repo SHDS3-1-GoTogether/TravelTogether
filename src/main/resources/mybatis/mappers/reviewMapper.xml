@@ -9,6 +9,7 @@
 		from tt_review r
 			join tt_member m on(r.member_id=m.member_id)
 			join tt_funding f on(r.funding_id=f.funding_id)
+		order by r.create_date desc
 	</select>
 	
 	<select id="selectMyreviewAll" parameterType="int" resultType="reviewvo">
@@ -37,7 +38,6 @@
                                         where r.member_id=#{member_id})
 	</select>
 	
-	
 	<select id="selectAllByDate" resultType="reviewvo">
 		select * from tt_review order by create_date desc
 	</select>
@@ -53,6 +53,18 @@
 	<select id="selectAllMainFunding" parameterType="int" resultType="fundvo">
 		select * from tt_funding where funding_id = 
 				(select funding_id from tt_review  where review_id=#{review_id})
+	</select>
+	
+	<update id="updateReviewViews" parameterType="int">
+		update tt_review
+		set views = views + 1
+		where review_id = #{review_id}
+	</update>
+	
+	<select id="getReviewId" resultType="int">
+		select review_id
+		from (select * from tt_review order by review_id desc)
+		where rownum=1
 	</select>
 	
 	<select id="selectBestReview" resultType="reviewvo">

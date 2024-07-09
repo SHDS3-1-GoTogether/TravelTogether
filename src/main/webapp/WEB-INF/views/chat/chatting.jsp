@@ -15,10 +15,6 @@
 	<div class="chat-container">
 		<div class="EnterOut_div">
 			<input type="text" id="user" class="form-control" placeholder="유저명">
-			<!-- <button type="button" class="btn btn-default enter_Btn"
-				id="btnConnect">연결</button>
-			<button type="button" class="btn btn-default out_Btn"
-				id="btnDisconnect" disabled>종료</button> -->
 		</div>
 		<div id="chatting">
 			<c:forEach var="message" items="${beforeChat}">
@@ -38,7 +34,7 @@
 							<div class="your_message">
 								<span class="message_content">${message.message_content}</span>
 							</div>
-							 <span style="font-size: 12px; color: #777; margin-bottom: 3px;">${message.send_date}</span>
+							<span style="font-size: 12px; color: #777; margin-bottom: 3px;">${message.send_date}</span>
 						</div>
 					</div>
 				</c:if>
@@ -52,22 +48,15 @@
 	</div>
 	<script>
 		function connectWebSocket(url) {
-			console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + url);
 			console.log(location.host);
 			if (ws != null) {
-				console.log("close 타니????????????")
 				ws.close();
 				ws = null;
 			}
-			//ws = new WebSocket("ws://" + location.host + "/" + url);
 			ws = new WebSocket("ws://" + location.host + url);
 			ws.onopen = function(evt) {
-				//console.log(ws);
-				//console.log("url:" + url);
 				ws.send('1#' + $('#user').val() + '#');
 				$('#user').attr('readonly', true);
-				$('#btnConnect').attr('disabled', true);
-				$('#btnDisconnect').attr('disabled', false);
 				$('#msg').attr('disabled', false);
 
 				// 연결 후 마감일 + 7일 뒤에 연결 끊기 타이머 시작
@@ -75,10 +64,8 @@
 			};
 
 			function startDisconnectTimer() {
-				console.log("확인!!!!!!!"+chatId);
-				//funding정보 가져오기ㅣ
-				$
-						.ajax({
+				//funding정보 가져오기
+				$.ajax({
 							url : "${path}/getFunding",
 							type : "GET",
 							data : {
@@ -86,13 +73,10 @@
 							},
 							success : function(response) {
 								endDate = response;
-								//console.log("aaaaaaaaa" + endDate);
 
 								var currentTime = getCurrentTimeInMilliseconds();
 								var time = endDate - currentTime + 604800000;
 
-								console.log("지금: " + currentTime);
-								console.log("마감일: " + endDate);
 								console.log("타이머: " + time);
 
 								// JavaScript의 setTimeout은 최대 2147483647 밀리초(약 24.8일)까지 처리 가능
@@ -109,8 +93,7 @@
 											if (iteration < iterations) {
 												setTimeout(
 														function() {
-															console
-																	.log(`Iteration ${iteration + 1}: ${maxTimeout}ms elapsed`);
+															//console.log(`Iteration ${iteration + 1}: ${maxTimeout}ms elapsed`);
 															scheduleNextTimeout(iteration + 1);
 														}, maxTimeout);
 											} else {
@@ -149,7 +132,8 @@
 				} else if (no == '2') {
 					index = evt.data.indexOf(":", 2);
 					user = evt.data.substring(2, index);
-					txt = evt.data.substring(index + 1);
+					let index2 = evt.data.indexOf("#", 2 + index);
+					txt = evt.data.substring(index + 1, index2);
 					printOther(user, txt);
 				}
 			};

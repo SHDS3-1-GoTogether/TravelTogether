@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shinhan.travelTogether.comment.CommentService;
@@ -38,7 +38,8 @@ import com.shinhan.travelTogether.notification.NotificationDTO;
 import com.shinhan.travelTogether.notification.NotificationService;
 
 import com.shinhan.travelTogether.payment.PaymentService;
-
+import com.shinhan.travelTogether.photo.PhotoDTO;
+import com.shinhan.travelTogether.photo.PhotoService;
 import com.shinhan.travelTogether.review.ReviewDTO;
 import com.shinhan.travelTogether.review.ReviewService;
 
@@ -67,6 +68,9 @@ public class MypageController {
 
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	PhotoService pService;
 
 	@GetMapping("/correction.do")
 	public void correction(Locale locale, Model model) {
@@ -152,8 +156,8 @@ public class MypageController {
 	public void reviewList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<ReviewDTO> reviewlist = reviewService.selectMyreviewAll(member_id);
-		System.out.println(reviewlist);
-		logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
+		//System.out.println(reviewlist);
+		//logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
 		model.addAttribute("reviewlist", reviewlist);
 
 		// List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
@@ -175,17 +179,45 @@ public class MypageController {
 
 	@PostMapping("/reviewInsert.do")
 	public String reviewInsert(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
-			@RequestParam("review_content") String review_content, Integer funding_id, ReviewDTO review) {
+			@RequestParam(value="review_photo") List<MultipartFile> review_photo,
+			@RequestParam("review_content") String review_content, Integer funding_id ) throws IOException {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
-		// int funding_id = ((FundingDTO)
-		// session.getAttribute("funding_id")).getFunding_id();
+		//int funding_id = ((FundingDTO) session.getAttribute("funding_id")).getFunding_id();
+		ReviewDTO review = new ReviewDTO();
 		review.setMember_id(member_id);
 		review.setFunding_id(funding_id);
+		review.setReview_content(review_content);
 		int result = reviewService.insertMyreview(review);
 		attr.addFlashAttribute("insertResult", result);
+		if(result == 1) {
+			insertPhotoList(review_photo, "/review", funding_id);
+		}
+		//System.out.println("~~~~~여기여기여기!!!!!~~~~~~~~" + review_photo);
 		return "redirect:reviewList.do";
 	}
 
+	public void insertPhotoList(List<MultipartFile> fileList, String detailPath, Integer funding_id) throws IOException {
+		if(!fileList.isEmpty()) {
+			for (MultipartFile mf : fileList) {
+				
+				if(mf.isEmpty())
+					continue;
+				
+				String imgPath = pService.upload(mf, detailPath);
+				
+				
+				PhotoDTO photo = new PhotoDTO();
+				photo.setFunding_id(funding_id);
+				photo.setPhoto_name(imgPath);
+				photo.setPurpose(1);
+				photo.setReview_id(reviewService.getReviewId());
+				
+				String photoResult = pService.insertPhoto(photo) + "개 db등록";
+				System.out.println(photoResult);
+			}
+		}
+	}
+	
 	@GetMapping("/paymentList.do")
 	public void paymentList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();

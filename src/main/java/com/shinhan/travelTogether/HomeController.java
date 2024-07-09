@@ -65,15 +65,16 @@ public class HomeController {
 		List<ReviewDTO> reviewlist = rService.selectBestReview();
 		List<Integer> reviewIdList = reviewlist.stream()
 				.map(ReviewDTO::getReview_id)
-				.collect(Collectors.toList());;
+				.collect(Collectors.toList());
 		List<PhotoDTO> reviewphotolist = null;
+
 		List<Integer> fundingIdList = fundinglist.stream()
 				.map(FundingDTO::getFunding_id)
 				.collect(Collectors.toList());
 		List<PhotoDTO> fundingphotolist = null;
 		
 		if(reviewIdList.size() > 0 || fundingIdList.size() > 0) {
-			reviewphotolist = pService.selectReviewPhoto(reviewIdList);
+			reviewphotolist = pService.selecBestReviewPhoto(reviewIdList);
 			fundingphotolist = pService.selectFundingPhoto(fundingIdList);
 		}
 		model.addAttribute("fundinglist", fundinglist);

@@ -195,15 +195,6 @@
 	<%@ include file="../common/footer.jsp"%>
 
 	<script>
-		$(document).ready(function() {
-			var numList = ${numList};
-			var monthList = ${monthList};
-			console.log(${numList});
-			console.log(${monthList});
-			console.log(numList[0]+"AA");
-			console.log(monthList);
-		});
-	
 		var monthList = ${monthList}
 		var numList = ${numList}
 		var numList2 = ${numList2}

@@ -16,6 +16,7 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="${path}/resources/js/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -26,22 +27,23 @@
 		<%@ include file="./mypageMenu.jsp"%>
 		<div class="mypage-review-content">
 			<h3><i class="fas fa-pencil-alt"></i> 나의 후기</h3>
-		</div>
+		
 		<div class="review-content-wrap">
-		<form id="insert_form" action="${path}/mypage/reviewInsert.do" method="post">
+		<form id="insert_form" action="${path}/mypage/reviewInsert.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="funding_id" value="${funding_id}">
-			<div>
-				<label for="review_content">후기 내용</label>
-				<textarea name="review_content" id="review_content" placeholder="ex) 정말 즐거운 여행이였어요!!" maxlength="4000" required></textarea>
-			</div>
+			<div id="review_content" class="content-wrapper">
+    			<textarea name="review_content" class="ckeditor" id="review_content"></textarea>
+    		</div>
+    		
+    		<input type="file" id="review_photo" name="review_photo" multiple />
+    		
 			<div class="buttons">
-				<a href="${path}/mypage/reviewList.do"><button type="button" class="cancel-button">취소</button></a>
-				<button type="submit" class="submit-button">등록</button>
+				<a href="${path}/mypage/reviewList.do"><button type="button" class="cancel-button confirm-button">취소</button></a>
+				<button type="submit" class="submit-button confirm-button">등록</button>
 			</div>
-
 		</form>
 		</div>
-		
+		</div>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 	

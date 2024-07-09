@@ -19,6 +19,7 @@ import com.shinhan.travelTogether.comment.CommentDTO;
 import com.shinhan.travelTogether.comment.CommentService;
 import com.shinhan.travelTogether.funding.FundingDTO;
 import com.shinhan.travelTogether.funding.FundingService;
+import com.shinhan.travelTogether.like.LikeService;
 import com.shinhan.travelTogether.member.MemberDTO;
 import com.shinhan.travelTogether.photo.PhotoService;
 
@@ -38,6 +39,9 @@ public class ReviewController {
 	@Autowired
 	CommentService commentService;
 	
+	@Autowired
+	LikeService likeService;
+	
 	@GetMapping("/reviewList.do")
 	public void showAllReview(Model model, HttpSession session) {
 		
@@ -45,11 +49,14 @@ public class ReviewController {
 		List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("fundinglist", fundinglist);
-		System.out.println(reviewlist);
+		model.addAttribute("mainPic", photoService.selectMainReviewPhoto());
+		//System.out.println(reviewlist);
+		
 		
 		if (session.getAttribute("insertResult2") == null) {
-			session.setAttribute("insertResult2", -1);
+		  session.setAttribute("insertResult2", -1); 
 		}
+		 
 		if (session.getAttribute("deleteResult2") == null) {
 			session.setAttribute("deleteResult2", -1);
 		}
@@ -63,9 +70,11 @@ public class ReviewController {
 			HttpServletRequest request,
 			HttpSession session,
 			int review_id) {
+		reviewService.updateReviewViews(review_id);
 		model.addAttribute("reviewDetail", reviewService.selectAllMainReview(review_id));
 		model.addAttribute("fundingDetail", reviewService.selectAllMainFunding(review_id));
-		//model.addAttribute("pic", photoService.selectUserPhoto(funding_id));
+		model.addAttribute("pic", photoService.selectReviewPhoto(review_id));
+		
 		model.addAttribute("tlist", fundingService.selectFudingTheme());
 		model.addAttribute("commentlist", commentService.selectAllComment(review_id));
 		
@@ -81,17 +90,18 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/commentInsert.do")
-	public String commentInsert(Model model, HttpServletRequest request, 
+	public String commentInsert(Model model, HttpServletRequest request,RedirectAttributes attr,
 			 HttpSession session
 			, String comment_content, Integer review_id
 			, CommentDTO comment) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		comment.setMember_id(member_id);
 		comment.setReview_id(review_id);
-		System.out.println("!!!!!!!!!!!!!" + member_id + review_id);
+		//System.out.println("!!!!!!!!!!!!!" + member_id + review_id);
 		int result = commentService.insertComment(comment);
-		System.out.println("!!!!!!!!!!!!!" + comment);
-		//attr.addFlashAttribute("insertResult2", result);
+		//System.out.println("!!!!!!!!!!!!!" + comment);
+		//session.setAttribute("insertResult2", result);
+		attr.addFlashAttribute("insertResult2", result);
 		return "redirect:reviewDetail.do?review_id=" +review_id ;
 	
 	}
@@ -112,7 +122,7 @@ public class ReviewController {
 	@ResponseBody
 	public String deleteComment(HttpServletRequest request) {
 		int comment_id = Integer.parseInt(request.getParameter("comment_id"));
-		System.out.println(comment_id);
+		//System.out.println(comment_id);
 		Integer result = commentService.deleteComment(comment_id);
 		return result.toString();
 	}
@@ -133,5 +143,11 @@ public class ReviewController {
 			model.addAttribute("tlist", fundingService.selectFudingTheme());
 			model.addAttribute("plist", photoService.selectMainPhoto());
 			return "review/reviewListItem";
-		}	
+	}
+	
+		/*
+		 * @GetMapping("/reviewDetail/like.do") public void like() {
+		 * 
+		 * }
+		 */
 }
