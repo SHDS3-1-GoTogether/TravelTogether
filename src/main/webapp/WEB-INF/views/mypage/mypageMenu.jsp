@@ -33,7 +33,7 @@
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
-		    	<a href="" class="menu-link">
+		    	<a href="${path}/mypage/myFunding.do" class="menu-link" id="myFunding-link">
 		    		<i class="fas fa-suitcase-rolling"></i> 내펀딩
 		    	</a>
 		    </li>
@@ -58,7 +58,7 @@
 		    	</a>
 		    </li>
 		    <li class="list-group-item">
-		    	<a href="${path}/mypage/chatroom.do" class="menu-link">
+		    	<a href="${path}/mypage/chatroom.do" class="menu-link" id="chatroom-link">
 		    		<i class="fas fa-comment-dots"></i> 채팅룸
 		    	</a>
 		    </li>

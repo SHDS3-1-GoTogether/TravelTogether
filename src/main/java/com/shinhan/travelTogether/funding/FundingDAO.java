@@ -95,4 +95,8 @@ public class FundingDAO {
 		map.put("funding_state", funding_state);
 		return sqlSession.selectList(namespace+"selectAdminFundingByOption", map);
 	}
+	
+	public List<FundingDTO> selectAllByMemberId(Integer member_id){
+		return sqlSession.selectList(namespace+"selectAllByMemberId", member_id);
+	}
 }

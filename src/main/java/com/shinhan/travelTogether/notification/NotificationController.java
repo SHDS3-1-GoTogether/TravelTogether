@@ -28,14 +28,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NotificationController {
 	
-	//private final ConcurrentHashMap<Integer, List<SseEmitter>> emitters = new ConcurrentHashMap<>();
 	public static ConcurrentHashMap<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 	public static final Map<String, Object> eventCache = new ConcurrentHashMap<>();
 
 	@Autowired
 	NotificationService notificationService;
-	
-	Logger logger = LoggerFactory.getLogger(NotificationController.class);
 	
 	@GetMapping(value="/notifications/subscribe", produces=MediaType.TEXT_EVENT_STREAM_VALUE)
 	public SseEmitter subscribe(
