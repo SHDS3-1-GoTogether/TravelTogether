@@ -155,8 +155,8 @@ public class MypageController {
 	public void reviewList(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		List<ReviewDTO> reviewlist = reviewService.selectMyreviewAll(member_id);
-		System.out.println(reviewlist);
-		logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
+		//System.out.println(reviewlist);
+		//logger.info(reviewlist.size() + "건의 나의 후기 조회됨");
 		model.addAttribute("reviewlist", reviewlist);
 		
 		//List<FundingDTO> fundinglist = fundingService.selectAll("selectAllByDate");
@@ -191,7 +191,7 @@ public class MypageController {
 		if(result == 1) {
 			insertPhotoList(review_photo, "/review", funding_id);
 		}
-		System.out.println("~~~~~여기여기여기!!!!!~~~~~~~~" + review_photo);
+		//System.out.println("~~~~~여기여기여기!!!!!~~~~~~~~" + review_photo);
 		return "redirect:reviewList.do";
 	}
 	
