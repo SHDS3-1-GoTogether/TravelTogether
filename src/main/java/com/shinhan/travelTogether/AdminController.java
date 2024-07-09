@@ -44,6 +44,9 @@ public class AdminController {
 	@Autowired
 	NotificationService notificationService;
 	
+	@Autowired
+	ThemeService tService;
+	
 	@GetMapping("/dashboard.do")	// 관리자 - 대시보드 페이지
 	public void dashboard(Model model) {
 		int existingNormalMember = memberService.countExistingNormalMember();
@@ -179,8 +182,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/fundingInput.do")
-	public void fundingInput() {
-		
+	public void fundingInput(Model model) {
+		model.addAttribute("theme", tService.selectTheme());
 	}
 	
 	@GetMapping("/fundingDetail.do")
