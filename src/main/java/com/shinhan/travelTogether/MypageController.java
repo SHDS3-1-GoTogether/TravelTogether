@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -251,6 +252,13 @@ public class MypageController {
 		return "mypage/paymentList";
 	}
 	
+	@GetMapping("/delete.do")
+	public String delete(HttpSession session){
+		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
+		Integer result = mService.deleteMember(member_id);
+		return "redirect:/auth/logout.do";
+	}
+	
 	@GetMapping("/myFunding.do")
 	public void myFunding(Model model, HttpSession session) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
@@ -258,5 +266,4 @@ public class MypageController {
 		List<FundingDTO> fundinglist = fundingService.selectAllByMemberId(member_id);
 		model.addAttribute("fundinglist", fundinglist);
 	}
-
 }

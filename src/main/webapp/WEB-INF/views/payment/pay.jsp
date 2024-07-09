@@ -22,7 +22,7 @@
 		<main>
 			<h1>결제 예약</h1>
 			<div class="travel-info">
-				<span>${title} [신청자 : ${applicantNick}]</span>
+				<span>${title} [작성자 : ${applicantNick}]</span>
 			</div>
 
 			<div class="progress progress-container">
@@ -70,16 +70,16 @@
 					<!-- 이용약관 UI -->
 					<div id="agreement"></div>
 
-					<div class="notice">
+<%-- 					<div class="notice">
 						<label> <img
 							src="${path}/resources/images/payment_warning.png"><span>결제
 								유의사항</span>
 						</label>
 						<ul>
-							<li>어쩌고 저쩌고</li>
-							<li>저쩌고 어쩌고</li>
+							<li>펀딩실패 경우에만 환불이 가능합니다.</li>
+							<li>펀딩 작성자가 설정한 예산이므로 추후 여행도중 추가지출이 있을 수 있습니다.</li>
 						</ul>
-					</div>
+					</div> --%>
 
 					<div class="notice">
 						<label> <img
@@ -87,8 +87,8 @@
 								유의사항</span>
 						</label>
 						<ul>
-							<li>어쩌고 저쩌고</li>
-							<li>저쩌고 어쩌고</li>
+							<li>펀딩실패 경우에만 환불이 가능합니다.</li>
+							<li>펀딩 작성자가 설정한 예산이므로 추후 여행도중 추가지출이 있을 수 있습니다.</li>
 						</ul>
 					</div>
 
