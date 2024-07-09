@@ -24,9 +24,10 @@
 		insert into
 		tt_member(member_id, login_id, login_pwd, username, nickname,
 		phone,
-		email, gender, birth, is_manager, token, acc_amount, membership_id)
+		email, gender, birth, is_manager, token, acc_amount, membership_id,
+		is_delete, join_date)
 		values(MEMBER_SEQ.nextval,#{login_id},#{login_pwd},#{username},#{nickname},#{phone},#{email},
-		#{gender},#{birth},0,null,0,'walker')
+		#{gender},#{birth},0,null,0,'walker', 0, sysdate)
 	</insert>
 
 
@@ -189,7 +190,8 @@ SELECT m.WITHDRAWAL_DATE,
     
     <update id="deleteMember" parameterType="int">
     	update tt_member m
-		set is_delete = 1
+		set is_delete = 1,
+			withdrawal_date = sysdate
 		where m.member_id=#{member_id}
 		and not exists(
 		select 1
