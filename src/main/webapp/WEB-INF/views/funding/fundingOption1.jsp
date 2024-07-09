@@ -44,7 +44,7 @@
 			        </div>
 			        <div class="info2">
 			            <input type="number" min="2" id="people_num" placeholder="모집할 인원을 입력해주세요."><br>
-			            <div id="people_num_info">인원 수는 2~50명까지 입력 가능합니다.</div>
+			            <div id="people_num_info">본인을 포함한 인원을 입력해주세요. 인원 수는 1~50명까지 입력 가능합니다.</div>
 			        </div>			
 				</div>
 			</div>
