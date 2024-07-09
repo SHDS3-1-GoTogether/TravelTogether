@@ -27,7 +27,6 @@ public class AdminQnAController {
 	public void selectAllAdminQnA(Model model, 
 							HttpSession session,
 							@RequestParam(required = false) Integer category) {
-		System.out.println(category);
 		List<UserQnADTO> qnalist = null;
 		if(category == null || category == -1) {
 			qnalist = qnaService.selectAllAdminQnA();
@@ -62,35 +61,11 @@ public class AdminQnAController {
 	@PostMapping("/qnaUpdate.do")
 	public String updateAdminQnA(Model model,HttpServletRequest request, RedirectAttributes attr
 			, HttpSession session, UserQnADTO qna) {
-		//UserQnADTO qna = qnaDtoSetting(request);
 		
 		int result = qnaService.updateAdminQnA(qna);
 		attr.addFlashAttribute("updateResult", result);
 		
 		return "redirect:qnaList.do";
-	}
-	
-
-	private UserQnADTO qnaDtoSetting(HttpServletRequest request) {
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
-		String title = request.getParameter("title");
-		String qna_category = request.getParameter("qna_category");
-		Date create_date = Date.valueOf(request.getParameter("create_date"));
-		System.out.println(request.getParameter("create_date"));
-		System.out.println(create_date);
-		String qna_content = request.getParameter("qna_content");
-		String answer = request.getParameter("answer");
-		Date answer_date = Date.valueOf(request.getParameter("answer_date"));
-		int member_id = Integer.parseInt(request.getParameter("member_id"));
-		UserQnADTO qna = new UserQnADTO(qna_id, title, qna_category, create_date, qna_content, answer, answer_date,
-				member_id);
-		return qna;
 	}
 
 }

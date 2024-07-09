@@ -47,7 +47,7 @@
 						<c:forEach var="review2" items="${reviewlist2}">
 							<div class="data">
 								<p class="funding-name">${review2.title}</p>
-								<p class="funding-departure">${review2.departure}</p>
+								<p class="funding-departure">${review2.area}</p>
 								<p class="funding-price">${review2.price}</p>
 								<p class="funding-people-num">${review2.people_num}</p>
 								<p class="funding-date">${review2.start_date} - ${review2.end_date}</p>

@@ -75,8 +75,8 @@ html {
 	padding-left: 2%;
 	padding-right: 2%;
     margin-bottom: 50px;
-    	background-image: url("../images/travel.jpg");
-    
+    background-image: url("../images/travel.jpg");
+    background-size: contain;
 }
 
 .form-left-wrapper {

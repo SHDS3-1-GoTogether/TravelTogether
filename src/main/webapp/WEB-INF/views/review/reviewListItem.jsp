@@ -14,61 +14,37 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-	<c:forEach var="fund" items="${fundlist}">
-		<c:forEach var="review" items="${reviewlist}">
-			<div class="item" onclick="location.href='reviewDetail.do?review_id=${review.review_id}'">
-		</c:forEach>
-			<div class="item_img_div">
-				<c:forEach var="mainImg" items="${plist}">
-					<c:if test="${mainImg.funding_id==fund.funding_id}">
-						<img class="item_img" alt="${mainImg.photo_name}"
-					src="${mainImg.photo_name}" />
-					</c:if>
-				</c:forEach>
-			</div>
-			<div class="item_content">
-				<div>
-					<span class="fund_title">${fund.title}</span> 
-					<span class="fund_price"><fmt:formatNumber type="number"
-							maxFractionDigits="3" value="${fund.price}" />원</span>
-				</div>
-				<div class="item_detail_wrapper">
-					<span class="item_detail_title"> 
-						<img class="item_icon" alt="깃발" src="${path}/resources/images/flag.png"><span>지역</span><br> 
-						<img class="item_icon" alt="사람" src="${path}/resources/images/person.png"><span>인원</span><br>
-						<img class="item_icon" alt="달력" src="${path}/resources/images/calendar.png"><span>기간</span><br>
-					</span>
-					<div class="v-line"></div>
-					<span class="item_detail_content"> 
-						<span id="fund_area">${fund.area}</span><br>
-						<span id="people_num">${fund.people_num}</span><br> 
-						<span id="fund_date">${fund.start_date}- ${fund.end_date}</span><br>
-					</span>
-				</div>
-				<span class="traffic-wrapper">
-					<img alt="출발옵션" src="${path}/resources/images/traffic_op.png">
-					<c:choose>
-						<c:when test="${fund.confirm_option <= 1}">
-							<span class="traffic-contentPink">따로출발</span>
-						</c:when>
-						<c:when test="${fund.confirm_option > 1}">
-							<span class="traffic-contentBlue">같이출발</span>
-						</c:when>
-					</c:choose>
-				</span>
-				<div class="item_bottom">
-					<img class="icon_view" alt="눈" src="${path}/resources/images/view.png"><span class="views">${fund.views}</span> 
-					<span class="theme">
-						<c:forEach var="theme" items="${tlist}">
-							<c:if test="${theme.funding_id==fund.funding_id}">
-								<span>#${theme.title}</span>
-							</c:if>
-						
-						</c:forEach>
-					</span>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+	<c:forEach var="review" items="${reviewlist}">
+                        <div class="card">
+                        	<div class="img-wrap">
+                            <!-- Product image-->
+                            <!-- <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+	                            <c:forEach var="mainPic" items="${mainPic}">
+	                            	
+	                            	<c:if test="${mainPic.review_id==review.review_id}">
+										<img class="item_img" alt="${mainPic.photo_name}" src="${mainPic.photo_name}" />
+									</c:if>
+	                            </c:forEach>
+                            </div>
+                            <!-- Product details-->
+                            <div class="card-body">
+                            <h4>${review.title}</h4>
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">${review.nickname}</h5>
+                                    <!-- Product price-->
+                                    <h4>${review.create_date}</h4>
+                                    <img class="icon_view" alt="눈" src="${path}/resources/images/view.png"><span class="views">${review.views}</span> 
+                                    <%-- <i id="heartBox" onclick="toggleLike()" class="fas fa-heart"></i>${review.like_count}<br> --%>
+                                </div>
+                            </div><br>
+                            <!-- Product actions-->
+                            <div class="card-footer">
+                                <div class="text-center">
+                                	<a class="confirm-button" href="${path}/review/reviewDetail.do?review_id=${review.review_id}">보러 가기</a>
+                              	</div>
+                            </div>
+                        </div>
+                    </c:forEach>
 </body>
 </html>

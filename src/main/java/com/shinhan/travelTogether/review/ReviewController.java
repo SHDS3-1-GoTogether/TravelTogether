@@ -50,7 +50,7 @@ public class ReviewController {
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("fundinglist", fundinglist);
 		model.addAttribute("mainPic", photoService.selectMainReviewPhoto());
-		System.out.println(reviewlist);
+		//System.out.println(reviewlist);
 		
 		
 		if (session.getAttribute("insertResult2") == null) {
@@ -97,9 +97,9 @@ public class ReviewController {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
 		comment.setMember_id(member_id);
 		comment.setReview_id(review_id);
-		System.out.println("!!!!!!!!!!!!!" + member_id + review_id);
+		//System.out.println("!!!!!!!!!!!!!" + member_id + review_id);
 		int result = commentService.insertComment(comment);
-		System.out.println("!!!!!!!!!!!!!" + comment);
+		//System.out.println("!!!!!!!!!!!!!" + comment);
 		//session.setAttribute("insertResult2", result);
 		attr.addFlashAttribute("insertResult2", result);
 		return "redirect:reviewDetail.do?review_id=" +review_id ;
@@ -122,7 +122,7 @@ public class ReviewController {
 	@ResponseBody
 	public String deleteComment(HttpServletRequest request) {
 		int comment_id = Integer.parseInt(request.getParameter("comment_id"));
-		System.out.println(comment_id);
+		//System.out.println(comment_id);
 		Integer result = commentService.deleteComment(comment_id);
 		return result.toString();
 	}
@@ -143,7 +143,7 @@ public class ReviewController {
 			model.addAttribute("tlist", fundingService.selectFudingTheme());
 			model.addAttribute("plist", photoService.selectMainPhoto());
 			return "review/reviewListItem";
-		}
+	}
 	
 		/*
 		 * @GetMapping("/reviewDetail/like.do") public void like() {

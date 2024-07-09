@@ -34,18 +34,12 @@ public class UserQnAController {
 	public void selectAllUserQnA(Model model, HttpSession session, @RequestParam(required = false) Integer category) {
 		// 로그인 기능 구현시 수정
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
-		// int userId = 1;
-		System.out.println(category);
 		List<UserQnADTO> qnalist = qnaService.selectAllUserQnA(member_id);
-		System.out.println(qnalist.toString());
-		logger.info(qnalist.size() + "건 조회됨");
 		model.addAttribute("qnalist", qnalist);
 		
-		//List<UserQnADTO> qnalist = null;
 		if(category == null || category == -1) {
 			qnalist = qnaService.selectAllUserQnA(member_id);
 		qnalist.forEach(userQnA -> {
-			// System.out.println(userQnA.getQna_content());
 			String qna_category = null;
 			switch (userQnA.getQna_category()) {
 			
@@ -99,7 +93,6 @@ public class UserQnAController {
 	@ResponseBody
 	public String deleteUserQnA(HttpServletRequest request) {
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
-		System.out.println(qna_id);
 		Integer result = qnaService.deleteUserQnA(qna_id);
 
 		return result.toString();
@@ -109,7 +102,6 @@ public class UserQnAController {
 	public String updateUserQnA(Model model, HttpServletRequest request, RedirectAttributes attr, HttpSession session,
 			UserQnADTO qna) {
 		int member_id = ((MemberDTO) session.getAttribute("member")).getMember_id();
-		// UserQnADTO qna = qnaDtoSetting(request);
 		qna.setMember_id(member_id);
 		int result = qnaService.updateUserQnA(qna);
 		attr.addFlashAttribute("updateResult", result);

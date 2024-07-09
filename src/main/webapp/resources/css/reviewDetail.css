@@ -88,7 +88,7 @@
 	margin: 0 auto;
 	background-color: white;
 	flex-flow: column;
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -104,13 +104,23 @@ form {
 
 .modal_bg {
 	display: none;
-	position: absolute;
+	/* position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 99;
+	z-index: 99; */
+	
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    transform: translate(-50%, -50%);
+	
 	
 	/* display :flex;  */
 	/* justify-content:center;
@@ -231,7 +241,7 @@ select option {
 	margin: 0 auto;
 	background-color: white;
 	flex-flow: column;
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -262,4 +272,11 @@ select option {
     color: #99A1B7;
     border: 0;
     cursor: pointer;
+}
+
+.modal_bg, .add-comment-modal-box, .update-comment-modal-box  {
+    position: fixed;  /* .modal_fram 속성을 가진 요소를 현재 보고있는 창을 기준으로 고정, 스크롤되어도 따라다님 */
+    left: 50%; /*  보고 있는 화면 (= 뷰 포트, position이 fixed 이므로) 가로 선 중앙 50%로 이동 */
+    top: 50%; /*  보고 있는 화면 세로 선 중앙 50% 이동 */
+    transform: translate(-50%, -50%); /*  요소를 수직 및 수평으로 -50% 만큼 이동 > 최종적으로 화면 정 중앙에 위 */치
 }
