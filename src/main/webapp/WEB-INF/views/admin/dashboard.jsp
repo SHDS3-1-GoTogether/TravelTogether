@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <link href="${path}/resources/css/adminMenu.css" rel="stylesheet">
-<link href="${path}/resources/css/adminCouponList.css" rel="stylesheet">
+<link href="${path}/resources/css/dashboard.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script
